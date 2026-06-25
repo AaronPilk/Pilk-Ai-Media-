@@ -11,22 +11,36 @@ export type SceneChapter =
 type ExperienceState = {
   chapter: SceneChapter;
   globalProgress: number;
+  heroProgress: number;
   pointer: { x: number; y: number };
   ready: boolean;
   setChapter: (chapter: SceneChapter) => void;
   setGlobalProgress: (progress: number) => void;
+  setHeroProgress: (progress: number) => void;
   setPointer: (x: number, y: number) => void;
   setReady: (ready: boolean) => void;
 };
 
+const clamp01 = (value: number) => Math.min(1, Math.max(0, value));
+
 export const useExperienceStore = create<ExperienceState>((set) => ({
   chapter: "hero",
   globalProgress: 0,
+  heroProgress: 0,
   pointer: { x: 0, y: 0 },
   ready: false,
+
   setChapter: (chapter) => set({ chapter }),
+
   setGlobalProgress: (globalProgress) =>
-    set({ globalProgress: Math.min(1, Math.max(0, globalProgress)) }),
+    set({ globalProgress: clamp01(globalProgress) }),
+
+  setHeroProgress: (heroProgress) =>
+    set({
+      heroProgress: clamp01(heroProgress),
+      chapter: heroProgress >= 0.98 ? "structure" : "hero",
+    }),
+
   setPointer: (x, y) =>
     set({
       pointer: {
@@ -34,5 +48,6 @@ export const useExperienceStore = create<ExperienceState>((set) => ({
         y: Math.min(1, Math.max(-1, y)),
       },
     }),
+
   setReady: (ready) => set({ ready }),
 }));

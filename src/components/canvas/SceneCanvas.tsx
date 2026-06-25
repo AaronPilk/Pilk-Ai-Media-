@@ -12,7 +12,10 @@ const CanvasExperience = dynamic(
   { ssr: false, loading: () => null }
 );
 
-class WebGLBoundary extends Component<{ children: ReactNode; fallback: ReactNode }, { failed: boolean }> {
+class WebGLBoundary extends Component<
+  { children: ReactNode; fallback: ReactNode },
+  { failed: boolean }
+> {
   state = { failed: false };
   static getDerivedStateFromError() {
     return { failed: true };
@@ -28,38 +31,57 @@ class WebGLBoundary extends Component<{ children: ReactNode; fallback: ReactNode
 export function SceneCanvas() {
   const capability = useDeviceCapability();
   const setGlobalProgress = useExperienceStore((s) => s.setGlobalProgress);
+  const setHeroProgress = useExperienceStore((s) => s.setHeroProgress);
   usePointerPosition();
 
   useEffect(() => {
     let raf = 0;
-    const onScroll = () => {
+
+    const updateProgress = () => {
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => {
-        // Fraction of the FIRST viewport scrolled — drives the hero orb shatter.
-        setGlobalProgress(window.scrollY / window.innerHeight);
+        const root = document.documentElement;
+        const maxScroll = root.scrollHeight - window.innerHeight;
+        setGlobalProgress(maxScroll > 0 ? window.scrollY / maxScroll : 0);
+
+        const hero = document.querySelector<HTMLElement>('[data-scene="hero"]');
+        if (!hero) {
+          setHeroProgress(0);
+          return;
+        }
+
+        const rect = hero.getBoundingClientRect();
+        // Progress reaches 1 shortly before the hero has fully left the viewport.
+        const travelDistance = Math.max(
+          window.innerHeight * 0.9,
+          hero.offsetHeight * 0.9
+        );
+        setHeroProgress(Math.min(1, Math.max(0, -rect.top / travelDistance)));
       });
     };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+
+    updateProgress();
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    window.addEventListener("resize", updateProgress);
     return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
+      window.removeEventListener("scroll", updateProgress);
+      window.removeEventListener("resize", updateProgress);
       cancelAnimationFrame(raf);
     };
-  }, [setGlobalProgress]);
+  }, [setGlobalProgress, setHeroProgress]);
 
   if (capability === "reduced-motion" || capability === "low") {
     return <SceneFallback />;
   }
 
+  const quality = capability === "high" ? "high" : "medium";
   const maxDpr = capability === "high" ? 1.75 : 1.25;
 
   return (
     <div className="scene-canvas">
       <WebGLBoundary fallback={<SceneFallback />}>
         <Suspense fallback={<SceneFallback />}>
-          <CanvasExperience maxDpr={maxDpr} />
+          <CanvasExperience maxDpr={maxDpr} quality={quality} />
         </Suspense>
       </WebGLBoundary>
     </div>

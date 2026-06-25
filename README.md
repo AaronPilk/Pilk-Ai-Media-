@@ -56,9 +56,37 @@ Set in `.env.local`:
 - Helix is pinned on desktop, a simple snap gallery on mobile (no scroll traps).
 - Custom cursor disabled on touch/coarse/reduced-motion. Keyboard-accessible nav, ESC-dismissible modals, server-validated forms.
 
-## Deploy
+## Local development & preview
 
-Push to GitHub, import into **Vercel**, add the env vars above. `npm run build` is the build command.
+```bash
+npm install
+npm run dev      # Next frontend only — /api/leads does NOT run here
+npm run build    # static export to out/
+npm run preview  # npx wrangler pages dev out — runs the REAL Cloudflare build + functions
+```
+
+- `npm run dev` is for fast UI work. The contact form's `/api/leads` is a Cloudflare Pages Function and will **not** behave the same under plain `next dev` — use `npm run preview` to test it.
+- Production output directory is `out`.
+
+## Deploy (Cloudflare Pages)
+
+Connect the GitHub repo in the Cloudflare dashboard with:
+
+- **Framework preset:** `None`
+- **Build command:** `npm run build`
+- **Build output directory:** `out`
+- **Settings → Functions → Compatibility flags:** `nodejs_compat` (Production + Preview)
+- **Settings → Variables:** `NODE_VERSION = 22`, plus any of the optional env vars above.
+
+### Cloudflare bindings (dashboard, not env vars)
+- **R2 bucket binding `PROJECT_UPLOADS`** — create a private R2 bucket and bind it under
+  Settings → Functions → R2 bucket bindings. Required only for brief file uploads; text-only
+  briefs work without it.
+
+### Project brief uploads
+The Start-a-Project wizard submits as multipart form data to `/api/leads`. Files are validated
+(images + PDF, ≤10 files, ≤15 MB each, ≤60 MB total), stored in the private `PROJECT_UPLOADS`
+bucket, and only their keys/metadata are persisted — no public file URLs.
 
 ## Docs
 

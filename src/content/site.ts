@@ -42,6 +42,7 @@ export const site = {
   hero: {
     eyebrow: "Independent design & development studio",
     headline: "Websites people remember.",
+    headlineLines: ["Websites", "people remember."],
     sub: "We build high-conversion websites with cinematic design, custom interaction, and the technical infrastructure to turn attention into business.",
   },
 
@@ -70,18 +71,19 @@ export const site = {
   },
 
   process: {
-    eyebrow: "Process",
-    headline: "From first call to launch — in about 7 days.",
-    sub: "One quick conversation to start. Roughly a week later, you're live.",
-    steps: [
-      { n: "01", day: "Day 1", title: "Discover", body: "A short call to learn your business, market, and the buyer you're trying to reach." },
-      { n: "02", day: "Day 1", title: "Position", body: "We sharpen the offer, message, and structure before any design begins." },
-      { n: "03", day: "Day 2", title: "Structure", body: "Wireframes and page architecture mapped directly to conversion." },
-      { n: "04", day: "Day 3", title: "Design", body: "Original art direction, typography, and motion — built around your brand." },
-      { n: "05", day: "Day 4–5", title: "Build", body: "Clean, fast, responsive development with your integrations wired in." },
-      { n: "06", day: "Day 6", title: "Test", body: "Devices, browsers, speed, accessibility, and tracking — all checked." },
-      { n: "07", day: "Day 7", title: "Launch", body: "You go live with hosting, analytics, and follow-up support." },
+    eyebrow: "The seven-day build",
+    headline: "From first conversation to a finished website in seven days.",
+    sub: "A focused build process with clear decisions, fast communication, and no months of agency limbo.",
+    timeline: [
+      { day: "Day 1", title: "Kickoff and direction", body: "We discuss the business, audience, goals, offer, required pages, visual direction, and examples you like.", deliverable: "Approved project direction" },
+      { day: "Day 2", title: "Structure and messaging", body: "We map the pages, calls to action, content order, lead path, and the information visitors need to make a decision.", deliverable: "Page structure and content plan" },
+      { day: "Day 3", title: "Visual design", body: "The selected template is customized — or the custom visual system begins — with your colors, imagery, typography, and brand.", deliverable: "Designed homepage direction" },
+      { day: "Day 4", title: "Website development", body: "The approved design becomes a responsive website with motion, navigation, forms, and core functionality.", deliverable: "Working responsive build" },
+      { day: "Day 5", title: "Content and integrations", body: "We load the approved copy and media, connect lead forms, analytics, domains, CRM tools, and available integrations.", deliverable: "Complete working website" },
+      { day: "Day 6", title: "Review and quality control", body: "You review the site while we test mobile devices, browsers, forms, links, speed, accessibility, and tracking.", deliverable: "Final approved revision" },
+      { day: "Day 7", title: "Launch", body: "The website is connected to the production domain, final analytics are verified, and the new experience goes live.", deliverable: "Live website" },
     ],
+    disclaimer: "Seven-day delivery applies to qualified standard and template-based projects after required content, account access, and approvals are received. Larger custom projects and advanced integrations receive a custom schedule.",
   },
 
   finalCta: {

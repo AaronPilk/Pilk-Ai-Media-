@@ -9,15 +9,23 @@ import { trackEvent } from "@/lib/analytics";
 
 export function Hero() {
   return (
-    <section className="relative z-10 flex min-h-[100svh] items-end pb-[12vh] pt-[28vh]">
+    <section
+      id="hero"
+      data-scene="hero"
+      className="hero-section relative z-10 flex min-h-[100svh] items-end pb-[10vh] pt-[24vh]"
+    >
       <Container>
         <p className="eyebrow reveal-on-load mb-6">{site.hero.eyebrow}</p>
 
-        <h1 className="max-w-[14ch] text-balance" style={{ fontSize: "var(--text-hero)" }}>
-          <SplitText text={site.hero.headline} as="span" />
+        <h1 aria-label={site.hero.headline} className="hero-headline">
+          {site.hero.headlineLines.map((line) => (
+            <span key={line} aria-hidden="true" className="hero-headline__line">
+              <SplitText text={line} as="span" />
+            </span>
+          ))}
         </h1>
 
-        <p className="mt-8 max-w-xl text-lg text-muted">{site.hero.sub}</p>
+        <p className="hero-copy mt-8 max-w-xl text-lg text-muted">{site.hero.sub}</p>
 
         <div className="mt-10 flex flex-wrap items-center gap-4">
           <MagneticButton>
