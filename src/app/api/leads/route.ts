@@ -5,7 +5,9 @@ import { storeLead } from "@/lib/supabase";
 import { sendLeadEmails } from "@/lib/email";
 import { env, integrations } from "@/lib/env";
 
-export const runtime = "nodejs";
+// Edge runtime — compatible with Cloudflare Pages/Workers and Vercel.
+// All adapters here use fetch-based Web APIs (no Node-only modules).
+export const runtime = "edge";
 
 export async function POST(request: Request) {
   try {
