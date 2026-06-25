@@ -82,10 +82,11 @@ export function PositioningAssembler() {
     });
 
     media.add("(max-width: 767px), (prefers-reduced-motion: reduce)", () => {
-      const targets = [
-        headingRef.current,
-        ...cardsRef.current.filter((c): c is HTMLDivElement => c !== null),
-      ].filter((t): t is HTMLElement => t !== null);
+      const targets: HTMLElement[] = [];
+      if (headingRef.current) targets.push(headingRef.current);
+      cardsRef.current.forEach((card) => {
+        if (card) targets.push(card);
+      });
       gsap.set(targets, { opacity: 1, xPercent: 0, yPercent: 0, rotate: 0, scale: 1 });
     });
 
