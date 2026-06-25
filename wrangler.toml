@@ -1,4 +1,6 @@
 name = "pilk-ai-media"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]
-pages_build_output_dir = ".vercel/output/static"
+# Static site output. Cloudflare serves these files from its CDN.
+# The /functions folder is auto-deployed as edge functions (handles /api/leads).
+pages_build_output_dir = "out"

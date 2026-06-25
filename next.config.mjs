@@ -1,14 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Static export — Cloudflare serves the `out/` folder directly (no server, no adapter).
+  // The contact form is handled by a native Cloudflare function in /functions/api/leads.ts.
+  output: "export",
   reactStrictMode: true,
-  // Keep production builds green even if a lint rule nitpicks generated code.
-  // Type safety is still enforced (ignoreBuildErrors stays false).
-  // Run `npm run lint` separately for the full lint report.
   eslint: {
     ignoreDuringBuilds: true,
   },
   images: {
-    formats: ["image/avif", "image/webp"],
+    unoptimized: true,
   },
 };
 
