@@ -53,8 +53,8 @@ export function SceneCanvas() {
         const rect = hero.getBoundingClientRect();
         // Progress reaches 1 shortly before the hero has fully left the viewport.
         const travelDistance = Math.max(
-          window.innerHeight * 0.9,
-          hero.offsetHeight * 0.9
+          window.innerHeight * 0.92,
+          hero.offsetHeight * 0.92
         );
         setHeroProgress(Math.min(1, Math.max(0, -rect.top / travelDistance)));
       });

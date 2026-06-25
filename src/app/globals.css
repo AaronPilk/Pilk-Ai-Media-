@@ -417,3 +417,26 @@ h4 {
     white-space: normal;
   }
 }
+
+/* Positioning assembler */
+.positioning-assembler {
+  min-height: 100svh;
+}
+.positioning-grid {
+  box-shadow: 0 40px 120px -60px rgba(0, 0, 0, 0.8);
+}
+.positioning-card:nth-child(3n) {
+  border-right: 0;
+}
+.positioning-card:nth-child(n + 4) {
+  border-bottom: 0;
+}
+@media (max-width: 767px) {
+  .positioning-card {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .positioning-card:last-child {
+    border-bottom: 0;
+  }
+}

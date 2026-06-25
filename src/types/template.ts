@@ -7,7 +7,7 @@ export type TemplateCategory =
   | "local-business"
   | "custom";
 
-export type TemplateLabel = "Template" | "Concept" | "Custom";
+export type TemplateLabel = "Template" | "Premium Template" | "Concept" | "Custom";
 
 export type WebsiteTemplate = {
   slug: string;

@@ -7,7 +7,7 @@ export function Capabilities() {
   return (
     <section className="section env-light relative z-10">
       <Container>
-        <SectionLabel index="05">{site.capabilities.eyebrow}</SectionLabel>
+        <SectionLabel index="04">{site.capabilities.eyebrow}</SectionLabel>
         <Reveal>
           <h2 className="mt-6 max-w-[20ch] text-balance" style={{ fontSize: "var(--text-2xl)" }}>
             {site.capabilities.headline}

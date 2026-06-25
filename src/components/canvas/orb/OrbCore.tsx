@@ -18,7 +18,7 @@ export function OrbCore({ quality = "high" }: { quality?: SceneQuality }) {
     if (!mesh) return;
     const material = mesh.material as THREE.MeshPhysicalMaterial;
     const { heroProgress } = useExperienceStore.getState();
-    const target = 1 - smoothstep(0.48, 0.82, heroProgress);
+    const target = 1 - smoothstep(0.28, 0.62, heroProgress);
     material.transparent = true;
     material.opacity = THREE.MathUtils.damp(material.opacity, target, 5, delta);
     mesh.visible = material.opacity > 0.02;

@@ -6,13 +6,18 @@ export const templateCategories: { id: TemplateCategory | "all"; label: string }
     { id: "agent", label: "Real Estate Agent" },
     { id: "luxury-agent", label: "Luxury Real Estate" },
     { id: "brokerage", label: "Brokerage" },
-    { id: "mortgage", label: "Mortgage" },
-    { id: "title", label: "Title" },
-    { id: "local-business", label: "Local Business" },
     { id: "custom", label: "Custom" },
   ];
 
-/** Conceptual designs — labeled honestly. Add real screenshots/video to `preview` later. */
+/**
+ * Choosable website templates.
+ *
+ * AARON — add real template preview files here:
+ *   public/templates/<template-slug>/desktop.webp
+ *   public/templates/<template-slug>/mobile.webp
+ *   public/templates/<template-slug>/preview.mp4
+ * Then set the matching `preview` paths below. Until then, a faux-browser preview renders.
+ */
 export const templates: WebsiteTemplate[] = [
   {
     slug: "modern-agent",
@@ -21,145 +26,92 @@ export const templates: WebsiteTemplate[] = [
     label: "Template",
     accent: "#7c3aed",
     shortDescription:
-      "A polished personal-brand website for agents who need a professional presence without a long custom build.",
+      "A clean personal-brand website for real-estate agents who need a sharp online presence fast.",
     price: 750,
     pages: 4,
-    timeline: "Approximately 1–2 weeks",
+    timeline: "7-day build available",
     featured: true,
     preview: {},
     features: [
-      "Mobile-responsive design",
-      "Agent profile",
-      "Featured properties section",
-      "Lead inquiry form",
-      "Social media links",
-      "Basic analytics setup",
+      "Home page",
+      "Agent bio",
+      "Featured properties",
+      "Lead form",
+      "Social links",
+      "Mobile responsive",
     ],
     upgrades: [
-      "Additional pages",
-      "IDX or MLS integration",
-      "Custom copywriting",
+      "IDX / MLS integration",
+      "Neighborhood pages",
       "CRM connection",
-      "Automated lead follow-up",
+      "Custom copywriting",
     ],
   },
   {
     slug: "signature-estate",
     name: "Signature Estate",
     category: "luxury-agent",
-    label: "Template",
+    label: "Premium Template",
     accent: "#9d6bff",
     shortDescription:
-      "An editorial luxury template built around premium listings, strong photography, and an elevated personal brand.",
+      "A luxury real-estate template built for agents who want their website to feel as premium as the properties they sell.",
     price: 1000,
     pages: 6,
-    timeline: "Approximately 2–3 weeks",
+    timeline: "7–10 day build available",
     featured: true,
     preview: {},
     features: [
       "Editorial homepage",
-      "Property showcase",
-      "Neighborhood pages",
-      "Agent biography",
-      "Lead forms",
-      "Analytics setup",
+      "Luxury listing showcase",
+      "Neighborhood section",
+      "Agent story",
+      "Lead capture",
+      "Mobile responsive",
     ],
-    upgrades: [
-      "IDX or MLS integration",
-      "Property search",
-      "Custom video",
-      "CRM connection",
-      "Custom animations",
-    ],
+    upgrades: ["IDX / MLS integration", "Custom listing pages", "Video hero", "CRM automation"],
   },
   {
-    slug: "coastal-brokerage",
-    name: "Coastal Brokerage",
+    slug: "brokerage-command",
+    name: "Brokerage Command",
     category: "brokerage",
-    label: "Concept",
+    label: "Premium Template",
     accent: "#6d5bd0",
     shortDescription:
-      "A team-first brokerage site with agent rosters, listings, and a clear recruiting and lead path.",
-    price: 1000,
+      "A team-focused brokerage website with agent roster, featured properties, recruiting, and inquiry paths.",
+    price: 1500,
     pages: 7,
-    timeline: "Approximately 2–4 weeks",
+    timeline: "10–14 day build available",
     featured: true,
     preview: {},
     features: [
-      "Team roster",
-      "Office & listings",
+      "Brokerage homepage",
+      "Agent roster",
+      "Listings section",
       "Recruiting page",
       "Lead routing",
-      "Blog / market updates",
-      "Analytics setup",
+      "Mobile responsive",
     ],
-    upgrades: ["IDX or MLS integration", "Agent subdomains", "CRM connection", "Automation"],
+    upgrades: ["IDX / MLS integration", "Agent profile pages", "Office location pages", "CRM routing"],
   },
   {
-    slug: "summit-mortgage",
-    name: "Summit Mortgage",
-    category: "mortgage",
-    label: "Concept",
-    accent: "#7c3aed",
-    shortDescription:
-      "A trust-driven mortgage professional site with calculators, programs, and an application path.",
-    price: 1000,
-    pages: 5,
-    timeline: "Approximately 2–3 weeks",
-    featured: false,
-    preview: {},
-    features: [
-      "Loan programs",
-      "Rate / payment calculator",
-      "Application CTA",
-      "Reviews section",
-      "Lead form",
-      "Analytics setup",
-    ],
-    upgrades: ["CRM connection", "Application integration", "Automated follow-up"],
-  },
-  {
-    slug: "meridian-title",
-    name: "Meridian Title",
-    category: "title",
-    label: "Concept",
-    accent: "#5b54c9",
-    shortDescription:
-      "A clean, credible title-company site focused on services, locations, and quote requests.",
-    price: 750,
-    pages: 5,
-    timeline: "Approximately 1–2 weeks",
-    featured: false,
-    preview: {},
-    features: [
-      "Services overview",
-      "Locations",
-      "Quote request",
-      "Resources",
-      "Contact",
-      "Analytics setup",
-    ],
-    upgrades: ["Quote automation", "CRM connection", "Document portal"],
-  },
-  {
-    slug: "custom-experience",
-    name: "Custom Experience",
+    slug: "custom-site",
+    name: "Custom Site",
     category: "custom",
     label: "Custom",
-    accent: "#9d6bff",
+    accent: "#a78bfa",
     shortDescription:
-      "A completely original website created around your business, market, audience, content, and integrations.",
+      "A fully custom website built from zero around your brand, offer, content, market, and required functionality.",
     price: 2500,
     pages: 0,
-    timeline: "Timeline determined by scope",
+    timeline: "Timeline based on scope",
     featured: true,
     preview: {},
     features: [
       "Original creative direction",
-      "Custom user experience",
-      "Custom frontend development",
-      "Advanced interaction",
-      "Conversion strategy",
+      "Custom page structure",
+      "Custom visual design",
+      "Custom motion",
+      "Lead strategy",
       "Integration planning",
     ],
     upgrades: [],
@@ -177,4 +129,11 @@ export function getRelatedTemplates(slug: string, limit = 3): WebsiteTemplate[] 
     .filter((t) => t.slug !== slug)
     .sort((a, b) => (a.category === current.category ? -1 : 1))
     .slice(0, limit);
+}
+
+/** Maps a template's label to the contact wizard project type. */
+export function templateProjectType(label: WebsiteTemplate["label"]): string {
+  if (label === "Premium Template") return "premium-template";
+  if (label === "Custom") return "custom";
+  return "template";
 }

@@ -17,28 +17,29 @@ export function DynamicOrb({ quality = "high" }: { quality?: SceneQuality }) {
     if (!group) return;
 
     const { pointer, heroProgress } = useExperienceStore.getState();
-    const breakup = smoothstep(0.52, 0.94, heroProgress);
+    const breakup = smoothstep(0.18, 0.78, heroProgress);
+    const exit = smoothstep(0.55, 1.0, heroProgress);
     const time = state.clock.elapsedTime;
 
-    const idleX = Math.sin(time * 0.68) * 0.16;
-    const idleY = Math.cos(time * 0.51) * 0.2;
+    const idleX = Math.sin(time * 0.66) * 0.16;
+    const idleY = Math.cos(time * 0.5) * 0.2;
 
-    const targetX = pointer.x * 0.55 + idleX + breakup * 3.2;
-    const targetY = pointer.y * 0.35 + idleY + breakup * 1.1;
-    const targetZ = breakup * 1.4;
+    // Drift off toward the upper-right as the hero leaves.
+    const targetX = pointer.x * 0.45 + idleX + exit * 4.8;
+    const targetY = pointer.y * 0.28 + idleY + exit * 2.2;
+    const targetZ = exit * 1.4;
 
-    group.position.x = THREE.MathUtils.damp(group.position.x, targetX, 3.8, delta);
-    group.position.y = THREE.MathUtils.damp(group.position.y, targetY, 3.8, delta);
-    group.position.z = THREE.MathUtils.damp(group.position.z, targetZ, 3.2, delta);
+    group.position.x = THREE.MathUtils.damp(group.position.x, targetX, 3.5, delta);
+    group.position.y = THREE.MathUtils.damp(group.position.y, targetY, 3.5, delta);
+    group.position.z = THREE.MathUtils.damp(group.position.z, targetZ, 3.5, delta);
 
-    group.rotation.x += delta * (0.12 + heroProgress * 0.75);
-    group.rotation.y += delta * (0.18 + heroProgress * 1.1);
-    group.rotation.z = Math.sin(time * 0.35) * 0.12;
+    group.rotation.x += delta * (0.1 + breakup * 0.7);
+    group.rotation.y += delta * (0.16 + breakup * 1.05);
+    group.rotation.z = Math.sin(time * 0.33) * 0.12;
 
     const breathing =
       1 + Math.sin(time * 1.05) * 0.045 + Math.sin(time * 0.37) * 0.025;
-    const breakupScale = THREE.MathUtils.lerp(breathing, 1.24, breakup);
-    group.scale.setScalar(breakupScale);
+    group.scale.setScalar(THREE.MathUtils.lerp(breathing, 1.22, breakup));
   });
 
   return (

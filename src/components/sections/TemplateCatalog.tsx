@@ -9,12 +9,14 @@ import { TemplateCard } from "@/components/templates/TemplateCard";
 import { TemplateFilters, type FilterValue } from "@/components/templates/TemplateFilters";
 
 export function TemplateCatalog({
-  index = "04",
-  heading = "Browse the catalog.",
+  index = "03",
+  heading = "Choose a starting point.",
+  sub = "Start with a polished design, customize it around your brand, or use it as the foundation for something fully custom.",
   initialFilter = "all",
 }: {
   index?: string;
   heading?: string;
+  sub?: string;
   initialFilter?: FilterValue;
 }) {
   const [filter, setFilter] = useState<FilterValue>(initialFilter);
@@ -27,10 +29,11 @@ export function TemplateCatalog({
   return (
     <section className="section relative z-10">
       <Container>
-        <SectionLabel index={index}>Templates</SectionLabel>
+        <SectionLabel index={index}>Website Templates</SectionLabel>
         <h2 className="mt-6 max-w-[16ch] text-balance" style={{ fontSize: "var(--text-2xl)" }}>
           {heading}
         </h2>
+        <p className="mt-6 max-w-xl text-muted">{sub}</p>
 
         <div className="mt-10">
           <TemplateFilters active={filter} onChange={setFilter} />

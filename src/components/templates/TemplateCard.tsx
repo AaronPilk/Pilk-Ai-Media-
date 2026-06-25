@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { WebsiteTemplate } from "@/types/template";
-import { templateCategories } from "@/content/templates";
+import { templateCategories, templateProjectType } from "@/content/templates";
 import { formatPrice } from "@/lib/utils";
 import { FauxBrowser } from "@/components/templates/FauxBrowser";
 
@@ -9,6 +9,9 @@ function categoryLabel(id: string) {
 }
 
 export function TemplateCard({ template }: { template: WebsiteTemplate }) {
+  const projectType = templateProjectType(template.label);
+  const startHref = `/contact/?projectType=${projectType}&template=${template.slug}`;
+
   return (
     <article className="group flex flex-col rounded-md border border-line bg-surface p-4 transition-colors hover:border-ink/30">
       <Link
@@ -32,34 +35,32 @@ export function TemplateCard({ template }: { template: WebsiteTemplate }) {
       <h3 className="mt-2 text-xl font-medium">{template.name}</h3>
       <p className="mt-2 text-sm text-muted">{template.shortDescription}</p>
 
+      <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-xs text-muted">
+        <span>
+          {template.price > 0 ? `From $${formatPrice(template.price)}` : "Scope-based"}
+        </span>
+        {template.pages > 0 && <span>{template.pages} pages</span>}
+        <span>{template.timeline}</span>
+      </div>
+
       <ul className="mt-4 flex flex-wrap gap-2">
-        {template.features.slice(0, 3).map((f) => (
+        {template.features.slice(0, 4).map((f) => (
           <li key={f} className="rounded-full border border-line px-3 py-1 text-xs text-muted">
             {f}
           </li>
         ))}
       </ul>
 
-      <div className="mt-6 flex items-end justify-between border-t border-line pt-4">
-        <div>
-          <p className="text-sm text-muted">
-            {template.price > 0 ? `Starting at $${formatPrice(template.price)}` : "Scope-based"}
-          </p>
-          {template.pages > 0 && (
-            <p className="text-xs text-muted opacity-70">{template.pages} pages</p>
-          )}
-        </div>
-        <div className="flex gap-3 text-sm">
-          <Link href={`/templates/${template.slug}`} className="text-muted hover:text-ink">
-            Details
-          </Link>
-          <Link
-            href={`/contact?projectType=template&template=${template.slug}`}
-            className="text-accent hover:underline"
-          >
-            Request →
-          </Link>
-        </div>
+      <div className="mt-6 flex flex-wrap gap-3 border-t border-line pt-4">
+        <Link
+          href={`/templates/${template.slug}`}
+          className="text-sm text-muted hover:text-ink"
+        >
+          View Template
+        </Link>
+        <Link href={startHref} className="ml-auto text-sm text-accent hover:underline">
+          Start With This Design →
+        </Link>
       </div>
     </article>
   );

@@ -2,8 +2,8 @@ import { create } from "zustand";
 
 export type SceneChapter =
   | "hero"
-  | "structure"
-  | "work"
+  | "positioning"
+  | "showcase"
   | "templates"
   | "process"
   | "contact";
@@ -38,7 +38,7 @@ export const useExperienceStore = create<ExperienceState>((set) => ({
   setHeroProgress: (heroProgress) =>
     set({
       heroProgress: clamp01(heroProgress),
-      chapter: heroProgress >= 0.98 ? "structure" : "hero",
+      chapter: heroProgress >= 0.95 ? "positioning" : "hero",
     }),
 
   setPointer: (x, y) =>
