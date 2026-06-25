@@ -35,8 +35,8 @@ export function SceneCanvas() {
     const onScroll = () => {
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(() => {
-        const max = document.documentElement.scrollHeight - window.innerHeight;
-        setGlobalProgress(max > 0 ? window.scrollY / max : 0);
+        // Fraction of the FIRST viewport scrolled — drives the hero orb shatter.
+        setGlobalProgress(window.scrollY / window.innerHeight);
       });
     };
     onScroll();

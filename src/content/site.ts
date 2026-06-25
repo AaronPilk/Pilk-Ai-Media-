@@ -27,7 +27,6 @@ export const site = {
 
   nav: [
     { label: "Work", href: "/work" },
-    { label: "Templates", href: "/templates" },
     { label: "Process", href: "/process" },
     { label: "Real Estate", href: "/real-estate" },
   ],
@@ -72,15 +71,16 @@ export const site = {
 
   process: {
     eyebrow: "Process",
-    headline: "From raw idea to a website that works.",
+    headline: "From first call to launch — in about 7 days.",
+    sub: "One quick conversation to start. Roughly a week later, you're live.",
     steps: [
-      { n: "01", title: "Discover", body: "We learn your business, market, and the buyer you're trying to reach." },
-      { n: "02", title: "Position", body: "We sharpen the offer, message, and structure before any design." },
-      { n: "03", title: "Structure", body: "Wireframes and page architecture mapped to conversion." },
-      { n: "04", title: "Design", body: "Original art direction, typography, and motion." },
-      { n: "05", title: "Build", body: "Clean, fast, responsive development with integrations." },
-      { n: "06", title: "Test", body: "Devices, browsers, speed, accessibility, and tracking." },
-      { n: "07", title: "Launch", body: "Go live with hosting, analytics, and follow-up support." },
+      { n: "01", day: "Day 1", title: "Discover", body: "A short call to learn your business, market, and the buyer you're trying to reach." },
+      { n: "02", day: "Day 1", title: "Position", body: "We sharpen the offer, message, and structure before any design begins." },
+      { n: "03", day: "Day 2", title: "Structure", body: "Wireframes and page architecture mapped directly to conversion." },
+      { n: "04", day: "Day 3", title: "Design", body: "Original art direction, typography, and motion — built around your brand." },
+      { n: "05", day: "Day 4–5", title: "Build", body: "Clean, fast, responsive development with your integrations wired in." },
+      { n: "06", day: "Day 6", title: "Test", body: "Devices, browsers, speed, accessibility, and tracking — all checked." },
+      { n: "07", day: "Day 7", title: "Launch", body: "You go live with hosting, analytics, and follow-up support." },
     ],
   },
 

@@ -48,30 +48,34 @@ export function SplitText({
     return () => io.disconnect();
   }, []);
 
-  const children = words.map((word, i) =>
-    createElement(
-      "span",
-      {
-        key: `${word}-${i}`,
-        style: { display: "inline-block", overflow: "hidden", verticalAlign: "top" },
-      },
+  const children: React.ReactNode[] = [];
+  words.forEach((word, i) => {
+    children.push(
       createElement(
         "span",
         {
-          "data-word": true,
-          style: {
-            display: "inline-block",
-            transform: "translateY(105%)",
-            opacity: 0,
-            transition:
-              "transform 0.8s cubic-bezier(0.16,1,0.3,1), opacity 0.8s cubic-bezier(0.16,1,0.3,1)",
-          },
+          key: `w-${i}`,
+          style: { display: "inline-block", overflow: "hidden", verticalAlign: "top" },
         },
-        word
-      ),
-      i < words.length - 1 ? " " : ""
-    )
-  );
+        createElement(
+          "span",
+          {
+            "data-word": true,
+            style: {
+              display: "inline-block",
+              transform: "translateY(105%)",
+              opacity: 0,
+              transition:
+                "transform 0.8s cubic-bezier(0.16,1,0.3,1), opacity 0.8s cubic-bezier(0.16,1,0.3,1)",
+            },
+          },
+          word
+        )
+      )
+    );
+    // Real space BETWEEN word wrappers (outside the clip) so spacing renders.
+    if (i < words.length - 1) children.push(" ");
+  });
 
   return createElement(as, { ref, className: cn(className) }, children);
 }
