@@ -3,6 +3,8 @@ import { env } from "@/lib/env";
 import { templates } from "@/content/templates";
 import { projects } from "@/content/projects";
 
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = env.siteUrl;
   const now = new Date();
