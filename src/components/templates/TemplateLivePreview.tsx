@@ -3,52 +3,63 @@
 import { useEffect, useRef, useState } from "react";
 import { FauxBrowser } from "@/components/templates/FauxBrowser";
 
-const BASE_W = 1280;
-const BASE_H = 800;
-
 /**
- * Live, scaled preview of a template site inside a browser frame. Renders the
- * actual site in a non-interactive iframe (scaled to fit). Falls back to the
- * procedural mock when there's no standalone preview URL (e.g. the custom site).
+ * Live, scaled preview of a template site. Renders the actual site in a
+ * non-interactive iframe (scaled to fit) — at desktop width or, with
+ * device="mobile", at a real phone width so the responsive mobile layout shows.
+ * Falls back to the procedural mock when there's no standalone preview URL.
  */
 export function TemplateLivePreview({
   liveUrl,
   accent = "#7c3aed",
   slug = "preview",
   className,
+  device = "desktop",
 }: {
   liveUrl?: string;
   accent?: string;
   slug?: string;
   className?: string;
+  device?: "desktop" | "mobile";
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const baseW = device === "mobile" ? 414 : 1280;
+  const baseH = device === "mobile" ? 896 : 800;
   const [scale, setScale] = useState(0.28);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const update = () => setScale(el.clientWidth / BASE_W);
+    const update = () => setScale(el.clientWidth / baseW);
     update();
     const ro = new ResizeObserver(update);
     ro.observe(el);
     return () => ro.disconnect();
-  }, []);
+  }, [baseW]);
 
-  // No standalone site (custom build points at "/") → procedural mock.
   if (!liveUrl || liveUrl === "/") {
-    return <FauxBrowser accent={accent} url={`${slug}.pilk.ai`} className={className} />;
+    return (
+      <FauxBrowser accent={accent} url={`${slug}.pilk.ai`} variant={device} className={className} />
+    );
   }
+
+  const showBar = device === "desktop";
 
   return (
     <div className={`faux relative overflow-hidden ${className ?? ""}`} aria-hidden="true">
-      <div className="faux__bar">
-        <span className="faux__dot" />
-        <span className="faux__dot" />
-        <span className="faux__dot" />
-        <span className="faux__url">{slug}.pilk.ai</span>
-      </div>
-      <div ref={ref} className="absolute inset-x-0 bottom-0 overflow-hidden" style={{ top: 34 }}>
+      {showBar && (
+        <div className="faux__bar">
+          <span className="faux__dot" />
+          <span className="faux__dot" />
+          <span className="faux__dot" />
+          <span className="faux__url">{slug}.pilk.ai</span>
+        </div>
+      )}
+      <div
+        ref={ref}
+        className="absolute inset-x-0 bottom-0 overflow-hidden"
+        style={{ top: showBar ? 34 : 0 }}
+      >
         <iframe
           src={liveUrl}
           title={`${slug} preview`}
@@ -56,8 +67,8 @@ export function TemplateLivePreview({
           tabIndex={-1}
           scrolling="no"
           style={{
-            width: `${BASE_W}px`,
-            height: `${BASE_H}px`,
+            width: `${baseW}px`,
+            height: `${baseH}px`,
             border: 0,
             transformOrigin: "top left",
             transform: `scale(${scale})`,

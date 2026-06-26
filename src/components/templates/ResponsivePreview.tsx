@@ -1,5 +1,4 @@
 import type { WebsiteTemplate } from "@/types/template";
-import { FauxBrowser } from "@/components/templates/FauxBrowser";
 import { TemplateLivePreview } from "@/components/templates/TemplateLivePreview";
 
 /** Desktop / tablet / mobile preview frames for a template detail page. */
@@ -14,11 +13,11 @@ export function ResponsivePreview({ template }: { template: WebsiteTemplate }) {
         />
       </div>
       <div className="mx-auto w-[58%] sm:w-full" style={{ aspectRatio: "9 / 16" }}>
-        <FauxBrowser
+        <TemplateLivePreview
+          liveUrl={template.liveUrl}
           accent={template.accent}
-          url={template.slug}
-          image={template.preview.mobile}
-          variant="mobile"
+          slug={template.slug}
+          device="mobile"
         />
       </div>
     </div>
