@@ -75,19 +75,25 @@ export function BuiltSiteShowcase() {
     // MOBILE — non-pinned gallery, cards scale/fade in as they enter
     media.add("(max-width: 1023px) and (prefers-reduced-motion: no-preference)", () => {
       const cards = galleryRef.current.filter((c): c is HTMLDivElement => c !== null);
-      const triggers: ScrollTrigger[] = [];
+      // Scroll-scrubbed: each site slides up + scales continuously as it moves through the screen.
       cards.forEach((card) => {
-        gsap.set(card, { opacity: 0, y: 60, scale: 0.94 });
-        triggers.push(
-          ScrollTrigger.create({
-            trigger: card,
-            start: "top 88%",
-            onEnter: () =>
-              gsap.to(card, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "power3.out" }),
-          })
+        gsap.fromTo(
+          card,
+          { autoAlpha: 0, y: 110, scale: 0.9 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            scale: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 96%",
+              end: "top 38%",
+              scrub: true,
+            },
+          }
         );
       });
-      return () => triggers.forEach((t) => t.kill());
     });
 
     return () => media.revert();

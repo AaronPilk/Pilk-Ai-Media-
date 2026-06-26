@@ -70,36 +70,40 @@ export function ProcessTimeline({ standalone = false }: { standalone?: boolean }
     // MOBILE — non-pinned: cards reveal as they scroll in, rail fills, no scroll-trap
     media.add("(max-width: 1023px) and (prefers-reduced-motion: no-preference)", () => {
       const cards = getCards();
-      const triggers: ScrollTrigger[] = [];
 
+      // Each card is tied to scroll — it slides up + scales the whole time it travels.
       cards.forEach((card, index) => {
-        gsap.set(card, { opacity: 0, y: 48 });
-        triggers.push(
-          ScrollTrigger.create({
-            trigger: card,
-            start: "top 84%",
-            onEnter: () => {
-              gsap.to(card, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" });
-              setActive(index);
+        gsap.fromTo(
+          card,
+          { autoAlpha: 0, y: 90, scale: 0.92 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            scale: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 95%",
+              end: "top 42%",
+              scrub: true,
+              onToggle: (self) => {
+                if (self.isActive) setActive(index);
+              },
             },
-            onEnterBack: () => setActive(index),
-          })
+          }
         );
       });
 
       if (trackRef.current && railRef.current) {
         gsap.set(railRef.current, { scaleY: 0, transformOrigin: "top" });
-        triggers.push(
-          ScrollTrigger.create({
-            trigger: trackRef.current,
-            start: "top 75%",
-            end: "bottom 75%",
-            scrub: true,
-            onUpdate: (self) => gsap.set(railRef.current, { scaleY: self.progress }),
-          })
-        );
+        ScrollTrigger.create({
+          trigger: trackRef.current,
+          start: "top 75%",
+          end: "bottom 80%",
+          scrub: true,
+          onUpdate: (self) => gsap.set(railRef.current, { scaleY: self.progress }),
+        });
       }
-      return () => triggers.forEach((t) => t.kill());
     });
 
     // REDUCED MOTION — plain readable list
