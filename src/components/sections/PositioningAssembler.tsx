@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { site } from "@/content/site";
+import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 import { Container } from "@/components/ui/Container";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 
@@ -23,7 +24,7 @@ export function PositioningAssembler() {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const cardsRef = useRef<Array<HTMLDivElement | null>>([]);
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
 

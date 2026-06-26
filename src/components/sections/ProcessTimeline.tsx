@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Container } from "@/components/ui/Container";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { processTimeline, processDisclaimer } from "@/content/process";
+import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,7 +16,7 @@ export function ProcessTimeline({ standalone = false }: { standalone?: boolean }
   const cardsRef = useRef<Array<HTMLDivElement | null>>([]);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
 

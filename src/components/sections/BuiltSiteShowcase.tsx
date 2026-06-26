@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { builtSites } from "@/content/built-sites";
+import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 import { getHelixTransform } from "@/lib/get-helix-transform";
 import { Container } from "@/components/ui/Container";
 import { SectionLabel } from "@/components/ui/SectionLabel";
@@ -19,7 +20,7 @@ export function BuiltSiteShowcase() {
   const cardsRef = useRef<Array<HTMLDivElement | null>>([]);
   const [active, setActive] = useState(0);
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
 

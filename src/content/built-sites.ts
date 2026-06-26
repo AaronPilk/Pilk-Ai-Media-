@@ -45,7 +45,7 @@ export const builtSites: BuiltSite[] = [
       "A professional title-company website focused on trust, services, and fast quote requests.",
     accent: "#6d5bd0",
     sourceFolder: "Carnegie Title/",
-    assets: {}, // AARON: add public/showcase-sites/carnegie-title/desktop.webp
+    assets: { desktop: "/showcase-sites/carnegie-title/desktop.jpg" },
     services: ["Design", "Development"],
   },
   {
@@ -57,7 +57,7 @@ export const builtSites: BuiltSite[] = [
       "A refined title-services brand and website built to convert referral and direct traffic.",
     accent: "#8b5cf6",
     sourceFolder: "Refine Title/",
-    assets: {}, // AARON: add public/showcase-sites/refine-title/desktop.webp
+    assets: { desktop: "/showcase-sites/refine-title/desktop.jpg" },
     services: ["Design", "Development"],
   },
   {
@@ -69,7 +69,7 @@ export const builtSites: BuiltSite[] = [
       "A trust-driven loan-processing website with services, team, and a clear inquiry path.",
     accent: "#a78bfa",
     sourceFolder: "Star Processing/",
-    assets: {}, // AARON: add public/showcase-sites/star-processing/desktop.webp
+    assets: { desktop: "/showcase-sites/star-processing/desktop.jpg" },
     services: ["Design", "Development", "Lead Capture"],
   },
   {
@@ -81,7 +81,7 @@ export const builtSites: BuiltSite[] = [
       "An events brand and website built around story, energy, and booking inquiries.",
     accent: "#7c3aed",
     sourceFolder: "Stage Echo/",
-    assets: {}, // AARON: add public/showcase-sites/stage-echo/desktop.webp
+    assets: { desktop: "/showcase-sites/stage-echo/desktop.jpg" },
     services: ["Design", "Development", "Motion"],
   },
 ];
