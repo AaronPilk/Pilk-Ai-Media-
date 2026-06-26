@@ -66,6 +66,8 @@ export function Preloader() {
         <PreloaderCanvas explode={explode} />
       </div>
 
+      {explode && <div className="preloader-flash pointer-events-none absolute inset-0" />}
+
       <button
         type="button"
         onClick={(e) => {

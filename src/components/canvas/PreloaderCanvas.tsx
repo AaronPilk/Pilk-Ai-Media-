@@ -7,7 +7,7 @@ import { generateOrbNodes, buildConnections } from "@/lib/orb-geometry";
 
 const nodeVertex = /* glsl */ `
   uniform float uTime;
-  uniform float uExplode;
+  uniform float uExplode;   // 0 = orb, 1 = fully blasted
   uniform float uPixelRatio;
   uniform float uSize;
 
@@ -17,23 +17,29 @@ const nodeVertex = /* glsl */ `
   varying float vAlpha;
   varying float vRandom;
 
-  float easeOutCubic(float v) { return 1.0 - pow(1.0 - v, 3.0); }
-
   void main() {
-    float e = easeOutCubic(clamp(uExplode, 0.0, 1.0));
+    float e = clamp(uExplode, 0.0, 1.0);
+    float blast = pow(e, 0.45); // fast, punchy acceleration
+
     vec3 p = position;
-    // breathing while idle
+    // idle breathing before the blast
     p += normalize(position) * sin(uTime * 3.0 + aRandom * 6.2831) * 0.03 * (1.0 - e);
-    // neurons fly outward on explode
-    p += aDirection * e * mix(3.2, 9.0, aRandom);
+
+    // detonation — neurons rocket outward + turbulence
+    p += aDirection * blast * mix(9.0, 28.0, aRandom);
+    p.x += sin(uTime * 3.0 + aRandom * 20.0) * blast * 1.6;
+    p.y += cos(uTime * 2.5 + aRandom * 18.0) * blast * 1.4;
 
     vec4 mv = modelViewMatrix * vec4(p, 1.0);
     gl_Position = projectionMatrix * mv;
 
     float pulse = 0.7 + 0.3 * sin(uTime * 2.0 + aRandom * 6.2831);
-    gl_PointSize = uSize * mix(0.55, 1.0, aRandom) * pulse * uPixelRatio * (3.5 / max(0.15, -mv.z));
+    // pop bigger at the moment of explosion, then streak away
+    gl_PointSize =
+      uSize * mix(0.55, 1.0, aRandom) * (1.0 + blast * 2.0) * pulse * uPixelRatio *
+      (3.5 / max(0.15, -mv.z));
 
-    vAlpha = 1.0 - smoothstep(0.55, 1.0, e);
+    vAlpha = 1.0 - smoothstep(0.45, 0.95, e);
     vRandom = aRandom;
   }
 `;
@@ -62,7 +68,7 @@ const lineVertex = /* glsl */ `
   void main() {
     gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
     float pulse = 0.3 + 0.7 * (0.5 + 0.5 * sin(uTime * 1.8 + aRandom * 6.2831));
-    float fade = 1.0 - smoothstep(0.0, 0.4, uExplode);
+    float fade = 1.0 - smoothstep(0.0, 0.18, uExplode); // snap apart instantly
     vAlpha = pulse * fade * 0.5;
   }
 `;
@@ -105,21 +111,24 @@ function PreloaderOrb({ explode }: { explode: boolean }) {
 
   useFrame((state, delta) => {
     const t = state.clock.elapsedTime;
-    eRef.current = THREE.MathUtils.damp(eRef.current, explode ? 1 : 0, 6, delta);
+
+    // Fast, explosive ramp (~0.4s to full) instead of a slow ease.
+    if (explode) eRef.current = Math.min(1, eRef.current + delta / 0.4);
+    const e = eRef.current;
 
     nodeUniforms.uTime.value = t;
-    nodeUniforms.uExplode.value = eRef.current;
+    nodeUniforms.uExplode.value = e;
     lineUniforms.uTime.value = t;
-    lineUniforms.uExplode.value = eRef.current;
+    lineUniforms.uExplode.value = e;
 
     const group = groupRef.current;
     if (group) {
-      const vib = 1 - eRef.current;
-      // fast vibration while idle, settles as it explodes
-      group.position.x = Math.sin(t * 55) * 0.02 * vib;
-      group.position.y = Math.cos(t * 48) * 0.02 * vib;
-      group.rotation.y += delta * 0.2;
-      group.scale.setScalar((1 + Math.sin(t * 7) * 0.03 * vib) * (1 + eRef.current * 0.15));
+      const vib = 1 - e;
+      // hard vibration while charging, spins hard on detonation
+      group.position.x = Math.sin(t * 60) * 0.025 * vib;
+      group.position.y = Math.cos(t * 52) * 0.025 * vib;
+      group.rotation.y += delta * (0.2 + e * 5.0);
+      group.scale.setScalar((1 + Math.sin(t * 7) * 0.03 * vib) * (1 + e * 0.5));
     }
   });
 
