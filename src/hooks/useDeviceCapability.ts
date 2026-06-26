@@ -11,13 +11,11 @@ function detect(): DeviceCapability {
     return "reduced-motion";
   }
 
-  // WebGL availability
+  // WebGL availability — the only thing that forces the static fallback.
   let webgl = false;
   try {
     const canvas = document.createElement("canvas");
-    webgl = Boolean(
-      canvas.getContext("webgl2") || canvas.getContext("webgl")
-    );
+    webgl = Boolean(canvas.getContext("webgl2") || canvas.getContext("webgl"));
   } catch {
     webgl = false;
   }
@@ -25,12 +23,12 @@ function detect(): DeviceCapability {
 
   const cores = navigator.hardwareConcurrency ?? 4;
   const width = window.innerWidth;
-  const dpr = window.devicePixelRatio ?? 1;
   const coarse = window.matchMedia("(pointer: coarse)").matches;
 
-  if (coarse || width < 768 || cores <= 4) return "low";
-  if (width < 1280 || cores <= 8 || dpr > 2.5) return "medium";
-  return "high";
+  // Big desktop machines get the full-resolution scene; everything else
+  // (including phones/tablets) still renders the orb at medium quality.
+  if (width >= 1280 && cores > 8 && !coarse) return "high";
+  return "medium";
 }
 
 export function useDeviceCapability(): DeviceCapability {

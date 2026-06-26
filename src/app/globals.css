@@ -440,3 +440,16 @@ h4 {
     border-bottom: 0;
   }
 }
+
+/* Motion-preference toggles (used by the showcase) */
+.rm-only {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .motion-only {
+    display: none;
+  }
+  .rm-only {
+    display: block;
+  }
+}

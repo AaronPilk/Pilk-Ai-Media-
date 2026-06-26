@@ -4,11 +4,11 @@ import { useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { builtSites } from "@/content/built-sites";
-import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 import { getHelixTransform } from "@/lib/get-helix-transform";
 import { Container } from "@/components/ui/Container";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { BuiltSiteCard } from "@/components/showcase/BuiltSiteCard";
+import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -41,7 +41,8 @@ export function BuiltSiteShowcase() {
     };
 
     const media = gsap.matchMedia();
-    media.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
+    // Same rotating motion on every screen size.
+    media.add("(prefers-reduced-motion: no-preference)", () => {
       applyTransforms(0);
       const state = { p: 0 };
       const tween = gsap.to(state, {
@@ -78,11 +79,11 @@ export function BuiltSiteShowcase() {
 
   return (
     <>
-      {/* Desktop / tablet rotating showcase */}
+      {/* Rotating showcase (hidden for reduced-motion) */}
       <section
         ref={sectionRef}
         data-scene="showcase"
-        className="template-helix relative z-10 hidden md:block"
+        className="template-helix motion-only relative z-10 block"
         style={{ background: "var(--surface)" }}
         aria-label="Website showcase"
       >
@@ -105,27 +106,33 @@ export function BuiltSiteShowcase() {
         </div>
 
         <div className="template-helix__hud max-w-sm">
-          <span className="eyebrow opacity-70">{activeSite.label} · {activeSite.industry}</span>
+          <span className="eyebrow opacity-70">
+            {activeSite.label} · {activeSite.industry}
+          </span>
           <h3 className="mt-2 font-display text-3xl font-semibold">Website showcase.</h3>
           <p className="mt-2 text-sm text-muted">{activeSite.summary}</p>
         </div>
       </section>
 
-      {/* Mobile snap gallery */}
-      <section className="section relative z-10 md:hidden" style={{ background: "var(--surface)" }}>
+      {/* Reduced-motion fallback gallery */}
+      <section className="section rm-only relative z-10" style={{ background: "var(--surface)" }}>
         <Container>
           <SectionLabel index="02">Recent Builds</SectionLabel>
           <h2 className="mt-6 max-w-[16ch] text-balance" style={{ fontSize: "var(--text-2xl)" }}>
             Website showcase.
           </h2>
           <p className="mt-4 max-w-md text-sm text-muted">{COPY}</p>
-          <div className="helix-mobile mt-10">
+          <div className="mt-10 grid gap-6 sm:grid-cols-2">
             {builtSites.map((siteItem) => (
-              <div key={siteItem.slug} className="helix-mobile__card">
-                <BuiltSiteCard site={siteItem} active />
+              <div key={siteItem.slug}>
+                <div className="aspect-[16/10]">
+                  <BuiltSiteCard site={siteItem} active />
+                </div>
                 <div className="mt-3 flex items-baseline justify-between">
                   <span className="font-medium">{siteItem.name}</span>
-                  <span className="text-xs uppercase tracking-[0.18em] text-muted">{siteItem.label}</span>
+                  <span className="text-xs uppercase tracking-[0.18em] text-muted">
+                    {siteItem.label}
+                  </span>
                 </div>
               </div>
             ))}

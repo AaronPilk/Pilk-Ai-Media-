@@ -30,7 +30,7 @@ export function PositioningAssembler() {
 
     const media = gsap.matchMedia();
 
-    media.add("(min-width: 768px) and (prefers-reduced-motion: no-preference)", () => {
+    media.add("(prefers-reduced-motion: no-preference)", () => {
       const cards = cardsRef.current.filter(
         (c): c is HTMLDivElement => c !== null
       );
@@ -82,7 +82,7 @@ export function PositioningAssembler() {
       };
     });
 
-    media.add("(max-width: 767px), (prefers-reduced-motion: reduce)", () => {
+    media.add("(prefers-reduced-motion: reduce)", () => {
       const targets: HTMLElement[] = [];
       if (headingRef.current) targets.push(headingRef.current);
       cardsRef.current.forEach((card) => {
