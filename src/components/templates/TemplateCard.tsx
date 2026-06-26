@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { WebsiteTemplate } from "@/types/template";
 import { templateCategories, templateProjectType } from "@/content/templates";
 import { formatPrice } from "@/lib/utils";
-import { FauxBrowser } from "@/components/templates/FauxBrowser";
+import { TemplateLivePreview } from "@/components/templates/TemplateLivePreview";
 
 function categoryLabel(id: string) {
   return templateCategories.find((c) => c.id === id)?.label ?? "Template";
@@ -20,10 +20,10 @@ export function TemplateCard({ template }: { template: WebsiteTemplate }) {
         data-cursor="view"
         data-cursor-label="View"
       >
-        <FauxBrowser
+        <TemplateLivePreview
+          liveUrl={template.liveUrl}
           accent={template.accent}
-          url={`${template.slug}.pilk.ai`}
-          image={template.preview.desktop}
+          slug={template.slug}
         />
       </Link>
 
