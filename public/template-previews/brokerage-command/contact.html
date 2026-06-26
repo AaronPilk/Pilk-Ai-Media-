@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contact — Meridian Group</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0a0e17;
+        --panel: #111827;
+        --panel2: #0f1623;
+        --ink: #eef2f7;
+        --muted: #93a0b4;
+        --line: rgba(255,255,255,0.09);
+        --accent: #3b82f6;
+        --accent2: #22d3ee;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+      body { font-family: Inter, system-ui, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; }
+      a { color: inherit; text-decoration: none; }
+      .display { font-family: "Space Grotesk", sans-serif; }
+      .wrap { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 28px; }
+      .nav { position: sticky; top: 0; z-index: 20; background: rgba(10,14,23,0.85); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+      .nav__in { display: flex; align-items: center; justify-content: space-between; height: 76px; }
+      .brand { font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 20px; letter-spacing: -0.02em; }
+      .brand b { color: var(--accent); }
+      .nav__links { display: flex; gap: 30px; font-size: 14px; }
+      .nav__links a { color: var(--muted); }
+      .nav__links a:hover { color: #fff; }
+      .btn { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; font-weight: 600; font-size: 14px; padding: 12px 22px; border-radius: 999px; cursor: pointer; border: none; }
+      .btn--ghost { background: transparent; border: 1px solid var(--line); }
+      .head { padding: 80px 0 10px; position: relative; overflow: hidden; }
+      .head::after { content:""; position:absolute; width:560px; height:560px; right:-180px; top:-200px; border-radius:50%; background: radial-gradient(circle, rgba(59,130,246,0.32), transparent 65%); filter: blur(20px); }
+      .eyebrow { text-transform: uppercase; letter-spacing: 0.22em; font-size: 12px; color: var(--accent2); font-weight: 600; }
+      h1 { font-family: "Space Grotesk", sans-serif; font-size: clamp(40px, 6vw, 72px); line-height: 1; letter-spacing: -0.04em; font-weight: 700; margin: 14px 0; max-width: 16ch; }
+      .lead { color: var(--muted); font-size: 18px; max-width: 52ch; }
+      .layout { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 28px; margin: 50px 0 90px; align-items: start; }
+      .card { background: linear-gradient(120deg, var(--panel), var(--panel2)); border: 1px solid var(--line); border-radius: 22px; padding: 34px; }
+      .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      .field { display: flex; flex-direction: column; gap: 7px; }
+      .field.full { grid-column: 1 / -1; }
+      label { font-size: 13px; color: var(--muted); font-weight: 500; }
+      input, select, textarea {
+        font-family: inherit; font-size: 15px; color: var(--ink);
+        background: var(--bg); border: 1px solid var(--line); border-radius: 12px;
+        padding: 13px 15px; width: 100%; outline: none; transition: border-color 0.2s;
+      }
+      input:focus, select:focus, textarea:focus { border-color: var(--accent); }
+      select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%); background-position: calc(100% - 20px) center, calc(100% - 15px) center; background-size: 5px 5px, 5px 5px; background-repeat: no-repeat; }
+      textarea { resize: vertical; min-height: 120px; }
+      .form-grid .btn { grid-column: 1 / -1; justify-content: center; padding: 15px; font-size: 15px; margin-top: 4px; }
+      .info-h { font-family: "Space Grotesk", sans-serif; font-size: 22px; letter-spacing: -0.02em; margin-bottom: 18px; }
+      .info-row { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+      .info-row:last-of-type { border-bottom: none; }
+      .info-row .k { color: var(--muted); font-size: 13px; min-width: 70px; }
+      .info-row .v { font-size: 15px; }
+      .mapart { aspect-ratio: 16/9; border-radius: 16px; margin-top: 8px; background: radial-gradient(circle at 30% 30%, rgba(59,130,246,0.5), transparent 60%), linear-gradient(140deg, #1e293b, #0b1220); border: 1px solid var(--line); }
+      .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 20px; }
+      .stat { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px; }
+      .stat b { font-family: "Space Grotesk", sans-serif; font-size: 26px; display: block; letter-spacing: -0.02em; }
+      .stat span { color: var(--muted); font-size: 12px; }
+      footer { border-top: 1px solid var(--line); padding: 40px 0; color: var(--muted); font-size: 14px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+      @media (max-width: 900px) {
+        .nav__links { display: none; }
+        .layout { grid-template-columns: 1fr; }
+      }
+      @media (max-width: 560px) { .form-grid { grid-template-columns: 1fr; } .stats { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <header class="nav">
+      <div class="wrap nav__in">
+        <a href="index.html" class="brand">MERIDIAN<b>·</b>GROUP</a>
+        <nav class="nav__links">
+          <a href="index.html#listings">Listings</a>
+          <a href="index.html#team">Our Team</a>
+          <a href="index.html#join">Join Us</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+        <a class="btn" href="contact.html">Work with us</a>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section class="head">
+        <p class="eyebrow">Let's talk</p>
+        <h1>Tell us what you're after.</h1>
+        <p class="lead">Buying, selling, or building a career — drop us a line and the right person on the team will reach out within one business day.</p>
+      </section>
+
+      <section class="layout">
+        <div class="card">
+          <form action="#" method="post" class="form-grid">
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" placeholder="Jordan Reyes" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="you@example.com" required />
+            </div>
+            <div class="field">
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" type="tel" placeholder="(000) 000-0000" />
+            </div>
+            <div class="field">
+              <label for="interest">I'm interested in</label>
+              <select id="interest" name="interest">
+                <option>Buying</option>
+                <option>Selling</option>
+                <option>Joining the team</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="A little about what you're looking for..."></textarea>
+            </div>
+            <button class="btn" type="submit">Send message</button>
+          </form>
+        </div>
+
+        <aside>
+          <div class="card">
+            <h2 class="info-h">Office</h2>
+            <div class="info-row"><span class="k">Address</span><span class="v">200 Central Ave, Suite 400<br />St. Petersburg, FL 33701</span></div>
+            <div class="info-row"><span class="k">Phone</span><span class="v">(000) 000-0000</span></div>
+            <div class="info-row"><span class="k">Email</span><span class="v">team@example.com</span></div>
+            <div class="info-row"><span class="k">Hours</span><span class="v">Mon–Sat · 9am–7pm</span></div>
+            <div class="mapart"></div>
+          </div>
+
+          <div class="stats">
+            <div class="stat"><b>$1.2B</b><span>Closed volume</span></div>
+            <div class="stat"><b>48</b><span>Agents</span></div>
+            <div class="stat"><b>12</b><span>Days on market</span></div>
+          </div>
+        </aside>
+      </section>
+    </main>
+
+    <footer class="wrap">
+      <div>© Meridian Group · Template by Pilk.ai</div>
+      <div>(000) 000-0000 · team@example.com</div>
+    </footer>
+  </body>
+</html>

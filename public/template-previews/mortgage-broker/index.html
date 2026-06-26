@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beacon Lending — Home financing without the runaround</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal:#0f766e;
+    --teal-dark:#0b5750;
+    --teal-soft:#e6f5f2;
+    --mint:#f0faf8;
+    --ink:#10241f;
+    --slate:#4b5b57;
+    --line:#e3ebe9;
+    --bg:#ffffff;
+    --shadow:0 10px 30px -12px rgba(15,118,110,.18);
+    --shadow-sm:0 4px 16px -8px rgba(16,36,31,.18);
+    --radius:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Plus Jakarta Sans',system-ui,sans-serif;
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{text-decoration:none;color:inherit}
+  img{max-width:100%}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+
+  /* NAV */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,255,255,.88);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.18rem;letter-spacing:-.01em}
+  .brand .mark{
+    width:30px;height:30px;border-radius:9px;
+    background:linear-gradient(135deg,var(--teal),#3aa99c);
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-size:1rem;font-weight:800;box-shadow:var(--shadow-sm);
+  }
+  .nav-links{display:flex;align-items:center;gap:30px}
+  .nav-links a{font-weight:500;color:var(--slate);font-size:.95rem;transition:color .15s}
+  .nav-links a:hover{color:var(--teal)}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    font-weight:600;font-size:.95rem;border-radius:10px;cursor:pointer;
+    padding:11px 20px;transition:transform .12s,box-shadow .15s,background .15s;border:none;
+  }
+  .btn-primary{background:var(--teal);color:#fff;box-shadow:var(--shadow-sm)}
+  .btn-primary:hover{background:var(--teal-dark);transform:translateY(-1px)}
+  .btn-ghost{background:#fff;color:var(--teal);border:1.5px solid var(--line)}
+  .btn-ghost:hover{border-color:var(--teal);background:var(--mint)}
+
+  /* HERO */
+  .hero{
+    background:
+      radial-gradient(900px 420px at 85% -10%, var(--teal-soft), transparent 60%),
+      linear-gradient(180deg,#fff,var(--mint));
+    padding:84px 0 72px;
+  }
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center}
+  .pill{
+    display:inline-flex;align-items:center;gap:8px;
+    background:#fff;border:1px solid var(--line);color:var(--teal);
+    padding:6px 14px;border-radius:999px;font-size:.82rem;font-weight:600;
+    box-shadow:var(--shadow-sm);margin-bottom:22px;
+  }
+  .pill::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--teal)}
+  .hero h1{font-size:3.05rem;line-height:1.05;letter-spacing:-.025em;font-weight:800;margin-bottom:20px}
+  .hero p.sub{font-size:1.16rem;color:var(--slate);max-width:520px;margin-bottom:32px}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+  .hero-actions .btn{padding:14px 26px;font-size:1rem}
+  .hero-note{margin-top:20px;font-size:.86rem;color:var(--slate);display:flex;align-items:center;gap:8px}
+  .hero-note .dot{color:var(--teal);font-weight:700}
+
+  .hero-card{
+    background:#fff;border-radius:22px;border:1px solid var(--line);
+    box-shadow:var(--shadow);padding:26px;
+  }
+  .hero-img{
+    height:200px;border-radius:14px;
+    background:linear-gradient(135deg,#0f766e,#2ea395 55%,#7fd0c5);
+    position:relative;overflow:hidden;margin-bottom:22px;
+  }
+  .hero-img::after{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(300px 140px at 20% 120%, rgba(255,255,255,.35), transparent 60%);
+  }
+  .hero-img .house{
+    position:absolute;left:50%;top:54%;transform:translate(-50%,-50%);
+    width:96px;height:72px;
+  }
+  .hero-card h3{font-size:1.05rem;margin-bottom:4px}
+  .hero-card .muted{color:var(--slate);font-size:.9rem;margin-bottom:18px}
+  .mini-row{display:flex;justify-content:space-between;padding:11px 0;border-top:1px solid var(--line);font-size:.92rem}
+  .mini-row span:first-child{color:var(--slate)}
+  .mini-row span:last-child{font-weight:700}
+  .mini-row.total span:last-child{color:var(--teal);font-size:1.05rem}
+
+  /* STAT ROW */
+  .stats{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff}
+  .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);text-align:center}
+  .stat{padding:38px 16px}
+  .stat:nth-child(2){border-left:1px solid var(--line);border-right:1px solid var(--line)}
+  .stat .num{font-size:2.2rem;font-weight:800;letter-spacing:-.02em;color:var(--teal)}
+  .stat .lbl{color:var(--slate);font-size:.94rem;margin-top:4px}
+
+  /* SECTION SHELL */
+  section{padding:78px 0}
+  .sec-head{max-width:640px;margin:0 auto 48px;text-align:center}
+  .sec-head .eyebrow{color:var(--teal);font-weight:700;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase}
+  .sec-head h2{font-size:2.25rem;letter-spacing:-.02em;font-weight:800;margin:10px 0 12px}
+  .sec-head p{color:var(--slate);font-size:1.05rem}
+
+  /* PROGRAMS */
+  .prog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .card{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+    padding:26px;transition:transform .15s,box-shadow .15s,border-color .15s;
+  }
+  .card:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:#cfe3df}
+  .card .ico{
+    width:46px;height:46px;border-radius:12px;margin-bottom:16px;
+    background:linear-gradient(135deg,var(--teal-soft),#fff);
+    border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;color:var(--teal);
+  }
+  .card h3{font-size:1.16rem;margin-bottom:6px}
+  .card p{color:var(--slate);font-size:.95rem}
+  .card .lnk{margin-top:14px;display:inline-flex;align-items:center;gap:6px;color:var(--teal);font-weight:600;font-size:.92rem}
+
+  /* CALCULATOR */
+  .calc{background:linear-gradient(180deg,var(--mint),#fff)}
+  .calc-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:34px;align-items:stretch}
+  .calc-panel{
+    background:#fff;border:1px solid var(--line);border-radius:20px;
+    padding:30px;box-shadow:var(--shadow-sm);
+  }
+  .field{margin-bottom:18px}
+  .field label{display:block;font-size:.85rem;font-weight:600;color:var(--slate);margin-bottom:7px}
+  .field input,.field select{
+    width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;
+    font-family:inherit;font-size:1rem;color:var(--ink);background:#fff;transition:border-color .15s;
+  }
+  .field input:focus,.field select:focus{outline:none;border-color:var(--teal)}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .result{
+    background:linear-gradient(150deg,var(--teal),var(--teal-dark));
+    color:#fff;border-radius:20px;padding:34px;display:flex;flex-direction:column;justify-content:center;
+    box-shadow:var(--shadow);
+  }
+  .result .cap{opacity:.85;font-size:.92rem;font-weight:500}
+  .result .big{font-size:3.2rem;font-weight:800;letter-spacing:-.02em;margin:6px 0 2px;line-height:1}
+  .result .per{opacity:.85;font-size:1rem}
+  .result .breakdown{margin-top:24px;border-top:1px solid rgba(255,255,255,.22);padding-top:18px}
+  .result .breakdown .r{display:flex;justify-content:space-between;font-size:.92rem;padding:6px 0;opacity:.92}
+  .result .disc{margin-top:20px;font-size:.78rem;opacity:.72}
+
+  /* REVIEWS */
+  .rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .quote{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px;
+  }
+  .stars{color:#f5a623;font-size:1rem;letter-spacing:2px;margin-bottom:14px}
+  .quote p{font-size:1rem;color:var(--ink);margin-bottom:20px}
+  .who{display:flex;align-items:center;gap:12px}
+  .who .av{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--teal),#7fd0c5)}
+  .who .nm{font-weight:700;font-size:.94rem}
+  .who .mt{color:var(--slate);font-size:.82rem}
+
+  /* CTA BAND */
+  .cta-band{
+    background:linear-gradient(135deg,var(--teal),var(--teal-dark));
+    border-radius:24px;padding:56px;text-align:center;color:#fff;
+    box-shadow:var(--shadow);
+  }
+  .cta-band h2{font-size:2.2rem;font-weight:800;letter-spacing:-.02em;margin-bottom:12px}
+  .cta-band p{opacity:.9;font-size:1.08rem;max-width:520px;margin:0 auto 28px}
+  .cta-band .btn{background:#fff;color:var(--teal);padding:15px 34px;font-size:1.02rem}
+  .cta-band .btn:hover{background:var(--mint);transform:translateY(-1px)}
+
+  /* FOOTER */
+  footer{border-top:1px solid var(--line);background:var(--mint);padding:40px 0;margin-top:20px}
+  .foot-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+  .foot-inner .fbrand{display:flex;align-items:center;gap:9px;font-weight:700}
+  .foot-inner small{color:var(--slate);font-size:.88rem}
+  .foot-links{display:flex;gap:22px;font-size:.9rem;color:var(--slate)}
+  .foot-links a:hover{color:var(--teal)}
+
+  @media(max-width:900px){
+    .hero-grid,.calc-grid{grid-template-columns:1fr}
+    .prog-grid,.rev-grid{grid-template-columns:1fr 1fr}
+    .hero h1{font-size:2.4rem}
+    .nav-links{display:none}
+  }
+  @media(max-width:600px){
+    .stats-grid,.prog-grid,.rev-grid{grid-template-columns:1fr}
+    .stat:nth-child(2){border-left:none;border-right:none;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .field-row{grid-template-columns:1fr}
+    .cta-band{padding:40px 24px}
+    .hero h1{font-size:2.05rem}
+    .result .big{font-size:2.6rem}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="brand"><span class="mark">B</span>Beacon Lending</a>
+    <nav class="nav-links">
+      <a href="programs.html">Programs</a>
+      <a href="#calculator">Calculator</a>
+      <a href="#reviews">Reviews</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a href="contact.html" class="btn btn-primary">Apply now</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="pill">Licensed mortgage lender · NMLS #000000</span>
+      <h1>Home financing without the runaround.</h1>
+      <p class="sub">Straight answers, real rates, and a team that closes on time. Get pre-approved in minutes and know exactly where you stand — no jargon, no surprises.</p>
+      <div class="hero-actions">
+        <a href="contact.html" class="btn btn-primary">Apply now</a>
+        <a href="contact.html" class="btn btn-ghost">Get pre-approved</a>
+      </div>
+      <div class="hero-note"><span class="dot">✓</span> Checking your rate won't affect your credit score.</div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-img">
+        <svg class="house" viewBox="0 0 96 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M48 8 88 38v28a4 4 0 0 1-4 4H12a4 4 0 0 1-4-4V38L48 8Z" fill="#fff" fill-opacity=".95"/>
+          <path d="M48 8 88 38H8L48 8Z" fill="#fff"/>
+          <rect x="40" y="48" width="16" height="22" rx="2" fill="#0f766e"/>
+          <rect x="20" y="44" width="12" height="12" rx="2" fill="#0f766e" fill-opacity=".25"/>
+          <rect x="64" y="44" width="12" height="12" rx="2" fill="#0f766e" fill-opacity=".25"/>
+        </svg>
+      </div>
+      <h3>Your estimated payment</h3>
+      <p class="muted">$425,000 home · 20% down · 30-yr fixed</p>
+      <div class="mini-row"><span>Principal &amp; interest</span><span>$2,015</span></div>
+      <div class="mini-row"><span>Taxes &amp; insurance</span><span>$340</span></div>
+      <div class="mini-row total"><span>Estimated monthly</span><span>$2,355/mo</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="wrap stats-grid">
+    <div class="stat"><div class="num">$2.4B</div><div class="lbl">funded to date</div></div>
+    <div class="stat"><div class="num">4.9★</div><div class="lbl">average client rating</div></div>
+    <div class="stat"><div class="num">14-day</div><div class="lbl">average close time</div></div>
+  </div>
+</div>
+
+<!-- PROGRAMS -->
+<section id="programs">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Loan programs</span>
+      <h2>Financing built around your situation</h2>
+      <p>Whether it's your first home or your fifth, there's a program that fits. Here's where most people start.</p>
+    </div>
+    <div class="prog-grid">
+      <div class="card">
+        <div class="ico">◆</div>
+        <h3>Conventional</h3>
+        <p>Competitive fixed and adjustable rates for buyers with solid credit and steady income.</p>
+        <a href="programs.html" class="lnk">Learn more →</a>
+      </div>
+      <div class="card">
+        <div class="ico">◆</div>
+        <h3>FHA</h3>
+        <p>Lower down payments and flexible credit requirements — ideal for first-time and lower-down buyers.</p>
+        <a href="programs.html" class="lnk">Learn more →</a>
+      </div>
+      <div class="card">
+        <div class="ico">◆</div>
+        <h3>VA</h3>
+        <p>Zero down payment and no PMI for eligible veterans, active service members, and surviving spouses.</p>
+        <a href="programs.html" class="lnk">Learn more →</a>
+      </div>
+      <div class="card">
+        <div class="ico">◆</div>
+        <h3>Jumbo</h3>
+        <p>Financing above conforming limits for higher-value homes, with rates that stay competitive.</p>
+        <a href="programs.html" class="lnk">Learn more →</a>
+      </div>
+      <div class="card">
+        <div class="ico">◆</div>
+        <h3>Refinance</h3>
+        <p>Lower your rate, shorten your term, or tap equity with a streamlined refinance built for speed.</p>
+        <a href="programs.html" class="lnk">Learn more →</a>
+      </div>
+      <div class="card">
+        <div class="ico">◆</div>
+        <h3>First-time buyer</h3>
+        <p>Down-payment assistance, grants, and guidance designed to get you into your first home faster.</p>
+        <a href="programs.html" class="lnk">Learn more →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CALCULATOR -->
+<section id="calculator" class="calc">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Payment calculator</span>
+      <h2>Estimate your monthly payment</h2>
+      <p>Adjust the numbers to see what your payment could look like. This is an estimate — your real rate comes after a quick application.</p>
+    </div>
+    <div class="calc-grid">
+      <div class="calc-panel">
+        <div class="field-row">
+          <div class="field">
+            <label for="price">Home price</label>
+            <input id="price" type="text" value="$425,000">
+          </div>
+          <div class="field">
+            <label for="down">Down payment</label>
+            <input id="down" type="text" value="$85,000 (20%)">
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="rate">Interest rate</label>
+            <input id="rate" type="text" value="6.25%">
+          </div>
+          <div class="field">
+            <label for="term">Loan term</label>
+            <select id="term">
+              <option>30-year fixed</option>
+              <option>20-year fixed</option>
+              <option>15-year fixed</option>
+              <option>10/6 ARM</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label for="ptype">Loan purpose</label>
+          <select id="ptype">
+            <option>Purchase</option>
+            <option>Refinance</option>
+          </select>
+        </div>
+        <a href="contact.html" class="btn btn-primary" style="width:100%;padding:13px;margin-top:6px">Get my real rate →</a>
+      </div>
+      <div class="result">
+        <span class="cap">Estimated payment</span>
+        <div class="big" id="payout">$2,140<span style="font-size:1.4rem;font-weight:600">/mo</span></div>
+        <span class="per">based on $340,000 financed at 6.25%</span>
+        <div class="breakdown">
+          <div class="r"><span>Principal &amp; interest</span><span>$2,094</span></div>
+          <div class="r"><span>Est. property tax</span><span>$354</span></div>
+          <div class="r"><span>Est. homeowners insurance</span><span>$92</span></div>
+        </div>
+        <div class="disc">Estimates are for illustration only and do not constitute a loan offer or commitment to lend.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Reviews</span>
+      <h2>People close with us — and stay with us</h2>
+      <p>A few words from buyers and homeowners we've worked with recently.</p>
+    </div>
+    <div class="rev-grid">
+      <div class="quote">
+        <div class="stars">★★★★★</div>
+        <p>"We were first-time buyers and terrified. Beacon walked us through every step and closed two days early. Honestly the easiest part of the whole process."</p>
+        <div class="who"><span class="av"></span><div><div class="nm">Maria &amp; Jon T.</div><div class="mt">First-time buyers, Austin TX</div></div></div>
+      </div>
+      <div class="quote">
+        <div class="stars">★★★★★</div>
+        <p>"Refinanced and dropped my rate by almost a full point. No runaround, no surprise fees at signing. They told me exactly what to expect and delivered."</p>
+        <div class="who"><span class="av"></span><div><div class="nm">Derek M.</div><div class="mt">Refinance, Denver CO</div></div></div>
+      </div>
+      <div class="quote">
+        <div class="stars">★★★★★</div>
+        <p>"As a VA buyer I'd been turned down twice elsewhere. Beacon got my zero-down loan approved and closed in 16 days. Can't recommend them enough."</p>
+        <div class="who"><span class="av"></span><div><div class="nm">Staff Sgt. Alicia R.</div><div class="mt">VA loan, San Diego CA</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="cta-band">
+      <h2>Ready to see your numbers?</h2>
+      <p>Apply in minutes and get a real, personalized rate — with a human you can actually reach. No obligation, no credit impact to check.</p>
+      <a href="contact.html" class="btn">Start your application</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap foot-inner">
+    <div>
+      <div class="fbrand"><span class="mark" style="width:24px;height:24px;font-size:.85rem;border-radius:7px">B</span>Beacon Lending</div>
+      <small>NMLS #000000 · Equal Housing Lender</small>
+    </div>
+    <div class="foot-links">
+      <a href="programs.html">Programs</a>
+      <a href="#calculator">Calculator</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <small>© Beacon Lending · Template by Pilk.ai</small>
+  </div>
+</footer>
+
+</body>
+</html>

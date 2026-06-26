@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Available Rentals — Keystone Property Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --blue:#2563eb;--blue-dark:#1d4ed8;--blue-soft:#eff4ff;
+    --ink:#0f172a;--slate:#475569;--slate-light:#64748b;
+    --line:#e2e8f0;--bg:#f8fafc;--white:#fff;
+    --radius:16px;
+    --shadow:0 1px 2px rgba(15,23,42,.04), 0 8px 24px rgba(15,23,42,.06);
+    --shadow-lg:0 12px 40px rgba(15,23,42,.10);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55;-webkit-font-smoothing:antialiased;}
+  a{text-decoration:none;color:inherit;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:600;font-size:15px;padding:13px 22px;border-radius:12px;cursor:pointer;border:1px solid transparent;transition:.18s ease;white-space:nowrap;}
+  .btn-primary{background:var(--blue);color:#fff;}
+  .btn-primary:hover{background:var(--blue-dark);transform:translateY(-1px);box-shadow:0 8px 20px rgba(37,99,235,.28);}
+  .btn-ghost{background:#fff;color:var(--ink);border-color:var(--line);}
+  .btn-ghost:hover{border-color:#cbd5e1;background:var(--bg);}
+
+  header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:70px;}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:-.02em;}
+  .brand .mark{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#2563eb,#60a5fa);display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;font-weight:800;}
+  .nav-links{display:flex;align-items:center;gap:30px;}
+  .nav-links a{font-size:15px;font-weight:500;color:var(--slate);transition:.15s;}
+  .nav-links a:hover{color:var(--ink);}
+  .nav-links a.active{color:var(--ink);font-weight:600;}
+  .nav-cta{display:flex;align-items:center;gap:14px;}
+  .menu-btn{display:none;background:none;border:none;cursor:pointer;font-size:24px;color:var(--ink);}
+
+  /* Page head */
+  .page-head{background:linear-gradient(180deg,#f8fbff,#ffffff);border-bottom:1px solid var(--line);padding:54px 0 40px;}
+  .crumb{font-size:14px;color:var(--slate-light);margin-bottom:14px;}
+  .crumb a:hover{color:var(--blue);}
+  .page-head h1{font-size:42px;letter-spacing:-.03em;font-weight:800;margin-bottom:8px;}
+  .page-head p{color:var(--slate);font-size:17px;}
+
+  /* Filter bar */
+  .filter-bar{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-top:26px;}
+  .field{display:flex;flex-direction:column;gap:6px;flex:1;min-width:150px;}
+  .field label{font-size:12px;font-weight:600;color:var(--slate-light);text-transform:uppercase;letter-spacing:.03em;padding-left:2px;}
+  .field select,.field input{appearance:none;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-family:inherit;font-size:15px;color:var(--ink);font-weight:500;cursor:pointer;transition:.15s;}
+  .field select:focus,.field input:focus{outline:none;border-color:var(--blue);background:#fff;box-shadow:0 0 0 3px rgba(37,99,235,.12);}
+  .field.search-field{flex:1.4;}
+  .filter-bar .btn{align-self:flex-end;height:46px;}
+
+  /* Results count */
+  .results-meta{display:flex;align-items:center;justify-content:space-between;margin:32px 0 22px;flex-wrap:wrap;gap:12px;}
+  .results-meta .count{font-size:15px;color:var(--slate);}
+  .results-meta .count b{color:var(--ink);font-weight:700;}
+  .results-meta .sort{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--slate-light);}
+  .results-meta .sort select{background:#fff;border:1px solid var(--line);border-radius:9px;padding:8px 12px;font-family:inherit;font-size:14px;font-weight:500;color:var(--ink);cursor:pointer;}
+
+  /* Rental cards */
+  .rentals-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;padding-bottom:20px;}
+  .rcard{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:.2s;}
+  .rcard:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:#cbd5e1;}
+  .rcard .photo{height:188px;position:relative;}
+  .rcard .photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(15,23,42,.22));}
+  .rphoto-1{background:linear-gradient(135deg,#0ea5e9,#1e40af);}
+  .rphoto-2{background:linear-gradient(135deg,#14b8a6,#0f766e);}
+  .rphoto-3{background:linear-gradient(135deg,#6366f1,#4338ca);}
+  .rphoto-4{background:linear-gradient(135deg,#f59e0b,#b45309);}
+  .rphoto-5{background:linear-gradient(135deg,#ec4899,#9d174d);}
+  .rphoto-6{background:linear-gradient(135deg,#10b981,#065f46);}
+  .rphoto-7{background:linear-gradient(135deg,#8b5cf6,#5b21b6);}
+  .rphoto-8{background:linear-gradient(135deg,#06b6d4,#0e7490);}
+  .rphoto-9{background:linear-gradient(135deg,#f43f5e,#9f1239);}
+  .rcard .badge{position:absolute;top:14px;left:14px;background:rgba(255,255,255,.95);color:var(--ink);font-size:12px;font-weight:600;padding:5px 11px;border-radius:999px;z-index:2;}
+  .rcard .badge.avail{background:#22c55e;color:#fff;}
+  .rcard-body{padding:18px 20px 20px;}
+  .rcard .price{font-size:22px;font-weight:800;letter-spacing:-.02em;}
+  .rcard .price small{font-size:14px;font-weight:600;color:var(--slate-light);}
+  .rcard .addr{color:var(--slate);font-size:14px;margin:4px 0 14px;}
+  .rcard .specs{display:flex;gap:16px;font-size:13px;color:var(--slate-light);border-top:1px solid var(--line);padding-top:14px;margin-bottom:16px;}
+  .rcard .specs b{color:var(--ink);font-weight:700;}
+  .rcard .apply{display:flex;align-items:center;justify-content:center;width:100%;font-weight:600;font-size:14px;color:#fff;background:var(--blue);padding:12px;border-radius:10px;transition:.15s;}
+  .rcard .apply:hover{background:var(--blue-dark);}
+
+  .back-row{padding:10px 0 70px;}
+  .back-link{display:inline-flex;align-items:center;gap:8px;color:var(--blue);font-weight:600;font-size:15px;}
+  .back-link:hover{text-decoration:underline;}
+
+  /* Footer */
+  footer{background:var(--ink);color:#94a3b8;padding:56px 0 30px;}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px;}
+  .foot-grid .brand{color:#fff;margin-bottom:14px;}
+  .foot-about{font-size:14px;max-width:280px;}
+  .foot-col h5{color:#fff;font-size:14px;font-weight:700;margin-bottom:16px;letter-spacing:.02em;}
+  .foot-col a{display:block;font-size:14px;color:#94a3b8;margin-bottom:11px;transition:.15s;}
+  .foot-col a:hover{color:#fff;}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:24px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;font-size:13px;}
+
+  @media (max-width:980px){
+    .rentals-grid{grid-template-columns:repeat(2,1fr);}
+    .foot-grid{grid-template-columns:1fr 1fr;gap:30px;}
+  }
+  @media (max-width:760px){
+    .nav-links{display:none;}
+    .menu-btn{display:block;}
+    .page-head h1{font-size:32px;}
+    .filter-bar{flex-direction:column;align-items:stretch;}
+    .filter-bar .btn{align-self:stretch;}
+    .rentals-grid{grid-template-columns:1fr;}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:480px){.foot-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="brand"><span class="mark">K</span>Keystone</a>
+    <nav class="nav-links">
+      <a href="rentals.html" class="active">Rentals</a>
+      <a href="index.html#owners">Owners</a>
+      <a href="index.html#residents">Residents</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="contact.html" class="btn btn-primary">List your property</a>
+      <button class="menu-btn" aria-label="Menu">&#9776;</button>
+    </div>
+  </div>
+</header>
+
+<!-- PAGE HEAD + FILTERS -->
+<section class="page-head">
+  <div class="wrap">
+    <div class="crumb"><a href="index.html">Home</a> &nbsp;/&nbsp; Rentals</div>
+    <h1>Available rentals</h1>
+    <p>Browse open units across the metro. Apply online in minutes — no application fee surprises.</p>
+
+    <div class="filter-bar">
+      <div class="field search-field">
+        <label>Area</label>
+        <input type="text" placeholder="City, neighborhood or ZIP" />
+      </div>
+      <div class="field">
+        <label>Beds</label>
+        <select>
+          <option>Any beds</option>
+          <option>Studio</option>
+          <option>1+ beds</option>
+          <option>2+ beds</option>
+          <option>3+ beds</option>
+          <option>4+ beds</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Price</label>
+        <select>
+          <option>Any price</option>
+          <option>Under $1,500</option>
+          <option>$1,500 – $2,000</option>
+          <option>$2,000 – $3,000</option>
+          <option>$3,000+</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Type</label>
+        <select>
+          <option>All types</option>
+          <option>Apartment</option>
+          <option>Townhome</option>
+          <option>Single-family</option>
+          <option>Condo</option>
+        </select>
+      </div>
+      <a href="rentals.html" class="btn btn-primary">Search</a>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<div class="wrap">
+  <div class="results-meta">
+    <div class="count"><b>9</b> rentals available</div>
+    <div class="sort">
+      Sort by
+      <select>
+        <option>Newest</option>
+        <option>Price: Low to High</option>
+        <option>Price: High to Low</option>
+        <option>Beds</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="rentals-grid">
+
+    <div class="rcard">
+      <div class="photo rphoto-1"><span class="badge avail">Available now</span></div>
+      <div class="rcard-body">
+        <div class="price">$2,150 <small>/mo</small></div>
+        <div class="addr">418 Maple Court, Riverside</div>
+        <div class="specs"><span><b>3</b> beds</span><span><b>2</b> baths</span><span><b>1,420</b> sqft</span></div>
+        <a href="contact.html" class="apply">Apply now</a>
+      </div>
+    </div>
+
+    <div class="rcard">
+      <div class="photo rphoto-2"><span class="badge">1 unit left</span></div>
+      <div class="rcard-body">
+        <div class="price">$1,675 <small>/mo</small></div>
+        <div class="addr">22 Linden Ave #4B, Midtown</div>
+        <div class="specs"><span><b>2</b> beds</span><span><b>1</b> bath</span><span><b>980</b> sqft</span></div>
+        <a href="contact.html" class="apply">Apply now</a>
+      </div>
+    </div>
+
+    <div class="rcard">
+      <div class="photo rphoto-3"><span class="badge avail">Available now</span></div>
+      <div class="rcard-body">
+        <div class="price">$3,400 <small>/mo</small></div>
+        <div class="addr">7 Harbor View Dr, Lakeside</div>
+        <div class="specs"><span><b>4</b> beds</span><span><b>3</b> baths</span><span><b>2,310</b> sqft</span></div>
+        <a href="contact.html" class="apply">Apply now</a>
+      </div>
+    </div>
+
+    <div class="rcard">
+      <div class="photo rphoto-4"><span class="badge">New listing</span></div>
+      <div class="rcard-body">
+        <div class="price">$1,295 <small>/mo</small></div>
+        <div class="addr">901 Oak Street #2, Eastgate</div>
+        <div class="specs"><span><b>1</b> bed</span><span><b>1</b> bath</span><span><b>640</b> sqft</span></div>
+        <a href="contact.html" class="apply">Apply now</a>
+      </div>
+    </div>
+
+    <div class="rcard">
+      <div class="photo rphoto-5"><span class="badge avail">Available now</span></div>
+      <div class="rcard-body">
+        <div class="price">$2,780 <small>/mo</small></div>
+        <div class="addr">55 Cedar Ridge Ln, Northpark</div>
+        <div class="specs"><span><b>3</b> beds</span><span><b>2.5</b> baths</span><span><b>1,790</b> sqft</span></div>
+        <a href="contact.html" class="apply">Apply now</a>
+      </div>
+    </div>
+
+    <div class="rcard">
+      <div class="photo rphoto-6"><span class="badge">Pet friendly</span></div>
+      <div class="rcard-body">
+        <div class="price">$1,950 <small>/mo</small></div>
+        <div class="addr">134 Birchwood Pl, Southside</div>
+        <div class="specs"><span><b>2</b> beds</span><span><b>2</b> baths</span><span><b>1,150</b> sqft</span></div>
+        <a href="contact.html" class="apply">Apply now</a>
+      </div>
+    </div>
+
+    <div class="rcard">
+      <div class="photo rphoto-7"><span class="badge avail">Available now</span></div>
+      <div class="rcard-body">
+        <div class="price">$2,425 <small>/mo</small></div>
+        <div class="addr">310 Willow Bend, Westview</div>
+        <div class="specs"><span><b>3</b> beds</span><span><b>2</b> baths</span><span><b>1,560</b> sqft</span></div>
+        <a href="contact.html" class="apply">Apply now</a>
+      </div>
+    </div>
+
+    <div class="rcard">
+      <div class="photo rphoto-8"><span class="badge">Move-in special</span></div>
+      <div class="rcard-body">
+        <div class="price">$1,520 <small>/mo</small></div>
+        <div class="addr">88 Aspen Way #3C, Downtown</div>
+        <div class="specs"><span><b>1</b> bed</span><span><b>1</b> bath</span><span><b>720</b> sqft</span></div>
+        <a href="contact.html" class="apply">Apply now</a>
+      </div>
+    </div>
+
+    <div class="rcard">
+      <div class="photo rphoto-9"><span class="badge avail">Available now</span></div>
+      <div class="rcard-body">
+        <div class="price">$3,950 <small>/mo</small></div>
+        <div class="addr">12 Sycamore Hill, Crestwood</div>
+        <div class="specs"><span><b>5</b> beds</span><span><b>3.5</b> baths</span><span><b>2,840</b> sqft</span></div>
+        <a href="contact.html" class="apply">Apply now</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="back-row">
+    <a href="index.html" class="back-link">&larr; Back to home</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="index.html" class="brand" style="color:#fff;"><span class="mark">K</span>Keystone</a>
+        <p class="foot-about">Full-service property management for owners and residents. Leasing, maintenance, and rent — handled right.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Company</h5>
+        <a href="index.html#owners">For owners</a>
+        <a href="index.html#residents">For residents</a>
+        <a href="rentals.html">Available rentals</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="foot-col">
+        <h5>Residents</h5>
+        <a href="contact.html">Apply now</a>
+        <a href="contact.html">Pay rent</a>
+        <a href="contact.html">Maintenance request</a>
+        <a href="contact.html">Resident portal</a>
+      </div>
+      <div class="foot-col">
+        <h5>Get in touch</h5>
+        <a href="contact.html">(555) 240-1180</a>
+        <a href="contact.html">hello@keystonepm.com</a>
+        <a href="contact.html">Mon–Fri, 9–6</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© Keystone Property Management · Template by Pilk.ai</span>
+      <span>Equal Housing Opportunity</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

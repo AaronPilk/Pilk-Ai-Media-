@@ -418,27 +418,14 @@ h4 {
   }
 }
 
-/* Positioning assembler */
+/* Positioning assembler — white, fully-rounded cards on a light section */
 .positioning-assembler {
   min-height: 100svh;
 }
-.positioning-grid {
-  box-shadow: 0 40px 120px -60px rgba(0, 0, 0, 0.8);
-}
-.positioning-card:nth-child(3n) {
-  border-right: 0;
-}
-.positioning-card:nth-child(n + 4) {
-  border-bottom: 0;
-}
-@media (max-width: 767px) {
-  .positioning-card {
-    border-right: 0;
-    border-bottom: 1px solid var(--line);
-  }
-  .positioning-card:last-child {
-    border-bottom: 0;
-  }
+.positioning-card {
+  background: #fff;
+  border: 1px solid rgba(20, 18, 28, 0.06);
+  box-shadow: 0 30px 70px -45px rgba(0, 0, 0, 0.28);
 }
 
 /* Showcase: 3D helix on desktop (motion ok), animated gallery on mobile / reduced-motion */

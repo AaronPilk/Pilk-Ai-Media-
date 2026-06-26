@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loan Programs — Beacon Lending</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal:#0f766e;--teal-dark:#0b5750;--teal-soft:#e6f5f2;--mint:#f0faf8;
+    --ink:#10241f;--slate:#4b5b57;--line:#e3ebe9;--bg:#ffffff;
+    --shadow:0 10px 30px -12px rgba(15,118,110,.18);
+    --shadow-sm:0 4px 16px -8px rgba(16,36,31,.18);--radius:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{text-decoration:none;color:inherit}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+
+  header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.18rem;letter-spacing:-.01em}
+  .brand .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--teal),#3aa99c);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;font-weight:800;box-shadow:var(--shadow-sm)}
+  .nav-links{display:flex;align-items:center;gap:30px}
+  .nav-links a{font-weight:500;color:var(--slate);font-size:.95rem;transition:color .15s}
+  .nav-links a:hover{color:var(--teal)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:600;font-size:.95rem;border-radius:10px;cursor:pointer;padding:11px 20px;transition:transform .12s,box-shadow .15s,background .15s;border:none}
+  .btn-primary{background:var(--teal);color:#fff;box-shadow:var(--shadow-sm)}
+  .btn-primary:hover{background:var(--teal-dark);transform:translateY(-1px)}
+
+  .page-hero{background:radial-gradient(800px 360px at 80% -20%,var(--teal-soft),transparent 60%),linear-gradient(180deg,#fff,var(--mint));padding:70px 0 56px;text-align:center}
+  .page-hero .eyebrow{color:var(--teal);font-weight:700;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase}
+  .page-hero h1{font-size:2.7rem;letter-spacing:-.025em;font-weight:800;margin:10px 0 14px}
+  .page-hero p{color:var(--slate);font-size:1.12rem;max-width:600px;margin:0 auto}
+
+  section{padding:60px 0}
+  .prog-detail{display:grid;grid-template-columns:1fr;gap:22px}
+  .pcard{
+    display:grid;grid-template-columns:280px 1fr;gap:30px;
+    background:#fff;border:1px solid var(--line);border-radius:20px;padding:32px;
+    box-shadow:var(--shadow-sm);transition:box-shadow .15s,border-color .15s;
+  }
+  .pcard:hover{box-shadow:var(--shadow);border-color:#cfe3df}
+  .pcard .side{display:flex;flex-direction:column}
+  .pcard .tag{display:inline-flex;align-self:flex-start;background:var(--teal-soft);color:var(--teal);font-weight:700;font-size:.78rem;padding:5px 12px;border-radius:999px;margin-bottom:14px;letter-spacing:.03em}
+  .pcard h2{font-size:1.55rem;font-weight:800;letter-spacing:-.02em;margin-bottom:8px}
+  .pcard .who{color:var(--slate);font-size:.96rem;margin-bottom:20px}
+  .pcard .apply{margin-top:auto}
+  .pcard .body h4{font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;color:var(--slate);margin-bottom:14px;font-weight:700}
+  .pcard ul{list-style:none}
+  .pcard li{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:.97rem}
+  .pcard li:last-child{border-bottom:none}
+  .pcard li::before{content:"✓";color:var(--teal);font-weight:800;flex-shrink:0}
+
+  .faq-sec{background:linear-gradient(180deg,var(--mint),#fff)}
+  .sec-head{max-width:620px;margin:0 auto 40px;text-align:center}
+  .sec-head .eyebrow{color:var(--teal);font-weight:700;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase}
+  .sec-head h2{font-size:2.1rem;letter-spacing:-.02em;font-weight:800;margin:10px 0 10px}
+  .sec-head p{color:var(--slate);font-size:1.05rem}
+  .faq-list{max-width:780px;margin:0 auto}
+  details{background:#fff;border:1px solid var(--line);border-radius:14px;padding:0 22px;margin-bottom:14px;transition:border-color .15s}
+  details[open]{border-color:#cfe3df;box-shadow:var(--shadow-sm)}
+  summary{list-style:none;cursor:pointer;padding:20px 0;font-weight:700;font-size:1.05rem;display:flex;justify-content:space-between;align-items:center;gap:16px}
+  summary::-webkit-details-marker{display:none}
+  summary .plus{color:var(--teal);font-size:1.4rem;font-weight:400;transition:transform .2s;flex-shrink:0}
+  details[open] summary .plus{transform:rotate(45deg)}
+  details p{color:var(--slate);padding:0 0 22px;font-size:.99rem;line-height:1.6}
+
+  .cta-band{background:linear-gradient(135deg,var(--teal),var(--teal-dark));border-radius:24px;padding:52px;text-align:center;color:#fff;box-shadow:var(--shadow)}
+  .cta-band h2{font-size:2.1rem;font-weight:800;letter-spacing:-.02em;margin-bottom:12px}
+  .cta-band p{opacity:.9;font-size:1.05rem;max-width:520px;margin:0 auto 26px}
+  .cta-band .btn{background:#fff;color:var(--teal);padding:15px 34px;font-size:1.02rem}
+  .cta-band .btn:hover{background:var(--mint);transform:translateY(-1px)}
+
+  footer{border-top:1px solid var(--line);background:var(--mint);padding:40px 0;margin-top:20px}
+  .foot-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+  .foot-inner .fbrand{display:flex;align-items:center;gap:9px;font-weight:700}
+  .foot-inner small{color:var(--slate);font-size:.88rem}
+  .foot-links{display:flex;gap:22px;font-size:.9rem;color:var(--slate)}
+  .foot-links a:hover{color:var(--teal)}
+  .mark-sm{width:24px;height:24px;font-size:.85rem;border-radius:7px;background:linear-gradient(135deg,var(--teal),#3aa99c);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800}
+
+  @media(max-width:820px){
+    .pcard{grid-template-columns:1fr;gap:20px}
+    .nav-links{display:none}
+    .page-hero h1{font-size:2.1rem}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="brand"><span class="mark">B</span>Beacon Lending</a>
+    <nav class="nav-links">
+      <a href="programs.html">Programs</a>
+      <a href="index.html#calculator">Calculator</a>
+      <a href="index.html#reviews">Reviews</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a href="contact.html" class="btn btn-primary">Apply now</a>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow">Loan programs</span>
+    <h1>Find the loan that fits.</h1>
+    <p>Every buyer is different. Here's a clear breakdown of our core programs — who they're for, and what the terms typically look like.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap prog-detail">
+
+    <div class="pcard">
+      <div class="side">
+        <span class="tag">Most popular</span>
+        <h2>Conventional</h2>
+        <p class="who">For buyers with good credit and a steady income looking for the lowest long-term cost.</p>
+        <a href="contact.html" class="btn btn-primary apply">Apply for conventional</a>
+      </div>
+      <div class="body">
+        <h4>Typical terms</h4>
+        <ul>
+          <li>As little as 3% down for qualified first-time buyers</li>
+          <li>Fixed terms of 30, 20, 15, or 10 years</li>
+          <li>PMI removable once you reach 20% equity</li>
+          <li>Credit scores generally 620 and above</li>
+          <li>Loan amounts up to the conforming limit</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <div class="side">
+        <span class="tag">Low down payment</span>
+        <h2>FHA</h2>
+        <p class="who">For first-time and lower-down buyers who want flexible credit requirements.</p>
+        <a href="contact.html" class="btn btn-primary apply">Apply for FHA</a>
+      </div>
+      <div class="body">
+        <h4>Typical terms</h4>
+        <ul>
+          <li>Down payments as low as 3.5%</li>
+          <li>Credit scores accepted from 580 (sometimes lower)</li>
+          <li>Government-backed for easier qualification</li>
+          <li>Gift funds allowed for down payment</li>
+          <li>Mortgage insurance applies for the life of most loans</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <div class="side">
+        <span class="tag">Zero down</span>
+        <h2>VA</h2>
+        <p class="who">For eligible veterans, active service members, and surviving spouses.</p>
+        <a href="contact.html" class="btn btn-primary apply">Apply for VA</a>
+      </div>
+      <div class="body">
+        <h4>Typical terms</h4>
+        <ul>
+          <li>0% down payment for eligible borrowers</li>
+          <li>No private mortgage insurance (PMI)</li>
+          <li>Competitive, often below-market rates</li>
+          <li>Flexible credit and DTI guidelines</li>
+          <li>Reusable benefit and limited closing costs</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <div class="side">
+        <span class="tag">High value</span>
+        <h2>Jumbo</h2>
+        <p class="who">For financing homes priced above standard conforming loan limits.</p>
+        <a href="contact.html" class="btn btn-primary apply">Apply for jumbo</a>
+      </div>
+      <div class="body">
+        <h4>Typical terms</h4>
+        <ul>
+          <li>Loan amounts above the conforming limit</li>
+          <li>Down payments typically 10–20%</li>
+          <li>Stronger credit and reserve requirements</li>
+          <li>Fixed and adjustable options available</li>
+          <li>Competitive rates for qualified borrowers</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <div class="side">
+        <span class="tag">Lower your rate</span>
+        <h2>Refinance</h2>
+        <p class="who">For homeowners who want to lower a rate, shorten a term, or tap equity.</p>
+        <a href="contact.html" class="btn btn-primary apply">Apply to refinance</a>
+      </div>
+      <div class="body">
+        <h4>Typical terms</h4>
+        <ul>
+          <li>Rate-and-term refinance to lower monthly payment</li>
+          <li>Cash-out refinance to access home equity</li>
+          <li>Streamline options for FHA and VA loans</li>
+          <li>Roll closing costs into the loan where eligible</li>
+          <li>Fast turnarounds — many close inside two weeks</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pcard">
+      <div class="side">
+        <span class="tag">First home</span>
+        <h2>First-time buyer</h2>
+        <p class="who">For people buying their very first home who want extra guidance and help.</p>
+        <a href="contact.html" class="btn btn-primary apply">Get started</a>
+      </div>
+      <div class="body">
+        <h4>Typical terms</h4>
+        <ul>
+          <li>Down-payment assistance and grant programs</li>
+          <li>Low- and no-down-payment loan options</li>
+          <li>Dedicated loan officer through the whole process</li>
+          <li>Education on credit, budgeting, and closing costs</li>
+          <li>State and local program matching</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="faq-sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">FAQ</span>
+      <h2>Questions, answered straight</h2>
+      <p>The things buyers ask us most — no fine print, no runaround.</p>
+    </div>
+    <div class="faq-list">
+      <details open>
+        <summary>How much do I need for a down payment? <span class="plus">+</span></summary>
+        <p>It depends on the program. Conventional loans can go as low as 3% down for qualified first-time buyers, FHA starts at 3.5%, and VA loans can require nothing down at all. We'll walk you through the lowest option you actually qualify for.</p>
+      </details>
+      <details>
+        <summary>Does getting pre-approved affect my credit? <span class="plus">+</span></summary>
+        <p>Checking your rate is a soft inquiry and won't affect your score. A full application involves a hard pull, but we'll always tell you before that happens so there are no surprises.</p>
+      </details>
+      <details>
+        <summary>How long does it take to close? <span class="plus">+</span></summary>
+        <p>Our average is 14 days from a complete application to closing. Some loans move faster, some take a little longer depending on appraisal and documentation — but we'll give you a realistic timeline up front and keep you posted.</p>
+      </details>
+      <details>
+        <summary>What credit score do I need? <span class="plus">+</span></summary>
+        <p>It varies by program. Conventional loans generally start around 620, FHA can go to 580 or lower, and VA is flexible. If your score isn't there yet, we'll give you a clear plan to get you ready.</p>
+      </details>
+      <details>
+        <summary>Can I refinance even if I bought recently? <span class="plus">+</span></summary>
+        <p>Often, yes. If rates have dropped or your situation has changed, a refinance can still make sense within the first year. We'll run the numbers and tell you honestly whether it's worth it for you.</p>
+      </details>
+      <details>
+        <summary>What do I need to apply? <span class="plus">+</span></summary>
+        <p>The basics: recent pay stubs, W-2s or tax returns, bank statements, and ID. If you're self-employed or have other income, we'll let you know exactly what to gather. The application itself takes about ten minutes.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="cta-band">
+      <h2>Not sure which program fits?</h2>
+      <p>Tell us a bit about your situation and we'll point you to the right loan — no pressure, no obligation.</p>
+      <a href="contact.html" class="btn">Talk to a loan officer</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <div>
+      <div class="fbrand"><span class="mark-sm">B</span>Beacon Lending</div>
+      <small>NMLS #000000 · Equal Housing Lender</small>
+    </div>
+    <div class="foot-links">
+      <a href="programs.html">Programs</a>
+      <a href="index.html#calculator">Calculator</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <small>© Beacon Lending · Template by Pilk.ai</small>
+  </div>
+</footer>
+
+</body>
+</html>

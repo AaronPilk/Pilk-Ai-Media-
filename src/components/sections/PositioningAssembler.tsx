@@ -98,7 +98,7 @@ export function PositioningAssembler() {
     <section
       ref={sectionRef}
       data-scene="positioning"
-      className="section positioning-assembler relative z-10 overflow-hidden"
+      className="section positioning-assembler env-light relative z-10 overflow-hidden"
     >
       <Container>
         <SectionLabel index="01">Positioning</SectionLabel>
@@ -111,20 +111,22 @@ export function PositioningAssembler() {
           {site.positioning.headline}
         </h2>
 
-        <div className="positioning-grid mt-16 grid overflow-hidden rounded-xl border border-line bg-[rgba(13,13,18,0.86)] backdrop-blur-xl md:grid-cols-3">
+        <div className="positioning-grid mt-16 grid gap-5 md:grid-cols-3">
           {site.positioning.points.map((point, index) => (
             <div
               key={point.title}
               ref={(element) => {
                 cardsRef.current[index] = element;
               }}
-              className="positioning-card min-h-[180px] border-line p-8 md:border-b md:border-r"
+              className="positioning-card min-h-[180px] rounded-[28px] bg-white p-8"
             >
-              <span className="text-xs uppercase tracking-[0.22em] text-muted">
+              <span className="text-xs uppercase tracking-[0.22em] text-[color:var(--text-on-light-muted)]">
                 {String(index + 1).padStart(2, "0")}
               </span>
-              <h3 className="mt-7 text-xl font-semibold">{point.title}</h3>
-              <p className="mt-3 text-sm text-muted">{point.body}</p>
+              <h3 className="mt-7 text-xl font-semibold text-[color:var(--text-on-light)]">
+                {point.title}
+              </h3>
+              <p className="mt-3 text-sm text-[color:var(--text-on-light-muted)]">{point.body}</p>
             </div>
           ))}
         </div>

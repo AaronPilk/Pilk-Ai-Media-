@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Keystone Property Management — Rentals managed right</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --blue:#2563eb;
+    --blue-dark:#1d4ed8;
+    --blue-soft:#eff4ff;
+    --ink:#0f172a;
+    --slate:#475569;
+    --slate-light:#64748b;
+    --line:#e2e8f0;
+    --bg:#f8fafc;
+    --white:#ffffff;
+    --radius:16px;
+    --shadow:0 1px 2px rgba(15,23,42,.04), 0 8px 24px rgba(15,23,42,.06);
+    --shadow-lg:0 12px 40px rgba(15,23,42,.10);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Plus Jakarta Sans',system-ui,-apple-system,sans-serif;color:var(--ink);background:var(--white);line-height:1.55;-webkit-font-smoothing:antialiased;}
+  a{text-decoration:none;color:inherit;}
+  img{max-width:100%;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+  section{padding:84px 0;}
+
+  /* Buttons */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:600;font-size:15px;padding:13px 22px;border-radius:12px;cursor:pointer;border:1px solid transparent;transition:.18s ease;white-space:nowrap;}
+  .btn-primary{background:var(--blue);color:#fff;}
+  .btn-primary:hover{background:var(--blue-dark);transform:translateY(-1px);box-shadow:0 8px 20px rgba(37,99,235,.28);}
+  .btn-ghost{background:#fff;color:var(--ink);border-color:var(--line);}
+  .btn-ghost:hover{border-color:#cbd5e1;background:var(--bg);}
+  .btn-light{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.28);}
+  .btn-light:hover{background:rgba(255,255,255,.24);}
+  .btn-white{background:#fff;color:var(--blue-dark);}
+  .btn-white:hover{transform:translateY(-1px);box-shadow:var(--shadow-lg);}
+
+  /* Nav */
+  header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:70px;}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:-.02em;}
+  .brand .mark{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#2563eb,#60a5fa);display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;font-weight:800;}
+  .nav-links{display:flex;align-items:center;gap:30px;}
+  .nav-links a{font-size:15px;font-weight:500;color:var(--slate);transition:.15s;}
+  .nav-links a:hover{color:var(--ink);}
+  .nav-cta{display:flex;align-items:center;gap:14px;}
+  .menu-btn{display:none;background:none;border:none;cursor:pointer;font-size:24px;color:var(--ink);}
+
+  /* Hero */
+  .hero{background:linear-gradient(180deg,#f8fbff 0%,#ffffff 100%);position:relative;overflow:hidden;padding:96px 0 90px;}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;}
+  .pill{display:inline-flex;align-items:center;gap:8px;background:var(--blue-soft);color:var(--blue-dark);font-weight:600;font-size:13px;padding:7px 14px;border-radius:999px;margin-bottom:22px;}
+  .pill .dot{width:7px;height:7px;border-radius:50%;background:#22c55e;}
+  .hero h1{font-size:54px;line-height:1.06;letter-spacing:-.03em;font-weight:800;margin-bottom:20px;}
+  .hero h1 span{color:var(--blue);}
+  .hero p.sub{font-size:19px;color:var(--slate);max-width:520px;margin-bottom:32px;}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
+  .hero-trust{margin-top:32px;display:flex;align-items:center;gap:18px;color:var(--slate-light);font-size:14px;}
+  .hero-trust .avatars{display:flex;}
+  .hero-trust .avatars span{width:34px;height:34px;border-radius:50%;border:2px solid #fff;margin-left:-10px;}
+  .hero-trust .avatars span:nth-child(1){background:linear-gradient(135deg,#60a5fa,#2563eb);}
+  .hero-trust .avatars span:nth-child(2){background:linear-gradient(135deg,#34d399,#059669);}
+  .hero-trust .avatars span:nth-child(3){background:linear-gradient(135deg,#fbbf24,#f59e0b);}
+  .hero-trust .avatars span:nth-child(4){background:linear-gradient(135deg,#c084fc,#7c3aed);}
+
+  .hero-visual{position:relative;}
+  .hero-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-lg);overflow:hidden;}
+  .hero-img{height:300px;background:linear-gradient(135deg,#1e3a8a 0%,#2563eb 45%,#60a5fa 100%);position:relative;}
+  .hero-img::after{content:"";position:absolute;inset:0;background:
+    radial-gradient(circle at 78% 22%, rgba(255,255,255,.22), transparent 42%),
+    linear-gradient(180deg, transparent 55%, rgba(15,23,42,.28));}
+  .hero-card-body{padding:18px 20px;display:flex;align-items:center;justify-content:space-between;}
+  .hero-card-body .price{font-weight:800;font-size:20px;}
+  .hero-card-body .addr{font-size:13px;color:var(--slate-light);}
+  .hero-card-body .tag{font-size:12px;font-weight:600;background:#dcfce7;color:#166534;padding:5px 11px;border-radius:999px;}
+  .float-badge{position:absolute;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-lg);padding:14px 16px;display:flex;align-items:center;gap:12px;}
+  .float-badge .ic{width:38px;height:38px;border-radius:10px;background:var(--blue-soft);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:18px;}
+  .float-badge .lbl{font-size:12px;color:var(--slate-light);}
+  .float-badge .val{font-weight:700;font-size:15px;}
+  .float-1{top:-22px;left:-26px;}
+  .float-2{bottom:-24px;right:-20px;}
+
+  /* Stats row */
+  .stats{background:var(--ink);color:#fff;border-radius:var(--radius);padding:38px 28px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:-40px;position:relative;z-index:5;box-shadow:var(--shadow-lg);}
+  .stat{text-align:center;}
+  .stat .num{font-size:34px;font-weight:800;letter-spacing:-.02em;}
+  .stat .lbl{font-size:14px;color:#94a3b8;margin-top:4px;}
+  .stat:not(:last-child){border-right:1px solid rgba(255,255,255,.1);}
+
+  /* Section heading */
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:40px;gap:24px;flex-wrap:wrap;}
+  .sec-head .eyebrow{color:var(--blue);font-weight:700;font-size:14px;letter-spacing:.02em;text-transform:uppercase;margin-bottom:10px;}
+  .sec-head h2{font-size:38px;letter-spacing:-.025em;font-weight:800;line-height:1.1;}
+  .sec-head p{color:var(--slate);font-size:16px;max-width:480px;margin-top:10px;}
+
+  /* Rental cards */
+  .rentals-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+  .rcard{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:.2s;}
+  .rcard:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:#cbd5e1;}
+  .rcard .photo{height:188px;position:relative;}
+  .rcard .photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(15,23,42,.22));}
+  .rphoto-1{background:linear-gradient(135deg,#0ea5e9,#1e40af);}
+  .rphoto-2{background:linear-gradient(135deg,#14b8a6,#0f766e);}
+  .rphoto-3{background:linear-gradient(135deg,#6366f1,#4338ca);}
+  .rphoto-4{background:linear-gradient(135deg,#f59e0b,#b45309);}
+  .rphoto-5{background:linear-gradient(135deg,#ec4899,#9d174d);}
+  .rphoto-6{background:linear-gradient(135deg,#10b981,#065f46);}
+  .rcard .badge{position:absolute;top:14px;left:14px;background:rgba(255,255,255,.95);color:var(--ink);font-size:12px;font-weight:600;padding:5px 11px;border-radius:999px;z-index:2;}
+  .rcard .badge.avail{background:#22c55e;color:#fff;}
+  .rcard-body{padding:18px 20px 20px;}
+  .rcard .price{font-size:22px;font-weight:800;letter-spacing:-.02em;}
+  .rcard .price small{font-size:14px;font-weight:600;color:var(--slate-light);}
+  .rcard .addr{color:var(--slate);font-size:14px;margin:4px 0 14px;}
+  .rcard .specs{display:flex;gap:16px;font-size:13px;color:var(--slate-light);border-top:1px solid var(--line);padding-top:14px;margin-bottom:16px;}
+  .rcard .specs b{color:var(--ink);font-weight:700;}
+  .rcard .view{display:flex;align-items:center;justify-content:center;width:100%;font-weight:600;font-size:14px;color:var(--blue);background:var(--blue-soft);padding:11px;border-radius:10px;transition:.15s;}
+  .rcard .view:hover{background:#e0eaff;}
+
+  /* Split section */
+  .split{background:var(--bg);}
+  .split-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:36px 34px;box-shadow:var(--shadow);}
+  .panel .ic-top{width:50px;height:50px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:18px;}
+  .panel.owner .ic-top{background:var(--blue-soft);color:var(--blue);}
+  .panel.resident .ic-top{background:#ecfdf5;color:#059669;}
+  .panel h3{font-size:24px;font-weight:800;letter-spacing:-.02em;margin-bottom:8px;}
+  .panel .desc{color:var(--slate);font-size:15px;margin-bottom:22px;}
+  .panel ul{list-style:none;display:flex;flex-direction:column;gap:13px;margin-bottom:26px;}
+  .panel li{display:flex;align-items:center;gap:12px;font-size:15px;font-weight:500;color:#334155;}
+  .panel li .chk{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;color:#fff;}
+  .panel.owner li .chk{background:var(--blue);}
+  .panel.resident li .chk{background:#10b981;}
+
+  /* How it works */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+  .step{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:32px 28px;position:relative;box-shadow:var(--shadow);}
+  .step .n{width:44px;height:44px;border-radius:12px;background:var(--ink);color:#fff;font-weight:800;font-size:18px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;}
+  .step h4{font-size:19px;font-weight:700;margin-bottom:8px;}
+  .step p{color:var(--slate);font-size:15px;}
+
+  /* CTA band */
+  .cta-band{background:linear-gradient(135deg,#1e3a8a,#2563eb);border-radius:24px;padding:60px 56px;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:40px;position:relative;overflow:hidden;}
+  .cta-band::after{content:"";position:absolute;top:-40%;right:-10%;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.16),transparent 65%);}
+  .cta-band h2{font-size:36px;letter-spacing:-.025em;font-weight:800;line-height:1.1;position:relative;}
+  .cta-band p{color:rgba(255,255,255,.82);font-size:17px;margin-top:12px;max-width:440px;position:relative;}
+  .cta-band .actions{display:flex;gap:14px;flex-shrink:0;position:relative;}
+
+  /* Footer */
+  footer{background:var(--ink);color:#94a3b8;padding:56px 0 30px;}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px;}
+  .foot-grid .brand{color:#fff;margin-bottom:14px;}
+  .foot-about{font-size:14px;max-width:280px;}
+  .foot-col h5{color:#fff;font-size:14px;font-weight:700;margin-bottom:16px;letter-spacing:.02em;}
+  .foot-col a{display:block;font-size:14px;color:#94a3b8;margin-bottom:11px;transition:.15s;}
+  .foot-col a:hover{color:#fff;}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:24px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;font-size:13px;}
+
+  @media (max-width:980px){
+    .hero-grid{grid-template-columns:1fr;gap:44px;}
+    .hero h1{font-size:42px;}
+    .rentals-grid,.steps{grid-template-columns:repeat(2,1fr);}
+    .foot-grid{grid-template-columns:1fr 1fr;gap:30px;}
+  }
+  @media (max-width:760px){
+    section{padding:60px 0;}
+    .nav-links{display:none;}
+    .menu-btn{display:block;}
+    .hero h1{font-size:34px;}
+    .hero p.sub{font-size:17px;}
+    .stats{grid-template-columns:1fr 1fr;gap:24px 0;}
+    .stat:nth-child(odd){border-right:1px solid rgba(255,255,255,.1);}
+    .stat:nth-child(even){border-right:none;}
+    .rentals-grid,.steps,.split-grid{grid-template-columns:1fr;}
+    .sec-head h2,.cta-band h2{font-size:30px;}
+    .cta-band{flex-direction:column;align-items:flex-start;padding:44px 32px;}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+    .float-1{left:-8px;top:-14px;}.float-2{right:-6px;}
+  }
+  @media (max-width:480px){
+    .stats{grid-template-columns:1fr;}
+    .stat{border-right:none!important;padding-bottom:18px;}
+    .foot-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="brand"><span class="mark">K</span>Keystone</a>
+    <nav class="nav-links">
+      <a href="rentals.html">Rentals</a>
+      <a href="index.html#owners">Owners</a>
+      <a href="index.html#residents">Residents</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="contact.html" class="btn btn-primary">List your property</a>
+      <button class="menu-btn" aria-label="Menu">&#9776;</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="pill"><span class="dot"></span> Now leasing across the metro</span>
+      <h1>Rentals managed right. <span>Owners paid on time.</span></h1>
+      <p class="sub">Full-service property management for owners who want passive income and residents who want a home that just works. Leasing, maintenance, and rent — handled.</p>
+      <div class="hero-actions">
+        <a href="rentals.html" class="btn btn-primary">Find a rental</a>
+        <a href="contact.html" class="btn btn-ghost">List your property</a>
+      </div>
+      <div class="hero-trust">
+        <div class="avatars"><span></span><span></span><span></span><span></span></div>
+        <span>Trusted by 600+ local owners</span>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div class="hero-img"></div>
+        <div class="hero-card-body">
+          <div>
+            <div class="price">$2,150<small style="font-weight:600;font-size:13px;color:#64748b">/mo</small></div>
+            <div class="addr">418 Maple Court · Riverside</div>
+          </div>
+          <span class="tag">Leased in 9 days</span>
+        </div>
+      </div>
+      <div class="float-badge float-1">
+        <div class="ic">&#128181;</div>
+        <div><div class="lbl">Owner payout</div><div class="val">On the 1st, every month</div></div>
+      </div>
+      <div class="float-badge float-2">
+        <div class="ic">&#128295;</div>
+        <div><div class="lbl">Maintenance</div><div class="val">24/7 response</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="wrap">
+  <div class="stats">
+    <div class="stat"><div class="num">1,200+</div><div class="lbl">Units managed</div></div>
+    <div class="stat"><div class="num">98%</div><div class="lbl">Occupancy rate</div></div>
+    <div class="stat"><div class="num">24/7</div><div class="lbl">Maintenance line</div></div>
+    <div class="stat"><div class="num">14 days</div><div class="lbl">Avg. time to lease</div></div>
+  </div>
+</div>
+
+<!-- FEATURED RENTALS -->
+<section id="rentals">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="eyebrow">Featured rentals</div>
+        <h2>Move-in ready homes</h2>
+        <p>Hand-picked listings updated daily. Apply online and hear back within 48 hours.</p>
+      </div>
+      <a href="rentals.html" class="btn btn-ghost">View all rentals &rarr;</a>
+    </div>
+    <div class="rentals-grid">
+
+      <div class="rcard">
+        <div class="photo rphoto-1"><span class="badge avail">Available now</span></div>
+        <div class="rcard-body">
+          <div class="price">$2,150 <small>/mo</small></div>
+          <div class="addr">418 Maple Court, Riverside</div>
+          <div class="specs"><span><b>3</b> beds</span><span><b>2</b> baths</span><span><b>1,420</b> sqft</span></div>
+          <a href="rentals.html" class="view">View details</a>
+        </div>
+      </div>
+
+      <div class="rcard">
+        <div class="photo rphoto-2"><span class="badge">1 unit left</span></div>
+        <div class="rcard-body">
+          <div class="price">$1,675 <small>/mo</small></div>
+          <div class="addr">22 Linden Ave #4B, Midtown</div>
+          <div class="specs"><span><b>2</b> beds</span><span><b>1</b> bath</span><span><b>980</b> sqft</span></div>
+          <a href="rentals.html" class="view">View details</a>
+        </div>
+      </div>
+
+      <div class="rcard">
+        <div class="photo rphoto-3"><span class="badge avail">Available now</span></div>
+        <div class="rcard-body">
+          <div class="price">$3,400 <small>/mo</small></div>
+          <div class="addr">7 Harbor View Dr, Lakeside</div>
+          <div class="specs"><span><b>4</b> beds</span><span><b>3</b> baths</span><span><b>2,310</b> sqft</span></div>
+          <a href="rentals.html" class="view">View details</a>
+        </div>
+      </div>
+
+      <div class="rcard">
+        <div class="photo rphoto-4"><span class="badge">New listing</span></div>
+        <div class="rcard-body">
+          <div class="price">$1,295 <small>/mo</small></div>
+          <div class="addr">901 Oak Street #2, Eastgate</div>
+          <div class="specs"><span><b>1</b> bed</span><span><b>1</b> bath</span><span><b>640</b> sqft</span></div>
+          <a href="rentals.html" class="view">View details</a>
+        </div>
+      </div>
+
+      <div class="rcard">
+        <div class="photo rphoto-5"><span class="badge avail">Available now</span></div>
+        <div class="rcard-body">
+          <div class="price">$2,780 <small>/mo</small></div>
+          <div class="addr">55 Cedar Ridge Ln, Northpark</div>
+          <div class="specs"><span><b>3</b> beds</span><span><b>2.5</b> baths</span><span><b>1,790</b> sqft</span></div>
+          <a href="rentals.html" class="view">View details</a>
+        </div>
+      </div>
+
+      <div class="rcard">
+        <div class="photo rphoto-6"><span class="badge">Pet friendly</span></div>
+        <div class="rcard-body">
+          <div class="price">$1,950 <small>/mo</small></div>
+          <div class="addr">134 Birchwood Pl, Southside</div>
+          <div class="specs"><span><b>2</b> beds</span><span><b>2</b> baths</span><span><b>1,150</b> sqft</span></div>
+          <a href="rentals.html" class="view">View details</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- OWNERS vs RESIDENTS -->
+<section class="split">
+  <div class="wrap">
+    <div class="sec-head" style="justify-content:center;text-align:center;flex-direction:column;align-items:center;">
+      <div>
+        <div class="eyebrow">Built for both sides</div>
+        <h2>One platform. Two happy parties.</h2>
+        <p style="margin-left:auto;margin-right:auto;">Whether you own the property or live in it, Keystone keeps everything smooth, transparent, and on schedule.</p>
+      </div>
+    </div>
+    <div class="split-grid">
+
+      <div class="panel owner" id="owners">
+        <div class="ic-top">&#127968;</div>
+        <h3>For Owners</h3>
+        <p class="desc">Hands-off income. We handle the work, you collect the rent.</p>
+        <ul>
+          <li><span class="chk">&#10003;</span> Marketing &amp; leasing</li>
+          <li><span class="chk">&#10003;</span> Rent collection</li>
+          <li><span class="chk">&#10003;</span> Maintenance coordination</li>
+          <li><span class="chk">&#10003;</span> Monthly owner statements</li>
+        </ul>
+        <a href="contact.html" class="btn btn-primary">List your property</a>
+      </div>
+
+      <div class="panel resident" id="residents">
+        <div class="ic-top">&#128273;</div>
+        <h3>For Residents</h3>
+        <p class="desc">A home that works — and a team that actually answers.</p>
+        <ul>
+          <li><span class="chk">&#10003;</span> Online applications</li>
+          <li><span class="chk">&#10003;</span> Easy rent payments</li>
+          <li><span class="chk">&#10003;</span> Fast maintenance requests</li>
+          <li><span class="chk">&#10003;</span> 24/7 resident portal</li>
+        </ul>
+        <a href="rentals.html" class="btn btn-ghost">Browse rentals</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section>
+  <div class="wrap">
+    <div class="sec-head" style="justify-content:center;text-align:center;flex-direction:column;align-items:center;">
+      <div>
+        <div class="eyebrow">How it works</div>
+        <h2>From listing to leased in three steps</h2>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="n">1</div>
+        <h4>Tell us about your property</h4>
+        <p>Share the address and details. We run a free rental analysis and pricing strategy within 24 hours.</p>
+      </div>
+      <div class="step">
+        <div class="n">2</div>
+        <h4>We market &amp; screen</h4>
+        <p>Pro photos, syndicated listings, and rigorous tenant screening to find the right resident fast.</p>
+      </div>
+      <div class="step">
+        <div class="n">3</div>
+        <h4>You get paid</h4>
+        <p>Rent collected, maintenance handled, and a clean statement deposited to your account every month.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section style="padding-top:0;">
+  <div class="wrap">
+    <div class="cta-band">
+      <div>
+        <h2>Ready to hand off the headaches?</h2>
+        <p>Get a free rental analysis and see what your property could earn under professional management.</p>
+      </div>
+      <div class="actions">
+        <a href="contact.html" class="btn btn-white">List your property</a>
+        <a href="rentals.html" class="btn btn-light">Browse rentals</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="index.html" class="brand" style="color:#fff;"><span class="mark">K</span>Keystone</a>
+        <p class="foot-about">Full-service property management for owners and residents. Leasing, maintenance, and rent — handled right.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Company</h5>
+        <a href="index.html#owners">For owners</a>
+        <a href="index.html#residents">For residents</a>
+        <a href="rentals.html">Available rentals</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="foot-col">
+        <h5>Residents</h5>
+        <a href="contact.html">Apply now</a>
+        <a href="contact.html">Pay rent</a>
+        <a href="contact.html">Maintenance request</a>
+        <a href="contact.html">Resident portal</a>
+      </div>
+      <div class="foot-col">
+        <h5>Get in touch</h5>
+        <a href="contact.html">(555) 240-1180</a>
+        <a href="contact.html">hello@keystonepm.com</a>
+        <a href="contact.html">Mon–Fri, 9–6</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© Keystone Property Management · Template by Pilk.ai</span>
+      <span>Equal Housing Opportunity</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

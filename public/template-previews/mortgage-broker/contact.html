@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apply or Ask — Beacon Lending</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal:#0f766e;--teal-dark:#0b5750;--teal-soft:#e6f5f2;--mint:#f0faf8;
+    --ink:#10241f;--slate:#4b5b57;--line:#e3ebe9;--bg:#ffffff;
+    --shadow:0 10px 30px -12px rgba(15,118,110,.18);
+    --shadow-sm:0 4px 16px -8px rgba(16,36,31,.18);--radius:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{text-decoration:none;color:inherit}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+
+  header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.18rem;letter-spacing:-.01em}
+  .brand .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--teal),#3aa99c);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;font-weight:800;box-shadow:var(--shadow-sm)}
+  .nav-links{display:flex;align-items:center;gap:30px}
+  .nav-links a{font-weight:500;color:var(--slate);font-size:.95rem;transition:color .15s}
+  .nav-links a:hover{color:var(--teal)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:600;font-size:.95rem;border-radius:10px;cursor:pointer;padding:11px 20px;transition:transform .12s,box-shadow .15s,background .15s;border:none}
+  .btn-primary{background:var(--teal);color:#fff;box-shadow:var(--shadow-sm)}
+  .btn-primary:hover{background:var(--teal-dark);transform:translateY(-1px)}
+
+  .page-hero{background:radial-gradient(800px 360px at 80% -20%,var(--teal-soft),transparent 60%),linear-gradient(180deg,#fff,var(--mint));padding:64px 0 48px;text-align:center}
+  .page-hero .eyebrow{color:var(--teal);font-weight:700;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase}
+  .page-hero h1{font-size:2.6rem;letter-spacing:-.025em;font-weight:800;margin:10px 0 12px}
+  .page-hero p{color:var(--slate);font-size:1.1rem;max-width:560px;margin:0 auto}
+
+  .contact-sec{padding:60px 0 70px}
+  .contact-grid{display:grid;grid-template-columns:1.25fr .85fr;gap:40px;align-items:start}
+
+  .form-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:34px;box-shadow:var(--shadow-sm)}
+  .form-card h2{font-size:1.4rem;font-weight:800;letter-spacing:-.015em;margin-bottom:6px}
+  .form-card .lead{color:var(--slate);font-size:.98rem;margin-bottom:26px}
+  .field{margin-bottom:18px}
+  .field label{display:block;font-size:.85rem;font-weight:600;color:var(--slate);margin-bottom:7px}
+  .field input,.field select,.field textarea{
+    width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;
+    font-family:inherit;font-size:1rem;color:var(--ink);background:#fff;transition:border-color .15s;
+  }
+  .field textarea{resize:vertical;min-height:110px}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--teal)}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .form-card .submit{width:100%;padding:14px;font-size:1.02rem;margin-top:6px}
+  .form-card .fineprint{margin-top:14px;font-size:.8rem;color:var(--slate);text-align:center}
+
+  .info-col{display:flex;flex-direction:column;gap:22px}
+  .info-card{background:linear-gradient(160deg,var(--teal),var(--teal-dark));color:#fff;border-radius:20px;padding:30px;box-shadow:var(--shadow)}
+  .info-card h3{font-size:1.15rem;font-weight:800;margin-bottom:18px}
+  .info-row{display:flex;gap:13px;padding:12px 0;border-top:1px solid rgba(255,255,255,.2)}
+  .info-row:first-of-type{border-top:none}
+  .info-row .ic{width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem}
+  .info-row .lbl{font-size:.78rem;opacity:.8;margin-bottom:2px}
+  .info-row .val{font-weight:700;font-size:.98rem}
+
+  .steps-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:30px;box-shadow:var(--shadow-sm)}
+  .steps-card h3{font-size:1.1rem;font-weight:800;margin-bottom:20px}
+  .step{display:flex;gap:15px;margin-bottom:18px}
+  .step:last-child{margin-bottom:0}
+  .step .n{width:30px;height:30px;border-radius:50%;background:var(--teal-soft);color:var(--teal);font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.92rem}
+  .step .st{font-weight:700;font-size:.97rem;margin-bottom:2px}
+  .step .sd{color:var(--slate);font-size:.9rem;line-height:1.5}
+
+  footer{border-top:1px solid var(--line);background:var(--mint);padding:40px 0;margin-top:0}
+  .foot-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+  .foot-inner .fbrand{display:flex;align-items:center;gap:9px;font-weight:700}
+  .foot-inner small{color:var(--slate);font-size:.88rem}
+  .foot-links{display:flex;gap:22px;font-size:.9rem;color:var(--slate)}
+  .foot-links a:hover{color:var(--teal)}
+  .mark-sm{width:24px;height:24px;font-size:.85rem;border-radius:7px;background:linear-gradient(135deg,var(--teal),#3aa99c);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800}
+
+  @media(max-width:880px){
+    .contact-grid{grid-template-columns:1fr}
+    .nav-links{display:none}
+    .page-hero h1{font-size:2.1rem}
+  }
+  @media(max-width:520px){
+    .field-row{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="brand"><span class="mark">B</span>Beacon Lending</a>
+    <nav class="nav-links">
+      <a href="programs.html">Programs</a>
+      <a href="index.html#calculator">Calculator</a>
+      <a href="index.html#reviews">Reviews</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a href="contact.html" class="btn btn-primary">Apply now</a>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow">Get started</span>
+    <h1>Apply or ask a question.</h1>
+    <p>Fill out the form and a loan officer will reach out — usually the same business day. No obligation, no pressure.</p>
+  </div>
+</section>
+
+<section class="contact-sec">
+  <div class="wrap contact-grid">
+
+    <!-- FORM -->
+    <div class="form-card">
+      <h2>Start your application</h2>
+      <p class="lead">Takes about ten minutes. We'll follow up to confirm details and next steps.</p>
+      <form action="#" method="post">
+        <div class="field-row">
+          <div class="field">
+            <label for="fn">First name</label>
+            <input id="fn" name="first_name" type="text" placeholder="Jane" required>
+          </div>
+          <div class="field">
+            <label for="ln">Last name</label>
+            <input id="ln" name="last_name" type="text" placeholder="Doe" required>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="em">Email</label>
+            <input id="em" name="email" type="email" placeholder="jane@email.com" required>
+          </div>
+          <div class="field">
+            <label for="ph">Phone</label>
+            <input id="ph" name="phone" type="tel" placeholder="(555) 123-4567" required>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="purpose">Loan purpose</label>
+            <select id="purpose" name="purpose">
+              <option>Purchase</option>
+              <option>Refinance</option>
+              <option>Not sure</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="price">Estimated home price</label>
+            <input id="price" name="price" type="text" placeholder="$425,000">
+          </div>
+        </div>
+        <div class="field">
+          <label for="msg">Message</label>
+          <textarea id="msg" name="message" placeholder="Tell us a little about what you're looking for..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary submit">Submit application →</button>
+        <p class="fineprint">By submitting, you agree to be contacted about your inquiry. Checking your rate won't affect your credit score.</p>
+      </form>
+    </div>
+
+    <!-- INFO -->
+    <div class="info-col">
+      <div class="info-card">
+        <h3>Reach a loan officer</h3>
+        <div class="info-row">
+          <div class="ic">☎</div>
+          <div><div class="lbl">Phone</div><div class="val">(555) 200-3400</div></div>
+        </div>
+        <div class="info-row">
+          <div class="ic">✉</div>
+          <div><div class="lbl">Email</div><div class="val">hello@beaconlending.com</div></div>
+        </div>
+        <div class="info-row">
+          <div class="ic">⌚</div>
+          <div><div class="lbl">Hours</div><div class="val">Mon–Fri 8a–7p · Sat 9a–2p</div></div>
+        </div>
+        <div class="info-row">
+          <div class="ic">#</div>
+          <div><div class="lbl">Licensing</div><div class="val">NMLS #000000 · Equal Housing Lender</div></div>
+        </div>
+      </div>
+
+      <div class="steps-card">
+        <h3>What happens next</h3>
+        <div class="step">
+          <div class="n">1</div>
+          <div><div class="st">We review your info</div><div class="sd">A loan officer looks over your application and confirms the best program for you.</div></div>
+        </div>
+        <div class="step">
+          <div class="n">2</div>
+          <div><div class="st">We reach out</div><div class="sd">Expect a call or email — usually the same business day — to walk through your options and real numbers.</div></div>
+        </div>
+        <div class="step">
+          <div class="n">3</div>
+          <div><div class="st">You get pre-approved</div><div class="sd">Once you're ready, we issue your pre-approval letter so you can shop and offer with confidence.</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <div>
+      <div class="fbrand"><span class="mark-sm">B</span>Beacon Lending</div>
+      <small>NMLS #000000 · Equal Housing Lender</small>
+    </div>
+    <div class="foot-links">
+      <a href="programs.html">Programs</a>
+      <a href="index.html#calculator">Calculator</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <small>© Beacon Lending · Template by Pilk.ai</small>
+  </div>
+</footer>
+
+</body>
+</html>

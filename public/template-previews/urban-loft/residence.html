@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Residence 2208 — LOFT52</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800&family=Inter:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0c0c0f;
+        --panel: #141418;
+        --ink: #f3f2f5;
+        --muted: #9b97a6;
+        --line: rgba(255,255,255,0.1);
+        --accent: #8b5cf6;
+        --accent2: #c4b5fd;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+      body { font-family: Inter, system-ui, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; }
+      a { color: inherit; text-decoration: none; }
+      .display { font-family: Archivo, system-ui, sans-serif; }
+      .wrap { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 28px; }
+      .nav { position: sticky; top: 0; z-index: 20; background: rgba(12,12,15,0.85); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+      .nav__in { display: flex; align-items: center; justify-content: space-between; height: 74px; }
+      .brand { font-family: Archivo, sans-serif; font-weight: 800; letter-spacing: -0.03em; font-size: 21px; }
+      .brand span { color: var(--accent2); }
+      .nav__links { display: flex; gap: 30px; font-size: 14px; }
+      .nav__links a { color: var(--muted); }
+      .nav__links a:hover { color: #fff; }
+      .btn { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; font-weight: 600; font-size: 14px; padding: 12px 22px; border-radius: 10px; }
+      .btn--ghost { background: transparent; border: 1px solid var(--line); }
+      .crumb { padding: 28px 0 0; font-size: 13px; color: var(--muted); }
+      .crumb a:hover { color: #fff; }
+      .uhero { padding: 30px 0 50px; }
+      .eyebrow { text-transform: uppercase; letter-spacing: 0.24em; font-size: 12px; color: var(--accent2); font-weight: 600; }
+      .uhero h1 { font-family: Archivo, sans-serif; font-weight: 800; font-size: clamp(38px, 6vw, 72px); line-height: 0.96; letter-spacing: -0.045em; margin: 14px 0 0; }
+      .uhero__img { margin-top: 28px; min-height: 420px; border-radius: 22px; border: 1px solid var(--line); background: radial-gradient(circle at 70% 30%, rgba(139,92,246,0.5), transparent 60%), linear-gradient(140deg, #211b35, #0c0c0f); }
+      .uhead { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 18px; margin-top: 32px; }
+      .uprice { font-family: Archivo, sans-serif; font-size: clamp(34px, 5vw, 48px); font-weight: 800; letter-spacing: -0.02em; }
+      .umeta { display: flex; gap: 22px; margin-top: 16px; color: var(--muted); font-size: 15px; flex-wrap: wrap; }
+      .umeta span { display: inline-flex; }
+      .section { padding: 64px 0; }
+      .section h2 { font-family: Archivo, sans-serif; font-weight: 800; font-size: clamp(26px, 4vw, 40px); letter-spacing: -0.03em; }
+      .sub { color: var(--muted); margin-top: 8px; max-width: 50ch; }
+      .gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 28px; }
+      .gallery div { aspect-ratio: 4/3; border-radius: 16px; border: 1px solid var(--line); }
+      .gallery div:nth-child(1) { background: linear-gradient(135deg, #3b2f63, #8b5cf6 60%, #c4b5fd); }
+      .gallery div:nth-child(2) { background: linear-gradient(135deg, #1f2a44, #3b82f6 60%, #93c5fd); }
+      .gallery div:nth-child(3) { background: linear-gradient(135deg, #3a2330, #db2777 60%, #f9a8d4); }
+      .feat { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 28px; }
+      .feat__item { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 24px; }
+      .feat__item b { font-family: Archivo, sans-serif; display: block; font-size: 17px; margin-bottom: 6px; }
+      .feat__item span { color: var(--muted); font-size: 13px; }
+      .amen { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 28px; }
+      .amen__item { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 24px; }
+      .amen__item b { font-family: Archivo, sans-serif; display: block; font-size: 17px; margin-bottom: 6px; }
+      .amen__item span { color: var(--muted); font-size: 13px; }
+      .band { text-align: center; padding: 90px 0; }
+      .band h2 { font-family: Archivo, sans-serif; font-weight: 800; font-size: clamp(30px, 5vw, 56px); letter-spacing: -0.03em; }
+      .band p { color: var(--muted); margin: 14px 0 28px; }
+      footer { border-top: 1px solid var(--line); padding: 40px 0; color: var(--muted); font-size: 14px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+      @media (max-width: 900px) {
+        .nav__links { display: none; }
+        .gallery { grid-template-columns: 1fr; }
+        .feat { grid-template-columns: 1fr; }
+        .amen { grid-template-columns: 1fr 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="nav">
+      <div class="wrap nav__in">
+        <div class="brand"><a href="index.html">LOFT<span>52</span></a></div>
+        <nav class="nav__links">
+          <a href="index.html#residences">Residences</a>
+          <a href="index.html#amenities">Amenities</a>
+          <a href="index.html#about">About</a>
+          <a href="contact.html">Inquire</a>
+        </nav>
+        <a class="btn" href="contact.html">Book a tour</a>
+      </div>
+    </header>
+
+    <main>
+      <div class="wrap crumb"><a href="index.html">Residences</a> · Residence 2208</div>
+
+      <section class="uhero">
+        <div class="wrap">
+          <p class="eyebrow">Residence 2208 · Corner</p>
+          <h1>Corner residence, bay light all day.</h1>
+          <div class="uhero__img"></div>
+          <div class="uhead">
+            <div>
+              <div class="uprice">$720,000</div>
+              <div class="umeta"><span>2 bd</span><span>2 ba</span><span>1,310 sqft</span><span>Floor 22</span></div>
+            </div>
+            <a class="btn" href="contact.html">Book a tour</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap">
+          <h2>Gallery</h2>
+          <p class="sub">Interiors, views, and finishes.</p>
+          <div class="gallery">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" style="background:var(--panel)">
+        <div class="wrap">
+          <h2>Finishes &amp; features</h2>
+          <p class="sub">Every detail specified for the residence.</p>
+          <div class="feat">
+            <div class="feat__item"><b>Floor-to-ceiling glass</b><span>Wraparound corner windows with bay and skyline views</span></div>
+            <div class="feat__item"><b>Italian cabinetry</b><span>Custom kitchen and bath millwork with stone surfaces</span></div>
+            <div class="feat__item"><b>Private balcony</b><span>Outdoor terrace off the main living space</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap">
+          <h2>Building amenities</h2>
+          <p class="sub">Designed for the way you actually live.</p>
+          <div class="amen">
+            <div class="amen__item"><b>Rooftop pool</b><span>Infinity edge with bay views</span></div>
+            <div class="amen__item"><b>Fitness club</b><span>24/7 with trainers on call</span></div>
+            <div class="amen__item"><b>Resident lounge</b><span>Co-working &amp; private dining</span></div>
+            <div class="amen__item"><b>Concierge</b><span>Valet, packages, and more</span></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <section class="band">
+      <div class="wrap">
+        <h2>See it in person.</h2>
+        <p>Private appointments available daily.</p>
+        <a class="btn" href="contact.html">Book a tour</a>
+      </div>
+    </section>
+
+    <footer class="wrap">
+      <div>© LOFT52 Residences · Template by Pilk.ai</div>
+      <div>(000) 000-0000 · sales@example.com</div>
+    </footer>
+  </body>
+</html>

@@ -46,7 +46,7 @@
       .section h2 { font-family: Fraunces, serif; font-size: clamp(30px, 4.5vw, 52px); font-weight: 600; }
       .sub { color: var(--muted); margin-top: 8px; max-width: 50ch; }
       .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 36px; }
-      .card { background: #fff; border: 1px solid var(--line); border-radius: 22px; overflow: hidden; transition: transform 0.3s; }
+      .card { display: block; background: #fff; border: 1px solid var(--line); border-radius: 22px; overflow: hidden; transition: transform 0.3s; }
       .card:hover { transform: translateY(-5px); }
       .card__img { aspect-ratio: 4/3; background: linear-gradient(140deg, #a9dccf, #2c9d8a 60%, #1f5e54); }
       .card:nth-child(2) .card__img { background: linear-gradient(140deg, #f0d9a8, #d99a5b 60%, #9a623a); }
@@ -83,9 +83,9 @@
           <a href="#listings">Homes</a>
           <a href="#life">Lifestyle</a>
           <a href="#agent">Our Team</a>
-          <a href="#contact">Contact</a>
+          <a href="contact.html">Contact</a>
         </nav>
-        <a class="btn" href="#contact">Plan your move</a>
+        <a class="btn" href="contact.html">Plan your move</a>
       </div>
     </header>
 
@@ -109,9 +109,9 @@
         <h2>Coastal homes</h2>
         <p class="sub">Fresh listings along the Gulf.</p>
         <div class="grid">
-          <article class="card"><div class="card__img"></div><div class="card__body"><div class="card__price">$685,000</div><div class="card__addr">22 Gulfview Way, Indian Rocks</div><div class="card__meta"><span>3 bd</span><span>2 ba</span><span>1,820 sqft</span></div></div></article>
-          <article class="card"><div class="card__img"></div><div class="card__body"><div class="card__price">$1,290,000</div><div class="card__addr">5 Pelican Pt, Treasure Island</div><div class="card__meta"><span>4 bd</span><span>3 ba</span><span>2,940 sqft</span></div></div></article>
-          <article class="card"><div class="card__img"></div><div class="card__body"><div class="card__price">$499,000</div><div class="card__addr">310 Bayway Blvd #4, Clearwater</div><div class="card__meta"><span>2 bd</span><span>2 ba</span><span>1,310 sqft</span></div></div></article>
+          <a class="card" href="home.html"><div class="card__img"></div><div class="card__body"><div class="card__price">$685,000</div><div class="card__addr">22 Gulfview Way, Indian Rocks</div><div class="card__meta"><span>3 bd</span><span>2 ba</span><span>1,820 sqft</span></div></div></a>
+          <a class="card" href="home.html"><div class="card__img"></div><div class="card__body"><div class="card__price">$1,290,000</div><div class="card__addr">5 Pelican Pt, Treasure Island</div><div class="card__meta"><span>4 bd</span><span>3 ba</span><span>2,940 sqft</span></div></div></a>
+          <a class="card" href="home.html"><div class="card__img"></div><div class="card__body"><div class="card__price">$499,000</div><div class="card__addr">310 Bayway Blvd #4, Clearwater</div><div class="card__meta"><span>2 bd</span><span>2 ba</span><span>1,310 sqft</span></div></div></a>
         </div>
       </section>
 
@@ -132,7 +132,7 @@
             <p class="eyebrow">Meet the team</p>
             <h2>Coastal specialists who actually live here.</h2>
             <p class="sub" style="font-size:17px;margin-top:16px">We've spent our lives on this coast. We know the tides, the towns, and the difference a great agent makes when the right home appears.</p>
-            <div class="cta-row"><a class="btn" href="#contact">Start your search</a></div>
+            <div class="cta-row"><a class="btn" href="contact.html">Start your search</a></div>
           </div>
         </div>
       </section>
@@ -141,7 +141,7 @@
         <div class="band">
           <h2>Ready to find your spot on the water?</h2>
           <p>Tell us your dream — we'll find the address.</p>
-          <a class="btn" href="#" style="background:#fff;color:#18302e">Let's talk</a>
+          <a class="btn" href="contact.html" style="background:#fff;color:#18302e">Let's talk</a>
         </div>
       </section>
     </main>
