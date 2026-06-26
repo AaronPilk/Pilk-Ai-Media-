@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Modern Agent — Pilk.ai Template</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #16151a;
+        --muted: #6b6770;
+        --line: #e7e4df;
+        --bg: #ffffff;
+        --soft: #f6f4f1;
+        --accent: #1f6feb;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+      body { font-family: Inter, system-ui, sans-serif; color: var(--ink); background: var(--bg); line-height: 1.55; }
+      a { color: inherit; text-decoration: none; }
+      img { display: block; max-width: 100%; }
+      .wrap { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+      .nav { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+      .nav__in { display: flex; align-items: center; justify-content: space-between; height: 70px; }
+      .brand { font-weight: 800; letter-spacing: -0.02em; font-size: 20px; }
+      .nav__links { display: flex; gap: 28px; }
+      .nav__links a { color: var(--muted); font-size: 14px; font-weight: 500; }
+      .nav__links a:hover { color: var(--ink); }
+      .btn { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; font-weight: 600; font-size: 14px; padding: 11px 20px; border-radius: 10px; }
+      .btn--ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+      .hero { padding: 90px 0 60px; }
+      .eyebrow { text-transform: uppercase; letter-spacing: 0.18em; font-size: 12px; color: var(--accent); font-weight: 700; }
+      h1 { font-size: clamp(42px, 6vw, 76px); line-height: 1.02; letter-spacing: -0.035em; font-weight: 800; margin: 14px 0; max-width: 16ch; }
+      .lead { font-size: 19px; color: var(--muted); max-width: 52ch; }
+      .cta-row { display: flex; gap: 14px; margin-top: 28px; flex-wrap: wrap; }
+      .searchbar { margin-top: 40px; display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 10px; background: var(--soft); border: 1px solid var(--line); border-radius: 16px; padding: 14px; }
+      .searchbar input, .searchbar select { border: 0; background: #fff; border-radius: 10px; padding: 14px; font: inherit; font-size: 14px; border: 1px solid var(--line); }
+      .section { padding: 70px 0; }
+      .section h2 { font-size: clamp(28px, 4vw, 44px); letter-spacing: -0.03em; font-weight: 800; }
+      .section p.sub { color: var(--muted); margin-top: 8px; max-width: 50ch; }
+      .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 36px; }
+      .card { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: #fff; transition: transform 0.3s, box-shadow 0.3s; }
+      .card:hover { transform: translateY(-4px); box-shadow: 0 24px 50px -30px rgba(0,0,0,0.25); }
+      .card__img { aspect-ratio: 4/3; background: linear-gradient(135deg, #c7d2fe, #93c5fd 50%, #bae6fd); position: relative; }
+      .card__img.b { background: linear-gradient(135deg, #fde68a, #fca5a5 60%, #f9a8d4); }
+      .card__img.c { background: linear-gradient(135deg, #a7f3d0, #6ee7b7 60%, #5eead4); }
+      .card__tag { position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.7); color: #fff; font-size: 12px; font-weight: 600; padding: 6px 10px; border-radius: 8px; }
+      .card__body { padding: 18px; }
+      .card__price { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; }
+      .card__addr { color: var(--muted); font-size: 14px; margin-top: 4px; }
+      .card__meta { display: flex; gap: 16px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+      .about { display: grid; grid-template-columns: 1fr 1.2fr; gap: 50px; align-items: center; }
+      .about__photo { aspect-ratio: 4/5; border-radius: 20px; background: linear-gradient(160deg, #1f6feb, #312e81); }
+      .points { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 36px; }
+      .point { background: var(--soft); border-radius: 16px; padding: 26px; }
+      .point h3 { font-size: 18px; margin-bottom: 8px; }
+      .point p { color: var(--muted); font-size: 14px; }
+      .quote { background: var(--soft); border-radius: 24px; padding: 50px; text-align: center; }
+      .quote p { font-size: clamp(20px, 3vw, 30px); font-weight: 600; letter-spacing: -0.02em; max-width: 30ch; margin: 0 auto; }
+      .quote span { display: block; color: var(--muted); font-size: 14px; margin-top: 18px; font-weight: 500; }
+      .ctaband { background: var(--ink); color: #fff; border-radius: 24px; padding: 60px; text-align: center; }
+      .ctaband h2 { font-size: clamp(28px, 4vw, 44px); }
+      .ctaband p { color: #b9b6c0; margin: 12px 0 26px; }
+      footer { border-top: 1px solid var(--line); padding: 40px 0; color: var(--muted); font-size: 14px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+      @media (max-width: 820px) {
+        .nav__links { display: none; }
+        .grid, .points { grid-template-columns: 1fr 1fr; }
+        .about { grid-template-columns: 1fr; }
+        .searchbar { grid-template-columns: 1fr; }
+      }
+      @media (max-width: 560px) { .grid, .points { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <header class="nav">
+      <div class="wrap nav__in">
+        <div class="brand">Avery Stone</div>
+        <nav class="nav__links">
+          <a href="#listings">Listings</a>
+          <a href="#about">About</a>
+          <a href="#why">Why Me</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <a class="btn" href="#contact">Book a call</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="wrap">
+          <p class="eyebrow">Tampa Bay Real Estate</p>
+          <h1>Find a home that actually feels like yours.</h1>
+          <p class="lead">A modern, personal approach to buying and selling across Tampa Bay — clear communication, sharp marketing, and no pressure.</p>
+          <div class="cta-row">
+            <a class="btn" href="#listings">Browse listings</a>
+            <a class="btn btn--ghost" href="#contact">Get a home valuation</a>
+          </div>
+          <div class="searchbar">
+            <input placeholder="City, neighborhood, or ZIP" />
+            <select><option>Any price</option><option>$300k+</option><option>$500k+</option><option>$1M+</option></select>
+            <select><option>Beds</option><option>1+</option><option>2+</option><option>3+</option><option>4+</option></select>
+            <a class="btn" href="#listings">Search</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="listings">
+        <div class="wrap">
+          <h2>Featured listings</h2>
+          <p class="sub">A hand-picked selection of homes currently on the market.</p>
+          <div class="grid">
+            <article class="card">
+              <div class="card__img"><span class="card__tag">For sale</span></div>
+              <div class="card__body">
+                <div class="card__price">$725,000</div>
+                <div class="card__addr">412 Bayshore Blvd, Tampa, FL</div>
+                <div class="card__meta"><span>4 beds</span><span>3 baths</span><span>2,840 sqft</span></div>
+              </div>
+            </article>
+            <article class="card">
+              <div class="card__img b"><span class="card__tag">New</span></div>
+              <div class="card__body">
+                <div class="card__price">$549,000</div>
+                <div class="card__addr">88 Harbor View Ln, St. Petersburg</div>
+                <div class="card__meta"><span>3 beds</span><span>2 baths</span><span>1,960 sqft</span></div>
+              </div>
+            </article>
+            <article class="card">
+              <div class="card__img c"><span class="card__tag">Open house</span></div>
+              <div class="card__body">
+                <div class="card__price">$1,150,000</div>
+                <div class="card__addr">7 Coral Reef Dr, Clearwater Beach</div>
+                <div class="card__meta"><span>5 beds</span><span>4 baths</span><span>3,520 sqft</span></div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="about">
+        <div class="wrap about">
+          <div class="about__photo"></div>
+          <div>
+            <p class="eyebrow">About Avery</p>
+            <h2>Local expertise, modern marketing.</h2>
+            <p class="sub" style="margin-top:16px;font-size:17px;">Ten years helping families buy and sell across Tampa Bay. I pair deep neighborhood knowledge with the kind of marketing most listings never get — professional media, targeted ads, and a website that does the selling before the showing.</p>
+            <div class="cta-row"><a class="btn" href="#contact">Work with me</a></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="why">
+        <div class="wrap">
+          <h2>Why work with me</h2>
+          <div class="points">
+            <div class="point"><h3>Sharp marketing</h3><p>Every listing gets professional media, a dedicated page, and paid promotion.</p></div>
+            <div class="point"><h3>Straight answers</h3><p>Fast, honest communication at every step — no guessing, no games.</p></div>
+            <div class="point"><h3>Strong network</h3><p>Lenders, inspectors, and contractors I trust, ready when you need them.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap">
+          <div class="quote">
+            <p>"Avery sold our home in nine days, over asking. The marketing was on another level."</p>
+            <span>— The Hendersons, Tampa</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="contact">
+        <div class="wrap">
+          <div class="ctaband">
+            <h2>Thinking about making a move?</h2>
+            <p>Tell me about your goals — I'll send back a plan and a real number.</p>
+            <a class="btn" href="#" style="background:#fff;color:#16151a">Start the conversation</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="wrap">
+      <div>© Avery Stone Real Estate · Template by Pilk.ai</div>
+      <div>(000) 000-0000 · hello@example.com</div>
+    </footer>
+  </body>
+</html>

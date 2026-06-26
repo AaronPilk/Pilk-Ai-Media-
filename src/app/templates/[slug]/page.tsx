@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { templates, getTemplate, getRelatedTemplates } from "@/content/templates";
+import {
+  templates,
+  getTemplate,
+  getRelatedTemplates,
+  templateProjectType,
+} from "@/content/templates";
 import { site } from "@/content/site";
 import { buildMetadata, breadcrumbJsonLd } from "@/lib/metadata";
 import { formatPrice } from "@/lib/utils";
@@ -82,13 +87,23 @@ export default async function TemplateDetailPage({
 
           <div className="mt-8 flex flex-wrap gap-3">
             <Button
-              href={`/contact?projectType=template&template=${tpl.slug}`}
+              href={`/contact/?projectType=${templateProjectType(tpl.label)}&template=${tpl.slug}`}
               variant="primary"
               withArrow
             >
-              Request this design
+              Start with this design
             </Button>
             <TemplatePreviewButton template={tpl} />
+            {tpl.liveUrl && (
+              <a
+                className="btn btn-ghost"
+                href={tpl.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Open full preview ↗
+              </a>
+            )}
           </div>
 
           <div className="mt-20 grid gap-12 md:grid-cols-2">

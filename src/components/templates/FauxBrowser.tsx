@@ -1,8 +1,12 @@
+"use client";
+
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * Procedural website preview (no binary assets). Swap for a real screenshot/video
- * by passing `image` — the faux mock only renders when no image is provided.
+ * Procedural website preview (no binary assets). If `image` is provided it
+ * renders the screenshot; if that image fails to load (not captured yet), it
+ * falls back to the procedural mock instead of a broken image.
  */
 export function FauxBrowser({
   accent = "#7c3aed",
@@ -19,14 +23,17 @@ export function FauxBrowser({
   variant?: "desktop" | "mobile";
   className?: string;
 }) {
-  if (image) {
+  const [imgError, setImgError] = useState(false);
+
+  if (image && !imgError) {
     return (
       <div className={cn("faux", className)}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={image}
           alt={alt ?? "Website preview"}
-          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          onError={() => setImgError(true)}
+          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top" }}
         />
       </div>
     );

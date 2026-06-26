@@ -2,7 +2,8 @@
 export const features = {
   interactiveLab: false,
   soundMode: false,
-  projectIframes: false,
+  // Live template previews load the real template site in an iframe / new tab.
+  projectIframes: true,
 } as const;
 
 export type FeatureFlags = typeof features;

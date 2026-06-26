@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Signature Estate — Pilk.ai Template</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Jost:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #1a1714;
+        --cream: #f4efe6;
+        --paper: #faf7f1;
+        --muted: #7a7167;
+        --gold: #b08d57;
+        --line: #e3dccf;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+      body { font-family: Jost, system-ui, sans-serif; color: var(--ink); background: var(--paper); line-height: 1.7; font-weight: 300; }
+      a { color: inherit; text-decoration: none; }
+      .serif { font-family: "Cormorant Garamond", serif; }
+      .wrap { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 32px; }
+      .nav { position: sticky; top: 0; z-index: 20; background: rgba(250,247,241,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+      .nav__in { display: flex; align-items: center; justify-content: space-between; height: 84px; }
+      .brand { font-family: "Cormorant Garamond", serif; font-size: 26px; font-weight: 600; letter-spacing: 0.04em; }
+      .brand b { color: var(--gold); font-weight: 600; }
+      .nav__links { display: flex; gap: 34px; text-transform: uppercase; letter-spacing: 0.16em; font-size: 12px; }
+      .nav__links a { color: var(--muted); }
+      .nav__links a:hover { color: var(--ink); }
+      .pill { border: 1px solid var(--gold); color: var(--gold); padding: 12px 22px; text-transform: uppercase; letter-spacing: 0.16em; font-size: 12px; border-radius: 2px; }
+      .hero { position: relative; min-height: 86vh; display: flex; align-items: flex-end; color: #f6f1e8; background: linear-gradient(180deg, rgba(20,17,15,0.15), rgba(20,17,15,0.75)), linear-gradient(120deg, #6b5638, #2a2018 60%, #14110f); }
+      .hero__in { padding-bottom: 70px; }
+      .hero .eyebrow { text-transform: uppercase; letter-spacing: 0.3em; font-size: 12px; color: var(--gold); }
+      .hero h1 { font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: clamp(48px, 8vw, 110px); line-height: 0.98; letter-spacing: -0.01em; margin: 18px 0; max-width: 16ch; }
+      .hero p { max-width: 46ch; opacity: 0.85; font-size: 18px; }
+      .hero .cta { margin-top: 30px; display: inline-block; }
+      .hero .cta .pill { border-color: rgba(246,241,232,0.6); color: #f6f1e8; }
+      .section { padding: 110px 0; }
+      .label { text-transform: uppercase; letter-spacing: 0.3em; font-size: 12px; color: var(--gold); }
+      h2.title { font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: clamp(34px, 5vw, 60px); line-height: 1.04; letter-spacing: -0.01em; margin-top: 14px; }
+      .residence { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 0; align-items: stretch; margin-top: 56px; border: 1px solid var(--line); background: #fff; }
+      .residence:nth-child(even) { grid-template-columns: 0.85fr 1.15fr; }
+      .residence:nth-child(even) .residence__img { order: 2; }
+      .residence__img { min-height: 420px; background: linear-gradient(150deg, #cdbba0, #7c6a4f); }
+      .residence:nth-child(2) .residence__img { background: linear-gradient(150deg, #b9c6c4, #5f7572); }
+      .residence:nth-child(3) .residence__img { background: linear-gradient(150deg, #d7c2c2, #8a6b6b); }
+      .residence__body { padding: 50px; align-self: center; }
+      .residence__price { font-family: "Cormorant Garamond", serif; font-size: 40px; }
+      .residence__name { font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-top: 8px; }
+      .residence__desc { color: var(--muted); margin: 20px 0; }
+      .residence__meta { display: flex; gap: 28px; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); border-top: 1px solid var(--line); padding-top: 20px; }
+      .hoods { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 50px; }
+      .hood { aspect-ratio: 3/4; border-radius: 2px; background: linear-gradient(160deg, #c9b59a, #4f4334); display: flex; align-items: flex-end; padding: 22px; color: #f6f1e8; font-family: "Cormorant Garamond", serif; font-size: 26px; }
+      .hood:nth-child(2){background:linear-gradient(160deg,#a9b7b4,#42514e)}
+      .hood:nth-child(3){background:linear-gradient(160deg,#cdb3b3,#5e4747)}
+      .hood:nth-child(4){background:linear-gradient(160deg,#b3a7c9,#443b5e)}
+      .story { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+      .story__img { aspect-ratio: 4/5; background: linear-gradient(160deg, #b08d57, #2a2018); }
+      .story p { color: var(--muted); margin-top: 18px; font-size: 18px; }
+      .band { background: var(--ink); color: var(--cream); text-align: center; padding: 120px 0; }
+      .band h2 { font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: clamp(34px, 5vw, 64px); }
+      .band p { opacity: 0.7; margin: 16px 0 30px; }
+      .band .pill { border-color: var(--gold); color: var(--gold); }
+      footer { padding: 50px 0; border-top: 1px solid var(--line); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; color: var(--muted); font-size: 13px; letter-spacing: 0.08em; }
+      @media (max-width: 900px) {
+        .nav__links { display: none; }
+        .residence, .residence:nth-child(even) { grid-template-columns: 1fr; }
+        .residence:nth-child(even) .residence__img { order: 0; }
+        .hoods { grid-template-columns: 1fr 1fr; }
+        .story { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="nav">
+      <div class="wrap nav__in">
+        <div class="brand">Maison <b>Laurent</b></div>
+        <nav class="nav__links">
+          <a href="#residences">Residences</a>
+          <a href="#neighborhoods">Neighborhoods</a>
+          <a href="#story">The Story</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <a class="pill" href="#contact">Private Consultation</a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="wrap hero__in">
+        <p class="eyebrow">Luxury Residences · Coastal Florida</p>
+        <h1>Homes as considered as the life lived in them.</h1>
+        <p>A curated portfolio of waterfront and architectural estates, represented with discretion and uncompromising presentation.</p>
+        <span class="cta"><a class="pill" href="#residences">View the collection</a></span>
+      </div>
+    </section>
+
+    <main>
+      <section class="section" id="residences">
+        <div class="wrap">
+          <p class="label">Featured Residences</p>
+          <h2 class="title">A selection of signature properties.</h2>
+
+          <article class="residence">
+            <div class="residence__img"></div>
+            <div class="residence__body">
+              <div class="residence__price">$4,250,000</div>
+              <div class="residence__name">Bayfront Modern · Tampa</div>
+              <p class="residence__desc">A glass-and-stone waterfront residence with private dock, infinity edge pool, and uninterrupted bay views.</p>
+              <div class="residence__meta"><span>5 Bed</span><span>6 Bath</span><span>6,400 Sqft</span></div>
+            </div>
+          </article>
+          <article class="residence">
+            <div class="residence__img"></div>
+            <div class="residence__body">
+              <div class="residence__price">$2,895,000</div>
+              <div class="residence__name">The Coastal Estate · Clearwater</div>
+              <p class="residence__desc">Mediterranean architecture reimagined, steps from the sand with a chef's kitchen and guest casita.</p>
+              <div class="residence__meta"><span>4 Bed</span><span>5 Bath</span><span>4,900 Sqft</span></div>
+            </div>
+          </article>
+          <article class="residence">
+            <div class="residence__img"></div>
+            <div class="residence__body">
+              <div class="residence__price">$6,800,000</div>
+              <div class="residence__name">Sky Penthouse · St. Petersburg</div>
+              <p class="residence__desc">A full-floor penthouse with private elevator, wraparound terraces, and curated finishes throughout.</p>
+              <div class="residence__meta"><span>3 Bed</span><span>4 Bath</span><span>5,100 Sqft</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="neighborhoods" style="background:var(--cream)">
+        <div class="wrap">
+          <p class="label">Neighborhoods</p>
+          <h2 class="title">Where the coast lives best.</h2>
+          <div class="hoods">
+            <div class="hood">Bayshore</div>
+            <div class="hood">Snell Isle</div>
+            <div class="hood">Belleair</div>
+            <div class="hood">Davis Islands</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="story">
+        <div class="wrap story">
+          <div class="story__img"></div>
+          <div>
+            <p class="label">The Story</p>
+            <h2 class="title">Representation, refined.</h2>
+            <p>For two decades, we have represented the coast's most distinctive homes with a singular focus: presentation that matches the property. Every listing is photographed, filmed, and marketed as the work of art it is.</p>
+            <p style="margin-top:28px"><a class="pill" href="#contact" style="border-color:var(--gold);color:var(--gold)">Meet the team</a></p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <section class="band" id="contact">
+      <div class="wrap">
+        <h2>Considering a sale of distinction?</h2>
+        <p>A private, no-obligation consultation and a tailored marketing plan.</p>
+        <a class="pill" href="#">Request a consultation</a>
+      </div>
+    </section>
+
+    <footer class="wrap">
+      <div>© Maison Laurent · Template by Pilk.ai</div>
+      <div>By appointment · concierge@example.com</div>
+    </footer>
+  </body>
+</html>
