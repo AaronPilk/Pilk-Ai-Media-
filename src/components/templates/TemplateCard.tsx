@@ -13,7 +13,7 @@ export function TemplateCard({ template }: { template: WebsiteTemplate }) {
   const startHref = `/contact/?projectType=${projectType}&template=${template.slug}`;
 
   return (
-    <article className="group flex flex-col rounded-md border border-line bg-surface p-4 transition-colors hover:border-ink/30">
+    <article className="group flex min-w-0 flex-col overflow-hidden rounded-md border border-line bg-surface p-4 transition-colors hover:border-ink/30">
       <Link
         href={`/templates/${template.slug}`}
         className="block aspect-[16/10] transition-transform duration-700 ease-expo group-hover:-translate-y-1"
@@ -51,14 +51,14 @@ export function TemplateCard({ template }: { template: WebsiteTemplate }) {
         ))}
       </ul>
 
-      <div className="mt-6 flex flex-wrap gap-3 border-t border-line pt-4">
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-t border-line pt-4">
         <Link
           href={`/templates/${template.slug}`}
           className="text-sm text-muted hover:text-ink"
         >
           View Template
         </Link>
-        <Link href={startHref} className="ml-auto text-sm text-accent hover:underline">
+        <Link href={startHref} className="text-sm text-accent hover:underline">
           Start With This Design →
         </Link>
       </div>
