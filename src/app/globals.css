@@ -441,15 +441,18 @@ h4 {
   }
 }
 
-/* Motion-preference toggles (used by the showcase) */
-.rm-only {
+/* Showcase: 3D helix on desktop (motion ok), animated gallery on mobile / reduced-motion */
+.showcase-helix {
   display: none;
 }
-@media (prefers-reduced-motion: reduce) {
-  .motion-only {
-    display: none;
-  }
-  .rm-only {
+.showcase-gallery {
+  display: block;
+}
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .showcase-helix {
     display: block;
+  }
+  .showcase-gallery {
+    display: none;
   }
 }

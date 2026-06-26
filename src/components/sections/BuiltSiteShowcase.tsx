@@ -18,31 +18,31 @@ const COPY =
 export function BuiltSiteShowcase() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<Array<HTMLDivElement | null>>([]);
+  const galleryRef = useRef<Array<HTMLDivElement | null>>([]);
   const [active, setActive] = useState(0);
 
   useIsomorphicLayoutEffect(() => {
     const section = sectionRef.current;
-    if (!section) return;
-
-    const applyTransforms = (progressIndex: number) => {
-      cardsRef.current.forEach((card, index) => {
-        if (!card) return;
-        const t = getHelixTransform(index, progressIndex);
-        gsap.set(card, {
-          x: t.x,
-          y: t.y,
-          z: t.z,
-          rotateX: t.rotateX,
-          rotateY: t.rotateY,
-          scale: t.scale,
-          opacity: t.opacity,
-        });
-      });
-    };
-
     const media = gsap.matchMedia();
-    // Same rotating motion on every screen size.
-    media.add("(prefers-reduced-motion: no-preference)", () => {
+
+    // DESKTOP — pinned rotating helix
+    media.add("(min-width: 1024px) and (prefers-reduced-motion: no-preference)", () => {
+      if (!section) return;
+      const applyTransforms = (progressIndex: number) => {
+        cardsRef.current.forEach((card, index) => {
+          if (!card) return;
+          const t = getHelixTransform(index, progressIndex);
+          gsap.set(card, {
+            x: t.x,
+            y: t.y,
+            z: t.z,
+            rotateX: t.rotateX,
+            rotateY: t.rotateY,
+            scale: t.scale,
+            opacity: t.opacity,
+          });
+        });
+      };
       applyTransforms(0);
       const state = { p: 0 };
       const tween = gsap.to(state, {
@@ -72,6 +72,24 @@ export function BuiltSiteShowcase() {
       };
     });
 
+    // MOBILE — non-pinned gallery, cards scale/fade in as they enter
+    media.add("(max-width: 1023px) and (prefers-reduced-motion: no-preference)", () => {
+      const cards = galleryRef.current.filter((c): c is HTMLDivElement => c !== null);
+      const triggers: ScrollTrigger[] = [];
+      cards.forEach((card) => {
+        gsap.set(card, { opacity: 0, y: 60, scale: 0.94 });
+        triggers.push(
+          ScrollTrigger.create({
+            trigger: card,
+            start: "top 88%",
+            onEnter: () =>
+              gsap.to(card, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "power3.out" }),
+          })
+        );
+      });
+      return () => triggers.forEach((t) => t.kill());
+    });
+
     return () => media.revert();
   }, []);
 
@@ -79,11 +97,11 @@ export function BuiltSiteShowcase() {
 
   return (
     <>
-      {/* Rotating showcase (hidden for reduced-motion) */}
+      {/* Desktop: rotating helix */}
       <section
         ref={sectionRef}
         data-scene="showcase"
-        className="template-helix motion-only relative z-10 block"
+        className="template-helix showcase-helix relative z-10"
         style={{ background: "var(--surface)" }}
         aria-label="Website showcase"
       >
@@ -114,17 +132,22 @@ export function BuiltSiteShowcase() {
         </div>
       </section>
 
-      {/* Reduced-motion fallback gallery */}
-      <section className="section rm-only relative z-10" style={{ background: "var(--surface)" }}>
+      {/* Mobile + reduced-motion: animated gallery */}
+      <section className="section showcase-gallery relative z-10" style={{ background: "var(--surface)" }}>
         <Container>
           <SectionLabel index="02">Recent Builds</SectionLabel>
           <h2 className="mt-6 max-w-[16ch] text-balance" style={{ fontSize: "var(--text-2xl)" }}>
             Website showcase.
           </h2>
           <p className="mt-4 max-w-md text-sm text-muted">{COPY}</p>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2">
-            {builtSites.map((siteItem) => (
-              <div key={siteItem.slug}>
+          <div className="mt-10 flex flex-col gap-10">
+            {builtSites.map((siteItem, index) => (
+              <div
+                key={siteItem.slug}
+                ref={(el) => {
+                  galleryRef.current[index] = el;
+                }}
+              >
                 <div className="aspect-[16/10]">
                   <BuiltSiteCard site={siteItem} active />
                 </div>
@@ -134,6 +157,7 @@ export function BuiltSiteShowcase() {
                     {siteItem.label}
                   </span>
                 </div>
+                <p className="mt-1 text-sm text-muted">{siteItem.summary}</p>
               </div>
             ))}
           </div>

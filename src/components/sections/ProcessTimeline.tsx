@@ -12,6 +12,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export function ProcessTimeline({ standalone = false }: { standalone?: boolean }) {
   const sectionRef = useRef<HTMLElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
   const railRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<Array<HTMLDivElement | null>>([]);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -22,17 +23,16 @@ export function ProcessTimeline({ standalone = false }: { standalone?: boolean }
 
     const setActive = (next: number) =>
       setActiveIndex((current) => (current === next ? current : next));
+    const getCards = () => cardsRef.current.filter((c): c is HTMLDivElement => c !== null);
 
     const media = gsap.matchMedia();
 
-    // Same pinned, stacked motion on every screen size.
-    media.add("(prefers-reduced-motion: no-preference)", () => {
-      const cards = cardsRef.current.filter((c): c is HTMLDivElement => c !== null);
+    // DESKTOP — pinned, stacked cards
+    media.add("(min-width: 1024px) and (prefers-reduced-motion: no-preference)", () => {
+      const cards = getCards();
       if (cards.length === 0) return;
 
-      // Stack the cards on top of each other (animation layout).
       gsap.set(cards, { position: "absolute", top: "50%", left: 0, right: 0 });
-
       const applyCards = (rawIndex: number) => {
         cards.forEach((card, index) => {
           const distance = index - rawIndex;
@@ -46,7 +46,6 @@ export function ProcessTimeline({ standalone = false }: { standalone?: boolean }
           });
         });
       };
-
       applyCards(0);
       gsap.set(railRef.current, { scaleY: 0, transformOrigin: "top" });
 
@@ -65,16 +64,47 @@ export function ProcessTimeline({ standalone = false }: { standalone?: boolean }
           gsap.set(railRef.current, { scaleY: self.progress, transformOrigin: "top" });
         },
       });
-
       return () => trigger.kill();
     });
 
-    // Reduced motion: plain readable stack, full rail.
-    media.add("(prefers-reduced-motion: reduce)", () => {
-      gsap.set(cardsRef.current.filter((c): c is HTMLDivElement => c !== null), {
-        clearProps: "all",
-        opacity: 1,
+    // MOBILE — non-pinned: cards reveal as they scroll in, rail fills, no scroll-trap
+    media.add("(max-width: 1023px) and (prefers-reduced-motion: no-preference)", () => {
+      const cards = getCards();
+      const triggers: ScrollTrigger[] = [];
+
+      cards.forEach((card, index) => {
+        gsap.set(card, { opacity: 0, y: 48 });
+        triggers.push(
+          ScrollTrigger.create({
+            trigger: card,
+            start: "top 84%",
+            onEnter: () => {
+              gsap.to(card, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" });
+              setActive(index);
+            },
+            onEnterBack: () => setActive(index),
+          })
+        );
       });
+
+      if (trackRef.current && railRef.current) {
+        gsap.set(railRef.current, { scaleY: 0, transformOrigin: "top" });
+        triggers.push(
+          ScrollTrigger.create({
+            trigger: trackRef.current,
+            start: "top 75%",
+            end: "bottom 75%",
+            scrub: true,
+            onUpdate: (self) => gsap.set(railRef.current, { scaleY: self.progress }),
+          })
+        );
+      }
+      return () => triggers.forEach((t) => t.kill());
+    });
+
+    // REDUCED MOTION — plain readable list
+    media.add("(prefers-reduced-motion: reduce)", () => {
+      gsap.set(getCards(), { clearProps: "all", opacity: 1 });
       gsap.set(railRef.current, { scaleY: 1 });
     });
 
@@ -89,7 +119,7 @@ export function ProcessTimeline({ standalone = false }: { standalone?: boolean }
       data-scene="process"
       className="process-timeline relative z-10 overflow-hidden"
     >
-      <Container className="grid min-h-screen items-center gap-12 py-24 lg:grid-cols-[0.82fr_1.18fr]">
+      <Container className="grid items-center gap-10 py-20 lg:min-h-screen lg:gap-12 lg:py-24 lg:grid-cols-[0.82fr_1.18fr]">
         <div>
           <SectionLabel index={standalone ? undefined : "05"}>The Seven-Day Build</SectionLabel>
 
@@ -102,8 +132,8 @@ export function ProcessTimeline({ standalone = false }: { standalone?: boolean }
             limbo.
           </p>
 
-          <div className="mt-10 flex items-end gap-4">
-            <span className="font-display text-[clamp(3.5rem,9vw,8rem)] font-semibold leading-none text-accent">
+          <div className="mt-8 flex items-end gap-4 md:mt-10">
+            <span className="font-display text-[clamp(3rem,9vw,8rem)] font-semibold leading-none text-accent">
               {activeIndex + 1}
             </span>
             <div className="pb-3">
@@ -115,7 +145,10 @@ export function ProcessTimeline({ standalone = false }: { standalone?: boolean }
           <p className="mt-8 max-w-md text-xs text-muted">{processDisclaimer}</p>
         </div>
 
-        <div className="relative ml-8 min-h-[64vh] [perspective:1200px] md:ml-10 md:min-h-[560px]">
+        <div
+          ref={trackRef}
+          className="relative ml-7 lg:ml-10 lg:min-h-[560px] lg:[perspective:1200px]"
+        >
           <div className="absolute bottom-0 left-0 top-0 w-px bg-line">
             <div
               ref={railRef}
@@ -130,7 +163,7 @@ export function ProcessTimeline({ standalone = false }: { standalone?: boolean }
               ref={(element) => {
                 cardsRef.current[index] = element;
               }}
-              className="process-card relative mb-6 rounded-xl border border-line bg-[rgba(18,18,24,0.92)] p-6 shadow-[0_40px_120px_-70px_rgba(0,0,0,0.9)] backdrop-blur-xl md:p-8"
+              className="process-card relative mb-5 ml-3 rounded-xl border border-line bg-[rgba(18,18,24,0.92)] p-6 shadow-[0_40px_120px_-70px_rgba(0,0,0,0.9)] backdrop-blur-xl lg:mb-0 lg:ml-0 lg:p-8"
             >
               <span className="text-xs uppercase tracking-[0.22em] text-accent">{step.day}</span>
               <h3 className="mt-3 font-display text-2xl font-semibold md:text-3xl">{step.title}</h3>
