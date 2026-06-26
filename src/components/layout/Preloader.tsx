@@ -1,29 +1,19 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+
+const PreloaderCanvas = dynamic(
+  () => import("@/components/canvas/PreloaderCanvas").then((m) => m.PreloaderCanvas),
+  { ssr: false, loading: () => null }
+);
 
 const KEY = "pilk-intro-seen";
 
-type Phase = "in" | "explode";
-
 export function Preloader() {
   const [visible, setVisible] = useState(false);
-  const [phase, setPhase] = useState<Phase>("in");
-
-  const particles = useMemo(
-    () =>
-      Array.from({ length: 28 }, (_, i) => {
-        const angle = (Math.PI * 2 * i) / 28 + Math.random() * 0.5;
-        const dist = 200 + Math.random() * 320;
-        return {
-          x: Math.cos(angle) * dist,
-          y: Math.sin(angle) * dist,
-          size: 4 + Math.random() * 9,
-          delay: Math.random() * 0.06,
-        };
-      }),
-    []
-  );
+  const [explode, setExplode] = useState(false);
+  const [leaving, setLeaving] = useState(false);
 
   useEffect(() => {
     const seen = sessionStorage.getItem(KEY);
@@ -34,15 +24,17 @@ export function Preloader() {
     document.body.style.overflow = "hidden";
 
     if (reduced) {
-      const t = setTimeout(dismiss, 350);
+      const t = setTimeout(dismiss, 400);
       return () => clearTimeout(t);
     }
 
-    const explodeAt = setTimeout(() => setPhase("explode"), 1300);
-    const removeAt = setTimeout(dismiss, 2100);
+    const t1 = setTimeout(() => setExplode(true), 1500);
+    const t2 = setTimeout(() => setLeaving(true), 1850);
+    const t3 = setTimeout(dismiss, 2600);
     return () => {
-      clearTimeout(explodeAt);
-      clearTimeout(removeAt);
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -54,53 +46,24 @@ export function Preloader() {
   };
 
   const blowUp = () => {
-    if (phase === "explode") return;
-    setPhase("explode");
-    setTimeout(dismiss, 800);
+    if (explode) return;
+    setExplode(true);
+    setTimeout(() => setLeaving(true), 300);
+    setTimeout(dismiss, 1100);
   };
 
   if (!visible) return null;
 
-  const exploding = phase === "explode";
-
   return (
     <div
-      className="fixed inset-0 z-[90] flex items-center justify-center overflow-hidden bg-bg transition-opacity duration-700"
-      style={{ opacity: exploding ? 0 : 1, transitionDelay: exploding ? "0.15s" : "0s" }}
+      className="fixed inset-0 z-[90] bg-bg transition-opacity duration-700"
+      style={{ opacity: leaving ? 0 : 1 }}
       role="status"
       aria-label="Loading"
       onClick={blowUp}
     >
-      <div className="relative h-0 w-0">
-        {particles.map((p, i) => (
-          <span
-            key={i}
-            className="preloader-particle"
-            style={{
-              width: p.size,
-              height: p.size,
-              transform: exploding
-                ? `translate(${p.x}px, ${p.y}px) scale(0.2)`
-                : "translate(0px, 0px) scale(1)",
-              opacity: exploding ? 0 : 0.9,
-              transition: `transform 0.8s cubic-bezier(0.16,1,0.3,1) ${p.delay}s, opacity 0.8s ease ${p.delay}s`,
-            }}
-          />
-        ))}
-
-        <div
-          className={`preloader-orb ${exploding ? "" : "is-vibrating"}`}
-          style={
-            exploding
-              ? {
-                  transform: "scale(26)",
-                  opacity: 0,
-                  transition:
-                    "transform 0.8s cubic-bezier(0.16,1,0.3,1), opacity 0.7s ease 0.1s",
-                }
-              : undefined
-          }
-        />
+      <div className="absolute inset-0">
+        <PreloaderCanvas explode={explode} />
       </div>
 
       <button
@@ -109,7 +72,7 @@ export function Preloader() {
           e.stopPropagation();
           blowUp();
         }}
-        className="absolute bottom-8 right-8 text-xs uppercase tracking-[0.2em] text-muted hover:text-ink"
+        className="absolute bottom-8 right-8 z-10 text-xs uppercase tracking-[0.2em] text-muted hover:text-ink"
       >
         Skip
       </button>
