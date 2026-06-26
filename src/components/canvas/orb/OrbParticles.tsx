@@ -5,6 +5,7 @@ import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { useExperienceStore } from "@/stores/experience-store";
 import { smoothstep } from "@/lib/utils";
+import type { OrbNodes } from "@/lib/orb-geometry";
 import type { SceneQuality } from "@/components/canvas/CanvasExperience";
 
 const vertexShader = /* glsl */ `
@@ -12,6 +13,7 @@ const vertexShader = /* glsl */ `
   uniform float uBreakup;
   uniform float uExit;
   uniform float uPixelRatio;
+  uniform float uSize;
 
   attribute vec3 aDirection;
   attribute float aRandom;
@@ -31,31 +33,25 @@ const vertexShader = /* glsl */ `
     vec3 transformed = position;
 
     float alivePulse =
-      sin(uTime * 2.0 + position.y * 4.0 + aRandom * 6.2831) * 0.045 * (1.0 - explosion);
+      sin(uTime * 1.6 + position.y * 4.0 + aRandom * 6.2831) * 0.05 * (1.0 - explosion);
     transformed += normalize(position) * alivePulse;
 
     transformed += aDirection * explosion * mix(2.2, 7.2, aRandom);
-
     transformed.x += uExit * mix(2.0, 8.0, aRandom);
     transformed.y += uExit * mix(1.2, 5.5, aRandom);
-
     transformed.x += sin(uTime * 1.4 + aRandom * 12.0) * explosion * 0.35;
-    transformed.y += cos(uTime * 1.1 + aRandom * 10.0) * explosion * 0.28;
 
     vec4 modelPosition = modelMatrix * vec4(transformed, 1.0);
     vec4 viewPosition = viewMatrix * modelPosition;
     gl_Position = projectionMatrix * viewPosition;
 
+    // Node pulse — brighter, larger nodes that breathe like a network
+    float nodePulse = 0.7 + 0.3 * sin(uTime * 1.8 + aRandom * 6.2831);
     gl_PointSize =
-      mix(2.0, 5.0, aRandom) * uPixelRatio * (3.5 / max(0.15, -viewPosition.z));
+      uSize * mix(0.55, 1.0, aRandom) * nodePulse * uPixelRatio * (3.5 / max(0.15, -viewPosition.z));
 
     float exitFade = 1.0 - smoothstep(0.55, 1.0, uExit);
-
-    vAlpha =
-      mix(0.85, 1.0, explosion) *
-      exitFade *
-      (1.0 - smoothstep(0.85, 1.0, delayedBreakup) * 0.25);
-
+    vAlpha = exitFade * (1.0 - smoothstep(0.85, 1.0, delayedBreakup) * 0.25);
     vRandom = aRandom;
   }
 `;
@@ -63,7 +59,6 @@ const vertexShader = /* glsl */ `
 const fragmentShader = /* glsl */ `
   uniform vec3 uColorA;
   uniform vec3 uColorB;
-
   varying float vAlpha;
   varying float vRandom;
 
@@ -71,47 +66,21 @@ const fragmentShader = /* glsl */ `
     vec2 centered = gl_PointCoord - vec2(0.5);
     float d = length(centered);
     if (d > 0.5) discard;
-    float softCircle = 1.0 - smoothstep(0.18, 0.5, d);
+    float core = 1.0 - smoothstep(0.0, 0.5, d);
+    float glow = (1.0 - smoothstep(0.1, 0.5, d)) * 0.6;
     vec3 color = mix(uColorA, uColorB, vRandom);
-    gl_FragColor = vec4(color, softCircle * vAlpha);
+    gl_FragColor = vec4(color, (core + glow) * vAlpha);
   }
 `;
 
-export function OrbParticles({ quality = "high" }: { quality?: SceneQuality }) {
+export function OrbParticles({
+  nodes,
+  quality = "high",
+}: {
+  nodes: OrbNodes;
+  quality?: SceneQuality;
+}) {
   const pointsRef = useRef<THREE.Points>(null);
-  const count = quality === "high" ? 9000 : 4000;
-
-  const { positions, directions, randoms, delays } = useMemo(() => {
-    const positions = new Float32Array(count * 3);
-    const directions = new Float32Array(count * 3);
-    const randoms = new Float32Array(count);
-    const delays = new Float32Array(count);
-    const golden = Math.PI * (1 + Math.sqrt(5));
-
-    for (let i = 0; i < count; i++) {
-      const t = i / count;
-      const inclination = Math.acos(1 - 2 * t);
-      const azimuth = golden * i;
-      const r = 1.6 + (Math.random() - 0.5) * 0.08;
-      const sinI = Math.sin(inclination);
-      const x = r * sinI * Math.cos(azimuth);
-      const y = r * Math.cos(inclination);
-      const z = r * sinI * Math.sin(azimuth);
-
-      positions[i * 3] = x;
-      positions[i * 3 + 1] = y;
-      positions[i * 3 + 2] = z;
-
-      const inv = 1 / r;
-      directions[i * 3] = x * inv;
-      directions[i * 3 + 1] = y * inv;
-      directions[i * 3 + 2] = z * inv;
-
-      randoms[i] = Math.random();
-      delays[i] = Math.random();
-    }
-    return { positions, directions, randoms, delays };
-  }, [count]);
 
   const uniforms = useMemo(
     () => ({
@@ -121,10 +90,11 @@ export function OrbParticles({ quality = "high" }: { quality?: SceneQuality }) {
       uPixelRatio: {
         value: typeof window !== "undefined" ? Math.min(window.devicePixelRatio, 2) : 1,
       },
+      uSize: { value: quality === "high" ? 8 : 6 },
       uColorA: { value: new THREE.Color("#ffffff") },
       uColorB: { value: new THREE.Color("#8b5cf6") },
     }),
-    []
+    [quality]
   );
 
   useFrame((state) => {
@@ -140,10 +110,10 @@ export function OrbParticles({ quality = "high" }: { quality?: SceneQuality }) {
   return (
     <points ref={pointsRef}>
       <bufferGeometry>
-        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
-        <bufferAttribute attach="attributes-aDirection" args={[directions, 3]} />
-        <bufferAttribute attach="attributes-aRandom" args={[randoms, 1]} />
-        <bufferAttribute attach="attributes-aDelay" args={[delays, 1]} />
+        <bufferAttribute attach="attributes-position" args={[nodes.positions, 3]} />
+        <bufferAttribute attach="attributes-aDirection" args={[nodes.directions, 3]} />
+        <bufferAttribute attach="attributes-aRandom" args={[nodes.randoms, 1]} />
+        <bufferAttribute attach="attributes-aDelay" args={[nodes.delays, 1]} />
       </bufferGeometry>
       <shaderMaterial
         uniforms={uniforms}

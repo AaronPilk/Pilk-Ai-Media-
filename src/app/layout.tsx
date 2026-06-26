@@ -8,6 +8,7 @@ import { SmoothScrollProvider } from "@/components/layout/SmoothScrollProvider";
 import { Cursor } from "@/components/layout/Cursor";
 import { Preloader } from "@/components/layout/Preloader";
 import { SceneCanvas } from "@/components/canvas/SceneCanvas";
+import { DomPatch } from "@/components/layout/DomPatch";
 
 const display = Space_Grotesk({
   subsets: ["latin"],
@@ -43,6 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalServiceJsonLd()) }}
         />
 
+        <DomPatch />
         <Preloader />
         <SceneCanvas />
         <div className="grain" aria-hidden="true" />

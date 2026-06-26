@@ -1,57 +1,87 @@
 import type { BuiltSite } from "@/types/built-site";
 
 /**
- * Previous website builds shown in the Website Showcase.
+ * Pilk.ai Media's real website builds, shown in the Website Showcase.
  *
- * AARON — to add a real build:
- * 1. Drop assets in:  public/showcase-sites/<slug>/desktop.webp (+ mobile.webp, preview.mp4, poster.webp)
- * 2. Fill the `assets` paths below, e.g.:
- *      assets: {
- *        desktop: "/showcase-sites/luxury-agent-build/desktop.webp",
- *        mobile:  "/showcase-sites/luxury-agent-build/mobile.webp",
- *        video:   "/showcase-sites/luxury-agent-build/preview.mp4",
- *        poster:  "/showcase-sites/luxury-agent-build/poster.webp",
- *      }
- * 3. Change `label` to "Client Build" ONLY if it's real, approved client work.
- *
- * While `assets` are empty, a premium faux-browser mockup renders automatically —
- * the section still looks good before any files exist.
+ * AARON:
+ * - Labels are set to "Client Build" for real businesses — change any that are
+ *   concept/internal/personal to the honest label.
+ * - For a full website screenshot (better than the hero image), drop:
+ *     public/showcase-sites/<slug>/desktop.webp  (+ mobile.webp, preview.mp4, poster.webp)
+ *   and point the `assets` paths at it. Until then a clean preview renders.
+ * - Add `liveUrl` to make a card link out to the live site.
  */
 export const builtSites: BuiltSite[] = [
   {
-    slug: "luxury-agent-build",
-    name: "Luxury Agent Build",
-    label: "Coming Soon",
+    slug: "stephenie-tocado",
+    name: "Stephenie Tocado Real Estate",
+    label: "Client Build",
     industry: "Real Estate",
     summary:
-      "A cinematic real-estate website built to make a single agent's brand feel as premium as the homes they sell.",
+      "A cinematic real-estate website with featured listings, neighborhoods, home valuation, and lead capture.",
     accent: "#7c3aed",
-    sourceFolder: "public/showcase-sites/luxury-agent-build/",
-    assets: {}, // AARON: add desktop/mobile/video/poster here
+    sourceFolder: "Stepehenie Tocado Real estste/",
+    assets: { desktop: "/showcase-sites/stephenie-tocado/desktop.jpg" },
     services: ["Design", "Development", "Lead Capture"],
   },
   {
-    slug: "brokerage-build",
-    name: "Brokerage Build",
-    label: "Coming Soon",
-    industry: "Brokerage",
+    slug: "ballantyne-title",
+    name: "Ballantyne Title JV",
+    label: "Client Build",
+    industry: "Title",
     summary:
-      "A team-focused brokerage website with agent roster, listings, recruiting, and clear inquiry paths.",
+      "A clean, credible title-company site built around services, locations, and quote requests.",
     accent: "#9d6bff",
-    sourceFolder: "public/showcase-sites/brokerage-build/",
-    assets: {}, // AARON: add desktop/mobile/video/poster here
-    services: ["UX", "Website Build", "Conversion"],
+    sourceFolder: "Ballantyne title JV stand alone/",
+    assets: { desktop: "/showcase-sites/ballantyne-title/desktop.jpg" },
+    services: ["Design", "Development", "Conversion"],
   },
   {
-    slug: "custom-business-build",
-    name: "Custom Business Build",
-    label: "Coming Soon",
-    industry: "Local Business",
+    slug: "carnegie-title",
+    name: "Carnegie Title",
+    label: "Client Build",
+    industry: "Title",
     summary:
-      "A fully custom local-business website built around the brand, offer, and the way its customers actually decide.",
+      "A professional title-company website focused on trust, services, and fast quote requests.",
     accent: "#6d5bd0",
-    sourceFolder: "public/showcase-sites/custom-business-build/",
-    assets: {}, // AARON: add desktop/mobile/video/poster here
+    sourceFolder: "Carnegie Title/",
+    assets: {}, // AARON: add public/showcase-sites/carnegie-title/desktop.webp
+    services: ["Design", "Development"],
+  },
+  {
+    slug: "refine-title",
+    name: "Refine Title",
+    label: "Client Build",
+    industry: "Title",
+    summary:
+      "A refined title-services brand and website built to convert referral and direct traffic.",
+    accent: "#8b5cf6",
+    sourceFolder: "Refine Title/",
+    assets: {}, // AARON: add public/showcase-sites/refine-title/desktop.webp
+    services: ["Design", "Development"],
+  },
+  {
+    slug: "star-processing",
+    name: "Star Processing",
+    label: "Client Build",
+    industry: "Mortgage / Processing",
+    summary:
+      "A trust-driven loan-processing website with services, team, and a clear inquiry path.",
+    accent: "#a78bfa",
+    sourceFolder: "Star Processing/",
+    assets: {}, // AARON: add public/showcase-sites/star-processing/desktop.webp
+    services: ["Design", "Development", "Lead Capture"],
+  },
+  {
+    slug: "stage-echo",
+    name: "Stage Echo",
+    label: "Client Build",
+    industry: "Events",
+    summary:
+      "An events brand and website built around story, energy, and booking inquiries.",
+    accent: "#7c3aed",
+    sourceFolder: "Stage Echo/",
+    assets: {}, // AARON: add public/showcase-sites/stage-echo/desktop.webp
     services: ["Design", "Development", "Motion"],
   },
 ];
