@@ -4,10 +4,10 @@ import { useEffect, useRef, useState } from "react";
 import { FauxBrowser } from "@/components/templates/FauxBrowser";
 
 /**
- * Live, scaled preview of a template site. Renders the actual site in a
- * non-interactive iframe (scaled to fit) — at desktop width or, with
- * device="mobile", at a real phone width so the responsive mobile layout shows.
- * Falls back to the procedural mock when there's no standalone preview URL.
+ * Template preview. On DESKTOP it renders the real site live in a scaled,
+ * non-interactive iframe. On mobile/tablet it renders a screenshot (if captured)
+ * or the procedural mock — never an iframe, because a scaled 1280px iframe blows
+ * out the layout width on iOS. Use "Open full preview" to browse the real site.
  */
 export function TemplateLivePreview({
   liveUrl,
@@ -15,17 +15,28 @@ export function TemplateLivePreview({
   slug = "preview",
   className,
   device = "desktop",
+  image,
 }: {
   liveUrl?: string;
   accent?: string;
   slug?: string;
   className?: string;
   device?: "desktop" | "mobile";
+  image?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const baseW = device === "mobile" ? 414 : 1280;
   const baseH = device === "mobile" ? 896 : 800;
   const [scale, setScale] = useState(0.28);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const update = () => setIsDesktop(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   useEffect(() => {
     const el = ref.current;
@@ -35,11 +46,18 @@ export function TemplateLivePreview({
     const ro = new ResizeObserver(update);
     ro.observe(el);
     return () => ro.disconnect();
-  }, [baseW]);
+  }, [baseW, isDesktop]);
 
-  if (!liveUrl || liveUrl === "/") {
+  // Mobile/tablet (or no standalone site): screenshot-or-mock, never an iframe.
+  if (!isDesktop || !liveUrl || liveUrl === "/") {
     return (
-      <FauxBrowser accent={accent} url={`${slug}.pilk.ai`} variant={device} className={className} />
+      <FauxBrowser
+        accent={accent}
+        url={`${slug}.pilk.ai`}
+        image={image}
+        variant={device}
+        className={className}
+      />
     );
   }
 

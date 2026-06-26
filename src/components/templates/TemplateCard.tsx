@@ -24,6 +24,7 @@ export function TemplateCard({ template }: { template: WebsiteTemplate }) {
           liveUrl={template.liveUrl}
           accent={template.accent}
           slug={template.slug}
+          image={template.preview.desktop}
         />
       </Link>
 
