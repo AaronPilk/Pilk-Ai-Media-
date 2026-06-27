@@ -13,7 +13,10 @@ export function ResponsivePreview({ template }: { template: WebsiteTemplate }) {
           image={template.preview.desktop}
         />
       </div>
-      <div className="mx-auto w-[58%] sm:w-full" style={{ aspectRatio: "9 / 16" }}>
+      <div
+        className="mx-auto hidden w-[58%] sm:block sm:w-full"
+        style={{ aspectRatio: "9 / 16" }}
+      >
         <TemplateLivePreview
           liveUrl={template.liveUrl}
           accent={template.accent}

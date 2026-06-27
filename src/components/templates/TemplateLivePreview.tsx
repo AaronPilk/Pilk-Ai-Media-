@@ -4,10 +4,10 @@ import { useEffect, useRef, useState } from "react";
 import { FauxBrowser } from "@/components/templates/FauxBrowser";
 
 /**
- * Template preview. On DESKTOP it renders the real site live in a scaled,
- * non-interactive iframe. On mobile/tablet it renders a screenshot (if captured)
- * or the procedural mock — never an iframe, because a scaled 1280px iframe blows
- * out the layout width on iOS. Use "Open full preview" to browse the real site.
+ * Template preview. Renders the real site live in a scaled, non-interactive
+ * iframe that is fully clipped by its container (so it can never push the page
+ * width out, even on iOS). For the "custom" entry (no standalone site) it shows
+ * the procedural mock. Use "Open full preview" to browse the real site.
  */
 export function TemplateLivePreview({
   liveUrl,
@@ -27,29 +27,23 @@ export function TemplateLivePreview({
   const ref = useRef<HTMLDivElement>(null);
   const baseW = device === "mobile" ? 414 : 1280;
   const baseH = device === "mobile" ? 896 : 800;
-  const [scale, setScale] = useState(0.28);
-  const [isDesktop, setIsDesktop] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(min-width: 1024px)");
-    const update = () => setIsDesktop(mq.matches);
-    update();
-    mq.addEventListener("change", update);
-    return () => mq.removeEventListener("change", update);
-  }, []);
+  const [scale, setScale] = useState(device === "mobile" ? 0.5 : 0.28);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const update = () => setScale(el.clientWidth / baseW);
+    const update = () => {
+      const w = el.clientWidth;
+      if (w > 0) setScale(w / baseW);
+    };
     update();
     const ro = new ResizeObserver(update);
     ro.observe(el);
     return () => ro.disconnect();
-  }, [baseW, isDesktop]);
+  }, [baseW]);
 
-  // Mobile/tablet (or no standalone site): screenshot-or-mock, never an iframe.
-  if (!isDesktop || !liveUrl || liveUrl === "/") {
+  // No standalone site (custom build): procedural mock / screenshot.
+  if (!liveUrl || liveUrl === "/") {
     return (
       <FauxBrowser
         accent={accent}
