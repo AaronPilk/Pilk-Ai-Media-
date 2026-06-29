@@ -29,10 +29,6 @@ const targets = [
   { slug: "star-processing", url: "https://www.star-processing.com" },
   { slug: "home-with-richard", url: "https://www.homewithrichard.com/" },
   { slug: "bubble-down", url: "https://bubble-car-wash-app.pages.dev/" },
-  { slug: "brandgen", url: "https://brandgen-299.pages.dev/" },
-  { slug: "course-ai", url: "https://course-ai.pages.dev/" },
-  { slug: "ecrn", url: "https://ecrn-app.pages.dev/" },
-  { slug: "agency-os", url: "https://google-ads-ai.pages.dev/" },
 ];
 
 const MIME = {
