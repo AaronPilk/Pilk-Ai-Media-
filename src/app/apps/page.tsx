@@ -1,22 +1,21 @@
 import type { Metadata } from "next";
-import { appBuilding } from "@/content/apps";
+import { appBuilding, apps } from "@/content/apps";
 import { buildMetadata } from "@/lib/metadata";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Reveal } from "@/components/ui/Reveal";
-import { FauxBrowser } from "@/components/templates/FauxBrowser";
+import { AppShowcase } from "@/components/apps/AppShowcase";
 
 export const metadata: Metadata = buildMetadata({
   title: "Custom App Building",
   description:
-    "Custom software development — internal tools, customer-facing web and mobile apps, AI-powered products, dashboards, and automations. Built end to end, starting at $15,000.",
+    "Custom software development — mobile apps for iOS & Android, internal tools, AI-powered products, dashboards, and automations. Designed and built end to end, starting at $15,000.",
   path: "/apps",
 });
 
 export default function AppsPage() {
-  const { headline, sub, capabilities, whatYouGet, process, pricingLabel, pricingNote, caseStudy } =
-    appBuilding;
+  const { headline, sub, capabilities, whatYouGet, process, pricingLabel, pricingNote } = appBuilding;
 
   return (
     <>
@@ -31,17 +30,32 @@ export default function AppsPage() {
             <Button href="/contact?projectType=custom&service=app" variant="primary" withArrow>
               Start an app project
             </Button>
-            <Button href="#case-study" variant="ghost">
-              See proof of work
+            <Button href="#work" variant="ghost">
+              See the apps
             </Button>
           </div>
         </Container>
       </header>
 
-      {/* Capabilities */}
-      <section className="section relative z-10 pt-8">
+      {/* Showcased apps */}
+      <section id="work" className="section relative z-10 pt-8">
         <Container>
-          <SectionLabel index="01">What we build</SectionLabel>
+          <SectionLabel index="01">Apps we&apos;ve built</SectionLabel>
+          <h2 className="mt-6 max-w-[18ch] text-balance" style={{ fontSize: "var(--text-2xl)" }}>
+            Real products, designed and shipped.
+          </h2>
+          <div className="mt-16 flex flex-col gap-24">
+            {apps.map((app, i) => (
+              <AppShowcase key={app.slug} app={app} reverse={i % 2 === 1} />
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* Capabilities */}
+      <section className="section env-light relative z-10">
+        <Container>
+          <SectionLabel index="02">What we build</SectionLabel>
           <div className="mt-12 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
             {capabilities.map((c, i) => (
               <Reveal key={c.title} delay={i * 60}>
@@ -49,79 +63,10 @@ export default function AppsPage() {
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <h3 className="mt-3 text-lg font-medium">{c.title}</h3>
-                <p className="mt-2 text-sm text-muted">{c.body}</p>
+                <p className="mt-2 text-sm text-[color:var(--text-on-light-muted)]">{c.body}</p>
               </Reveal>
             ))}
           </div>
-        </Container>
-      </section>
-
-      {/* Proof case study */}
-      <section id="case-study" className="section env-light relative z-10">
-        <Container>
-          <SectionLabel index="02">Proof of work</SectionLabel>
-          <div className="mt-8 grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-            <div>
-              <span className="eyebrow opacity-70">{caseStudy.category}</span>
-              <h2 className="mt-3 max-w-[16ch] text-balance" style={{ fontSize: "var(--text-xl)" }}>
-                {caseStudy.name}
-              </h2>
-              <p className="mt-4 text-[color:var(--text-on-light-muted)]">{caseStudy.tagline}</p>
-
-              <h3 className="mt-8 text-sm font-semibold uppercase tracking-wider opacity-70">
-                The problem
-              </h3>
-              <p className="mt-2 text-[color:var(--text-on-light-muted)]">{caseStudy.problem}</p>
-
-              <h3 className="mt-6 text-sm font-semibold uppercase tracking-wider opacity-70">
-                What we built
-              </h3>
-              <p className="mt-2 text-[color:var(--text-on-light-muted)]">{caseStudy.solution}</p>
-
-              <div className="mt-8 flex flex-wrap gap-2">
-                {caseStudy.features.map((f) => (
-                  <span
-                    key={f}
-                    className="rounded-full border border-[color:var(--line)] px-3 py-1 text-xs text-[color:var(--text-on-light-muted)]"
-                  >
-                    {f}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="relative mx-auto w-full max-w-lg">
-              <div className="aspect-[16/10] w-full overflow-hidden rounded-md border border-line">
-                <FauxBrowser
-                  image={caseStudy.shots[0]?.src}
-                  alt={caseStudy.shots[0]?.alt}
-                  url="app.pilk.ai"
-                  className="h-full w-full"
-                />
-              </div>
-              <div className="absolute -bottom-8 -right-2 w-28 overflow-hidden rounded-[20px] border border-line bg-surface shadow-2xl sm:w-36">
-                <div style={{ aspectRatio: "9 / 16" }}>
-                  <FauxBrowser
-                    image={caseStudy.shots[1]?.src}
-                    alt={caseStudy.shots[1]?.alt}
-                    variant="mobile"
-                    className="h-full w-full"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {caseStudy.results.length > 0 && (
-            <div className="mt-16 grid gap-6 sm:grid-cols-3">
-              {caseStudy.results.map((r) => (
-                <div key={r} className="rounded-md border border-[color:var(--line)] p-6">
-                  <span className="text-accent">→</span>
-                  <p className="mt-2 text-sm text-[color:var(--text-on-light-muted)]">{r}</p>
-                </div>
-              ))}
-            </div>
-          )}
         </Container>
       </section>
 

@@ -1,20 +1,20 @@
-import Link from "next/link";
-import { appBuilding } from "@/content/apps";
+import { appBuilding, apps } from "@/content/apps";
 import { Container } from "@/components/ui/Container";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/Button";
-import { FauxBrowser } from "@/components/templates/FauxBrowser";
+import { StoreBadges } from "@/components/apps/StoreBadges";
 
 export function AppBuilding() {
   const { eyebrow, headline, sub, capabilities, pricingLabel } = appBuilding;
+  const hero = apps[0]; // Watchmen
 
   return (
     <section className="section relative z-10" id="app-building">
       <Container>
         <SectionLabel>{eyebrow}</SectionLabel>
 
-        <div className="mt-6 grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="mt-6 grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <div>
             <Reveal>
               <h2 className="max-w-[18ch] text-balance" style={{ fontSize: "var(--text-2xl)" }}>
@@ -36,7 +36,14 @@ export function AppBuilding() {
 
             <Reveal delay={360}>
               <p className="mt-10 font-display text-2xl font-semibold">{pricingLabel}</p>
-              <p className="mt-1 text-sm text-muted">Custom apps, scoped to what you need.</p>
+              <p className="mt-1 text-sm text-muted">
+                Live apps on the App Store &amp; Google Play — built by Pilk.ai.
+              </p>
+              <StoreBadges
+                appStore={hero.stores.appStore}
+                googlePlay={hero.stores.googlePlay}
+                className="mt-5"
+              />
             </Reveal>
 
             <Reveal delay={420}>
@@ -51,26 +58,29 @@ export function AppBuilding() {
             </Reveal>
           </div>
 
-          <Reveal delay={200} className="relative">
-            <div className="relative mx-auto w-full max-w-lg">
-              <div className="aspect-[16/10] w-full overflow-hidden rounded-md border border-line">
-                <FauxBrowser
-                  image={appBuilding.caseStudy.shots[0]?.src}
-                  alt={appBuilding.caseStudy.shots[0]?.alt}
-                  url="app.pilk.ai"
-                  className="h-full w-full"
-                />
-              </div>
-              <div className="absolute -bottom-8 -right-2 w-28 overflow-hidden rounded-[20px] border border-line bg-surface shadow-2xl sm:w-36">
-                <div style={{ aspectRatio: "9 / 16" }}>
-                  <FauxBrowser
-                    image={appBuilding.caseStudy.shots[1]?.src}
-                    alt={appBuilding.caseStudy.shots[1]?.alt}
-                    variant="mobile"
-                    className="h-full w-full"
-                  />
+          {/* Watchmen demo in a phone frame */}
+          <Reveal delay={200}>
+            <div className="mx-auto w-full max-w-[260px]">
+              <div className="overflow-hidden rounded-[2.2rem] border-[6px] border-[#16151a] bg-black shadow-2xl ring-1 ring-white/10">
+                <div style={{ aspectRatio: "9 / 19.3" }} className="relative">
+                  {hero.video && (
+                    // eslint-disable-next-line jsx-a11y/media-has-caption
+                    <video
+                      className="absolute inset-0 h-full w-full object-cover"
+                      src={hero.video.src}
+                      poster={hero.video.poster}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                    />
+                  )}
                 </div>
               </div>
+              <p className="mt-4 text-center text-xs uppercase tracking-[0.18em] text-muted">
+                {hero.name} · Custom app by Pilk.ai
+              </p>
             </div>
           </Reveal>
         </div>
