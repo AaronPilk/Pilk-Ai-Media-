@@ -34,8 +34,8 @@ export const templates: WebsiteTemplate[] = [
     featured: true,
     liveUrl: "/template-previews/modern-agent/index.html",
     preview: { desktop: "/template-previews/modern-agent/desktop.jpg" },
-    features: ["Home page", "Agent bio", "Featured properties", "Lead form", "Social links", "Mobile responsive"],
-    upgrades: ["IDX / MLS integration", "Neighborhood pages", "CRM connection", "Custom copywriting"],
+    features: ["Personal hero & bio", "About / your story", "Recent sales showcase", "Testimonials", "Contact & lead form", "Mobile responsive"],
+    upgrades: ["Blog / market updates", "Neighborhood guides", "CRM connection", "Custom copywriting"],
   },
   {
     slug: "signature-estate",
