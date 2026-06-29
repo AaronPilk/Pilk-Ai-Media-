@@ -35,14 +35,19 @@ export function Header() {
         >
           <Link
             href="/"
-            className="flex items-center gap-2.5 font-display text-lg font-semibold tracking-tight"
+            className="flex items-center gap-3"
             data-cursor="default"
-            aria-label="Pilk.ai — home"
+            aria-label="Pilk.ai — One Stop Shop Brand Building — home"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/pilk-mark.svg" alt="" aria-hidden="true" className="h-7 w-7" />
-            <span>
-              Pilk<span className="text-accent">.ai</span>
+            <img src="/pilk-mark.svg" alt="" aria-hidden="true" className="h-9 w-9" />
+            <span className="flex flex-col leading-none">
+              <span className="font-display text-lg font-bold uppercase tracking-tight">
+                Pilk<span className="text-accent"> AI</span>
+              </span>
+              <span className="mt-1 hidden text-[8px] font-semibold uppercase tracking-[0.22em] text-muted sm:block">
+                One Stop Shop Brand Building
+              </span>
             </span>
           </Link>
 
