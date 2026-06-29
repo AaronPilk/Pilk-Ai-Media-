@@ -1,6 +1,5 @@
 /**
  * Central brand + copy config. Edit here — never hardcode brand/copy in components.
- * Contact details are PLACEHOLDERS — replace before launch.
  */
 export const site = {
   name: "Pilk.ai Media",
@@ -12,11 +11,10 @@ export const site = {
     "Pilk.ai Media is an independent design and development studio building high-conversion websites with cinematic design, custom interaction, and the infrastructure to turn attention into business.",
   location: "St. Petersburg · Tampa Bay · Remote",
 
-  // PLACEHOLDERS — replace before launch
   contact: {
-    email: "hello@pilk.ai",
-    phone: "+1 (000) 000-0000",
-    phoneHref: "tel:+10000000000",
+    email: "Aaron@pilk.ai",
+    phone: "(704) 877-3511",
+    phoneHref: "tel:+17048773511",
   },
 
   social: [
