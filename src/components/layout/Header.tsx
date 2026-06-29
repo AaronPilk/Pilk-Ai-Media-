@@ -35,10 +35,15 @@ export function Header() {
         >
           <Link
             href="/"
-            className="font-display text-lg font-semibold tracking-tight"
+            className="flex items-center gap-2.5 font-display text-lg font-semibold tracking-tight"
             data-cursor="default"
+            aria-label="Pilk.ai — home"
           >
-            Pilk<span className="text-accent">.ai</span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/pilk-mark.svg" alt="" aria-hidden="true" className="h-7 w-7" />
+            <span>
+              Pilk<span className="text-accent">.ai</span>
+            </span>
           </Link>
 
           <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
