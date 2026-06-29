@@ -152,16 +152,6 @@ export const onRequestPost = async (context: {
 
     const tplName = data.templateName || data.templateSlug;
 
-    // Non-sensitive diagnostics (no secret values) to debug email delivery.
-    const diagnostics: Record<string, unknown> = {
-      hasKey: !!env.RESEND_API_KEY,
-      hasFrom: !!env.LEADS_FROM_EMAIL,
-      hasNotify: !!env.LEADS_NOTIFICATION_EMAIL,
-      fromDomain: (env.LEADS_FROM_EMAIL ?? "").split("@")[1] ?? "",
-      resendStatus: null as number | null,
-      resendError: "",
-    };
-
     // Email the studio with everything + attachments.
     if (env.RESEND_API_KEY && env.LEADS_FROM_EMAIL && env.LEADS_NOTIFICATION_EMAIL) {
       const filesByGroup = UPLOAD_FIELDS.map((g) => {
@@ -251,9 +241,8 @@ export const onRequestPost = async (context: {
           internalHtml,
           attachments
         );
-        diagnostics.resendStatus = r.status;
         if (!r.ok) {
-          diagnostics.resendError = (await r.text()).slice(0, 400);
+          console.error("[template-intake] resend error", r.status, (await r.text()).slice(0, 400));
         }
         // Client confirmation (best effort — don't let it mask the main result).
         await send(
@@ -262,13 +251,13 @@ export const onRequestPost = async (context: {
           clientHtml
         ).catch(() => {});
       } catch (e) {
-        diagnostics.resendError = String(e).slice(0, 400);
+        console.error("[template-intake] send failed", e);
       }
     } else {
       console.log("[template-intake]", tplName, data.email, `${prepared.length} files`);
     }
 
-    return json({ success: true, diagnostics });
+    return json({ success: true });
   } catch (err) {
     console.error("[template-intake] error", err);
     return json({ success: false, error: "Something went wrong. Please try again or email us directly." }, 500);
