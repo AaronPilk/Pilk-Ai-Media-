@@ -45,16 +45,18 @@ export type ExperienceConfig = {
   site: ExpSite;
 };
 
+const F = "/experience/mansion/frames";
+
 export const experiences: Record<string, ExperienceConfig> = {
   estate: {
     slug: "estate",
     label: "The Estate",
-    blurb: "A continuous drone tour of a waterfront mansion — buttery-smooth scrubbing with agent, firm, and property details revealing as you fly through.",
-    framesDir: "/experience/frames",
+    blurb: "A continuous FPV drone tour of a modern waterfront mansion — buttery-smooth scrubbing with agent, firm, and property details revealing as you fly through.",
+    framesDir: F,
     frameCount: 161,
     scrollVh: 820,
-    video: "/experience/drone.mp4",
-    poster: "/experience/poster.jpg",
+    video: "/experience/mansion/drone.mp4",
+    poster: "/experience/mansion/poster.jpg",
     ctaHref: "/contact?projectType=custom&service=real-estate",
     ctaLabel: "Schedule a private showing →",
     scenes: [
@@ -72,66 +74,23 @@ export const experiences: Record<string, ExperienceConfig> = {
       listingsEyebrow: "Featured listings",
       listingsTitle: "A private collection of waterfront estates.",
       listings: [
-        { title: "20 Bayshore Terrace", price: "$24,500,000", meta: "6 BD · 8 BA · 11,400 SF", img: "/experience/frames/frame-030.jpg" },
-        { title: "The Glass House", price: "$18,900,000", meta: "5 BD · 6 BA · 8,900 SF", img: "/experience/frames/frame-075.jpg" },
-        { title: "Cascade Estate", price: "$31,000,000", meta: "7 BD · 9 BA · 14,200 SF", img: "/experience/frames/frame-120.jpg" },
+        { title: "20 Bayshore Terrace", price: "$24,500,000", meta: "6 BD · 8 BA · 11,400 SF", img: `${F}/frame-030.jpg` },
+        { title: "The Glass House", price: "$18,900,000", meta: "5 BD · 6 BA · 8,900 SF", img: `${F}/frame-075.jpg` },
+        { title: "Cascade Estate", price: "$31,000,000", meta: "7 BD · 9 BA · 14,200 SF", img: `${F}/frame-120.jpg` },
       ],
       aboutEyebrow: "The firm",
       aboutTitle: "Quietly, the most trusted name in luxury.",
       aboutBody: "Meridian Estates represents a curated portfolio of the market's most exceptional homes. Discreet, relationship-driven, and relentless on results — we sell the feeling of a property, not just its square footage.",
       agentName: "Alexandra Reyes",
       agentTitle: "Founder · Luxury Specialist · $1.2B+ sold",
-      agentImg: "/experience/frames/frame-095.jpg",
+      agentImg: `${F}/frame-095.jpg`,
       neighborhoodTitle: "Moments from the marina.",
       neighborhoodBody: "Minutes to downtown, the best dining, and the water. A world away from everything else.",
-      neighborhoodImg: "/experience/frames/frame-140.jpg",
+      neighborhoodImg: `${F}/frame-140.jpg`,
       contactTitle: "Arrange a private showing.",
       contactBody: "Tell us about what you're looking for and we'll arrange a private, no-pressure tour.",
     },
   },
-  skyline: {
-    slug: "skyline",
-    label: "The Skyline",
-    blurb: "An aerial flight over a city-skyline penthouse tower — the same scroll-driven experience tuned for a luxury new-development feel.",
-    framesDir: "/experience/v1/frames",
-    frameCount: 160,
-    scrollVh: 820,
-    video: "/experience/v1/drone.mp4",
-    poster: "/experience/v1/poster.jpg",
-    ctaHref: "/contact?projectType=custom&service=real-estate",
-    ctaLabel: "Reserve a private tour →",
-    scenes: [
-      { at: 0.04, align: "center", eyebrow: "Meridian Residences", title: "Above the skyline.", body: "A penthouse collection in the heart of the city." },
-      { at: 0.2, align: "left", eyebrow: "Now releasing", title: "The Penthouse Collection", body: "Full-floor residences with panoramic city and water views." },
-      { at: 0.36, align: "left", eyebrow: "The residences", title: "Space, light, and a view that never repeats.", stats: [{ v: "3–5", l: "Beds" }, { v: "4,200+", l: "Sq Ft" }, { v: "360°", l: "Views" }, { v: "24/7", l: "Concierge" }] },
-      { at: 0.52, align: "right", eyebrow: "Amenities", title: "A private club, forty floors up.", body: "Sky lounge, spa, pool deck, and residents-only dining." },
-      { at: 0.68, align: "left", eyebrow: "The location", title: "The center of everything.", body: "Steps from the waterfront, the best dining, and the business district." },
-      { at: 0.82, align: "right", eyebrow: "Represented by", title: "Meridian Residences", body: "Private sales gallery — by appointment only." },
-      { at: 0.93, align: "center", eyebrow: "From $3,900,000", title: "Keep scrolling to explore the collection.", cta: false },
-    ],
-    site: {
-      brand: "Meridian Residences",
-      tagline: "A landmark penthouse collection — now releasing.",
-      listingsEyebrow: "Available residences",
-      listingsTitle: "Full-floor homes above the city.",
-      listings: [
-        { title: "Penthouse 4400", price: "$8,400,000", meta: "5 BD · 6 BA · 6,100 SF", img: "/experience/v1/frames/frame-030.jpg" },
-        { title: "Sky Residence 38A", price: "$5,250,000", meta: "4 BD · 4 BA · 4,400 SF", img: "/experience/v1/frames/frame-075.jpg" },
-        { title: "Tower Residence 31C", price: "$3,900,000", meta: "3 BD · 3 BA · 3,200 SF", img: "/experience/v1/frames/frame-120.jpg" },
-      ],
-      aboutEyebrow: "The development",
-      aboutTitle: "A new landmark on the skyline.",
-      aboutBody: "Meridian Residences is a limited collection of full-floor homes with panoramic views, hotel-grade amenities, and 24/7 concierge — designed for those who want the city at their feet.",
-      agentName: "Meridian Sales Gallery",
-      agentTitle: "Private appointments · Now releasing",
-      agentImg: "/experience/v1/frames/frame-095.jpg",
-      neighborhoodTitle: "The center of everything.",
-      neighborhoodBody: "Steps from the waterfront, the finest dining, and the business district — with the skyline as your backdrop.",
-      neighborhoodImg: "/experience/v1/frames/frame-140.jpg",
-      contactTitle: "Reserve a private tour.",
-      contactBody: "Register your interest and our sales team will arrange a private viewing of the collection.",
-    },
-  },
 };
 
-export const experienceList = [experiences.estate, experiences.skyline];
+export const experienceList = [experiences.estate];

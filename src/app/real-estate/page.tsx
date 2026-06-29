@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import { templates } from "@/content/templates";
-import { experienceList } from "@/content/experiences";
 import { buildMetadata, faqJsonLd } from "@/lib/metadata";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
@@ -69,40 +68,31 @@ export default function RealEstatePage() {
 
       <section className="relative z-10 pt-8">
         <Container>
-          <SectionLabel>Interactive experiences · custom builds</SectionLabel>
-          <h2 className="mt-6 max-w-[22ch] text-balance" style={{ fontSize: "var(--text-2xl)" }}>
-            Full listing sites you fly through as you scroll.
-          </h2>
-          <p className="mt-4 max-w-2xl text-muted">
-            Two live examples of fully custom, scroll-driven listing websites — preview each, then
-            open the full site. This is the top tier of what we build.
-          </p>
-          <div className="mt-10 grid gap-8 md:grid-cols-2">
-            {experienceList.map((e) => (
-              <div
-                key={e.slug}
-                className="group relative overflow-hidden rounded-[24px] border border-line"
-                style={{
-                  backgroundImage: `linear-gradient(180deg, rgba(0,0,0,0.3), rgba(0,0,0,0.82)), url('${e.poster}')`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              >
-                <Link href={`/real-estate/experience/${e.slug}`} className="block">
-                  <div className="relative flex min-h-[340px] flex-col justify-end gap-3 p-8">
-                    <span className="eyebrow text-white/80">{e.label}</span>
-                    <h3 className="text-balance text-white" style={{ fontSize: "var(--text-xl)" }}>
-                      {e.slug === "estate" ? "Waterfront mansion tour" : "City skyline penthouse"}
-                    </h3>
-                    <p className="max-w-md text-sm text-white/75">{e.blurb}</p>
-                    <span className="mt-2 inline-flex w-fit items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-medium text-white transition-transform group-hover:-translate-y-0.5">
-                      Open full site ↗
-                    </span>
-                  </div>
-                </Link>
-              </div>
-            ))}
-          </div>
+          <SectionLabel>Interactive experience · custom build</SectionLabel>
+          <Link
+            href="/real-estate/experience/estate"
+            className="group relative mt-8 block overflow-hidden rounded-[24px] border border-line"
+            style={{
+              backgroundImage: "linear-gradient(180deg, rgba(0,0,0,0.32), rgba(0,0,0,0.82)), url('/experience/mansion/poster.jpg')",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          >
+            <div className="relative flex min-h-[420px] flex-col justify-end gap-4 p-8 sm:p-14">
+              <span className="eyebrow text-white/80">Interactive listing experience</span>
+              <h2 className="max-w-[20ch] text-balance text-white" style={{ fontSize: "var(--text-2xl)" }}>
+                Fly through the property as you scroll.
+              </h2>
+              <p className="max-w-xl text-white/80">
+                A fully custom, scroll-driven listing site built from a single continuous drone
+                shot — buyers fly through the home as the property, agent, and firm details reveal.
+                The top tier of what we build.
+              </p>
+              <span className="mt-2 inline-flex w-fit items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-medium text-white transition-transform group-hover:-translate-y-0.5">
+                Open the full site ↗
+              </span>
+            </div>
+          </Link>
         </Container>
       </section>
 
