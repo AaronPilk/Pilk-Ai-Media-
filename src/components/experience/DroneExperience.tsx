@@ -2,37 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-
-const FRAME_COUNT = 161;
-const SCROLL_VH = 820; // length of the scroll track
-const frameSrc = (i: number) =>
-  `/experience/frames/frame-${String(i + 1).padStart(3, "0")}.jpg`;
-
-type Stat = { v: string; l: string };
-type Scene = {
-  at: number;
-  align: "center" | "left" | "right";
-  eyebrow: string;
-  title: string;
-  body?: string;
-  stats?: Stat[];
-  cta?: boolean;
-};
-
-// Generic luxury-listing demo copy — reads like a real realtor site.
-const SCENES: Scene[] = [
-  { at: 0.04, align: "center", eyebrow: "Meridian Estates", title: "Live above it all.", body: "An architectural landmark, perched over open water." },
-  { at: 0.19, align: "left", eyebrow: "Now showing", title: "20 Bayshore Terrace", body: "A private waterfront estate unlike anything on the market." },
-  { at: 0.35, align: "left", eyebrow: "The residence", title: "Designed to be lived in — and remembered.", stats: [{ v: "6", l: "Beds" }, { v: "8", l: "Baths" }, { v: "11,400", l: "Sq Ft" }, { v: "0.9", l: "Acres" }] },
-  { at: 0.51, align: "right", eyebrow: "The design", title: "Floor-to-ceiling glass.", body: "180° of unobstructed water, framed from every room." },
-  { at: 0.66, align: "left", eyebrow: "The setting", title: "Moments from the marina.", body: "Minutes to downtown. A world away from everything else." },
-  { at: 0.8, align: "right", eyebrow: "Represented by", title: "Meridian Estates", body: "Boutique luxury representation — by private appointment only." },
-  { at: 0.93, align: "center", eyebrow: "Offered at $24,500,000", title: "Schedule a private showing.", cta: true },
-];
+import type { ExperienceConfig, ExpScene } from "@/content/experiences";
 
 const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v));
 
-export function DroneExperience() {
+export function DroneExperience({ config }: { config: ExperienceConfig }) {
+  const { framesDir, frameCount, scrollVh, video, poster, scenes, ctaHref, ctaLabel } = config;
+  const frameSrc = (i: number) => `${framesDir}/frame-${String(i + 1).padStart(3, "0")}.jpg`;
+
   const trackRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const sceneRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -61,10 +38,10 @@ export function DroneExperience() {
     const ctx = canvas.getContext("2d", { alpha: false })!;
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.25); // cap density for speed
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
       canvas.width = Math.round(window.innerWidth * dpr);
       canvas.height = Math.round(window.innerHeight * dpr);
-      lastDrawn = -1; // force redraw at new size
+      lastDrawn = -1;
     };
 
     const draw = (idx: number) => {
@@ -72,7 +49,7 @@ export function DroneExperience() {
       if (!img || !img.complete || !img.naturalWidth) return;
       const W = canvas.width;
       const H = canvas.height;
-      const s = Math.max(W / img.naturalWidth, H / img.naturalHeight); // cover
+      const s = Math.max(W / img.naturalWidth, H / img.naturalHeight);
       const w = img.naturalWidth * s;
       const h = img.naturalHeight * s;
       ctx.drawImage(img, (W - w) / 2, (H - h) / 2, w, h);
@@ -85,17 +62,17 @@ export function DroneExperience() {
         const total = rect.height - window.innerHeight;
         const p = clamp(-rect.top / total, 0, 1);
 
-        curFrame += (p * (FRAME_COUNT - 1) - curFrame) * 0.2;
+        curFrame += (p * (frameCount - 1) - curFrame) * 0.2;
         const idx = Math.round(curFrame);
         if (idx !== lastDrawn) {
           draw(idx);
           lastDrawn = idx;
         }
 
-        for (let i = 0; i < SCENES.length; i++) {
+        for (let i = 0; i < scenes.length; i++) {
           const el = sceneRefs.current[i];
           if (!el) continue;
-          const o = clamp(1 - Math.abs(p - SCENES[i].at) / 0.1, 0, 1);
+          const o = clamp(1 - Math.abs(p - scenes[i].at) / 0.1, 0, 1);
           el.style.opacity = String(o);
           el.style.transform = `translateY(${(1 - o) * 30}px)`;
           el.style.pointerEvents = o > 0.6 ? "auto" : "none";
@@ -109,14 +86,14 @@ export function DroneExperience() {
     resize();
     window.addEventListener("resize", resize);
 
-    for (let i = 0; i < FRAME_COUNT; i++) {
+    for (let i = 0; i < frameCount; i++) {
       const img = new Image();
       img.decoding = "async";
       const done = () => {
         loaded++;
-        setProgress(Math.round((loaded / FRAME_COUNT) * 100));
+        setProgress(Math.round((loaded / frameCount) * 100));
         if (i === 0) draw(0);
-        if (loaded === FRAME_COUNT && !cancelled) {
+        if (loaded === frameCount && !cancelled) {
           setMode("scrub");
           raf = requestAnimationFrame(tick);
         }
@@ -131,7 +108,20 @@ export function DroneExperience() {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const StatRow = ({ s, center }: { s: ExpScene; center?: boolean }) =>
+    s.stats ? (
+      <div className={`mt-7 flex flex-wrap gap-x-10 gap-y-5 ${center ? "justify-center" : s.align === "right" ? "justify-end" : ""}`}>
+        {s.stats.map((st) => (
+          <div key={st.l}>
+            <div className="font-display text-4xl font-semibold text-white">{st.v}</div>
+            <div className="mt-1 text-xs uppercase tracking-[0.2em] text-white/65">{st.l}</div>
+          </div>
+        ))}
+      </div>
+    ) : null;
 
   // ---- Mobile / reduced-motion fallback ----
   if (mode === "video") {
@@ -139,38 +129,20 @@ export function DroneExperience() {
       <div className="relative z-10">
         <div className="fixed inset-0 z-0 bg-black">
           {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-          <video
-            className="h-full w-full object-cover opacity-80"
-            src="/experience/drone.mp4"
-            poster="/experience/poster.jpg"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-          />
+          <video className="h-full w-full object-cover opacity-80" src={video} poster={poster} autoPlay muted loop playsInline preload="metadata" />
           <div className="absolute inset-0 bg-black/40" />
         </div>
         <div className="relative z-10">
-          {SCENES.map((s) => (
+          {scenes.map((s) => (
             <section key={s.title} className="flex min-h-[100svh] items-center justify-center px-6 text-center">
               <div className="max-w-xl [text-shadow:0_2px_16px_rgba(0,0,0,0.7)]">
                 <p className="text-xs uppercase tracking-[0.28em] text-accent">{s.eyebrow}</p>
                 <h2 className="mt-4 font-display text-4xl font-semibold text-white sm:text-5xl">{s.title}</h2>
                 {s.body && <p className="mt-5 text-lg text-white/90">{s.body}</p>}
-                {s.stats && (
-                  <div className="mt-6 flex flex-wrap justify-center gap-x-8 gap-y-4">
-                    {s.stats.map((st) => (
-                      <div key={st.l}>
-                        <div className="font-display text-3xl font-semibold text-white">{st.v}</div>
-                        <div className="text-xs uppercase tracking-widest text-white/60">{st.l}</div>
-                      </div>
-                    ))}
-                  </div>
-                )}
+                <StatRow s={s} center />
                 {s.cta && (
-                  <Link href="/contact?projectType=custom" className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3 text-sm font-medium text-white">
-                    Schedule a showing →
+                  <Link href={ctaHref} className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3 text-sm font-medium text-white">
+                    {ctaLabel}
                   </Link>
                 )}
               </div>
@@ -182,20 +154,16 @@ export function DroneExperience() {
   }
 
   // ---- Desktop scrub experience ----
-  const alignCls = (a: Scene["align"]) =>
-    a === "left"
-      ? "items-end justify-start text-left"
-      : a === "right"
-        ? "items-end justify-end text-right"
-        : "items-center justify-center text-center";
+  const alignCls = (a: ExpScene["align"]) =>
+    a === "left" ? "items-end justify-start text-left" : a === "right" ? "items-end justify-end text-right" : "items-center justify-center text-center";
 
   return (
-    <div ref={trackRef} style={{ height: `${SCROLL_VH}vh` }} className="relative z-10 bg-black">
+    <div ref={trackRef} style={{ height: `${scrollVh}vh` }} className="relative z-10 bg-black">
       <div className="sticky top-0 h-[100svh] overflow-hidden bg-black">
         <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/25" />
 
-        {SCENES.map((s, i) => (
+        {scenes.map((s, i) => (
           <div
             key={s.title}
             ref={(el) => {
@@ -208,36 +176,19 @@ export function DroneExperience() {
               <p className="text-xs uppercase tracking-[0.32em] text-accent">{s.eyebrow}</p>
               <h2 className="mt-4 font-display text-5xl font-semibold text-white xl:text-6xl">{s.title}</h2>
               {s.body && <p className="mt-5 text-lg text-white/90">{s.body}</p>}
-              {s.stats && (
-                <div className={`mt-7 flex flex-wrap gap-x-10 gap-y-5 ${s.align === "right" ? "justify-end" : ""}`}>
-                  {s.stats.map((st) => (
-                    <div key={st.l}>
-                      <div className="font-display text-4xl font-semibold text-white">{st.v}</div>
-                      <div className="mt-1 text-xs uppercase tracking-[0.2em] text-white/65">{st.l}</div>
-                    </div>
-                  ))}
-                </div>
-              )}
+              <StatRow s={s} />
               {s.cta && (
-                <Link
-                  href="/contact?projectType=custom"
-                  className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-8 py-4 text-sm font-medium text-white transition-transform hover:-translate-y-0.5"
-                >
-                  Schedule a private showing →
+                <Link href={ctaHref} className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-8 py-4 text-sm font-medium text-white transition-transform hover:-translate-y-0.5">
+                  {ctaLabel}
                 </Link>
               )}
             </div>
           </div>
         ))}
 
-        <div
-          ref={hintRef}
-          className="pointer-events-none absolute bottom-7 left-1/2 -translate-x-1/2 text-center text-xs uppercase tracking-[0.3em] text-white/70"
-        >
+        <div ref={hintRef} className="pointer-events-none absolute bottom-7 left-1/2 -translate-x-1/2 text-center text-xs uppercase tracking-[0.3em] text-white/70">
           Scroll to explore ↓
         </div>
-
-        {/* progress bar */}
         <div className="pointer-events-none absolute bottom-0 left-0 h-[3px] w-full bg-white/10">
           <div ref={barRef} className="h-full w-full origin-left scale-x-0 bg-accent" />
         </div>
