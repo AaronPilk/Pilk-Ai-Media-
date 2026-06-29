@@ -129,6 +129,7 @@ export const projects: Project[] = [
     summary: "An AI-powered course and learning platform.",
     services: ["Product", "Development", "AI"],
     cover: "/work/course-ai.jpg",
+    liveUrl: "https://course-ai.pages.dev/",
   },
   {
     slug: "rolodex-ai",
@@ -151,6 +152,7 @@ export const projects: Project[] = [
     summary: "A desktop AI assistant application.",
     services: ["Software", "Development", "AI"],
     cover: "/work/brandgen.jpg",
+    liveUrl: "https://brandgen-299.pages.dev/",
   },
   {
     slug: "home-with-richard",
@@ -162,6 +164,7 @@ export const projects: Project[] = [
     summary: "A personal real-estate brand site for an individual agent.",
     services: ["Design", "Development", "Lead Capture"],
     cover: "/work/home-with-richard.jpg",
+    liveUrl: "https://www.homewithrichard.com/",
   },
   {
     slug: "bubble-down",
@@ -174,6 +177,7 @@ export const projects: Project[] = [
       "A premium, mobile-first membership app for a Tampa Bay car wash — native iOS & Android, memberships, rewards, and a live map.",
     services: ["App Design", "Development", "Brand"],
     cover: "/work/bubble-down.jpg",
+    liveUrl: "https://bubble-car-wash-app.pages.dev/",
   },
   {
     slug: "agency-os",
@@ -186,6 +190,7 @@ export const projects: Project[] = [
       "An internal operating system managing ~50 Google Ads accounts — AI scoring, alerts, automated client reports, and an approval queue.",
     services: ["Product", "Development", "AI", "Automation"],
     cover: "/work/agency-os.jpg",
+    liveUrl: "https://google-ads-ai.pages.dev/",
   },
   {
     slug: "ecrn",
@@ -198,6 +203,7 @@ export const projects: Project[] = [
       "A mobile-first referral network for the construction industry — partner referrals, candidate applications, payouts, and an admin dashboard.",
     services: ["Product", "Development", "PWA"],
     cover: "/work/ecrn.jpg",
+    liveUrl: "https://ecrn-app.pages.dev/",
   },
 ];
 
