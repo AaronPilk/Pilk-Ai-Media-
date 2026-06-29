@@ -152,6 +152,16 @@ export const onRequestPost = async (context: {
 
     const tplName = data.templateName || data.templateSlug;
 
+    // Non-sensitive diagnostics (no secret values) to debug email delivery.
+    const diagnostics: Record<string, unknown> = {
+      hasKey: !!env.RESEND_API_KEY,
+      hasFrom: !!env.LEADS_FROM_EMAIL,
+      hasNotify: !!env.LEADS_NOTIFICATION_EMAIL,
+      fromDomain: (env.LEADS_FROM_EMAIL ?? "").split("@")[1] ?? "",
+      resendStatus: null as number | null,
+      resendError: "",
+    };
+
     // Email the studio with everything + attachments.
     if (env.RESEND_API_KEY && env.LEADS_FROM_EMAIL && env.LEADS_NOTIFICATION_EMAIL) {
       const filesByGroup = UPLOAD_FIELDS.map((g) => {
@@ -234,15 +244,31 @@ export const onRequestPost = async (context: {
         <p>— Pilk.ai Media</p>
       `;
 
-      await Promise.allSettled([
-        send(env.LEADS_NOTIFICATION_EMAIL, `Template order — ${tplName} — ${data.yourName}`, internalHtml, attachments),
-        send(data.email, `We received your ${tplName} template order — Pilk.ai Media`, clientHtml),
-      ]);
+      try {
+        const r = await send(
+          env.LEADS_NOTIFICATION_EMAIL,
+          `Template order — ${tplName} — ${data.yourName}`,
+          internalHtml,
+          attachments
+        );
+        diagnostics.resendStatus = r.status;
+        if (!r.ok) {
+          diagnostics.resendError = (await r.text()).slice(0, 400);
+        }
+        // Client confirmation (best effort — don't let it mask the main result).
+        await send(
+          data.email,
+          `We received your ${tplName} template order — Pilk.ai Media`,
+          clientHtml
+        ).catch(() => {});
+      } catch (e) {
+        diagnostics.resendError = String(e).slice(0, 400);
+      }
     } else {
       console.log("[template-intake]", tplName, data.email, `${prepared.length} files`);
     }
 
-    return json({ success: true });
+    return json({ success: true, diagnostics });
   } catch (err) {
     console.error("[template-intake] error", err);
     return json({ success: false, error: "Something went wrong. Please try again or email us directly." }, 500);
