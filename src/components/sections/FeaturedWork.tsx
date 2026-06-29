@@ -31,7 +31,7 @@ export function FeaturedWork() {
                 className="group block"
               >
                 <div className="aspect-[16/10] transition-transform duration-700 ease-expo group-hover:-translate-y-1.5">
-                  <FauxBrowser accent={project.accent} url={`${project.slug}.pilk.ai`} />
+                  <FauxBrowser accent={project.accent} url={`${project.slug}.pilk.ai`} image={project.cover} alt={project.name} />
                 </div>
                 <div className="mt-5 flex items-baseline justify-between">
                   <h3 className="text-xl font-medium">{project.name}</h3>

@@ -71,14 +71,23 @@ export default async function ProjectPage({
             </div>
           )}
 
-          {project.label === "Concept" && (
-            <p className="mt-10 max-w-xl text-sm text-muted">
-              This is a concept design that demonstrates direction and capability. Full case studies
-              with results appear here once a client project launches.
+          {project.cost && (
+            <p className="mt-8 text-sm text-muted">
+              Project cost: <span className="font-display text-2xl font-semibold text-ink">{project.cost}</span>
             </p>
           )}
 
-          <div className="mt-12">
+          <div className="mt-12 flex flex-wrap gap-3">
+            {project.liveUrl && (
+              <a
+                className="btn btn-ghost"
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Visit live site ↗
+              </a>
+            )}
             <Button href="/contact" variant="primary" withArrow>
               Start a project like this
             </Button>

@@ -10,7 +10,7 @@ import { FauxBrowser } from "@/components/templates/FauxBrowser";
 export const metadata: Metadata = buildMetadata({
   title: "Work",
   description:
-    "Selected design and development work from Pilk.ai Media. Concept designs shown until client projects are published.",
+    "Real client builds, apps, and products designed and developed by Pilk.ai Media — websites, mobile apps, AI platforms, and brands.",
   path: "/work",
 });
 
@@ -20,7 +20,7 @@ export default function WorkPage() {
       <PageIntro
         eyebrow="Work"
         title="Designs built to be remembered."
-        sub="A look at the kind of work we build. Concept designs are clearly labeled; launched client work appears here as it ships."
+        sub="Real client builds, apps, and products — websites, mobile apps, AI platforms, and brands we've designed and shipped."
       />
 
       <section className="section relative z-10 pt-4">
@@ -35,7 +35,7 @@ export default function WorkPage() {
                   data-cursor-label="View"
                 >
                   <div className="aspect-[16/10] transition-transform duration-700 ease-expo group-hover:-translate-y-1.5">
-                    <FauxBrowser accent={project.accent} url={`${project.slug}.pilk.ai`} />
+                    <FauxBrowser accent={project.accent} url={`${project.slug}.pilk.ai`} image={project.cover} alt={project.name} />
                   </div>
                   <div className="mt-5 flex items-baseline justify-between">
                     <h2 className="text-xl font-medium">{project.name}</h2>
