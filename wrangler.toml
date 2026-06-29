@@ -4,3 +4,11 @@ compatibility_flags = ["nodejs_compat"]
 # Static site output. Cloudflare serves these files from its CDN.
 # The /functions folder is auto-deployed as edge functions (handles /api/leads).
 pages_build_output_dir = "out"
+
+# Non-secret config for the lead + template-intake email functions.
+# (Dashboard vars are ignored when this file exists, so they live here.)
+# The RESEND_API_KEY is a real secret — set it with:
+#   npx wrangler pages secret put RESEND_API_KEY --project-name pilk-ai-media
+[vars]
+LEADS_FROM_EMAIL = "Pilk.ai Media <orders@pilk.ai>"
+LEADS_NOTIFICATION_EMAIL = "Aaron@pilk.ai"
