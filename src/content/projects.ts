@@ -152,6 +152,53 @@ export const projects: Project[] = [
     services: ["Software", "Development", "AI"],
     cover: "/work/brandgen.jpg",
   },
+  {
+    slug: "home-with-richard",
+    name: "Home With Richard",
+    label: "Client Build",
+    category: "Real Estate Agent",
+    year: "2025",
+    accent: "#1f6feb",
+    summary: "A personal real-estate brand site for an individual agent.",
+    services: ["Design", "Development", "Lead Capture"],
+    cover: "/work/home-with-richard.jpg",
+  },
+  {
+    slug: "bubble-down",
+    name: "Bubble Down",
+    label: "App Build",
+    category: "Car Wash Membership App",
+    year: "2025",
+    accent: "#38bdf8",
+    summary:
+      "A premium, mobile-first membership app for a Tampa Bay car wash — native iOS & Android, memberships, rewards, and a live map.",
+    services: ["App Design", "Development", "Brand"],
+    cover: "/work/bubble-down.jpg",
+  },
+  {
+    slug: "agency-os",
+    name: "Agency OS",
+    label: "Platform Build",
+    category: "Google Ads AI Platform",
+    year: "2025",
+    accent: "#8b5cf6",
+    summary:
+      "An internal operating system managing ~50 Google Ads accounts — AI scoring, alerts, automated client reports, and an approval queue.",
+    services: ["Product", "Development", "AI", "Automation"],
+    cover: "/work/agency-os.jpg",
+  },
+  {
+    slug: "ecrn",
+    name: "ECRN",
+    label: "Platform Build",
+    category: "Referral Network PWA",
+    year: "2025",
+    accent: "#2563eb",
+    summary:
+      "A mobile-first referral network for the construction industry — partner referrals, candidate applications, payouts, and an admin dashboard.",
+    services: ["Product", "Development", "PWA"],
+    cover: "/work/ecrn.jpg",
+  },
 ];
 
 export function getProject(slug: string): Project | undefined {
