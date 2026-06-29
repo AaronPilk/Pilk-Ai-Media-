@@ -6,6 +6,7 @@ import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { DroneExperience } from "@/components/experience/DroneExperience";
+import { ExperienceSite } from "@/components/experience/ExperienceSite";
 
 export function generateStaticParams() {
   return experienceList.map((e) => ({ variant: e.slug }));
@@ -39,23 +40,22 @@ export default async function ExperienceVariantPage({
     <>
       <DroneExperience config={cfg} />
 
-      <section className="section relative z-10 bg-black">
+      {/* The rest of the full website continues below the cinematic hero */}
+      <ExperienceSite config={cfg} />
+
+      <section className="section relative z-10 bg-[#0b0b0e]">
         <Container className="text-center">
           <SectionLabel>A Pilk.ai custom build</SectionLabel>
-          <h2 className="mx-auto mt-6 max-w-[20ch] text-balance text-white" style={{ fontSize: "var(--text-2xl)" }}>
-            This is what a custom listing site can feel like.
+          <h2 className="mx-auto mt-6 max-w-[22ch] text-balance text-white" style={{ fontSize: "var(--text-xl)" }}>
+            This entire site is a custom build — yours could be too.
           </h2>
-          <p className="mx-auto mt-6 max-w-2xl text-white/70">
-            Cinematic scroll scrubbing, reveal-on-scroll storytelling, and a build engineered to stay
-            smooth. Imagine it built around your property, your brand, and your numbers.
-          </p>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             <Button href={cfg.ctaHref} variant="primary" withArrow>
               Build something like this
             </Button>
             {other && (
               <Button href={`/real-estate/experience/${other.slug}`} variant="ghost">
-                See &ldquo;{other.label}&rdquo; →
+                See the &ldquo;{other.label}&rdquo; site →
               </Button>
             )}
           </div>
