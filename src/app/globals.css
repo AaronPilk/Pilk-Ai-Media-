@@ -522,3 +522,20 @@ h4 {
     transform: scale(1.6);
   }
 }
+
+/* Drone experience — smoke-screen intro reveal */
+@keyframes exp-smoke-drift {
+  0%   { transform: translate3d(-4%, 1%, 0) scale(1.2); }
+  50%  { transform: translate3d(3%, -2%, 0) scale(1.35); }
+  100% { transform: translate3d(-2%, 3%, 0) scale(1.25); }
+}
+.exp-smoke {
+  background:
+    radial-gradient(40% 50% at 25% 35%, rgba(135,135,155,0.55), transparent 70%),
+    radial-gradient(45% 45% at 75% 45%, rgba(90,95,120,0.5), transparent 72%),
+    radial-gradient(55% 50% at 50% 78%, rgba(150,150,172,0.5), transparent 70%),
+    radial-gradient(35% 35% at 62% 18%, rgba(175,175,190,0.42), transparent 72%);
+  filter: blur(22px);
+  animation: exp-smoke-drift 18s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}

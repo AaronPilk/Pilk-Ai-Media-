@@ -6,6 +6,9 @@ import type { ExperienceConfig, ExpScene } from "@/content/experiences";
 
 const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v));
 
+// Fraction of the scroll track used by the intro (welcome + smoke reveal).
+const INTRO = 0.14;
+
 export function DroneExperience({ config }: { config: ExperienceConfig }) {
   const { framesDir, frameCount, scrollVh, video, poster, scenes, ctaHref, ctaLabel } = config;
   const frameSrc = (i: number) => `${framesDir}/frame-${String(i + 1).padStart(3, "0")}.jpg`;
@@ -13,7 +16,9 @@ export function DroneExperience({ config }: { config: ExperienceConfig }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const sceneRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const hintRef = useRef<HTMLDivElement>(null);
+  const introBaseRef = useRef<HTMLDivElement>(null);
+  const introTextRef = useRef<HTMLDivElement>(null);
+  const smokeRef = useRef<HTMLDivElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
 
   const [mode, setMode] = useState<"loading" | "scrub" | "video">("loading");
@@ -61,8 +66,10 @@ export function DroneExperience({ config }: { config: ExperienceConfig }) {
         const rect = track.getBoundingClientRect();
         const total = rect.height - window.innerHeight;
         const p = clamp(-rect.top / total, 0, 1);
+        // Footage progress starts only after the intro section.
+        const fp = clamp((p - INTRO) / (1 - INTRO), 0, 1);
 
-        curFrame += (p * (frameCount - 1) - curFrame) * 0.2;
+        curFrame += (fp * (frameCount - 1) - curFrame) * 0.2;
         const idx = Math.round(curFrame);
         if (idx !== lastDrawn) {
           draw(idx);
@@ -72,12 +79,20 @@ export function DroneExperience({ config }: { config: ExperienceConfig }) {
         for (let i = 0; i < scenes.length; i++) {
           const el = sceneRefs.current[i];
           if (!el) continue;
-          const o = clamp(1 - Math.abs(p - scenes[i].at) / 0.1, 0, 1);
+          const o = clamp(1 - Math.abs(fp - scenes[i].at) / 0.1, 0, 1);
           el.style.opacity = String(o);
           el.style.transform = `translateY(${(1 - o) * 30}px)`;
           el.style.pointerEvents = o > 0.6 ? "auto" : "none";
         }
-        if (hintRef.current) hintRef.current.style.opacity = String(clamp(1 - p / 0.03, 0, 1));
+
+        // Intro: welcome text + black base clear first, smoke lingers, revealing footage.
+        const baseO = clamp(1 - p / (INTRO * 0.62), 0, 1);
+        if (introBaseRef.current) {
+          introBaseRef.current.style.opacity = String(baseO);
+          introBaseRef.current.style.pointerEvents = baseO > 0.5 ? "auto" : "none";
+        }
+        if (introTextRef.current) introTextRef.current.style.opacity = String(baseO);
+        if (smokeRef.current) smokeRef.current.style.opacity = String(clamp(1 - p / INTRO, 0, 1) * 0.95);
         if (barRef.current) barRef.current.style.transform = `scaleX(${p})`;
       }
       raf = requestAnimationFrame(tick);
@@ -133,6 +148,16 @@ export function DroneExperience({ config }: { config: ExperienceConfig }) {
           <div className="absolute inset-0 bg-black/40" />
         </div>
         <div className="relative z-10">
+          <section className="relative flex min-h-[100svh] items-center justify-center px-6 text-center">
+            <div className="exp-smoke pointer-events-none absolute inset-0 opacity-60" />
+            <div className="relative [text-shadow:0_2px_24px_rgba(0,0,0,0.8)]">
+              <p className="eyebrow text-white/70">{config.site.brand}</p>
+              <h1 className="mt-4 max-w-[14ch] font-display text-5xl font-semibold text-white">
+                Welcome to your new home.
+              </h1>
+              <p className="mt-8 text-xs uppercase tracking-[0.35em] text-white/65">Scroll to experience ↓</p>
+            </div>
+          </section>
           {scenes.map((s) => (
             <section key={s.title} className="flex min-h-[100svh] items-center justify-center px-6 text-center">
               <div className="max-w-xl [text-shadow:0_2px_16px_rgba(0,0,0,0.7)]">
@@ -158,7 +183,7 @@ export function DroneExperience({ config }: { config: ExperienceConfig }) {
     a === "left" ? "items-end justify-start text-left" : a === "right" ? "items-end justify-end text-right" : "items-center justify-center text-center";
 
   return (
-    <div ref={trackRef} style={{ height: `${scrollVh}vh` }} className="relative z-10 bg-black">
+    <div ref={trackRef} style={{ height: `${scrollVh + 140}vh` }} className="relative z-10 bg-black">
       <div className="sticky top-0 h-[100svh] overflow-hidden bg-black">
         <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/25" />
@@ -186,9 +211,24 @@ export function DroneExperience({ config }: { config: ExperienceConfig }) {
           </div>
         ))}
 
-        <div ref={hintRef} className="pointer-events-none absolute bottom-7 left-1/2 -translate-x-1/2 text-center text-xs uppercase tracking-[0.3em] text-white/70">
-          Scroll to explore ↓
+        {/* Intro — welcome + smoke-screen reveal */}
+        <div className="absolute inset-0 z-30">
+          <div ref={introBaseRef} className="absolute inset-0 bg-[#0b0b0e]" />
+          <div ref={smokeRef} className="exp-smoke pointer-events-none absolute inset-0" />
+          <div
+            ref={introTextRef}
+            className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center px-6 text-center [text-shadow:0_2px_24px_rgba(0,0,0,0.8)]"
+          >
+            <p className="eyebrow text-white/70">{config.site.brand}</p>
+            <h1 className="mt-5 max-w-[14ch] font-display text-6xl font-semibold text-white xl:text-7xl">
+              Welcome to your new home.
+            </h1>
+            <p className="mt-10 text-xs uppercase tracking-[0.4em] text-white/65">
+              Scroll to experience ↓
+            </p>
+          </div>
         </div>
+
         <div className="pointer-events-none absolute bottom-0 left-0 h-[3px] w-full bg-white/10">
           <div ref={barRef} className="h-full w-full origin-left scale-x-0 bg-accent" />
         </div>
