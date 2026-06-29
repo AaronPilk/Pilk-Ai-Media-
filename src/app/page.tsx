@@ -3,6 +3,7 @@ import { PositioningAssembler } from "@/components/sections/PositioningAssembler
 import { BuiltSiteShowcase } from "@/components/sections/BuiltSiteShowcase";
 import { TemplateCatalog } from "@/components/sections/TemplateCatalog";
 import { Capabilities } from "@/components/sections/Capabilities";
+import { AppBuilding } from "@/components/sections/AppBuilding";
 import { ProcessTimeline } from "@/components/sections/ProcessTimeline";
 import { Pricing } from "@/components/sections/Pricing";
 import { FAQ } from "@/components/sections/FAQ";
@@ -16,6 +17,7 @@ export default function HomePage() {
       <BuiltSiteShowcase />
       <TemplateCatalog />
       <Capabilities />
+      <AppBuilding />
       <ProcessTimeline />
       <Pricing />
       <FAQ />

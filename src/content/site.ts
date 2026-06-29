@@ -26,6 +26,7 @@ export const site = {
   nav: [
     { label: "Work", href: "/work" },
     { label: "Process", href: "/process" },
+    { label: "Apps", href: "/apps" },
     { label: "Real Estate", href: "/real-estate" },
   ],
 
