@@ -45,6 +45,26 @@ export default async function TemplateDetailPage({
   if (!tpl) notFound();
 
   const related = getRelatedTemplates(slug);
+  const isCustom = tpl.slug === "custom-site";
+
+  // Comes with every template build (in addition to the template's own features).
+  const everyBuild = [
+    "Built with your branding, copy & photos",
+    "Mobile-responsive on every device",
+    "Lead form that emails you every inquiry",
+    "Click-to-call, email & map ready",
+    "Basic on-page SEO setup",
+    "Launched on your domain",
+    "One round of revisions",
+  ];
+
+  // What we ask the client to provide (all optional — we fill the gaps).
+  const weNeed = [
+    "Your logo — or we set clean type-based branding",
+    "A few photos — or we use polished stock",
+    "Your contact info & service area",
+    "Any copy you already have (optional)",
+  ];
 
   return (
     <>
@@ -86,13 +106,19 @@ export default async function TemplateDetailPage({
           <ResponsivePreview template={tpl} />
 
           <div className="mt-8 flex flex-wrap gap-3">
-            <Button
-              href={`/contact/?projectType=${templateProjectType(tpl.label)}&template=${tpl.slug}`}
-              variant="primary"
-              withArrow
-            >
-              Start with this design
-            </Button>
+            {isCustom ? (
+              <Button
+                href={`/contact/?projectType=${templateProjectType(tpl.label)}&template=${tpl.slug}`}
+                variant="primary"
+                withArrow
+              >
+                Start a custom build
+              </Button>
+            ) : (
+              <Button href={`/start/${tpl.slug}`} variant="primary" withArrow>
+                Order this template
+              </Button>
+            )}
             <TemplatePreviewButton template={tpl} />
             {tpl.liveUrl && (
               <a
@@ -106,9 +132,16 @@ export default async function TemplateDetailPage({
             )}
           </div>
 
+          {!isCustom && (
+            <p className="mt-4 max-w-xl text-sm text-muted">
+              How it works: pick this template, send us your logo, photos, and any copy on the next
+              screen, and we build your site with your content — typically in about a week.
+            </p>
+          )}
+
           <div className="mt-20 grid gap-12 md:grid-cols-2">
             <div>
-              <h2 className="text-xl font-medium">What&apos;s included</h2>
+              <h2 className="text-xl font-medium">This template includes</h2>
               <ul className="mt-4 flex flex-col gap-3 text-sm text-muted">
                 {tpl.features.map((f) => (
                   <li key={f} className="flex gap-2">
@@ -138,6 +171,42 @@ export default async function TemplateDetailPage({
               </div>
             )}
           </div>
+
+          {!isCustom && (
+            <div className="mt-16 grid gap-8 rounded-[24px] border border-line bg-surface p-8 md:grid-cols-2 md:p-10">
+              <div>
+                <h2 className="text-xl font-medium">Every build also comes with</h2>
+                <ul className="mt-4 grid gap-3 text-sm text-muted">
+                  {everyBuild.map((f) => (
+                    <li key={f} className="flex gap-2">
+                      <span className="text-accent">✓</span>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-6 text-sm text-muted">
+                  Want it kept fast, secure, and updated after launch? Add{" "}
+                  <span className="text-ink">hosting &amp; support for $199/mo</span>.
+                </p>
+              </div>
+              <div>
+                <h2 className="text-xl font-medium">What we need from you</h2>
+                <ul className="mt-4 grid gap-3 text-sm text-muted">
+                  {weNeed.map((f) => (
+                    <li key={f} className="flex gap-2">
+                      <span className="text-accent">—</span>
+                      {f}
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-6">
+                  <Button href={`/start/${tpl.slug}`} variant="primary" withArrow>
+                    Order this template
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
 
           <p className="mt-12 max-w-xl text-xs text-muted">{site.pricingDisclaimer}</p>
         </Container>

@@ -1,6 +1,6 @@
 "use client";
 
-import { packages, optionalUpgrades } from "@/content/packages";
+import { packages, hostingPlan, optionalUpgrades } from "@/content/packages";
 import { site } from "@/content/site";
 import { Container } from "@/components/ui/Container";
 import { SectionLabel } from "@/components/ui/SectionLabel";
@@ -17,7 +17,7 @@ export function Pricing() {
           Start with a template, or build from zero.
         </h2>
 
-        <div className="mt-14 grid gap-6 lg:grid-cols-3">
+        <div className="mt-14 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
           {packages.map((pkg) => (
             <div
               key={pkg.id}
@@ -61,6 +61,37 @@ export function Pricing() {
               </div>
             </div>
           ))}
+        </div>
+
+        <div className="mt-6 flex flex-col gap-6 rounded-md border border-line bg-surface p-8 md:flex-row md:items-center md:justify-between">
+          <div className="md:max-w-xl">
+            <div className="flex items-baseline gap-2">
+              <h3 className="text-xl font-medium">{hostingPlan.name}</h3>
+              <span className="font-display text-2xl font-semibold">
+                {hostingPlan.priceLabel}
+                <span className="text-base text-muted">{hostingPlan.priceSuffix}</span>
+              </span>
+            </div>
+            <p className="mt-3 text-sm text-muted">{hostingPlan.summary}</p>
+            <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
+              {hostingPlan.features.map((f) => (
+                <li key={f} className="flex gap-2">
+                  <span className="text-accent">—</span>
+                  {f}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="shrink-0">
+            <Button
+              href={hostingPlan.cta.href}
+              variant="ghost"
+              withArrow
+              onClick={() => trackEvent("pricing_package_clicked", { package: "hosting" })}
+            >
+              {hostingPlan.cta.label}
+            </Button>
+          </div>
         </div>
 
         <div className="mt-10 flex flex-wrap gap-2">

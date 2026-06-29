@@ -9,8 +9,11 @@ function categoryLabel(id: string) {
 }
 
 export function TemplateCard({ template }: { template: WebsiteTemplate }) {
+  const isCustom = template.slug === "custom-site";
   const projectType = templateProjectType(template.label);
-  const startHref = `/contact/?projectType=${projectType}&template=${template.slug}`;
+  const startHref = isCustom
+    ? `/contact/?projectType=${projectType}&template=${template.slug}`
+    : `/start/${template.slug}`;
 
   return (
     <article className="group flex min-w-0 flex-col overflow-hidden rounded-md border border-line bg-surface p-4 transition-colors hover:border-ink/30">
