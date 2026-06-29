@@ -35,3 +35,11 @@ yarn-error.log*
 
 # local screenshot tooling (do not commit browser binaries)
 /.pw-browsers
+public/experience/drone-proxy.mp4
+
+# Raw source media — optimized web versions live in /public (do not commit originals)
+*.mov
+/Pilk.AI Logo*
+/Watchmen App Image*
+/Watchmen app image*
+/Drone video for interactive website .mov

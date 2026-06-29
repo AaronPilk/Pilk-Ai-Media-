@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Suspense } from "react";
 import { templates } from "@/content/templates";
 import { buildMetadata, faqJsonLd } from "@/lib/metadata";
@@ -62,7 +63,36 @@ export default function RealEstatePage() {
         </Container>
       </header>
 
-      <section className="section relative z-10 pt-8">
+      <section className="relative z-10 pt-8">
+        <Container>
+          <Link
+            href="/real-estate/experience"
+            className="group relative block overflow-hidden rounded-[24px] border border-line"
+            style={{
+              backgroundImage: "linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.75)), url('/experience/poster.jpg')",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          >
+            <div className="relative flex flex-col gap-4 p-8 sm:p-14">
+              <span className="eyebrow text-white/80">Interactive listing experience</span>
+              <h2 className="max-w-[18ch] text-balance text-white" style={{ fontSize: "var(--text-2xl)" }}>
+                Imagine your listing like this.
+              </h2>
+              <p className="max-w-xl text-white/80">
+                A fully custom, scroll-driven property site — buyers fly through the home as the
+                details reveal. This is the kind of website we build for listings that need to stand
+                out. Scroll through a live example.
+              </p>
+              <span className="mt-2 inline-flex w-fit items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-medium text-white transition-transform group-hover:-translate-y-0.5">
+                Launch the experience →
+              </span>
+            </div>
+          </Link>
+        </Container>
+      </section>
+
+      <section className="section relative z-10 pt-12">
         <Container>
           <SectionLabel index="01">Built for real estate</SectionLabel>
           <div className="mt-10 grid gap-x-10 gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
