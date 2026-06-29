@@ -27,7 +27,7 @@ export const site = {
     { label: "Work", href: "/work" },
     { label: "Process", href: "/process" },
     { label: "Apps", href: "/apps" },
-    { label: "Real Estate", href: "/real-estate" },
+    { label: "Real Estate / Mortgage", href: "/real-estate" },
   ],
 
   cta: {

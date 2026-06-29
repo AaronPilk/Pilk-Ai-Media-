@@ -22,12 +22,12 @@ export const templateCategories: { id: TemplateCategory | "all"; label: string }
 export const templates: WebsiteTemplate[] = [
   {
     slug: "modern-agent",
-    name: "Modern Agent",
+    name: "Real Estate Agent",
     category: "agent",
     label: "Template",
     accent: "#1f6feb",
     shortDescription:
-      "A clean personal-brand website for real-estate agents who need a sharp online presence fast.",
+      "A clean personal site for an individual agent — just showcase you, your listings, and how to reach you. The fast, simple option.",
     price: 750,
     pages: 4,
     timeline: "7-day build available",

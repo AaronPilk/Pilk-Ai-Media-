@@ -14,14 +14,16 @@ import { FAQ } from "@/components/sections/FAQ";
 import { ContactForm } from "@/components/contact/ContactForm";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Real Estate Website Design",
+  title: "Real Estate & Mortgage Website Design",
   description:
-    "Website design for real-estate agents, teams, and brokerages. Realtor and luxury real-estate websites built to capture qualified inquiries — with IDX/MLS integration where available.",
+    "Websites for individual real-estate agents, brokerages, and mortgage firms. Personal agent sites and full firm sites built to capture qualified leads — with IDX/MLS integration where available.",
   path: "/real-estate",
 });
 
-const reCategories = ["agent", "luxury-agent", "brokerage", "mortgage", "title"];
-const reTemplates = templates.filter((t) => reCategories.includes(t.category));
+const individualCats = ["agent", "luxury-agent"];
+const firmCats = ["brokerage", "mortgage", "local-business"];
+const individualTemplates = templates.filter((t) => individualCats.includes(t.category));
+const firmTemplates = templates.filter((t) => firmCats.includes(t.category));
 
 const benefits = [
   "Elevated personal brand",
@@ -44,13 +46,14 @@ export default function RealEstatePage() {
 
       <header className="relative z-10 pb-8 pt-[clamp(7rem,18vh,12rem)]">
         <Container>
-          <SectionLabel>Websites for agents, teams & brokerages</SectionLabel>
+          <SectionLabel>Real estate & mortgage websites</SectionLabel>
           <h1 className="mt-6 max-w-[16ch] text-balance" style={{ fontSize: "var(--text-hero)" }}>
             Your website is the first showing.
           </h1>
-          <p className="mt-8 max-w-xl text-lg text-muted">
-            Build a digital presence that reflects the properties you represent, captures qualified
-            inquiries, and gives clients a reason to remember your name.
+          <p className="mt-8 max-w-2xl text-lg text-muted">
+            Whether you&apos;re an individual agent who wants a sharp personal site, or a brokerage or
+            mortgage firm that needs the full build — we create a digital presence that captures
+            qualified leads and gets you remembered.
           </p>
           <div className="mt-10 flex flex-wrap gap-4">
             <Button href="#designs" variant="primary" withArrow>
@@ -94,7 +97,7 @@ export default function RealEstatePage() {
 
       <section className="section relative z-10 pt-12">
         <Container>
-          <SectionLabel index="01">Built for real estate</SectionLabel>
+          <SectionLabel index="01">Built for real estate &amp; mortgage</SectionLabel>
           <div className="mt-10 grid gap-x-10 gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
             {benefits.map((b, i) => (
               <Reveal key={b} delay={i * 50} className="border-t border-line pt-4 text-sm">
@@ -107,12 +110,34 @@ export default function RealEstatePage() {
 
       <section id="designs" className="section relative z-10 pt-8">
         <Container>
-          <SectionLabel index="02">Real estate designs</SectionLabel>
-          <h2 className="mt-6 max-w-[16ch] text-balance" style={{ fontSize: "var(--text-2xl)" }}>
-            Starting points for agents, teams, and brokerages.
+          <SectionLabel index="02">For individual agents</SectionLabel>
+          <h2 className="mt-6 max-w-[18ch] text-balance" style={{ fontSize: "var(--text-2xl)" }}>
+            A personal site that showcases you.
           </h2>
+          <p className="mt-4 max-w-2xl text-muted">
+            For the agent who just wants a clean, professional site — your brand, your listings, and
+            how to reach you. Simple or luxury.
+          </p>
           <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {reTemplates.map((t) => (
+            {individualTemplates.map((t) => (
+              <TemplateCard key={t.slug} template={t} />
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <section id="firms" className="section relative z-10 pt-8">
+        <Container>
+          <SectionLabel index="03">For firms &amp; brokerages</SectionLabel>
+          <h2 className="mt-6 max-w-[20ch] text-balance" style={{ fontSize: "var(--text-2xl)" }}>
+            Sites for real estate firms &amp; mortgage brokerages.
+          </h2>
+          <p className="mt-4 max-w-2xl text-muted">
+            Multiple agents, team rosters, loan programs, recruiting, and lead routing — built for
+            brokerages and mortgage firms that run a team.
+          </p>
+          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {firmTemplates.map((t) => (
               <TemplateCard key={t.slug} template={t} />
             ))}
           </div>
@@ -121,7 +146,7 @@ export default function RealEstatePage() {
 
       <section className="section env-light relative z-10">
         <Container>
-          <SectionLabel index="03">IDX / MLS</SectionLabel>
+          <SectionLabel index="04">IDX / MLS</SectionLabel>
           <h2 className="mt-6 max-w-[20ch] text-balance" style={{ fontSize: "var(--text-xl)" }}>
             Yes, we can connect listings — but it depends on your market.
           </h2>
