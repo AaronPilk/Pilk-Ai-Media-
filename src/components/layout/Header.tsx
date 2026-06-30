@@ -24,7 +24,7 @@ export function Header() {
       <header
         className={cn(
           "fixed inset-x-0 top-0 z-[65] transition-colors duration-500",
-          scrolled ? "bg-[rgba(246,244,239,0.82)] backdrop-blur-xl" : "bg-transparent"
+          scrolled ? "bg-[rgba(10,10,11,0.72)] backdrop-blur-xl" : "bg-transparent"
         )}
       >
         <div

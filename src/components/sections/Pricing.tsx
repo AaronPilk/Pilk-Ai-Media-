@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 
 export function Pricing() {
   return (
-    <section className="section relative z-10" id="pricing">
+    <section className="section env-light relative z-10" id="pricing">
       <Container>
         <SectionLabel index="07">Pricing</SectionLabel>
         <h2 className="mt-6 max-w-[16ch] text-balance" style={{ fontSize: "var(--text-2xl)" }}>

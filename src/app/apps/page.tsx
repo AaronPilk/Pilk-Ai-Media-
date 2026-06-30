@@ -19,7 +19,15 @@ export default function AppsPage() {
 
   return (
     <>
-      <header className="relative z-10 pb-8 pt-[clamp(7rem,18vh,12rem)]">
+      <header
+        className="relative z-10 overflow-hidden pb-8 pt-[clamp(7rem,18vh,12rem)]"
+        style={{
+          backgroundImage:
+            "linear-gradient(180deg, rgba(10,10,11,0.62), rgba(10,10,11,0.94)), url('/brand/brand-app.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
         <Container>
           <SectionLabel>Custom App Building</SectionLabel>
           <h1 className="mt-6 max-w-[18ch] text-balance" style={{ fontSize: "var(--text-hero)" }}>

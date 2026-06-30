@@ -10,7 +10,7 @@ export function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section className="section relative z-10" id="faq">
+    <section className="section env-light relative z-10" id="faq">
       <Container>
         <SectionLabel index="08">FAQ</SectionLabel>
         <h2 className="mt-6 max-w-[16ch] text-balance" style={{ fontSize: "var(--text-2xl)" }}>

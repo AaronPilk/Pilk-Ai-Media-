@@ -3,13 +3,13 @@
 @tailwind utilities;
 
 :root {
-  /* Palette — light / dark purple, with dark accent islands */
-  --bg: #f6f4ef; /* warm off-white base */
-  --surface: #ffffff; /* white cards */
-  --surface-2: #efece6;
-  --surface-alt: #eae6df; /* deeper bone — alternating light bands */
-  --text: #16151a;
-  --text-muted: #5d5a66;
+  /* Palette — dark base / dark purple, with light section bands */
+  --bg: #0a0a0b;
+  --surface: #0e0e12;
+  --surface-2: #14141a;
+  --surface-alt: #f4f2ee; /* bone, light sections */
+  --text: #f7f6f4;
+  --text-muted: #a6a3ad;
   --text-on-light: #16151a;
   --text-on-light-muted: #5d5a66;
 
@@ -21,8 +21,8 @@
 
   --accent: #7c3aed; /* dark purple core */
   --accent-deep: #4c1d95;
-  --accent-soft: rgba(124, 58, 237, 0.12);
-  --line: rgba(20, 18, 28, 0.12);
+  --accent-soft: rgba(124, 58, 237, 0.14);
+  --line: rgba(255, 255, 255, 0.1);
   --line-on-light: rgba(20, 18, 28, 0.12);
 
   /* Fonts (set by next/font in layout) */
@@ -126,10 +126,16 @@ h4 {
   color: var(--text-muted);
 }
 
-/* Light environment band (subtle tint on the light base) */
+/* Light section band on the dark site. Re-scopes the design tokens so ANY
+   token-based section (cards, borders, muted text) adapts automatically. */
 .env-light {
   background: var(--surface-alt);
   color: var(--text-on-light);
+  --text: var(--text-on-light);
+  --text-muted: var(--text-on-light-muted);
+  --line: var(--line-on-light);
+  --surface: #ffffff;
+  --surface-2: #ece8e0;
 }
 .env-light .eyebrow {
   color: var(--text-on-light-muted);

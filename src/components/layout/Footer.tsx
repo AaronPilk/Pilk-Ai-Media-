@@ -11,7 +11,7 @@ export function Footer() {
         <div>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/pilk-logo-light.svg"
+            src="/pilk-logo-dark.svg"
             alt="Pilk.ai — One Stop Shop Brand Building"
             className="h-24 w-auto"
           />
