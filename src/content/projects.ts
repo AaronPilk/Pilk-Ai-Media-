@@ -14,8 +14,6 @@ export const projects: Project[] = [
     services: ["App Design", "Development", "Brand", "Marketing Site"],
     cover: "/work/watchman.jpg",
     liveUrl: "https://watchmen-web-2j7.pages.dev",
-    cost: "$75,000",
-    costLabel: "App build cost",
   },
   {
     slug: "stephenie-tocado",

@@ -58,6 +58,13 @@ export function AppShowcase({ app, reverse = false }: { app: AppProject; reverse
           ))}
         </ul>
 
+        {app.cost && (
+          <p className="mt-7 text-sm text-muted">
+            {app.costLabel ?? "Project cost"}:{" "}
+            <span className="font-display text-2xl font-semibold text-ink">{app.cost}</span>
+          </p>
+        )}
+
         <StoreBadges appStore={app.stores.appStore} googlePlay={app.stores.googlePlay} className="mt-8" />
       </Reveal>
 
