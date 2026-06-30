@@ -45,7 +45,7 @@ export type ExperienceConfig = {
   site: ExpSite;
 };
 
-const F = "/experience/mansion-v3/frames";
+const F = "/experience/mansion-v4/frames";
 
 export const experiences: Record<string, ExperienceConfig> = {
   estate: {
@@ -53,10 +53,10 @@ export const experiences: Record<string, ExperienceConfig> = {
     label: "The Estate",
     blurb: "A continuous FPV drone tour of a modern waterfront mansion — buttery-smooth scrubbing with agent, firm, and property details revealing as you fly through.",
     framesDir: F,
-    frameCount: 300,
-    scrollVh: 1300,
-    video: "/experience/mansion-v3/drone.mp4",
-    poster: "/experience/mansion-v3/poster.jpg",
+    frameCount: 381,
+    scrollVh: 1700,
+    video: "/experience/mansion-v4/drone.mp4",
+    poster: "/experience/mansion-v4/poster.jpg",
     ctaHref: "/contact?projectType=custom&service=real-estate",
     ctaLabel: "Schedule a private showing →",
     scenes: [
