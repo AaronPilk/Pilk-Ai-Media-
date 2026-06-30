@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/Button";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Reveal } from "@/components/ui/Reveal";
 import { TemplateCard } from "@/components/templates/TemplateCard";
+import { OwnVsRent } from "@/components/sections/OwnVsRent";
 import { Pricing } from "@/components/sections/Pricing";
 import { Process } from "@/components/sections/Process";
 import { FAQ } from "@/components/sections/FAQ";
@@ -146,9 +147,11 @@ export default function RealEstatePage() {
         </Container>
       </section>
 
+      <OwnVsRent />
+
       <section className="section env-light relative z-10">
         <Container>
-          <SectionLabel index="05">IDX / MLS</SectionLabel>
+          <SectionLabel index="06">IDX / MLS</SectionLabel>
           <h2 className="mt-6 max-w-[20ch] text-balance" style={{ fontSize: "var(--text-xl)" }}>
             Yes, we can connect listings — but it depends on your market.
           </h2>
