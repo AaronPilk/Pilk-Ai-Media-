@@ -53,7 +53,7 @@ export default function RealEstatePage() {
           }}
         />
         <Container>
-          <div className="relative z-10 pb-16 pt-[clamp(8rem,20vh,13rem)]">
+          <div className="on-dark relative z-10 pb-16 pt-[clamp(8rem,20vh,13rem)]">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-white/90 backdrop-blur-sm">
               Real estate &amp; mortgage websites — it&apos;s all we build here
             </span>

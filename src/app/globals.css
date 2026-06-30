@@ -3,20 +3,26 @@
 @tailwind utilities;
 
 :root {
-  /* Palette — white / dark purple / black */
-  --bg: #0a0a0b;
-  --surface: #0e0e12;
-  --surface-2: #14141a;
-  --surface-alt: #f4f2ee; /* bone, light sections */
-  --text: #f7f6f4;
-  --text-muted: #a6a3ad;
+  /* Palette — light / dark purple, with dark accent islands */
+  --bg: #f6f4ef; /* warm off-white base */
+  --surface: #ffffff; /* white cards */
+  --surface-2: #efece6;
+  --surface-alt: #eae6df; /* deeper bone — alternating light bands */
+  --text: #16151a;
+  --text-muted: #5d5a66;
   --text-on-light: #16151a;
   --text-on-light-muted: #5d5a66;
 
+  /* Dark island tokens (env-dark / on-dark) */
+  --bg-dark: #0b0b0e;
+  --text-dark: #f7f6f4;
+  --text-dark-muted: rgba(247, 246, 244, 0.62);
+  --line-dark: rgba(255, 255, 255, 0.12);
+
   --accent: #7c3aed; /* dark purple core */
   --accent-deep: #4c1d95;
-  --accent-soft: rgba(124, 58, 237, 0.14);
-  --line: rgba(255, 255, 255, 0.1);
+  --accent-soft: rgba(124, 58, 237, 0.12);
+  --line: rgba(20, 18, 28, 0.12);
   --line-on-light: rgba(20, 18, 28, 0.12);
 
   /* Fonts (set by next/font in layout) */
@@ -120,13 +126,44 @@ h4 {
   color: var(--text-muted);
 }
 
-/* Light environment */
+/* Light environment band (subtle tint on the light base) */
 .env-light {
   background: var(--surface-alt);
   color: var(--text-on-light);
 }
 .env-light .eyebrow {
   color: var(--text-on-light-muted);
+}
+
+/* Dark island — a deliberate dark section on the light site */
+.env-dark {
+  background: var(--bg-dark);
+  color: var(--text-dark);
+}
+.env-dark .eyebrow {
+  color: var(--text-dark-muted);
+}
+.env-dark .btn-ghost {
+  color: var(--text-dark);
+  border-color: var(--line-dark);
+}
+.env-dark .btn-ghost:hover {
+  border-color: var(--text-dark);
+}
+
+/* On-dark — light text/controls over a dark photo (no background of its own) */
+.on-dark {
+  color: var(--text-dark);
+}
+.on-dark .eyebrow {
+  color: var(--text-dark-muted);
+}
+.on-dark .btn-ghost {
+  color: var(--text-dark);
+  border-color: var(--line-dark);
+}
+.on-dark .btn-ghost:hover {
+  border-color: var(--text-dark);
 }
 
 /* WebGL canvas layer */

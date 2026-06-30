@@ -21,7 +21,6 @@ export default function WorkPage() {
         eyebrow="Work"
         title="Designs built to be remembered."
         sub="Real client builds, apps, and products — websites, mobile apps, AI platforms, and brands we've designed and shipped."
-        bgImage="/brand/brand-light.jpg"
       />
 
       <section className="section relative z-10 pt-4">
