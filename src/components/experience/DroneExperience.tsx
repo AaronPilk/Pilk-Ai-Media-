@@ -209,7 +209,20 @@ export function DroneExperience({ config }: { config: ExperienceConfig }) {
 
         {/* Intro — welcome + smoke-screen reveal */}
         <div ref={introWrapRef} className="absolute inset-0 z-30">
-          <div ref={introBaseRef} className="absolute inset-0 bg-[#0b0b0e]" />
+          <div ref={introBaseRef} className="absolute inset-0 bg-[#0b0b0e]">
+            {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+            <video
+              className="h-full w-full object-cover"
+              src="/experience/clips/intro.mp4"
+              poster="/experience/clips/intro.jpg"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/40 to-black/75" />
+          </div>
           <div ref={smokeRef} className="exp-smoke pointer-events-none absolute inset-0" />
           <div
             ref={introTextRef}

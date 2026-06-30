@@ -29,15 +29,16 @@ export function ExperienceSite({ config }: { config: ExperienceConfig }) {
     { v: "5", l: "Car garage" },
   ];
 
+  const C = "/experience/clips";
   const gallery = [
-    { img: `${A}/hero-open-living.jpg`, caption: "Great Room" },
-    { img: `${A}/kitchen.jpg`, caption: "Chef's Kitchen" },
-    { img: `${A}/bedroom.jpg`, caption: "Primary Suite" },
-    { img: `${A}/pool-backyard.jpg`, caption: "Infinity Pool" },
-    { img: `${A}/home-theater.jpg`, caption: "Home Theater" },
-    { img: `${A}/dining-wine.jpg`, caption: "Wine Room" },
-    { img: `${A}/bathroom.jpg`, caption: "Spa & Wellness" },
-    { img: `${A}/hero-waterfront.jpg`, caption: "Waterfront" },
+    { img: `${C}/great-room.jpg`, video: `${C}/great-room.mp4`, caption: "Great Room" },
+    { img: `${C}/kitchen.jpg`, video: `${C}/kitchen.mp4`, caption: "Chef's Kitchen" },
+    { img: `${C}/bedroom.jpg`, video: `${C}/bedroom.mp4`, caption: "Primary Suite" },
+    { img: `${C}/pool.jpg`, video: `${C}/pool.mp4`, caption: "Infinity Pool" },
+    { img: `${C}/theater.jpg`, video: `${C}/theater.mp4`, caption: "Home Theater" },
+    { img: `${C}/wine.jpg`, video: `${C}/wine.mp4`, caption: "Wine Room" },
+    { img: `${C}/spa.jpg`, video: `${C}/spa.mp4`, caption: "Spa & Wellness" },
+    { img: `${C}/waterfront.jpg`, video: `${C}/waterfront.mp4`, caption: "Waterfront" },
   ];
 
   const interiorFeatures = [

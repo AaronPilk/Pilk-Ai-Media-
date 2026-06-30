@@ -1,15 +1,79 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
-export type GalleryItem = { img: string; caption: string };
+export type GalleryItem = { img: string; caption: string; video?: string };
 
 /**
- * Photo-gallery grid for the listing experience with a fullscreen lightbox.
- * Click any tile to open a dark overlay with the large image + caption,
- * Prev/Next arrows, keyboard support (Esc to close, ←/→ to navigate),
- * and a close button. Dark luxe styling to match the rest of the site.
+ * Motion gallery for the listing experience. Tiles with a `video` autoplay
+ * (muted, looping) only while in the viewport — kept light via IntersectionObserver
+ * so eight clips never play at once off-screen. Click any tile to open a
+ * fullscreen lightbox that plays the clip (or shows the still), with Prev/Next,
+ * keyboard support (Esc / ← / →), and a close button. Dark luxe styling.
  */
+function GalleryTile({ item, onOpen }: { item: GalleryItem; onOpen: () => void }) {
+  const vidRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const v = vidRef.current;
+    if (!v) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            v.play().catch(() => {});
+          } else {
+            v.pause();
+          }
+        }
+      },
+      { threshold: 0.25 },
+    );
+    io.observe(v);
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <button
+      type="button"
+      onClick={onOpen}
+      aria-label={`View ${item.caption}`}
+      className="group relative block overflow-hidden rounded-xl border border-white/10 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+    >
+      <div className="aspect-[3/4] overflow-hidden">
+        {item.video ? (
+          // eslint-disable-next-line jsx-a11y/media-has-caption
+          <video
+            ref={vidRef}
+            src={item.video}
+            poster={item.img}
+            muted
+            loop
+            playsInline
+            preload="none"
+            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+        ) : (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={item.img}
+            alt={item.caption}
+            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+        )}
+      </div>
+      {item.video && (
+        <span className="pointer-events-none absolute right-3 top-3 flex h-7 w-7 items-center justify-center rounded-full bg-black/45 text-[10px] text-white/90 backdrop-blur-sm">
+          ▶
+        </span>
+      )}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+        <span className="text-xs uppercase tracking-[0.2em] text-white/85">{item.caption}</span>
+      </div>
+    </button>
+  );
+}
+
 export function ExperienceGallery({ gallery }: { gallery: GalleryItem[] }) {
   const [active, setActive] = useState<number | null>(null);
 
@@ -31,7 +95,6 @@ export function ExperienceGallery({ gallery }: { gallery: GalleryItem[] }) {
       else if (e.key === "ArrowLeft") prev();
     };
     window.addEventListener("keydown", onKey);
-    // Prevent the page scrolling behind the lightbox.
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => {
@@ -46,25 +109,7 @@ export function ExperienceGallery({ gallery }: { gallery: GalleryItem[] }) {
     <>
       <div className="mt-12 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
         {gallery.map((g, i) => (
-          <button
-            key={g.caption}
-            type="button"
-            onClick={() => setActive(i)}
-            aria-label={`View ${g.caption}`}
-            className="group relative block overflow-hidden rounded-xl border border-white/10 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-          >
-            <div className="aspect-[3/4] overflow-hidden">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={g.img}
-                alt={g.caption}
-                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-            </div>
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-              <span className="text-xs uppercase tracking-[0.2em] text-white/85">{g.caption}</span>
-            </div>
-          </button>
+          <GalleryTile key={g.caption} item={g} onOpen={() => setActive(i)} />
         ))}
       </div>
 
@@ -90,7 +135,7 @@ export function ExperienceGallery({ gallery }: { gallery: GalleryItem[] }) {
             </button>
           </div>
 
-          {/* Image stage */}
+          {/* Stage */}
           <div className="relative flex flex-1 items-center justify-center px-4 pb-4 sm:px-16">
             <button
               type="button"
@@ -100,12 +145,27 @@ export function ExperienceGallery({ gallery }: { gallery: GalleryItem[] }) {
             >
               ‹
             </button>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={current.img}
-              alt={current.caption}
-              className="max-h-full max-w-full rounded-xl object-contain"
-            />
+            {current.video ? (
+              // eslint-disable-next-line jsx-a11y/media-has-caption
+              <video
+                key={current.video}
+                src={current.video}
+                poster={current.img}
+                autoPlay
+                muted
+                loop
+                playsInline
+                controls
+                className="max-h-full max-w-full rounded-xl object-contain"
+              />
+            ) : (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={current.img}
+                alt={current.caption}
+                className="max-h-full max-w-full rounded-xl object-contain"
+              />
+            )}
             <button
               type="button"
               onClick={next}
