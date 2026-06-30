@@ -28,6 +28,7 @@ export const site = {
     { label: "Process", href: "/process" },
     { label: "Apps", href: "/apps" },
     { label: "Real Estate / Mortgage", href: "/real-estate" },
+    { label: "Rent vs Own", href: "/own-vs-rent" },
   ],
 
   cta: {

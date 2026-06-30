@@ -6,8 +6,8 @@ import { buildMetadata, faqJsonLd } from "@/lib/metadata";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { SectionLabel } from "@/components/ui/SectionLabel";
-import { Reveal } from "@/components/ui/Reveal";
 import { TemplateCard } from "@/components/templates/TemplateCard";
+import { RealEstateFeatures } from "@/components/sections/RealEstateFeatures";
 import { OwnVsRent } from "@/components/sections/OwnVsRent";
 import { Pricing } from "@/components/sections/Pricing";
 import { Process } from "@/components/sections/Process";
@@ -26,17 +26,6 @@ const firmCats = ["brokerage", "mortgage", "local-business"];
 const individualTemplates = templates.filter((t) => individualCats.includes(t.category));
 const firmTemplates = templates.filter((t) => firmCats.includes(t.category));
 
-const benefits = [
-  "Elevated personal brand",
-  "Featured-property storytelling",
-  "Neighborhood & market pages",
-  "Lead forms & CRM connections",
-  "Mobile-first browsing",
-  "Analytics & tracking",
-  "IDX/MLS where available",
-  "Fast launch options",
-];
-
 export default function RealEstatePage() {
   return (
     <>
@@ -45,40 +34,44 @@ export default function RealEstatePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd()) }}
       />
 
-      <header className="relative z-10 pb-8 pt-[clamp(7rem,18vh,12rem)]">
+      <header
+        className="relative z-10 flex min-h-[88vh] items-end overflow-hidden"
+        style={{
+          backgroundImage:
+            "linear-gradient(180deg, rgba(8,8,11,0.55) 0%, rgba(8,8,11,0.38) 38%, rgba(8,8,11,0.92) 100%), url('/template-previews/_assets/hero-estate.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
         <Container>
-          <SectionLabel>Real estate & mortgage websites</SectionLabel>
-          <h1 className="mt-6 max-w-[16ch] text-balance" style={{ fontSize: "var(--text-hero)" }}>
-            Your website is the first showing.
-          </h1>
-          <p className="mt-8 max-w-2xl text-lg text-muted">
-            Whether you&apos;re an individual agent who wants a sharp personal site, or a brokerage or
-            mortgage firm that needs the full build — we create a digital presence that captures
-            qualified leads and gets you remembered.
-          </p>
-          <div className="mt-10 flex flex-wrap gap-4">
-            <Button href="#designs" variant="primary" withArrow>
-              View real estate designs
-            </Button>
-            <Button href="#inquire" variant="ghost">
-              Request a website
-            </Button>
+          <div className="pb-16 pt-[clamp(8rem,20vh,13rem)]">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-white/90 backdrop-blur-sm">
+              Real estate &amp; mortgage websites — it&apos;s all we build here
+            </span>
+            <h1
+              className="mt-6 max-w-[15ch] text-balance text-white"
+              style={{ fontSize: "var(--text-hero)" }}
+            >
+              Your website is the first showing.
+            </h1>
+            <p className="mt-7 max-w-2xl text-lg text-white/85">
+              Pilk.ai builds websites for one industry: real estate. Whether you&apos;re an agent who
+              wants a sharp personal site, or a brokerage or mortgage firm that needs the full build —
+              we create a digital presence that captures qualified leads and gets you remembered.
+            </p>
+            <div className="mt-10 flex flex-wrap gap-4">
+              <Button href="#designs" variant="primary" withArrow>
+                View real estate designs
+              </Button>
+              <Button href="#inquire" variant="ghost">
+                Request a website
+              </Button>
+            </div>
           </div>
         </Container>
       </header>
 
-      <section className="section relative z-10 pt-12">
-        <Container>
-          <SectionLabel index="01">Built for real estate &amp; mortgage</SectionLabel>
-          <div className="mt-10 grid gap-x-10 gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
-            {benefits.map((b, i) => (
-              <Reveal key={b} delay={i * 50} className="border-t border-line pt-4 text-sm">
-                {b}
-              </Reveal>
-            ))}
-          </div>
-        </Container>
-      </section>
+      <RealEstateFeatures />
 
       <section id="designs" className="section relative z-10 pt-8">
         <Container>

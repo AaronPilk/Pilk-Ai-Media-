@@ -2,6 +2,7 @@
 
 import { Component, type ReactNode, Suspense, useEffect } from "react";
 import dynamic from "next/dynamic";
+import { usePathname } from "next/navigation";
 import { useDeviceCapability } from "@/hooks/useDeviceCapability";
 import { usePointerPosition } from "@/hooks/usePointerPosition";
 import { useExperienceStore } from "@/stores/experience-store";
@@ -29,6 +30,7 @@ class WebGLBoundary extends Component<
 }
 
 export function SceneCanvas() {
+  const pathname = usePathname();
   const capability = useDeviceCapability();
   const setGlobalProgress = useExperienceStore((s) => s.setGlobalProgress);
   const setHeroProgress = useExperienceStore((s) => s.setHeroProgress);
@@ -69,6 +71,11 @@ export function SceneCanvas() {
       cancelAnimationFrame(raf);
     };
   }, [setGlobalProgress, setHeroProgress]);
+
+  // The real-estate experience is its own world — no agency orb behind it.
+  if (pathname?.startsWith("/real-estate")) {
+    return null;
+  }
 
   if (capability === "reduced-motion" || capability === "low") {
     return <SceneFallback />;
