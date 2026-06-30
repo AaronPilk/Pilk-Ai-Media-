@@ -72,8 +72,8 @@ export function SceneCanvas() {
     };
   }, [setGlobalProgress, setHeroProgress]);
 
-  // The real-estate experience is its own world — no agency orb behind it.
-  if (pathname?.startsWith("/real-estate")) {
+  // Real-estate pages are their own world — no agency orb behind them.
+  if (pathname?.startsWith("/real-estate") || pathname?.startsWith("/own-vs-rent")) {
     return null;
   }
 
