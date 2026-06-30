@@ -44,7 +44,7 @@ export function DroneExperience({ config }: { config: ExperienceConfig }) {
     const ctx = canvas.getContext("2d", { alpha: false })!;
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.25);
+      const dpr = 1; // fixed 1x — far fewer pixels to push each frame = smoother scrub
       canvas.width = Math.round(window.innerWidth * dpr);
       canvas.height = Math.round(window.innerHeight * dpr);
       lastDrawn = -1;
