@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reviews — Beacon Lending</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal:#0f766e;--teal-dark:#0b5750;--teal-soft:#e6f5f2;--mint:#f0faf8;
+    --ink:#10241f;--slate:#4b5b57;--line:#e3ebe9;--bg:#ffffff;--gold:#f5a623;
+    --shadow:0 10px 30px -12px rgba(15,118,110,.18);
+    --shadow-sm:0 4px 16px -8px rgba(16,36,31,.18);--radius:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{text-decoration:none;color:inherit}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+
+  header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.18rem;letter-spacing:-.01em}
+  .brand .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--teal),#3aa99c);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;font-weight:800;box-shadow:var(--shadow-sm)}
+  .nav-links{display:flex;align-items:center;gap:30px}
+  .nav-links a{font-weight:500;color:var(--slate);font-size:.95rem;transition:color .15s}
+  .nav-links a:hover{color:var(--teal)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:600;font-size:.95rem;border-radius:10px;cursor:pointer;padding:11px 20px;transition:transform .12s,box-shadow .15s,background .15s;border:none}
+  .btn-primary{background:var(--teal);color:#fff;box-shadow:var(--shadow-sm)}
+  .btn-primary:hover{background:var(--teal-dark);transform:translateY(-1px)}
+
+  .page-hero{background:radial-gradient(800px 360px at 80% -20%,var(--teal-soft),transparent 60%),linear-gradient(180deg,#fff,var(--mint));padding:64px 0 44px;text-align:center}
+  .page-hero .eyebrow{color:var(--teal);font-weight:700;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase}
+  .page-hero h1{font-size:2.6rem;letter-spacing:-.025em;font-weight:800;margin:10px 0 12px}
+  .page-hero p{color:var(--slate);font-size:1.1rem;max-width:560px;margin:0 auto}
+
+  /* SUMMARY */
+  .summary{background:#fff;border-bottom:1px solid var(--line)}
+  .sum-grid{display:grid;grid-template-columns:auto 1fr auto;gap:40px;align-items:center;padding:36px 0}
+  .sum-score{text-align:center}
+  .sum-score .big{font-size:3.4rem;font-weight:800;color:var(--teal);line-height:1;letter-spacing:-.02em}
+  .sum-score .stars{color:var(--gold);font-size:1.1rem;letter-spacing:2px;margin:6px 0 4px}
+  .sum-score .count{color:var(--slate);font-size:.86rem}
+  .sum-bars{display:flex;flex-direction:column;gap:7px}
+  .sum-bar{display:flex;align-items:center;gap:12px;font-size:.85rem;color:var(--slate)}
+  .sum-bar .lbl{width:42px;flex-shrink:0}
+  .sum-bar .track{flex:1;height:8px;border-radius:5px;background:var(--line);overflow:hidden}
+  .sum-bar .track i{display:block;height:100%;background:var(--gold);border-radius:5px}
+  .sum-bar .pct{width:40px;text-align:right;flex-shrink:0}
+  .sum-src{display:flex;flex-direction:column;gap:8px;font-size:.84rem;color:var(--slate);text-align:right}
+  .sum-src b{color:var(--ink)}
+
+  /* FILTERS */
+  .filters{padding:30px 0 6px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+  .chip{background:#fff;border:1.5px solid var(--line);color:var(--slate);padding:8px 18px;border-radius:999px;font-weight:600;font-size:.9rem;cursor:pointer;transition:all .15s}
+  .chip:hover{border-color:var(--teal);color:var(--teal)}
+  .chip.active{background:var(--teal);border-color:var(--teal);color:#fff}
+
+  .rev-sec{padding:24px 0 70px}
+  .rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .quote{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px;display:flex;flex-direction:column}
+  .quote .stars{color:var(--gold);font-size:1rem;letter-spacing:2px;margin-bottom:14px}
+  .quote .verified{display:inline-flex;align-items:center;gap:6px;font-size:.74rem;font-weight:700;color:var(--teal);background:var(--teal-soft);padding:3px 9px;border-radius:999px;align-self:flex-start;margin-bottom:14px}
+  .quote p{font-size:.99rem;color:var(--ink);margin-bottom:20px;flex:1}
+  .who{display:flex;align-items:center;gap:12px}
+  .who .av{width:42px;height:42px;border-radius:50%;background-size:cover;background-position:center;background-color:var(--teal-soft);flex-shrink:0}
+  .who .nm{font-weight:700;font-size:.94rem}
+  .who .mt{color:var(--slate);font-size:.8rem}
+
+  .cta-band{background:linear-gradient(135deg,var(--teal),var(--teal-dark));border-radius:24px;padding:52px;text-align:center;color:#fff;box-shadow:var(--shadow);margin-top:50px}
+  .cta-band h2{font-size:2.1rem;font-weight:800;letter-spacing:-.02em;margin-bottom:12px}
+  .cta-band p{opacity:.9;font-size:1.05rem;max-width:520px;margin:0 auto 26px}
+  .cta-band .btn{background:#fff;color:var(--teal);padding:15px 34px;font-size:1.02rem}
+  .cta-band .btn:hover{background:var(--mint);transform:translateY(-1px)}
+
+  footer{border-top:1px solid var(--line);background:var(--mint);padding:40px 0;margin-top:0}
+  .foot-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+  .foot-inner .fbrand{display:flex;align-items:center;gap:9px;font-weight:700}
+  .foot-inner small{color:var(--slate);font-size:.88rem}
+  .foot-links{display:flex;gap:22px;font-size:.9rem;color:var(--slate);flex-wrap:wrap}
+  .foot-links a:hover{color:var(--teal)}
+  .foot-legal{border-top:1px solid var(--line);margin-top:24px;padding-top:20px;display:flex;flex-direction:column;gap:10px}
+  .foot-legal p{color:var(--slate);font-size:.78rem;line-height:1.55;max-width:880px}
+  .foot-legal small{color:var(--slate);font-size:.84rem}
+  .mark-sm{width:24px;height:24px;font-size:.85rem;border-radius:7px;background:linear-gradient(135deg,var(--teal),#3aa99c);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800}
+
+  @media(max-width:900px){.rev-grid{grid-template-columns:1fr 1fr}.sum-grid{grid-template-columns:1fr;gap:24px;text-align:center}.sum-src{text-align:center}.nav-links{display:none}.page-hero h1{font-size:2.1rem}}
+  @media(max-width:560px){.rev-grid{grid-template-columns:1fr}.cta-band{padding:40px 24px}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="brand"><span class="mark">B</span>Beacon Lending</a>
+    <nav class="nav-links">
+      <a href="programs.html">Loan Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="apply.html">Apply</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a href="apply.html" class="btn btn-primary">Get pre-approved</a>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow">Client reviews</span>
+    <h1>What it's like to close with Beacon.</h1>
+    <p>Real reviews from real borrowers — first-time buyers, refinancers, veterans, and move-up families. Filter by loan type to find someone like you.</p>
+  </div>
+</section>
+
+<!-- SUMMARY -->
+<section class="summary">
+  <div class="wrap sum-grid">
+    <div class="sum-score">
+      <div class="big">4.9</div>
+      <div class="stars">★★★★★</div>
+      <div class="count">based on 1,284 reviews</div>
+    </div>
+    <div class="sum-bars">
+      <div class="sum-bar"><span class="lbl">5 ★</span><span class="track"><i style="width:94%"></i></span><span class="pct">94%</span></div>
+      <div class="sum-bar"><span class="lbl">4 ★</span><span class="track"><i style="width:4%"></i></span><span class="pct">4%</span></div>
+      <div class="sum-bar"><span class="lbl">3 ★</span><span class="track"><i style="width:1%"></i></span><span class="pct">1%</span></div>
+      <div class="sum-bar"><span class="lbl">2 ★</span><span class="track"><i style="width:1%"></i></span><span class="pct">1%</span></div>
+      <div class="sum-bar"><span class="lbl">1 ★</span><span class="track"><i style="width:0%"></i></span><span class="pct">0%</span></div>
+    </div>
+    <div class="sum-src">
+      <div><b>4.9 ★</b> Google · 612 reviews</div>
+      <div><b>4.9 ★</b> Zillow · 488 reviews</div>
+      <div><b>5.0 ★</b> Experience.com · 184 reviews</div>
+    </div>
+  </div>
+</section>
+
+<!-- FILTERS -->
+<div class="wrap filters">
+  <button class="chip active" data-filter="all">All reviews</button>
+  <button class="chip" data-filter="first">First-time buyer</button>
+  <button class="chip" data-filter="refi">Refinance</button>
+  <button class="chip" data-filter="va">VA</button>
+  <button class="chip" data-filter="conv">Conventional</button>
+  <button class="chip" data-filter="jumbo">Jumbo</button>
+</div>
+
+<section class="rev-sec">
+  <div class="wrap">
+    <div class="rev-grid" id="grid">
+
+      <div class="quote" data-cat="first">
+        <span class="verified">✓ Verified close</span>
+        <div class="stars">★★★★★</div>
+        <p>"We were first-time buyers and terrified. Beacon walked us through every step and closed two days early. Honestly the easiest part of the whole process."</p>
+        <div class="who"><span class="av" style="background-image:url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=70')"></span><div><div class="nm">Maria &amp; Jon T.</div><div class="mt">First-time buyers · Austin, TX</div></div></div>
+      </div>
+
+      <div class="quote" data-cat="refi">
+        <span class="verified">✓ Verified close</span>
+        <div class="stars">★★★★★</div>
+        <p>"Refinanced and dropped my rate by almost a full point. No runaround, no surprise fees at signing. They told me exactly what to expect and delivered."</p>
+        <div class="who"><span class="av" style="background-image:url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=70')"></span><div><div class="nm">Derek M.</div><div class="mt">Refinance · Denver, CO</div></div></div>
+      </div>
+
+      <div class="quote" data-cat="va">
+        <span class="verified">✓ Verified close</span>
+        <div class="stars">★★★★★</div>
+        <p>"As a VA buyer I'd been turned down twice elsewhere. Beacon got my zero-down loan approved and closed in 16 days. Can't recommend them enough."</p>
+        <div class="who"><span class="av" style="background-image:url('https://images.unsplash.com/photo-1519345182560-3f2917c472ef?auto=format&fit=crop&w=200&q=70')"></span><div><div class="nm">SSgt. Alicia R.</div><div class="mt">VA loan · San Diego, CA</div></div></div>
+      </div>
+
+      <div class="quote" data-cat="conv">
+        <span class="verified">✓ Verified close</span>
+        <div class="stars">★★★★★</div>
+        <p>"Marcus answered his phone every single time I called — even on a Saturday. Our offer got accepted because the pre-approval was rock solid. Smooth from start to finish."</p>
+        <div class="who"><span class="av" style="background-image:url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=200&q=70')"></span><div><div class="nm">Hannah W.</div><div class="mt">Conventional · Columbus, OH</div></div></div>
+      </div>
+
+      <div class="quote" data-cat="jumbo">
+        <span class="verified">✓ Verified close</span>
+        <div class="stars">★★★★★</div>
+        <p>"I assumed a jumbo loan would be a headache. Beacon made it the smoothest financing I've ever done — and beat the rate my bank quoted by a noticeable margin."</p>
+        <div class="who"><span class="av" style="background-image:url('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=70')"></span><div><div class="nm">Anthony C.</div><div class="mt">Jumbo · Scottsdale, AZ</div></div></div>
+      </div>
+
+      <div class="quote" data-cat="first">
+        <span class="verified">✓ Verified close</span>
+        <div class="stars">★★★★★</div>
+        <p>"Priya found a down-payment assistance program I had no idea existed. It put us in our first home almost a year earlier than we thought possible."</p>
+        <div class="who"><span class="av" style="background-image:url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=70')"></span><div><div class="nm">Brianna &amp; Luis G.</div><div class="mt">First-time buyers · Phoenix, AZ</div></div></div>
+      </div>
+
+      <div class="quote" data-cat="refi">
+        <span class="verified">✓ Verified close</span>
+        <div class="stars">★★★★★</div>
+        <p>"Cash-out refi to consolidate debt and fund a renovation. They ran the numbers honestly and told me when it made sense. Closed early, exactly as promised."</p>
+        <div class="who"><span class="av" style="background-image:url('https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&q=70')"></span><div><div class="nm">Greg P.</div><div class="mt">Cash-out refinance · Tampa, FL</div></div></div>
+      </div>
+
+      <div class="quote" data-cat="conv">
+        <span class="verified">✓ Verified close</span>
+        <div class="stars">★★★★★</div>
+        <p>"Self-employed income is usually a nightmare for lenders. Sofia in underwriting actually understood my situation and we closed without the usual drama."</p>
+        <div class="who"><span class="av" style="background-image:url('https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=200&q=70')"></span><div><div class="nm">Renee K.</div><div class="mt">Conventional · Portland, OR</div></div></div>
+      </div>
+
+      <div class="quote" data-cat="va">
+        <span class="verified">✓ Verified close</span>
+        <div class="stars">★★★★★</div>
+        <p>"Marcus is a veteran too and it shows — he knew every detail of the VA process. Zero down, no PMI, and he fought to keep our closing costs low. Outstanding."</p>
+        <div class="who"><span class="av" style="background-image:url('https://images.unsplash.com/photo-1521119989659-a83eee488004?auto=format&fit=crop&w=200&q=70')"></span><div><div class="nm">James &amp; Dana F.</div><div class="mt">VA loan · Norfolk, VA</div></div></div>
+      </div>
+
+      <div class="quote" data-cat="first">
+        <span class="verified">✓ Verified close</span>
+        <div class="stars">★★★★★</div>
+        <p>"They explained PMI, escrow, and points in a way that finally made sense. No question was too basic. I felt like I actually understood my own mortgage."</p>
+        <div class="who"><span class="av" style="background-image:url('https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=200&q=70')"></span><div><div class="nm">Olivia S.</div><div class="mt">First-time buyer · Nashville, TN</div></div></div>
+      </div>
+
+      <div class="quote" data-cat="conv">
+        <span class="verified">✓ Verified close</span>
+        <div class="stars">★★★★☆</div>
+        <p>"Great rate and a genuinely easy process. Knocked off a star only because the appraisal took a few extra days — but the team kept me in the loop the whole time."</p>
+        <div class="who"><span class="av" style="background-image:url('https://images.unsplash.com/photo-1463453091185-61582044d556?auto=format&fit=crop&w=200&q=70')"></span><div><div class="nm">Tomás R.</div><div class="mt">Conventional · Albuquerque, NM</div></div></div>
+      </div>
+
+      <div class="quote" data-cat="jumbo">
+        <span class="verified">✓ Verified close</span>
+        <div class="stars">★★★★★</div>
+        <p>"Second time using Beacon — refinanced our first home with them years ago, came back for the jumbo on our new place. Loyalty earned. Wouldn't go anywhere else."</p>
+        <div class="who"><span class="av" style="background-image:url('https://images.unsplash.com/photo-1551836022-deb4988cc6c0?auto=format&fit=crop&w=200&q=70')"></span><div><div class="nm">Karen &amp; Will B.</div><div class="mt">Jumbo · Seattle, WA</div></div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="cta-band">
+      <h2>Want this experience for yourself?</h2>
+      <p>Get a real, personalized rate in minutes — and a loan officer who answers the phone. No obligation, no credit impact to check.</p>
+      <a href="apply.html" class="btn">Get pre-approved</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-inner">
+      <div>
+        <div class="fbrand"><span class="mark-sm">B</span>Beacon Lending</div>
+        <small>Home financing without the runaround.</small>
+      </div>
+      <div class="foot-links">
+        <a href="programs.html">Loan Programs</a>
+        <a href="calculator.html">Calculator</a>
+        <a href="about.html">About</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="apply.html">Apply</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <p>Equal Housing Lender · NMLS #1234567 (example) · Beacon Lending, LLC. Not a commitment to lend. All loans subject to credit approval, income verification, and property appraisal. Reviews shown are illustrative examples for this demo template. Rates and terms vary. This is a demo template and not a real lender.</p>
+      <small>© 2026 Beacon Lending · Template by Pilk.ai</small>
+    </div>
+  </div>
+</footer>
+
+<script>
+  var chips = document.querySelectorAll('.chip');
+  var cards = document.querySelectorAll('#grid .quote');
+  chips.forEach(function(chip){
+    chip.addEventListener('click', function(){
+      chips.forEach(function(c){ c.classList.remove('active'); });
+      chip.classList.add('active');
+      var f = chip.getAttribute('data-filter');
+      cards.forEach(function(card){
+        var show = (f === 'all') || (card.getAttribute('data-cat') === f);
+        card.style.display = show ? 'flex' : 'none';
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

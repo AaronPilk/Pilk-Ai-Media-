@@ -32,6 +32,7 @@
       .nav__links { display: flex; gap: 34px; text-transform: uppercase; letter-spacing: 0.16em; font-size: 12px; }
       .nav__links a { color: var(--muted); }
       .nav__links a:hover { color: var(--ink); }
+      .nav__links a.is-active { color: var(--ink); border-bottom: 1px solid var(--gold); padding-bottom: 2px; }
       .pill { border: 1px solid var(--gold); color: var(--gold); padding: 12px 22px; text-transform: uppercase; letter-spacing: 0.16em; font-size: 12px; border-radius: 2px; display: inline-block; }
       .label { text-transform: uppercase; letter-spacing: 0.3em; font-size: 12px; color: var(--gold); }
 
@@ -67,6 +68,34 @@
       .gallery__cap { font-family: "Cormorant Garamond", serif; font-size: 34px; }
       .gallery__txt { color: var(--muted); margin-top: 16px; }
 
+      .finishes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 56px; border: 1px solid var(--line); background: #fff; }
+      .finish { padding: 40px 34px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+      .finish:nth-child(3n) { border-right: none; }
+      .finish:nth-last-child(-n+3) { border-bottom: none; }
+      .finish__l { text-transform: uppercase; letter-spacing: 0.2em; font-size: 11px; color: var(--gold); }
+      .finish__t { font-family: "Cormorant Garamond", serif; font-size: 24px; margin-top: 12px; }
+      .finish__d { color: var(--muted); font-size: 15px; margin-top: 8px; }
+
+      .feature-list { columns: 2; column-gap: 60px; margin-top: 36px; }
+      .feature-list li { list-style: none; padding: 14px 0 14px 26px; border-bottom: 1px solid var(--line); position: relative; color: var(--ink); break-inside: avoid; }
+      .feature-list li::before { content: "—"; position: absolute; left: 0; color: var(--gold); }
+
+      .inquiry { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 70px; align-items: start; }
+      .inquiry form { display: grid; gap: 24px; }
+      .inquiry .field { display: grid; gap: 10px; }
+      .inquiry .field label { text-transform: uppercase; letter-spacing: 0.18em; font-size: 12px; color: var(--muted); }
+      .inquiry .field input, .inquiry .field textarea { font-family: Jost, system-ui, sans-serif; font-weight: 300; font-size: 16px; color: var(--ink); background: transparent; border: none; border-bottom: 1px solid var(--line); padding: 10px 2px; outline: none; }
+      .inquiry .field input:focus, .inquiry .field textarea:focus { border-bottom-color: var(--gold); }
+      .inquiry .field textarea { resize: vertical; min-height: 100px; }
+      .inquiry button.pill { justify-self: start; margin-top: 6px; background: none; cursor: pointer; }
+      .inquiry .agentbox { color: var(--muted); font-size: 16px; }
+      .inquiry .agentbox .name { font-family: "Cormorant Garamond", serif; font-size: 28px; color: var(--ink); }
+      .inquiry .agentbox .role { text-transform: uppercase; letter-spacing: 0.18em; font-size: 12px; margin: 6px 0 22px; }
+      .inquiry .agentbox .line { margin-top: 6px; }
+
+      .crumb { color: rgba(246,241,232,0.75); text-transform: uppercase; letter-spacing: 0.18em; font-size: 12px; margin-bottom: 18px; display: inline-block; }
+      .crumb:hover { color: #f6f1e8; }
+
       .hood { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
       .hood__img { aspect-ratio: 4/5; background: url('https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&w=800&q=70') center/cover no-repeat, linear-gradient(160deg, #b3a7c9, #2a2018); }
       .hood p { color: var(--muted); margin-top: 18px; font-size: 18px; }
@@ -84,6 +113,11 @@
         .gallery, .gallery:nth-of-type(even) { grid-template-columns: 1fr; }
         .gallery:nth-of-type(even) .gallery__img { order: 0; }
         .hood { grid-template-columns: 1fr; }
+        .finishes { grid-template-columns: 1fr; }
+        .finish, .finish:nth-child(3n) { border-right: none; border-bottom: 1px solid var(--line); }
+        .finish:last-child { border-bottom: none; }
+        .feature-list { columns: 1; }
+        .inquiry { grid-template-columns: 1fr; gap: 44px; }
       }
     </style>
   </head>
@@ -92,9 +126,9 @@
       <div class="wrap nav__in">
         <div class="brand"><a href="index.html">Maison <b>Laurent</b></a></div>
         <nav class="nav__links">
-          <a href="index.html#residences">Residences</a>
-          <a href="index.html#neighborhoods">Neighborhoods</a>
-          <a href="index.html#story">The Story</a>
+          <a href="listings.html">Collection</a>
+          <a href="residence.html" class="is-active">A Residence</a>
+          <a href="story.html">The Story</a>
           <a href="contact.html">Contact</a>
         </nav>
         <a class="pill" href="contact.html">Private Consultation</a>
@@ -103,10 +137,11 @@
 
     <section class="hero">
       <div class="wrap hero__in">
-        <p class="eyebrow">Featured Residence · Tampa Bay</p>
+        <a class="crumb" href="listings.html">← The Collection</a>
+        <p class="eyebrow">Featured Residence · 114 Danube Avenue, Davis Islands</p>
         <h1>Bayfront Modern</h1>
         <div class="hero__price">$4,250,000</div>
-        <span class="cta"><a class="pill" href="contact.html">Request a private showing</a></span>
+        <span class="cta"><a class="pill" href="#inquire">Request a private showing</a></span>
       </div>
     </section>
 
@@ -165,12 +200,73 @@
       </section>
 
       <section class="section">
+        <div class="wrap">
+          <p class="label">Finishes &amp; Materials</p>
+          <h2 class="title">Considered to the millimeter.</h2>
+          <div class="finishes">
+            <div class="finish"><div class="finish__l">Kitchen</div><div class="finish__t">Bulthaup b3</div><div class="finish__d">Custom Bulthaup cabinetry, honed Calacatta counters, and a full suite of integrated Gaggenau appliances.</div></div>
+            <div class="finish"><div class="finish__l">Flooring</div><div class="finish__t">Wide-Plank Oak</div><div class="finish__d">European white oak throughout, hand-finished, set against honed limestone in the wet rooms.</div></div>
+            <div class="finish"><div class="finish__l">Glazing</div><div class="finish__t">Floor-to-Ceiling</div><div class="finish__d">Frameless, motorized walls of glass that retract fully to dissolve the line between interior and bay.</div></div>
+            <div class="finish"><div class="finish__l">Primary Bath</div><div class="finish__t">Honed Marble</div><div class="finish__d">A spa-grade suite in book-matched marble with a freestanding stone tub overlooking the water.</div></div>
+            <div class="finish"><div class="finish__l">Systems</div><div class="finish__t">Crestron Home</div><div class="finish__d">Whole-home automation for lighting, climate, shades, audio, and security from a single interface.</div></div>
+            <div class="finish"><div class="finish__l">Construction</div><div class="finish__t">Impact-Rated</div><div class="finish__d">Concrete and steel construction with hurricane-rated glazing and an elevated, flood-resilient foundation.</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" style="background:var(--cream)">
+        <div class="wrap">
+          <p class="label">Property Features</p>
+          <h2 class="title">Everything, accounted for.</h2>
+          <ul class="feature-list">
+            <li>100 feet of direct deep-water frontage</li>
+            <li>Private dock with 16,000-lb boat lift</li>
+            <li>Infinity-edge pool and spa</li>
+            <li>Summer kitchen and covered loggia</li>
+            <li>Four-car climate-controlled garage</li>
+            <li>Private elevator to all three levels</li>
+            <li>Detached guest casita with full bath</li>
+            <li>Wine room for 600+ bottles</li>
+            <li>Home gym and wellness suite</li>
+            <li>Generator with full-home backup</li>
+            <li>Gated motor court with auto-entry</li>
+            <li>Smart irrigation and landscape lighting</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section">
         <div class="wrap hood">
           <div class="hood__img"></div>
           <div>
             <p class="label">The Neighborhood</p>
             <h2 class="title">Davis Islands.</h2>
             <p>One of Tampa's most coveted enclaves — a private island address moments from the water, the yacht club, and the city's finest tables, yet a world apart in its calm.</p>
+            <p style="margin-top:14px">A short causeway from downtown Tampa, the islands offer a private airport, a marina, and the kind of quiet that no amount of square footage can otherwise buy.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="inquire" style="background:var(--cream)">
+        <div class="wrap">
+          <p class="label">Private Inquiry</p>
+          <h2 class="title" style="margin-bottom:50px">Arrange a viewing of this residence.</h2>
+          <div class="inquiry">
+            <div class="agentbox">
+              <div class="name">Élise Laurent</div>
+              <div class="role">Founder &amp; Principal Broker</div>
+              <p>This residence is shown by private appointment only, with complete discretion. Share a few details and we will be in touch to arrange a time.</p>
+              <div class="line">concierge@example.com</div>
+              <div class="line">+1 (813) 555–0192</div>
+              <div class="line">Reference: <strong>Bayfront Modern · 114 Danube</strong></div>
+            </div>
+            <form action="#" method="post">
+              <div class="field"><label for="name">Name</label><input id="name" name="name" type="text" placeholder="Your full name" /></div>
+              <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="you@example.com" /></div>
+              <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" placeholder="Optional" /></div>
+              <div class="field"><label for="message">Message</label><textarea id="message" name="message" placeholder="Preferred dates, financing status, or anything else we should know."></textarea></div>
+              <button class="pill" type="submit">Request a private showing</button>
+            </form>
           </div>
         </div>
       </section>

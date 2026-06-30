@@ -57,10 +57,21 @@
       .info__row:first-of-type { border-top: none; }
       .info__row .l { font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); }
       .info__row .v { font-size: 17px; font-weight: 500; margin-top: 4px; }
+      .area { padding: 10px 0 90px; }
+      .area__in { background: var(--sand); border-radius: 28px; padding: 56px; }
+      .area h2 { font-size: clamp(28px, 4vw, 44px); font-weight: 600; margin-top: 10px; }
+      .area__lead { color: var(--muted); font-size: 18px; max-width: 60ch; margin-top: 14px; }
+      .area__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 38px; }
+      .area__col h4 { font-family: Fraunces, serif; font-size: 19px; font-weight: 600; margin-bottom: 12px; }
+      .area__col ul { list-style: none; }
+      .area__col li { padding: 9px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 15px; }
+      .area__col li:first-child { border-top: none; }
       footer { border-top: 1px solid var(--line); padding: 40px 0; color: var(--muted); font-size: 14px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
       @media (max-width: 900px) {
         .nav__links { display: none; }
         .layout { grid-template-columns: 1fr; }
+        .area__in { padding: 36px; }
+        .area__grid { grid-template-columns: 1fr; gap: 24px; }
       }
       @media (max-width: 560px) { .two { grid-template-columns: 1fr; gap: 20px; } .two .field { margin-bottom: 0; } }
     </style>
@@ -70,9 +81,9 @@
       <div class="wrap nav__in">
         <a class="brand" href="index.html">Shoreline &amp; Co.</a>
         <nav class="nav__links">
-          <a href="index.html#listings">Homes</a>
-          <a href="index.html#life">Lifestyle</a>
-          <a href="index.html#agent">Our Team</a>
+          <a href="listings.html">Listings</a>
+          <a href="lifestyle.html">Lifestyle</a>
+          <a href="about.html">About</a>
           <a href="contact.html">Contact</a>
         </nav>
         <a class="btn" href="contact.html">Plan your move</a>
@@ -133,7 +144,51 @@
             <div class="l">Email</div>
             <div class="v">hello@example.com</div>
           </div>
+          <div class="info__row">
+            <div class="l">Hours</div>
+            <div class="v">Mon–Sat 9–6 · Sun by appointment</div>
+          </div>
         </aside>
+      </section>
+
+      <section class="area">
+        <div class="area__in">
+          <p class="eyebrow">Where we work</p>
+          <h2 class="serif">Our service area</h2>
+          <p class="area__lead">We're hyper-local by design. We sell where we live, walk the docks ourselves, and know the streets that flood and the ones that don't. If it touches the central Gulf coast, we've got eyes on it.</p>
+          <div class="area__grid">
+            <div class="area__col">
+              <h4>Barrier islands</h4>
+              <ul>
+                <li>Treasure Island</li>
+                <li>St. Pete Beach</li>
+                <li>Madeira Beach</li>
+                <li>Redington Shores</li>
+                <li>Indian Rocks Beach</li>
+              </ul>
+            </div>
+            <div class="area__col">
+              <h4>Clearwater area</h4>
+              <ul>
+                <li>Clearwater Beach</li>
+                <li>Belleair Beach</li>
+                <li>Sand Key</li>
+                <li>Indian Shores</li>
+                <li>Bellair Bluffs</li>
+              </ul>
+            </div>
+            <div class="area__col">
+              <h4>Mainland &amp; bay</h4>
+              <ul>
+                <li>Downtown St. Petersburg</li>
+                <li>Snell Isle</li>
+                <li>Tierra Verde</li>
+                <li>Davis Islands, Tampa</li>
+                <li>Apollo Beach</li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </section>
     </main>
 

@@ -85,7 +85,14 @@
   .rcard .addr{color:var(--slate);font-size:14px;margin:4px 0 14px;}
   .rcard .specs{display:flex;gap:16px;font-size:13px;color:var(--slate-light);border-top:1px solid var(--line);padding-top:14px;margin-bottom:16px;}
   .rcard .specs b{color:var(--ink);font-weight:700;}
-  .rcard .apply{display:flex;align-items:center;justify-content:center;width:100%;font-weight:600;font-size:14px;color:#fff;background:var(--blue);padding:12px;border-radius:10px;transition:.15s;}
+  .rcard .status{font-size:13px;font-weight:600;margin:-8px 0 14px;display:flex;align-items:center;gap:7px;}
+  .rcard .status .d{width:8px;height:8px;border-radius:50%;}
+  .rcard .status.now{color:#16a34a;}.rcard .status.now .d{background:#22c55e;}
+  .rcard .status.soon{color:#d97706;}.rcard .status.soon .d{background:#f59e0b;}
+  .rcard .card-actions{display:flex;gap:10px;}
+  .rcard .view{flex:1;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;color:var(--blue);background:var(--blue-soft);padding:12px;border-radius:10px;transition:.15s;}
+  .rcard .view:hover{background:#e0eaff;}
+  .rcard .apply{flex:1;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:14px;color:#fff;background:var(--blue);padding:12px;border-radius:10px;transition:.15s;}
   .rcard .apply:hover{background:var(--blue-dark);}
 
   .back-row{padding:10px 0 70px;}
@@ -126,12 +133,13 @@
     <a href="index.html" class="brand"><span class="mark">K</span>Keystone</a>
     <nav class="nav-links">
       <a href="rentals.html" class="active">Rentals</a>
-      <a href="index.html#owners">Owners</a>
-      <a href="index.html#residents">Residents</a>
+      <a href="owners.html">Owners</a>
+      <a href="tenants.html">Tenants</a>
+      <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
     </nav>
     <div class="nav-cta">
-      <a href="contact.html" class="btn btn-primary">List your property</a>
+      <a href="contact.html" class="btn btn-primary">Owner login / Free analysis</a>
       <button class="menu-btn" aria-label="Menu">&#9776;</button>
     </div>
   </div>
@@ -203,92 +211,128 @@
   <div class="rentals-grid">
 
     <div class="rcard">
-      <div class="photo rphoto-1"><span class="badge avail">Available now</span></div>
+      <a href="rental.html"><div class="photo rphoto-1"><span class="badge avail">Available now</span></div></a>
       <div class="rcard-body">
         <div class="price">$2,150 <small>/mo</small></div>
         <div class="addr">418 Maple Court, Riverside</div>
         <div class="specs"><span><b>3</b> beds</span><span><b>2</b> baths</span><span><b>1,420</b> sqft</span></div>
-        <a href="contact.html" class="apply">Apply now</a>
+        <div class="status now"><span class="d"></span> Available now</div>
+        <div class="card-actions">
+          <a href="rental.html" class="view">Details</a>
+          <a href="contact.html" class="apply">Apply</a>
+        </div>
       </div>
     </div>
 
     <div class="rcard">
-      <div class="photo rphoto-2"><span class="badge">1 unit left</span></div>
+      <a href="rental.html"><div class="photo rphoto-2"><span class="badge">1 unit left</span></div></a>
       <div class="rcard-body">
         <div class="price">$1,675 <small>/mo</small></div>
         <div class="addr">22 Linden Ave #4B, Midtown</div>
         <div class="specs"><span><b>2</b> beds</span><span><b>1</b> bath</span><span><b>980</b> sqft</span></div>
-        <a href="contact.html" class="apply">Apply now</a>
+        <div class="status now"><span class="d"></span> Available now</div>
+        <div class="card-actions">
+          <a href="rental.html" class="view">Details</a>
+          <a href="contact.html" class="apply">Apply</a>
+        </div>
       </div>
     </div>
 
     <div class="rcard">
-      <div class="photo rphoto-3"><span class="badge avail">Available now</span></div>
+      <a href="rental.html"><div class="photo rphoto-3"><span class="badge avail">Available now</span></div></a>
       <div class="rcard-body">
         <div class="price">$3,400 <small>/mo</small></div>
         <div class="addr">7 Harbor View Dr, Lakeside</div>
         <div class="specs"><span><b>4</b> beds</span><span><b>3</b> baths</span><span><b>2,310</b> sqft</span></div>
-        <a href="contact.html" class="apply">Apply now</a>
+        <div class="status now"><span class="d"></span> Available now</div>
+        <div class="card-actions">
+          <a href="rental.html" class="view">Details</a>
+          <a href="contact.html" class="apply">Apply</a>
+        </div>
       </div>
     </div>
 
     <div class="rcard">
-      <div class="photo rphoto-4"><span class="badge">New listing</span></div>
+      <a href="rental.html"><div class="photo rphoto-4"><span class="badge">New listing</span></div></a>
       <div class="rcard-body">
         <div class="price">$1,295 <small>/mo</small></div>
         <div class="addr">901 Oak Street #2, Eastgate</div>
         <div class="specs"><span><b>1</b> bed</span><span><b>1</b> bath</span><span><b>640</b> sqft</span></div>
-        <a href="contact.html" class="apply">Apply now</a>
+        <div class="status now"><span class="d"></span> Available now</div>
+        <div class="card-actions">
+          <a href="rental.html" class="view">Details</a>
+          <a href="contact.html" class="apply">Apply</a>
+        </div>
       </div>
     </div>
 
     <div class="rcard">
-      <div class="photo rphoto-5"><span class="badge avail">Available now</span></div>
+      <a href="rental.html"><div class="photo rphoto-5"><span class="badge">Coming soon</span></div></a>
       <div class="rcard-body">
         <div class="price">$2,780 <small>/mo</small></div>
         <div class="addr">55 Cedar Ridge Ln, Northpark</div>
         <div class="specs"><span><b>3</b> beds</span><span><b>2.5</b> baths</span><span><b>1,790</b> sqft</span></div>
-        <a href="contact.html" class="apply">Apply now</a>
+        <div class="status soon"><span class="d"></span> Available Jul 15</div>
+        <div class="card-actions">
+          <a href="rental.html" class="view">Details</a>
+          <a href="contact.html" class="apply">Apply</a>
+        </div>
       </div>
     </div>
 
     <div class="rcard">
-      <div class="photo rphoto-6"><span class="badge">Pet friendly</span></div>
+      <a href="rental.html"><div class="photo rphoto-6"><span class="badge">Pet friendly</span></div></a>
       <div class="rcard-body">
         <div class="price">$1,950 <small>/mo</small></div>
         <div class="addr">134 Birchwood Pl, Southside</div>
         <div class="specs"><span><b>2</b> beds</span><span><b>2</b> baths</span><span><b>1,150</b> sqft</span></div>
-        <a href="contact.html" class="apply">Apply now</a>
+        <div class="status now"><span class="d"></span> Available now</div>
+        <div class="card-actions">
+          <a href="rental.html" class="view">Details</a>
+          <a href="contact.html" class="apply">Apply</a>
+        </div>
       </div>
     </div>
 
     <div class="rcard">
-      <div class="photo rphoto-7"><span class="badge avail">Available now</span></div>
+      <a href="rental.html"><div class="photo rphoto-7"><span class="badge avail">Available now</span></div></a>
       <div class="rcard-body">
         <div class="price">$2,425 <small>/mo</small></div>
         <div class="addr">310 Willow Bend, Westview</div>
         <div class="specs"><span><b>3</b> beds</span><span><b>2</b> baths</span><span><b>1,560</b> sqft</span></div>
-        <a href="contact.html" class="apply">Apply now</a>
+        <div class="status now"><span class="d"></span> Available now</div>
+        <div class="card-actions">
+          <a href="rental.html" class="view">Details</a>
+          <a href="contact.html" class="apply">Apply</a>
+        </div>
       </div>
     </div>
 
     <div class="rcard">
-      <div class="photo rphoto-8"><span class="badge">Move-in special</span></div>
+      <a href="rental.html"><div class="photo rphoto-8"><span class="badge">Move-in special</span></div></a>
       <div class="rcard-body">
         <div class="price">$1,520 <small>/mo</small></div>
         <div class="addr">88 Aspen Way #3C, Downtown</div>
         <div class="specs"><span><b>1</b> bed</span><span><b>1</b> bath</span><span><b>720</b> sqft</span></div>
-        <a href="contact.html" class="apply">Apply now</a>
+        <div class="status now"><span class="d"></span> Available now</div>
+        <div class="card-actions">
+          <a href="rental.html" class="view">Details</a>
+          <a href="contact.html" class="apply">Apply</a>
+        </div>
       </div>
     </div>
 
     <div class="rcard">
-      <div class="photo rphoto-9"><span class="badge avail">Available now</span></div>
+      <a href="rental.html"><div class="photo rphoto-9"><span class="badge">Coming soon</span></div></a>
       <div class="rcard-body">
         <div class="price">$3,950 <small>/mo</small></div>
         <div class="addr">12 Sycamore Hill, Crestwood</div>
         <div class="specs"><span><b>5</b> beds</span><span><b>3.5</b> baths</span><span><b>2,840</b> sqft</span></div>
-        <a href="contact.html" class="apply">Apply now</a>
+        <div class="status soon"><span class="d"></span> Available Aug 1</div>
+        <div class="card-actions">
+          <a href="rental.html" class="view">Details</a>
+          <a href="contact.html" class="apply">Apply</a>
+        </div>
       </div>
     </div>
 
@@ -309,17 +353,18 @@
       </div>
       <div class="foot-col">
         <h5>Company</h5>
-        <a href="index.html#owners">For owners</a>
-        <a href="index.html#residents">For residents</a>
+        <a href="owners.html">For owners</a>
+        <a href="tenants.html">For tenants</a>
         <a href="rentals.html">Available rentals</a>
+        <a href="about.html">About us</a>
         <a href="contact.html">Contact</a>
       </div>
       <div class="foot-col">
-        <h5>Residents</h5>
+        <h5>Tenants</h5>
         <a href="contact.html">Apply now</a>
-        <a href="contact.html">Pay rent</a>
-        <a href="contact.html">Maintenance request</a>
-        <a href="contact.html">Resident portal</a>
+        <a href="tenants.html">Pay rent</a>
+        <a href="tenants.html">Maintenance request</a>
+        <a href="tenants.html">Tenant portal</a>
       </div>
       <div class="foot-col">
         <h5>Get in touch</h5>

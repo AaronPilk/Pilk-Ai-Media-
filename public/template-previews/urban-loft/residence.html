@@ -53,6 +53,20 @@
       .gallery div:nth-child(1) { background: url('https://images.unsplash.com/photo-1556912173-3bb406ef7e77?auto=format&fit=crop&w=800&q=70') center/cover no-repeat, linear-gradient(135deg, #3b2f63, #8b5cf6 60%, #c4b5fd); }
       .gallery div:nth-child(2) { background: url('https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=70') center/cover no-repeat, linear-gradient(135deg, #1f2a44, #3b82f6 60%, #93c5fd); }
       .gallery div:nth-child(3) { background: url('https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=800&q=70') center/cover no-repeat, linear-gradient(135deg, #3a2330, #db2777 60%, #f9a8d4); }
+      .gallery div:nth-child(4) { background: url('https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=800&q=70') center/cover no-repeat, linear-gradient(135deg, #2a2140, #7c3aed 60%, #c4b5fd); }
+      .gallery div:nth-child(5) { background: url('https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=70') center/cover no-repeat, linear-gradient(135deg, #1e293b, #475569 60%, #cbd5e1); }
+      .gallery div:nth-child(6) { background: url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=70') center/cover no-repeat, linear-gradient(135deg, #1f2a44, #3b82f6 60%, #93c5fd); }
+      .fpwrap { display: grid; grid-template-columns: 1.1fr 1fr; gap: 28px; margin-top: 28px; align-items: center; }
+      .fp { aspect-ratio: 4/3; border-radius: 16px; border: 1px solid var(--line); background: url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=900&q=70') center/cover no-repeat, linear-gradient(135deg, #1b1726, #0c0c0f); }
+      .fpnote p { color: var(--muted); margin-top: 12px; }
+      .fpnote ul { list-style: none; margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
+      .fpnote li { color: var(--muted); font-size: 14px; padding-left: 18px; position: relative; }
+      .fpnote li::before { content: ""; position: absolute; left: 0; top: 9px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+      .avail { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 28px; }
+      .avail__row { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 20px; }
+      .avail__row .k { color: var(--muted); font-size: 13px; }
+      .avail__row .v { font-family: Archivo, sans-serif; font-weight: 700; font-size: 19px; margin-top: 4px; }
+      .avail__row .v.go { color: #4ade80; }
       .feat { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 28px; }
       .feat__item { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 24px; }
       .feat__item b { font-family: Archivo, sans-serif; display: block; font-size: 17px; margin-bottom: 6px; }
@@ -74,6 +88,8 @@
         .gallery { grid-template-columns: 1fr; }
         .feat { grid-template-columns: 1fr; }
         .amen { grid-template-columns: 1fr 1fr; }
+        .fpwrap { grid-template-columns: 1fr; }
+        .avail { grid-template-columns: 1fr 1fr; }
       }
     </style>
   </head>
@@ -82,30 +98,36 @@
       <div class="wrap nav__in">
         <div class="brand"><a href="index.html">LOFT<span>52</span></a></div>
         <nav class="nav__links">
-          <a href="index.html#residences">Residences</a>
-          <a href="index.html#amenities">Amenities</a>
-          <a href="index.html#about">About</a>
-          <a href="contact.html">Inquire</a>
+          <a href="residences.html" class="active">Residences</a>
+          <a href="amenities.html">Amenities</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
         </nav>
-        <a class="btn" href="contact.html">Book a tour</a>
+        <a class="btn" href="contact.html">Inquire</a>
       </div>
     </header>
 
     <main>
-      <div class="wrap crumb"><a href="index.html">Residences</a> · Residence 2208</div>
+      <div class="wrap crumb"><a href="residences.html">Residences</a> · Residence 22A</div>
 
       <section class="uhero">
         <div class="wrap">
-          <p class="eyebrow">Residence 2208 · Corner</p>
+          <p class="eyebrow">Residence 22A · Corner · Available</p>
           <h1>Corner residence, bay light all day.</h1>
           <div class="uhero__img"></div>
           <div class="uhead">
             <div>
               <div class="uprice">$720,000</div>
-              <div class="umeta"><span>2 bd</span><span>2 ba</span><span>1,310 sqft</span><span>Floor 22</span></div>
+              <div class="umeta"><span>2 bd</span><span>2 ba</span><span>1,310 sqft</span><span>Floor 22</span><span>North &amp; west exposure</span></div>
             </div>
             <a class="btn" href="contact.html">Book a tour</a>
           </div>
+        </div>
+      </section>
+
+      <section class="section" style="padding-top:0">
+        <div class="wrap" style="max-width:760px">
+          <p class="sub" style="font-size:18px">Residence 22A sits on the northwest corner of the tower, where wraparound glass pulls in Tampa Bay to the west and the downtown skyline to the north. An open great room flows to a private balcony, and the split two-bedroom layout keeps the primary suite quiet and separate. It's one of the most requested floor plans in the building — and one of the few corners still available at this elevation.</p>
         </div>
       </section>
 
@@ -117,6 +139,43 @@
             <div></div>
             <div></div>
             <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap">
+          <h2>Floor plan</h2>
+          <p class="sub">Split two-bedroom corner layout, 1,310 interior sqft plus balcony.</p>
+          <div class="fpwrap">
+            <div class="fp"></div>
+            <div class="fpnote">
+              <p>The great room anchors the northwest corner, with the kitchen island opening to the dining and living zones. The primary suite is pulled to the quiet north face with a walk-in closet and dual-vanity bath; the second bedroom and full bath sit off the entry gallery.</p>
+              <ul>
+                <li>Great room: 24'0" × 17'6"</li>
+                <li>Primary suite: 14'2" × 13'0"</li>
+                <li>Second bedroom: 11'8" × 11'0"</li>
+                <li>Private balcony: 9'0" × 6'0"</li>
+                <li>Ceiling height: 9'6" finished</li>
+              </ul>
+              <p style="font-size:13px;margin-top:14px">Plan shown is representative. Dimensions are approximate and may vary by floor. Request the full PDF plan from the sales team.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" style="background:var(--panel)">
+        <div class="wrap">
+          <h2>Availability &amp; pricing</h2>
+          <p class="sub">Current release. Pricing held at contract; subject to change on the next release.</p>
+          <div class="avail">
+            <div class="avail__row"><div class="k">Status</div><div class="v go">Available</div></div>
+            <div class="avail__row"><div class="k">Price</div><div class="v">$720,000</div></div>
+            <div class="avail__row"><div class="k">HOA (est.)</div><div class="v">$1,140 / mo</div></div>
+            <div class="avail__row"><div class="k">Est. closing</div><div class="v">Q3 2027</div></div>
           </div>
         </div>
       </section>
@@ -143,6 +202,14 @@
             <div class="amen__item"><b>Resident lounge</b><span>Co-working &amp; private dining</span></div>
             <div class="amen__item"><b>Concierge</b><span>Valet, packages, and more</span></div>
           </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap" style="max-width:760px;text-align:center">
+          <h2 style="text-align:center">Inquire about Residence 22A</h2>
+          <p class="sub" style="margin:12px auto 0">Reserve a private walkthrough or request the full plan set, pricing sheet, and HOA breakdown. A sales advisor responds within one business day.</p>
+          <div class="cta-row" style="justify-content:center;display:flex;gap:14px;margin-top:24px"><a class="btn" href="contact.html">Book a tour</a><a class="btn btn--ghost" href="contact.html">Request pricing</a></div>
         </div>
       </section>
     </main>

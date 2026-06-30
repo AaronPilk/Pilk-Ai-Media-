@@ -70,6 +70,11 @@
     transition: background 0.3s ease, border-color 0.3s ease;
   }
   .nav__cta:hover { background: var(--violet); border-color: var(--violet); }
+  .nav__price {
+    font-family: var(--serif); font-size: 17px; letter-spacing: 0.04em;
+    color: #fff !important; padding-left: 4px; border-left: 1px solid rgba(255,255,255,0.18);
+    padding-left: 18px;
+  }
   .nav__toggle { display: none; }
 
   /* ---------- HERO ---------- */
@@ -311,10 +316,10 @@
     <a href="index.html" class="nav__brand">The Bayfront Residence</a>
     <div class="nav__links">
       <a href="gallery.html">Gallery</a>
-      <a href="index.html#details">Details</a>
-      <a href="index.html#neighborhood">Neighborhood</a>
-      <a href="contact.html">Inquire</a>
-      <a href="contact.html" class="nav__cta">Arrange a viewing</a>
+      <a href="features.html">Features</a>
+      <a href="neighborhood.html">Neighborhood</a>
+      <a href="index.html" class="nav__price">$4,250,000</a>
+      <a href="contact.html" class="nav__cta">Schedule a Showing</a>
     </div>
   </nav>
 
@@ -383,8 +388,13 @@
   <!-- FEATURES -->
   <section class="section" id="details">
     <div class="wrap">
-      <p class="eyebrow">Details</p>
-      <h2 class="h-serif">Considered to the last detail.</h2>
+      <div class="gallery-head">
+        <div>
+          <p class="eyebrow">Details</p>
+          <h2 class="h-serif">Considered to the last detail.</h2>
+        </div>
+        <a href="features.html" class="link-arrow">Full features &amp; specs →</a>
+      </div>
       <div class="features-grid">
         <div class="feat-col">
           <h3>Interior</h3>
@@ -433,6 +443,7 @@
           <li>Tampa International Airport <span>18 min</span></li>
           <li>Hyde Park &amp; Bayshore Blvd <span>9 min</span></li>
         </ul>
+        <a href="neighborhood.html" class="link-arrow" style="display:inline-block;margin-top:30px;">Explore the neighborhood →</a>
       </div>
     </div>
   </section>

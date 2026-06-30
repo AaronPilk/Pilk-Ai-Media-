@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>412 Bayshore Blvd — Avery Stone Real Estate</title>
+    <title>412 Bayshore Blvd, Tampa — Sold by Avery Stone</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -42,17 +42,18 @@
 
       .phero { padding: 24px 0 0; }
       .phero__img { aspect-ratio: 16/8; border-radius: 20px; background: url('https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=1400&q=70') center/cover no-repeat, linear-gradient(135deg, #c7d2fe, #93c5fd 50%, #bae6fd); position: relative; }
-      .phero__tag { position: absolute; top: 16px; left: 16px; background: rgba(0,0,0,0.7); color: #fff; font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 8px; }
+      .phero__tag { position: absolute; top: 16px; left: 16px; background: var(--accent); color: #fff; font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 8px; }
 
       .gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 14px; }
-      .gallery div { aspect-ratio: 4/3; border-radius: 12px; }
-      .gallery div:nth-child(1) { background: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=600&q=70') center/cover no-repeat, linear-gradient(135deg, #fde68a, #fca5a5 60%, #f9a8d4); }
-      .gallery div:nth-child(2) { background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=70') center/cover no-repeat, linear-gradient(135deg, #a7f3d0, #6ee7b7 60%, #5eead4); }
-      .gallery div:nth-child(3) { background: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=600&q=70') center/cover no-repeat, linear-gradient(160deg, #1f6feb, #312e81); }
-      .gallery div:nth-child(4) { background: url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=600&q=70') center/cover no-repeat, linear-gradient(135deg, #c7d2fe, #818cf8 60%, #a78bfa); }
+      .gallery div { aspect-ratio: 4/3; border-radius: 12px; background-size: cover; background-position: center; }
+      .gallery div:nth-child(1) { background-image: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=600&q=70'), linear-gradient(135deg, #fde68a, #fca5a5 60%, #f9a8d4); }
+      .gallery div:nth-child(2) { background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=70'), linear-gradient(135deg, #a7f3d0, #6ee7b7 60%, #5eead4); }
+      .gallery div:nth-child(3) { background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=600&q=70'), linear-gradient(160deg, #1f6feb, #312e81); }
+      .gallery div:nth-child(4) { background-image: url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=600&q=70'), linear-gradient(135deg, #c7d2fe, #818cf8 60%, #a78bfa); }
 
       .pmeta { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-top: 34px; flex-wrap: wrap; }
       .pprice { font-size: clamp(34px, 5vw, 52px); font-weight: 800; letter-spacing: -0.035em; }
+      .pprice small { display: block; font-size: 14px; font-weight: 600; letter-spacing: 0; color: var(--accent); margin-bottom: 6px; }
       .paddr { color: var(--muted); font-size: 18px; margin-top: 6px; }
       .pstats { display: flex; gap: 30px; }
       .pstat b { display: block; font-size: 24px; font-weight: 800; letter-spacing: -0.02em; }
@@ -62,9 +63,17 @@
       .body-copy p { font-size: 17px; color: var(--ink); margin-bottom: 18px; }
       .body-copy p.muted { color: var(--muted); }
 
+      .resultbox { background: var(--soft); border: 1px solid var(--line); border-radius: 16px; padding: 24px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin: 4px 0 30px; }
+      .resultbox b { display: block; font-size: 22px; font-weight: 800; letter-spacing: -0.02em; }
+      .resultbox span { font-size: 13px; color: var(--muted); }
+
       .features { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 26px; }
       .features li { background: var(--soft); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; font-size: 15px; font-weight: 500; display: flex; align-items: center; gap: 10px; }
       .features li::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex: none; }
+
+      .specs { list-style: none; margin-top: 22px; border-top: 1px solid var(--line); }
+      .specs li { display: flex; justify-content: space-between; padding: 13px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+      .specs li span { color: var(--muted); }
 
       .agentcard { border: 1px solid var(--line); border-radius: 18px; padding: 26px; background: #fff; position: sticky; top: 90px; box-shadow: 0 24px 50px -36px rgba(0,0,0,0.25); }
       .agentcard__photo { width: 64px; height: 64px; border-radius: 50%; background: url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=70') center/cover no-repeat, linear-gradient(160deg, #1f6feb, #312e81); margin-bottom: 16px; }
@@ -72,6 +81,7 @@
       .agentcard .role { color: var(--muted); font-size: 14px; margin-top: 2px; }
       .agentcard p { color: var(--muted); font-size: 14px; margin: 16px 0 20px; }
       .agentcard .btn { width: 100%; justify-content: center; }
+      .agentcard .btn--ghost { margin-top: 10px; }
       .agentcard .ph { color: var(--muted); font-size: 13px; text-align: center; margin-top: 14px; }
 
       .map { aspect-ratio: 16/7; border-radius: 18px; margin-top: 26px; position: relative; overflow: hidden; background:
@@ -85,6 +95,20 @@
       .map__pin { position: absolute; top: 46%; left: 48%; transform: translate(-50%,-100%); background: var(--accent); color: #fff; font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 20px; box-shadow: 0 8px 20px -6px rgba(31,111,235,0.6); }
       .map__pin::after { content: ""; position: absolute; bottom: -6px; left: 50%; transform: translateX(-50%) rotate(45deg); width: 10px; height: 10px; background: var(--accent); }
 
+      .more { padding: 10px 0 60px; }
+      .moregrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 28px; }
+      .card { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: #fff; transition: transform 0.3s, box-shadow 0.3s; }
+      .card:hover { transform: translateY(-4px); box-shadow: 0 24px 50px -30px rgba(0,0,0,0.25); }
+      .card__img { aspect-ratio: 4/3; background-size: cover; background-position: center; position: relative; }
+      .m1 { background-image: url('https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=800&q=70'), linear-gradient(135deg, #fde68a, #fca5a5 60%, #f9a8d4); }
+      .m2 { background-image: url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=70'), linear-gradient(135deg, #a7f3d0, #6ee7b7 60%, #5eead4); }
+      .m3 { background-image: url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=70'), linear-gradient(135deg, #bae6fd, #7dd3fc 60%, #38bdf8); }
+      .card__tag { position: absolute; top: 12px; left: 12px; background: rgba(0,0,0,0.7); color: #fff; font-size: 12px; font-weight: 600; padding: 6px 10px; border-radius: 8px; }
+      .card__body { padding: 18px; }
+      .card__price { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; }
+      .card__addr { color: var(--muted); font-size: 14px; margin-top: 4px; }
+      .card__meta { display: flex; gap: 16px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+
       footer { border-top: 1px solid var(--line); padding: 40px 0; color: var(--muted); font-size: 14px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-top: 30px; }
 
       @media (max-width: 820px) {
@@ -92,10 +116,13 @@
         .layout { grid-template-columns: 1fr; }
         .agentcard { position: static; }
         .gallery { grid-template-columns: 1fr 1fr; }
+        .moregrid { grid-template-columns: 1fr 1fr; }
       }
       @media (max-width: 560px) {
         .features { grid-template-columns: 1fr; }
         .pstats { gap: 22px; }
+        .resultbox { grid-template-columns: 1fr; }
+        .moregrid { grid-template-columns: 1fr; }
       }
     </style>
   </head>
@@ -104,29 +131,29 @@
       <div class="wrap nav__in">
         <a class="brand" href="index.html">Avery Stone</a>
         <nav class="nav__links">
-          <a href="index.html#listings">Listings</a>
-          <a href="index.html#about">About</a>
+          <a href="about.html">About</a>
+          <a href="sales.html">Recent Sales</a>
           <a href="index.html#why">Why Me</a>
           <a href="contact.html">Contact</a>
         </nav>
-        <a class="btn" href="contact.html">Book a call</a>
+        <a class="btn" href="contact.html">Work with me</a>
       </div>
     </header>
 
     <main>
-      <div class="wrap crumb"><a href="index.html">Listings</a> &nbsp;/&nbsp; 412 Bayshore Blvd</div>
+      <div class="wrap crumb"><a href="sales.html">Recent Sales</a> &nbsp;/&nbsp; 412 Bayshore Blvd</div>
 
       <section class="phero">
         <div class="wrap">
-          <div class="phero__img"><span class="phero__tag">For sale</span></div>
+          <div class="phero__img"><span class="phero__tag">Sold · Represented seller</span></div>
           <div class="gallery">
             <div></div><div></div><div></div><div></div>
           </div>
 
           <div class="pmeta">
             <div>
-              <div class="pprice">$725,000</div>
-              <div class="paddr">412 Bayshore Blvd, Tampa, FL</div>
+              <div class="pprice"><small>Sold for $725,000</small>$725,000</div>
+              <div class="paddr">412 Bayshore Blvd, Tampa, FL 33606</div>
             </div>
             <div class="pstats">
               <div class="pstat"><b>4</b><span>Beds</span></div>
@@ -141,10 +168,18 @@
         <div class="wrap">
           <div class="layout">
             <div>
+              <p class="eyebrow" style="margin-bottom:12px;">The result</p>
+              <div class="resultbox">
+                <div><b>9 days</b><span>On market to offer</span></div>
+                <div><b>100%</b><span>Of list price</span></div>
+                <div><b>14 showings</b><span>First weekend</span></div>
+              </div>
+
               <div class="body-copy">
                 <p class="eyebrow" style="margin-bottom:12px;">About this home</p>
                 <p>Set directly on Tampa's iconic Bayshore Boulevard, this 4-bedroom waterfront residence pairs classic curb appeal with a fully reimagined interior. Floor-to-ceiling windows pull the water into nearly every room, and an open layout makes it built for both quiet mornings and easy entertaining.</p>
                 <p class="muted">The chef's kitchen anchors the main floor with quartz counters, a full pro appliance package, and a walk-in pantry. Upstairs, the primary suite opens to a private balcony with unobstructed bay views. Outside, a resort-style pool and covered lanai sit just steps from the seawall.</p>
+                <p class="muted">We launched with professional twilight photography, a full video walkthrough, and a targeted paid campaign aimed at qualified South Tampa buyers. The result: 14 showings in the first weekend and a full-price offer accepted on day nine.</p>
               </div>
 
               <h2 style="font-size:22px;margin-top:34px;">Features</h2>
@@ -159,6 +194,16 @@
                 <li>Covered lanai</li>
               </ul>
 
+              <h2 style="font-size:22px;margin-top:46px;">Property details</h2>
+              <ul class="specs">
+                <li><span>Property type</span> Single-family home</li>
+                <li><span>Year built</span> 1998 · renovated 2021</li>
+                <li><span>Lot size</span> 0.31 acres</li>
+                <li><span>Garage</span> 2-car attached</li>
+                <li><span>Heating / cooling</span> Central, dual-zone</li>
+                <li><span>County</span> Hillsborough</li>
+              </ul>
+
               <h2 style="font-size:22px;margin-top:46px;">Neighborhood</h2>
               <p class="sub" style="color:var(--muted);font-size:15px;margin-top:8px;max-width:60ch;">Bayshore Boulevard — the heart of South Tampa. Walk to Hyde Park Village, minutes from downtown, with the longest continuous sidewalk in the country right at your doorstep.</p>
               <div class="map">
@@ -170,12 +215,45 @@
               <div class="agentcard">
                 <div class="agentcard__photo"></div>
                 <h3>Avery Stone</h3>
-                <div class="role">Listing Agent · Tampa Bay</div>
-                <p>Want to see it in person? I'll set up a private showing on your schedule and walk you through every detail.</p>
-                <a class="btn" href="contact.html">Schedule a showing</a>
-                <div class="ph">(000) 000-0000 · hello@example.com</div>
+                <div class="role">REALTOR® · Tampa Bay</div>
+                <p>Thinking about selling a home like this one? I'll put together a custom marketing plan and a real price — no obligation.</p>
+                <a class="btn" href="contact.html">Get a home valuation</a>
+                <a class="btn btn--ghost" href="sales.html">See more sales</a>
+                <div class="ph">(813) 555-0142 · hello@averystone.com</div>
               </div>
             </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="more">
+        <div class="wrap">
+          <h2 style="font-size:24px;">More recent sales</h2>
+          <div class="moregrid">
+            <a href="property.html" class="card">
+              <div class="card__img m1"><span class="card__tag">Sold</span></div>
+              <div class="card__body">
+                <div class="card__price">$549,000</div>
+                <div class="card__addr">88 Harbor View Ln, St. Petersburg</div>
+                <div class="card__meta"><span>3 beds</span><span>2 baths</span><span>Over asking</span></div>
+              </div>
+            </a>
+            <a href="property.html" class="card">
+              <div class="card__img m2"><span class="card__tag">Sold</span></div>
+              <div class="card__body">
+                <div class="card__price">$1,150,000</div>
+                <div class="card__addr">7 Coral Reef Dr, Clearwater Beach</div>
+                <div class="card__meta"><span>5 beds</span><span>4 baths</span><span>Buyer rep</span></div>
+              </div>
+            </a>
+            <a href="property.html" class="card">
+              <div class="card__img m3"><span class="card__tag">Sold</span></div>
+              <div class="card__body">
+                <div class="card__price">$1,395,000</div>
+                <div class="card__addr">31 Snell Isle Blvd NE, St. Petersburg</div>
+                <div class="card__meta"><span>5 beds</span><span>4.5 baths</span><span>Sold in 12 days</span></div>
+              </div>
+            </a>
           </div>
         </div>
       </section>
@@ -183,7 +261,7 @@
 
     <footer class="wrap">
       <div>© Avery Stone Real Estate · Template by Pilk.ai</div>
-      <div>(000) 000-0000 · hello@example.com</div>
+      <div>(813) 555-0142 · hello@averystone.com</div>
     </footer>
   </body>
 </html>

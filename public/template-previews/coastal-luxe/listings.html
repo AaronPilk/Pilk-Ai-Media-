@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Waterfront Listings — Shoreline &amp; Co.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #18302e;
+        --muted: #5d7470;
+        --sand: #f5efe3;
+        --paper: #fbf8f1;
+        --teal: #1f7a6b;
+        --teal2: #2c9d8a;
+        --line: #e6ddcd;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+      body { font-family: Inter, system-ui, sans-serif; background: var(--paper); color: var(--ink); line-height: 1.65; }
+      a { color: inherit; text-decoration: none; }
+      .serif { font-family: Fraunces, Georgia, serif; }
+      .wrap { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 28px; }
+      .nav { position: sticky; top: 0; z-index: 20; background: rgba(251,248,241,0.9); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+      .nav__in { display: flex; align-items: center; justify-content: space-between; height: 78px; }
+      .brand { font-family: Fraunces, serif; font-size: 23px; font-weight: 600; }
+      .nav__links { display: flex; gap: 30px; font-size: 14px; }
+      .nav__links a { color: var(--muted); }
+      .nav__links a:hover { color: var(--ink); }
+      .btn { display: inline-flex; align-items: center; gap: 8px; background: var(--teal); color: #fff; font-weight: 600; font-size: 14px; padding: 13px 24px; border-radius: 999px; }
+      .btn--ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+      .eyebrow { text-transform: uppercase; letter-spacing: 0.2em; font-size: 12px; color: var(--teal2); font-weight: 600; }
+      .head { padding: 64px 0 8px; }
+      .head h1 { font-family: Fraunces, serif; font-size: clamp(38px, 6vw, 72px); line-height: 1.02; font-weight: 600; margin-top: 14px; max-width: 16ch; }
+      .head .lead { color: var(--muted); font-size: 19px; max-width: 54ch; margin-top: 16px; }
+      .filters { display: flex; flex-wrap: wrap; gap: 10px; margin: 32px 0 6px; }
+      .filters select, .filters input { border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 12px 18px; font: inherit; font-size: 14px; color: var(--ink); }
+      .filters input { min-width: 220px; }
+      .filters .btn { padding: 12px 22px; }
+      .count { color: var(--muted); font-size: 14px; margin: 22px 0 4px; }
+      .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin: 12px 0 30px; }
+      .card { display: block; background: #fff; border: 1px solid var(--line); border-radius: 22px; overflow: hidden; transition: transform 0.3s; position: relative; }
+      .card:hover { transform: translateY(-5px); }
+      .card__img { aspect-ratio: 4/3; position: relative; }
+      .tag { position: absolute; top: 14px; left: 14px; background: rgba(24,48,46,0.82); color: #eafaf5; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 7px 12px; border-radius: 999px; backdrop-filter: blur(4px); }
+      .tag--status { left: auto; right: 14px; background: var(--teal); }
+      .card:nth-child(1) .card__img { background: url('https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&w=800&q=70') center/cover no-repeat, linear-gradient(140deg, #a9dccf, #2c9d8a 60%, #1f5e54); }
+      .card:nth-child(2) .card__img { background: url('https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=800&q=70') center/cover no-repeat, linear-gradient(140deg, #a9dccf, #2c9d8a 60%, #1f5e54); }
+      .card:nth-child(3) .card__img { background: url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=70') center/cover no-repeat, linear-gradient(140deg, #f0d9a8, #d99a5b 60%, #9a623a); }
+      .card:nth-child(4) .card__img { background: url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=70') center/cover no-repeat, linear-gradient(140deg, #bcd6e8, #6699bb 60%, #3a5e78); }
+      .card:nth-child(5) .card__img { background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=70') center/cover no-repeat, linear-gradient(140deg, #a9dccf, #2c9d8a 60%, #1f5e54); }
+      .card:nth-child(6) .card__img { background: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=70') center/cover no-repeat, linear-gradient(140deg, #f0d9a8, #d99a5b 60%, #9a623a); }
+      .card:nth-child(7) .card__img { background: url('https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=800&q=70') center/cover no-repeat, linear-gradient(140deg, #bcd6e8, #6699bb 60%, #3a5e78); }
+      .card:nth-child(8) .card__img { background: url('https://images.unsplash.com/photo-1502005097973-6a7082348e28?auto=format&fit=crop&w=800&q=70') center/cover no-repeat, linear-gradient(140deg, #a9dccf, #2c9d8a 60%, #1f5e54); }
+      .card:nth-child(9) .card__img { background: url('https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?auto=format&fit=crop&w=800&q=70') center/cover no-repeat, linear-gradient(140deg, #7ec8b9, #1f7a6b 60%, #133f3a); }
+      .card__body { padding: 20px; }
+      .card__price { font-family: Fraunces, serif; font-size: 24px; font-weight: 600; }
+      .card__addr { color: var(--muted); font-size: 14px; margin-top: 4px; }
+      .card__meta { display: flex; gap: 16px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+      .band { background: var(--teal); color: #eafaf5; border-radius: 28px; padding: 64px; text-align: center; margin: 40px 0 90px; }
+      .band h2 { font-family: Fraunces, serif; font-size: clamp(28px, 4.5vw, 48px); font-weight: 600; }
+      .band p { opacity: 0.85; margin: 14px 0 26px; max-width: 52ch; margin-left: auto; margin-right: auto; }
+      footer { border-top: 1px solid var(--line); padding: 40px 0; color: var(--muted); font-size: 14px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+      @media (max-width: 900px) {
+        .nav__links { display: none; }
+        .grid { grid-template-columns: 1fr 1fr; }
+        .band { padding: 44px 28px; }
+      }
+      @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <header class="nav">
+      <div class="wrap nav__in">
+        <a class="brand" href="index.html">Shoreline &amp; Co.</a>
+        <nav class="nav__links">
+          <a href="listings.html">Listings</a>
+          <a href="lifestyle.html">Lifestyle</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+        <a class="btn" href="contact.html">Plan your move</a>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section class="head">
+        <p class="eyebrow">Coastal Living · Gulf Coast</p>
+        <h1>Waterfront homes on the Gulf.</h1>
+        <p class="lead">Beachfront condos, deep-water canal homes, and island estates — hand-picked along the central Gulf coast. Tap any home to see the full story.</p>
+        <div class="filters">
+          <input placeholder="Beach, town, or address" />
+          <select><option>Any type</option><option>Beachfront</option><option>Canal / dock</option><option>Condo</option><option>Estate</option></select>
+          <select><option>Any price</option><option>Under $600k</option><option>$600k–$1M</option><option>$1M–$2M</option><option>$2M+</option></select>
+          <select><option>Any beds</option><option>2+ beds</option><option>3+ beds</option><option>4+ beds</option></select>
+          <a class="btn" href="#results">Search</a>
+        </div>
+      </section>
+
+      <p class="count" id="results">Showing 9 active listings · updated daily</p>
+
+      <section class="grid">
+        <a class="card" href="home.html">
+          <div class="card__img"><span class="tag">Deep-water dock</span><span class="tag tag--status">For sale</span></div>
+          <div class="card__body">
+            <div class="card__price">$1,290,000</div>
+            <div class="card__addr">5 Pelican Pt, Treasure Island</div>
+            <div class="card__meta"><span>4 bd</span><span>3 ba</span><span>2,940 sqft</span></div>
+          </div>
+        </a>
+        <a class="card" href="home.html">
+          <div class="card__img"><span class="tag">Beachfront</span><span class="tag tag--status">For sale</span></div>
+          <div class="card__body">
+            <div class="card__price">$685,000</div>
+            <div class="card__addr">22 Gulfview Way, Indian Rocks Beach</div>
+            <div class="card__meta"><span>3 bd</span><span>2 ba</span><span>1,820 sqft</span></div>
+          </div>
+        </a>
+        <a class="card" href="home.html">
+          <div class="card__img"><span class="tag">Beach condo</span><span class="tag tag--status">For sale</span></div>
+          <div class="card__body">
+            <div class="card__price">$499,000</div>
+            <div class="card__addr">310 Bayway Blvd #4, Clearwater Beach</div>
+            <div class="card__meta"><span>2 bd</span><span>2 ba</span><span>1,310 sqft</span></div>
+          </div>
+        </a>
+        <a class="card" href="home.html">
+          <div class="card__img"><span class="tag">Bay views</span><span class="tag tag--status">For sale</span></div>
+          <div class="card__body">
+            <div class="card__price">$2,150,000</div>
+            <div class="card__addr">88 Sunset Cove, St. Pete Beach</div>
+            <div class="card__meta"><span>5 bd</span><span>4 ba</span><span>3,640 sqft</span></div>
+          </div>
+        </a>
+        <a class="card" href="home.html">
+          <div class="card__img"><span class="tag">Canal &amp; lift</span><span class="tag tag--status">For sale</span></div>
+          <div class="card__body">
+            <div class="card__price">$945,000</div>
+            <div class="card__addr">14 Tarpon Ln, Madeira Beach</div>
+            <div class="card__meta"><span>3 bd</span><span>2 ba</span><span>2,210 sqft</span></div>
+          </div>
+        </a>
+        <a class="card" href="home.html">
+          <div class="card__img"><span class="tag">Gulf-front</span><span class="tag tag--status">New</span></div>
+          <div class="card__body">
+            <div class="card__price">$3,400,000</div>
+            <div class="card__addr">1 Sand Key Estates, Clearwater</div>
+            <div class="card__meta"><span>5 bd</span><span>5 ba</span><span>4,820 sqft</span></div>
+          </div>
+        </a>
+        <a class="card" href="home.html">
+          <div class="card__img"><span class="tag">Walk to beach</span><span class="tag tag--status">For sale</span></div>
+          <div class="card__body">
+            <div class="card__price">$612,000</div>
+            <div class="card__addr">47 Coral St, Redington Shores</div>
+            <div class="card__meta"><span>3 bd</span><span>2 ba</span><span>1,560 sqft</span></div>
+          </div>
+        </a>
+        <a class="card" href="home.html">
+          <div class="card__img"><span class="tag">Penthouse</span><span class="tag tag--status">For sale</span></div>
+          <div class="card__body">
+            <div class="card__price">$1,775,000</div>
+            <div class="card__addr">700 Beach Dr PH-2, Downtown St. Pete</div>
+            <div class="card__meta"><span>3 bd</span><span>3 ba</span><span>2,480 sqft</span></div>
+          </div>
+        </a>
+        <a class="card" href="home.html">
+          <div class="card__img"><span class="tag">Island lot</span><span class="tag tag--status">New</span></div>
+          <div class="card__body">
+            <div class="card__price">$1,050,000</div>
+            <div class="card__addr">9 Heron Way, Tierra Verde</div>
+            <div class="card__meta"><span>4 bd</span><span>3 ba</span><span>2,700 sqft</span></div>
+          </div>
+        </a>
+      </section>
+
+      <section class="band">
+        <h2 class="serif">Don't see it yet?</h2>
+        <p>Some of the best waterfront homes never hit the public market. Tell us what you're after and we'll bring you the ones nobody else is seeing.</p>
+        <a class="btn" href="contact.html" style="background:#fff;color:#18302e">Start a private search</a>
+      </section>
+    </main>
+
+    <footer class="wrap">
+      <div>© Shoreline &amp; Co. · Template by Pilk.ai</div>
+      <div>(000) 000-0000 · hello@example.com</div>
+    </footer>
+  </body>
+</html>

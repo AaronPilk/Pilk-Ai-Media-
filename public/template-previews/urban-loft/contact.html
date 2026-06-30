@@ -33,6 +33,7 @@
       .nav__links { display: flex; gap: 30px; font-size: 14px; }
       .nav__links a { color: var(--muted); }
       .nav__links a:hover { color: #fff; }
+      .nav__links a.active { color: #fff; }
       .btn { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; font-weight: 600; font-size: 14px; padding: 12px 22px; border-radius: 10px; border: none; cursor: pointer; }
       .btn--ghost { background: transparent; border: 1px solid var(--line); }
       .head { padding: 70px 0 10px; }
@@ -55,10 +56,21 @@
       .info__row span:first-child { color: var(--muted); }
       .info__contact { margin-top: 22px; color: var(--muted); font-size: 14px; line-height: 1.9; }
       .info__contact b { color: var(--ink); font-family: Archivo, sans-serif; }
+      .locband { border-top: 1px solid var(--line); }
+      .loc { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+      .loc__map { min-height: 420px; background: linear-gradient(rgba(12,12,15,.25), rgba(12,12,15,.55)), url('https://images.unsplash.com/photo-1524813686514-a57563d77965?auto=format&fit=crop&w=1200&q=72') center/cover no-repeat, linear-gradient(140deg, #1f2a44, #0c0c0f); }
+      .loc__body { padding: 70px 56px; align-self: center; }
+      .loc__body h2 { font-family: Archivo, sans-serif; font-weight: 800; font-size: clamp(28px, 4vw, 44px); letter-spacing: -0.03em; }
+      .loc__body p { color: var(--muted); margin-top: 12px; max-width: 46ch; }
+      .loc__list { list-style: none; margin-top: 22px; display: flex; flex-direction: column; gap: 10px; }
+      .loc__list li { color: var(--muted); font-size: 14px; padding-left: 18px; position: relative; }
+      .loc__list li::before { content: ""; position: absolute; left: 0; top: 9px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
       footer { border-top: 1px solid var(--line); padding: 40px 0; color: var(--muted); font-size: 14px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
       @media (max-width: 900px) {
         .nav__links { display: none; }
         .split { grid-template-columns: 1fr; }
+        .loc { grid-template-columns: 1fr; }
+        .loc__body { padding: 48px 28px; }
       }
     </style>
   </head>
@@ -67,12 +79,12 @@
       <div class="wrap nav__in">
         <div class="brand"><a href="index.html">LOFT<span>52</span></a></div>
         <nav class="nav__links">
-          <a href="index.html#residences">Residences</a>
-          <a href="index.html#amenities">Amenities</a>
-          <a href="index.html#about">About</a>
-          <a href="contact.html">Inquire</a>
+          <a href="residences.html">Residences</a>
+          <a href="amenities.html">Amenities</a>
+          <a href="about.html">About</a>
+          <a href="contact.html" class="active">Contact</a>
         </nav>
-        <a class="btn" href="contact.html">Book a tour</a>
+        <a class="btn" href="contact.html">Inquire</a>
       </div>
     </header>
 
@@ -104,10 +116,13 @@
               <label for="residence">Residence of interest</label>
               <select id="residence" name="residence">
                 <option value="">Select a residence</option>
-                <option value="1402">Residence 1402 · 1 bed loft</option>
-                <option value="2208">Residence 2208 · Corner</option>
-                <option value="3601">Residence 3601 · Skyline</option>
-                <option value="penthouse">Penthouse · Floor 52</option>
+                <option value="14a">Residence 14A · 1 bed loft</option>
+                <option value="18c">Residence 18C · 1 bed + den</option>
+                <option value="22a">Residence 22A · Corner</option>
+                <option value="31a">Residence 31A · Skyline</option>
+                <option value="36d">Residence 36D · 3 bed</option>
+                <option value="penthouse">Penthouse 52 · Full floor</option>
+                <option value="priority">Just join the priority list</option>
                 <option value="undecided">Still deciding</option>
               </select>
             </div>
@@ -116,6 +131,7 @@
               <textarea id="message" name="message" placeholder="Tell us about your timeline and what you're after."></textarea>
             </div>
             <button class="btn" type="submit">Request a tour</button>
+            <p style="color:var(--muted);font-size:13px;margin-top:14px">By submitting you agree to be contacted by the LOFT52 sales team. We never share your information.</p>
           </form>
 
           <aside class="info">
@@ -131,6 +147,23 @@
               sales@example.com
             </div>
           </aside>
+        </div>
+      </section>
+
+      <section class="locband">
+        <div class="loc">
+          <div class="loc__map"></div>
+          <div class="loc__body">
+            <p class="eyebrow">Find us</p>
+            <h2>250 Central Avenue</h2>
+            <p>The sales gallery and model loft sit on the ground floor of the tower, in the heart of downtown St. Petersburg. Walk-ins welcome during gallery hours; private tours by appointment.</p>
+            <ul class="loc__list">
+              <li>Steps from the St. Pete Pier and the waterfront parks</li>
+              <li>Two blocks from the EDGE District restaurants</li>
+              <li>Complimentary valet for gallery visitors</li>
+              <li>~30 minutes to Tampa International Airport</li>
+            </ul>
+          </div>
         </div>
       </section>
     </main>

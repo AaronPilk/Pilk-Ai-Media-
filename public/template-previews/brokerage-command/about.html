@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>About — Meridian Group</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0a0e17;
+        --panel: #111827;
+        --panel2: #0f1623;
+        --ink: #eef2f7;
+        --muted: #93a0b4;
+        --line: rgba(255,255,255,0.09);
+        --accent: #3b82f6;
+        --accent2: #22d3ee;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+      body { font-family: Inter, system-ui, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; }
+      a { color: inherit; text-decoration: none; }
+      .display { font-family: "Space Grotesk", sans-serif; }
+      .wrap { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 28px; }
+      .nav { position: sticky; top: 0; z-index: 20; background: rgba(10,14,23,0.85); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+      .nav__in { display: flex; align-items: center; justify-content: space-between; height: 76px; }
+      .brand { font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 20px; letter-spacing: -0.02em; }
+      .brand b { color: var(--accent); }
+      .nav__links { display: flex; gap: 30px; font-size: 14px; }
+      .nav__links a { color: var(--muted); }
+      .nav__links a:hover, .nav__links a.active { color: #fff; }
+      .btn { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; font-weight: 600; font-size: 14px; padding: 12px 22px; border-radius: 999px; cursor: pointer; }
+      .btn--ghost { background: transparent; border: 1px solid var(--line); }
+      .hero { padding: 90px 0 30px; position: relative; overflow: hidden; }
+      .hero::after { content:""; position:absolute; width:600px; height:600px; right:-160px; top:-160px; border-radius:50%; background: radial-gradient(circle, rgba(59,130,246,0.35), transparent 65%); filter: blur(20px); }
+      .eyebrow { text-transform: uppercase; letter-spacing: 0.22em; font-size: 12px; color: var(--accent2); font-weight: 600; }
+      h1 { font-family: "Space Grotesk", sans-serif; font-size: clamp(44px, 7vw, 84px); line-height: 0.98; letter-spacing: -0.04em; font-weight: 700; margin: 16px 0; max-width: 15ch; }
+      .lead { color: var(--muted); font-size: 19px; max-width: 56ch; }
+      .section { padding: 70px 0; }
+      .section h2 { font-family: "Space Grotesk", sans-serif; font-size: clamp(30px, 4.5vw, 48px); letter-spacing: -0.03em; }
+      .section .sub { color: var(--muted); margin-top: 8px; max-width: 56ch; }
+      .story { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 30px; align-items: center; margin-top: 30px; }
+      .story p { color: var(--muted); font-size: 16px; margin-bottom: 16px; }
+      .storyart { aspect-ratio: 4/3; border-radius: 18px; background: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=900&q=70') center/cover no-repeat, radial-gradient(circle at 30% 30%, rgba(59,130,246,0.5), transparent 60%), linear-gradient(140deg, #1e293b, #0b1220); border: 1px solid var(--line); }
+      .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 40px; }
+      .stat { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 24px; }
+      .stat b { font-family: "Space Grotesk", sans-serif; font-size: 34px; display: block; letter-spacing: -0.02em; }
+      .stat span { color: var(--muted); font-size: 13px; }
+      .values { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 40px; }
+      .card { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 26px; }
+      .card h3 { font-family: "Space Grotesk", sans-serif; font-size: 19px; letter-spacing: -0.01em; margin-bottom: 8px; }
+      .card p { color: var(--muted); font-size: 14px; }
+      .leaders { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 40px; }
+      .leader { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; }
+      .leader__img { aspect-ratio: 1; }
+      .leader__body { padding: 18px 20px; }
+      .leader__name { font-weight: 600; font-size: 17px; }
+      .leader__role { color: var(--accent2); font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 3px; }
+      .leader__bio { color: var(--muted); font-size: 13px; margin-top: 10px; }
+      .offices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 40px; }
+      .office { background: linear-gradient(120deg, var(--panel), var(--panel2)); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; }
+      .office__img { aspect-ratio: 16/10; }
+      .office__body { padding: 20px 22px; }
+      .office__city { font-family: "Space Grotesk", sans-serif; font-size: 20px; letter-spacing: -0.01em; }
+      .office__addr { color: var(--muted); font-size: 14px; margin-top: 6px; }
+      .band { text-align: center; padding: 90px 0; background: var(--panel2); border-top: 1px solid var(--line); }
+      .band h2 { font-family: "Space Grotesk", sans-serif; font-size: clamp(30px, 5vw, 50px); letter-spacing: -0.03em; }
+      .band p { color: var(--muted); margin: 14px 0 28px; }
+      footer { border-top: 1px solid var(--line); padding: 40px 0; color: var(--muted); font-size: 14px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+      @media (max-width: 900px) {
+        .nav__links { display: none; }
+        .story { grid-template-columns: 1fr; }
+        .values, .leaders, .offices { grid-template-columns: 1fr; }
+        .stats { grid-template-columns: 1fr 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="nav">
+      <div class="wrap nav__in">
+        <a href="index.html" class="brand">MERIDIAN<b>·</b>GROUP</a>
+        <nav class="nav__links">
+          <a href="listings.html">Listings</a>
+          <a href="agents.html">Agents</a>
+          <a href="about.html" class="active">About</a>
+          <a href="recruiting.html">Careers</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+        <a class="btn" href="contact.html">Work with us</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="wrap">
+          <p class="eyebrow">Our story</p>
+          <h1>A brokerage built around the client.</h1>
+          <p class="lead">Meridian Group started in a one-room St. Pete office in 2014 with a simple idea: agents do their best work when the brokerage actually has their back.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap">
+          <div class="story">
+            <div>
+              <h2>Where we started.</h2>
+              <p>Jordan Reyes left a national franchise frustrated by the same thing every agent complains about — paying for a big name while getting nothing back. No marketing, no leads, no support. Just a logo and a desk fee.</p>
+              <p>So in 2014, Meridian opened with four agents and one rule: invest in the people closing the deals. Build the marketing, the tech, and the support staff in-house, then hand it to agents for free.</p>
+              <p>A decade later, that bet has turned into 48 agents across three offices, $1.2B in closed volume, and one of the highest agent-retention rates in Tampa Bay. The rule hasn't changed.</p>
+            </div>
+            <div class="storyart"></div>
+          </div>
+          <div class="stats">
+            <div class="stat"><b>2014</b><span>Founded in St. Pete</span></div>
+            <div class="stat"><b>$1.2B</b><span>Closed volume</span></div>
+            <div class="stat"><b>1,900+</b><span>Families served</span></div>
+            <div class="stat"><b>3</b><span>Offices, one team</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" style="background:var(--panel2)">
+        <div class="wrap">
+          <h2>What we stand on</h2>
+          <p class="sub">Three things every agent and every client can count on.</p>
+          <div class="values">
+            <div class="card"><h3>Service over volume</h3><p>We'd rather close 1,900 deals well than 5,000 sloppily. Every client gets an agent who answers the phone and tells the truth.</p></div>
+            <div class="card"><h3>Invest in the agent</h3><p>Marketing, leads, tech, and a coordinator — provided, not billed back. When agents win, clients win, and the firm grows.</p></div>
+            <div class="card"><h3>Know the market cold</h3><p>We only work Tampa Bay. Deep local knowledge beats a national footprint every time you're pricing a home or writing an offer.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap">
+          <h2>Leadership</h2>
+          <p class="sub">The people setting the standard for the rest of the team.</p>
+          <div class="leaders">
+            <div class="leader"><div class="leader__img" style="background:url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=70') center/cover no-repeat,linear-gradient(160deg,#334155,#1e293b)"></div><div class="leader__body"><div class="leader__name">Jordan Reyes</div><div class="leader__role">Founder & Managing Broker</div><div class="leader__bio">Founded Meridian in 2014. 18 years in Tampa Bay real estate and $300M+ in personal sales before stepping back to build the firm.</div></div></div>
+            <div class="leader"><div class="leader__img" style="background:url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=500&q=70') center/cover no-repeat,linear-gradient(160deg,#3b3563,#1e1b3a)"></div><div class="leader__body"><div class="leader__name">Mia Chen</div><div class="leader__role">Director of Luxury</div><div class="leader__bio">Leads the firm's luxury and waterfront division. Consistently top 1% of agents across Pinellas County.</div></div></div>
+            <div class="leader"><div class="leader__img" style="background:url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=500&q=70') center/cover no-repeat,linear-gradient(160deg,#3a3552,#221f33)"></div><div class="leader__body"><div class="leader__name">Avery Sloan</div><div class="leader__role">Director of Marketing</div><div class="leader__bio">Built Meridian's in-house media and lead engine from scratch. Every listing photo, video, and campaign runs through her team.</div></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" style="background:var(--panel2)">
+        <div class="wrap">
+          <h2>Our offices</h2>
+          <p class="sub">Three locations across the bay. One shared bench of agents and support.</p>
+          <div class="offices">
+            <div class="office"><div class="office__img" style="background:url('https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=800&q=70') center/cover no-repeat,linear-gradient(140deg,#1e293b,#0b1220)"></div><div class="office__body"><div class="office__city">St. Petersburg</div><div class="office__addr">200 Central Ave, Suite 400<br />St. Petersburg, FL 33701<br />(000) 000-0000</div></div></div>
+            <div class="office"><div class="office__img" style="background:url('https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=800&q=70') center/cover no-repeat,linear-gradient(140deg,#1e293b,#0b1220)"></div><div class="office__body"><div class="office__city">Tampa</div><div class="office__addr">615 Channelside Dr, Suite 210<br />Tampa, FL 33602<br />(000) 000-0000</div></div></div>
+            <div class="office"><div class="office__img" style="background:url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=70') center/cover no-repeat,linear-gradient(140deg,#1e293b,#0b1220)"></div><div class="office__body"><div class="office__city">Clearwater</div><div class="office__addr">1100 Cleveland St, Suite 900<br />Clearwater, FL 33755<br />(000) 000-0000</div></div></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <section class="band">
+      <div class="wrap">
+        <h2>Want to work with a team that gets it?</h2>
+        <p>Whether you're buying, selling, or building a career — we'd love to talk.</p>
+        <a class="btn" href="contact.html">Get in touch</a>
+      </div>
+    </section>
+
+    <footer class="wrap">
+      <div>© Meridian Group · Template by Pilk.ai</div>
+      <div>(000) 000-0000 · team@example.com</div>
+    </footer>
+  </body>
+</html>

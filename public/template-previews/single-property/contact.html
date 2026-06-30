@@ -40,6 +40,7 @@
   .nav__links a:hover { color: #fff; }
   .nav__cta { border: 1px solid var(--violet); color: #fff !important; padding: 11px 22px; border-radius: 2px; background: rgba(157,107,255,0.12); transition: background 0.3s; }
   .nav__cta:hover { background: var(--violet); }
+  .nav__price { font-family: var(--serif); font-size: 17px; letter-spacing: 0.04em; color: #fff !important; padding-left: 18px; border-left: 1px solid rgba(255,255,255,0.18); }
 
   .page-head {
     padding: 86px 48px 56px; text-align: center;
@@ -63,13 +64,17 @@
     display: block; font-size: 11px; letter-spacing: 0.18em;
     text-transform: uppercase; color: var(--muted); margin-bottom: 9px;
   }
-  .field input, .field textarea {
+  .field input, .field textarea, .field select {
     width: 100%; font-family: var(--sans); font-size: 15px; font-weight: 300;
     color: var(--ink); background: #fff;
     border: 1px solid var(--line); border-radius: 2px;
     padding: 14px 16px; transition: border-color 0.25s ease;
   }
-  .field input:focus, .field textarea:focus {
+  .field select { appearance: none; -webkit-appearance: none; cursor: pointer;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' fill='none' stroke='%236c6c72' stroke-width='1.5'/></svg>");
+    background-repeat: no-repeat; background-position: right 16px center;
+  }
+  .field input:focus, .field textarea:focus, .field select:focus {
     outline: none; border-color: var(--violet);
   }
   .field textarea { resize: vertical; min-height: 120px; }
@@ -82,6 +87,7 @@
     transition: background 0.3s ease;
   }
   .submit:hover { background: var(--violet); }
+  .form-fine { margin-top: 16px; font-size: 12.5px; color: var(--muted); letter-spacing: 0.04em; text-align: center; }
 
   /* AGENT */
   .agent-card {
@@ -132,24 +138,24 @@
     <a href="index.html" class="nav__brand">The Bayfront Residence</a>
     <div class="nav__links">
       <a href="gallery.html">Gallery</a>
-      <a href="index.html#details">Details</a>
-      <a href="index.html#neighborhood">Neighborhood</a>
-      <a href="contact.html">Inquire</a>
-      <a href="contact.html" class="nav__cta">Arrange a viewing</a>
+      <a href="features.html">Features</a>
+      <a href="neighborhood.html">Neighborhood</a>
+      <a href="index.html" class="nav__price">$4,250,000</a>
+      <a href="contact.html" class="nav__cta">Schedule a Showing</a>
     </div>
   </nav>
 
   <header class="page-head">
     <p class="eyebrow">By Private Appointment</p>
-    <h1>Arrange a private viewing</h1>
-    <p>The Bayfront Residence · Davis Islands, Tampa</p>
+    <h1>Schedule a private showing</h1>
+    <p>The Bayfront Residence · Davis Islands, Tampa · Offered at $4,250,000</p>
   </header>
 
   <section class="contact-wrap">
     <!-- FORM -->
     <div class="form-card">
-      <p class="eyebrow">Inquiry</p>
-      <h2>Request your appointment</h2>
+      <p class="eyebrow">Request a Showing</p>
+      <h2>Reserve your appointment</h2>
       <form action="#" method="post">
         <div class="row">
           <div class="field">
@@ -165,15 +171,46 @@
           <label for="email">Email</label>
           <input type="email" id="email" name="email" placeholder="you@email.com" required />
         </div>
-        <div class="field">
-          <label for="date">Preferred Date</label>
-          <input type="date" id="date" name="date" />
+        <div class="row">
+          <div class="field">
+            <label for="date">Preferred Date</label>
+            <input type="date" id="date" name="date" />
+          </div>
+          <div class="field">
+            <label for="time">Preferred Time</label>
+            <select id="time" name="time">
+              <option value="">Select a window</option>
+              <option>Morning (9am – 12pm)</option>
+              <option>Afternoon (12pm – 4pm)</option>
+              <option>Evening (4pm – 7pm)</option>
+              <option>Golden hour on the dock</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="type">Showing Type</label>
+            <select id="type" name="type">
+              <option>In-person private tour</option>
+              <option>Private virtual walkthrough</option>
+              <option>Buyer's agent accompanied</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="buyer">Working With an Agent?</label>
+            <select id="buyer" name="buyer">
+              <option>No — representing myself</option>
+              <option>Yes — I have an agent</option>
+              <option>Not yet</option>
+            </select>
+          </div>
         </div>
         <div class="field">
           <label for="message">Message</label>
-          <textarea id="message" name="message" placeholder="Tell us a little about your interest in the residence."></textarea>
+          <textarea id="message" name="message" placeholder="Tell us a little about your interest in the residence, timeline, and any questions."></textarea>
         </div>
-        <button type="submit" class="submit">Submit Inquiry</button>
+        <button type="submit" class="submit">Request Showing</button>
+        <p class="form-fine">Typical response within a few hours. All inquiries handled with discretion.</p>
       </form>
     </div>
 
@@ -187,6 +224,7 @@
         <div><div class="k">Direct</div><div class="v">+1 (813) 555-0182</div></div>
         <div><div class="k">Email</div><div class="v">elise@maisonlaurent.com</div></div>
         <div><div class="k">By Appointment</div><div class="v">Davis Islands · Tampa Bay</div></div>
+        <div><div class="k">Listing</div><div class="v">MLS #DI-2024-0417 · $4,250,000</div></div>
       </div>
       <p class="discretion">
         All inquiries are handled with absolute discretion. Showings are private, by appointment only,

@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Available Residences — LOFT52</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800&family=Inter:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0c0c0f;
+        --panel: #141418;
+        --ink: #f3f2f5;
+        --muted: #9b97a6;
+        --line: rgba(255,255,255,0.1);
+        --accent: #8b5cf6;
+        --accent2: #c4b5fd;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+      body { font-family: Inter, system-ui, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; }
+      a { color: inherit; text-decoration: none; }
+      .display { font-family: Archivo, system-ui, sans-serif; }
+      .wrap { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 28px; }
+      .nav { position: sticky; top: 0; z-index: 20; background: rgba(12,12,15,0.85); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+      .nav__in { display: flex; align-items: center; justify-content: space-between; height: 74px; }
+      .brand { font-family: Archivo, sans-serif; font-weight: 800; letter-spacing: -0.03em; font-size: 21px; }
+      .brand span { color: var(--accent2); }
+      .nav__links { display: flex; gap: 30px; font-size: 14px; }
+      .nav__links a { color: var(--muted); }
+      .nav__links a:hover { color: #fff; }
+      .nav__links a.active { color: #fff; }
+      .btn { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; font-weight: 600; font-size: 14px; padding: 12px 22px; border-radius: 10px; border: none; cursor: pointer; }
+      .btn--ghost { background: transparent; border: 1px solid var(--line); }
+      .head { padding: 70px 0 10px; }
+      .eyebrow { text-transform: uppercase; letter-spacing: 0.24em; font-size: 12px; color: var(--accent2); font-weight: 600; }
+      .head h1 { font-family: Archivo, sans-serif; font-weight: 800; font-size: clamp(40px, 6.5vw, 76px); line-height: 0.96; letter-spacing: -0.045em; margin: 14px 0 0; max-width: 16ch; }
+      .head p { color: var(--muted); font-size: 18px; max-width: 56ch; margin-top: 14px; }
+      .toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-top: 36px; padding: 18px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+      .toolbar .legend { display: flex; gap: 22px; font-size: 13px; color: var(--muted); flex-wrap: wrap; }
+      .dot { display: inline-flex; align-items: center; gap: 8px; }
+      .dot::before { content: ""; width: 9px; height: 9px; border-radius: 50%; }
+      .dot.avail::before { background: #4ade80; }
+      .dot.res::before { background: #f59e0b; }
+      .dot.sold::before { background: #6b7280; }
+      .section { padding: 44px 0 90px; }
+      .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+      .unit { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--panel); transition: transform 0.3s, border-color 0.3s; display: block; }
+      .unit:hover { transform: translateY(-4px); border-color: rgba(139,92,246,0.55); }
+      .unit__img { position: relative; aspect-ratio: 16/11; }
+      .unit__img .tag { position: absolute; top: 12px; left: 12px; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 5px 10px; border-radius: 999px; background: rgba(12,12,15,0.7); backdrop-filter: blur(4px); border: 1px solid var(--line); }
+      .tag.avail { color: #4ade80; }
+      .tag.res { color: #f59e0b; }
+      .tag.sold { color: #9ca3af; }
+      .unit__body { padding: 18px; }
+      .unit__top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+      .unit__name { font-family: Archivo, sans-serif; font-weight: 700; font-size: 18px; }
+      .unit__price { font-family: Archivo, sans-serif; font-weight: 800; font-size: 18px; }
+      .unit__addr { color: var(--muted); font-size: 13px; margin-top: 4px; }
+      .unit__meta { display: flex; gap: 14px; margin-top: 14px; padding-top: 13px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; flex-wrap: wrap; }
+      .u1 { background: url('https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=70') center/cover no-repeat, linear-gradient(135deg, #3b2f63, #8b5cf6 60%, #c4b5fd); }
+      .u2 { background: url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=70') center/cover no-repeat, linear-gradient(135deg, #1f2a44, #3b82f6 60%, #93c5fd); }
+      .u3 { background: url('https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&w=800&q=70') center/cover no-repeat, linear-gradient(135deg, #3a2330, #db2777 60%, #f9a8d4); }
+      .u4 { background: url('https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=800&q=70') center/cover no-repeat, linear-gradient(135deg, #2a2140, #7c3aed 60%, #c4b5fd); }
+      .u5 { background: url('https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=70') center/cover no-repeat, linear-gradient(135deg, #1e293b, #475569 60%, #cbd5e1); }
+      .u6 { background: url('https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=800&q=70') center/cover no-repeat, linear-gradient(135deg, #3b2f63, #8b5cf6 60%, #c4b5fd); }
+      .u7 { background: url('https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&w=800&q=70') center/cover no-repeat, linear-gradient(135deg, #1f2a44, #3b82f6 60%, #93c5fd); }
+      .u8 { background: url('https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?auto=format&fit=crop&w=800&q=70') center/cover no-repeat, linear-gradient(135deg, #3a2330, #db2777 60%, #f9a8d4); }
+      .u9 { background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=70') center/cover no-repeat, linear-gradient(135deg, #2a2140, #7c3aed 60%, #c4b5fd); }
+      .sold-state { opacity: 0.62; }
+      .band { text-align: center; padding: 96px 0; border-top: 1px solid var(--line); }
+      .band h2 { font-family: Archivo, sans-serif; font-weight: 800; font-size: clamp(30px, 5vw, 56px); letter-spacing: -0.03em; }
+      .band p { color: var(--muted); margin: 14px 0 28px; }
+      footer { border-top: 1px solid var(--line); padding: 40px 0; color: var(--muted); font-size: 14px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+      @media (max-width: 900px) {
+        .nav__links { display: none; }
+        .grid { grid-template-columns: 1fr 1fr; }
+      }
+      @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <header class="nav">
+      <div class="wrap nav__in">
+        <div class="brand"><a href="index.html">LOFT<span>52</span></a></div>
+        <nav class="nav__links">
+          <a href="residences.html" class="active">Residences</a>
+          <a href="amenities.html">Amenities</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+        <a class="btn" href="contact.html">Inquire</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="head">
+        <div class="wrap">
+          <p class="eyebrow">Availability · Tower One</p>
+          <h1>The current collection.</h1>
+          <p>Studios to penthouses across 52 floors. Pricing reflects current release — releases are limited and priced to the floor. Reserved residences are under contract; sold residences are no longer available.</p>
+          <div class="toolbar">
+            <div class="legend">
+              <span class="dot avail">Available</span>
+              <span class="dot res">Reserved</span>
+              <span class="dot sold">Sold</span>
+            </div>
+            <a class="btn btn--ghost" href="contact.html">Request full price sheet</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap">
+          <div class="grid">
+
+            <a class="unit" href="residence.html">
+              <div class="unit__img u1"><span class="tag avail">Available</span></div>
+              <div class="unit__body">
+                <div class="unit__top"><div class="unit__name">Residence 14A</div><div class="unit__price">$465,000</div></div>
+                <div class="unit__addr">Loft · Floor 14 · West exposure</div>
+                <div class="unit__meta"><span>1 bd</span><span>1 ba</span><span>820 sqft</span></div>
+              </div>
+            </a>
+
+            <a class="unit" href="residence.html">
+              <div class="unit__img u2"><span class="tag avail">Available</span></div>
+              <div class="unit__body">
+                <div class="unit__top"><div class="unit__name">Residence 18C</div><div class="unit__price">$598,000</div></div>
+                <div class="unit__addr">Loft · Floor 18 · North exposure</div>
+                <div class="unit__meta"><span>1 bd + den</span><span>1.5 ba</span><span>1,040 sqft</span></div>
+              </div>
+            </a>
+
+            <a class="unit" href="residence.html">
+              <div class="unit__img u3"><span class="tag avail">Available</span></div>
+              <div class="unit__body">
+                <div class="unit__top"><div class="unit__name">Residence 22A</div><div class="unit__price">$720,000</div></div>
+                <div class="unit__addr">Corner residence · Floor 22 · Bay views</div>
+                <div class="unit__meta"><span>2 bd</span><span>2 ba</span><span>1,310 sqft</span></div>
+              </div>
+            </a>
+
+            <a class="unit" href="residence.html">
+              <div class="unit__img u4"><span class="tag res">Reserved</span></div>
+              <div class="unit__body">
+                <div class="unit__top"><div class="unit__name">Residence 27B</div><div class="unit__price">$845,000</div></div>
+                <div class="unit__addr">Loft · Floor 27 · East exposure</div>
+                <div class="unit__meta"><span>2 bd</span><span>2 ba</span><span>1,460 sqft</span></div>
+              </div>
+            </a>
+
+            <a class="unit" href="residence.html">
+              <div class="unit__img u5"><span class="tag avail">Available</span></div>
+              <div class="unit__body">
+                <div class="unit__top"><div class="unit__name">Residence 31A</div><div class="unit__price">$1,040,000</div></div>
+                <div class="unit__addr">Corner residence · Floor 31 · Skyline & bay</div>
+                <div class="unit__meta"><span>2 bd</span><span>2.5 ba</span><span>1,690 sqft</span></div>
+              </div>
+            </a>
+
+            <a class="unit" href="residence.html">
+              <div class="unit__img u6"><span class="tag avail">Available</span></div>
+              <div class="unit__body">
+                <div class="unit__top"><div class="unit__name">Residence 36D</div><div class="unit__price">$1,295,000</div></div>
+                <div class="unit__addr">Loft · Floor 36 · Southwest exposure</div>
+                <div class="unit__meta"><span>3 bd</span><span>2.5 ba</span><span>1,980 sqft</span></div>
+              </div>
+            </a>
+
+            <a class="unit" href="residence.html">
+              <div class="unit__img u7"><span class="tag res">Reserved</span></div>
+              <div class="unit__body">
+                <div class="unit__top"><div class="unit__name">Residence 41A</div><div class="unit__price">$1,580,000</div></div>
+                <div class="unit__addr">Corner residence · Floor 41 · Wraparound terrace</div>
+                <div class="unit__meta"><span>3 bd</span><span>3 ba</span><span>2,240 sqft</span></div>
+              </div>
+            </a>
+
+            <a class="unit sold-state" href="residence.html">
+              <div class="unit__img u8"><span class="tag sold">Sold</span></div>
+              <div class="unit__body">
+                <div class="unit__top"><div class="unit__name">Residence 47C</div><div class="unit__price">$1,920,000</div></div>
+                <div class="unit__addr">Half-floor · Floor 47 · Dual exposure</div>
+                <div class="unit__meta"><span>3 bd</span><span>3.5 ba</span><span>2,510 sqft</span></div>
+              </div>
+            </a>
+
+            <a class="unit" href="residence.html">
+              <div class="unit__img u9"><span class="tag avail">Available</span></div>
+              <div class="unit__body">
+                <div class="unit__top"><div class="unit__name">Penthouse 52</div><div class="unit__price">$2,150,000</div></div>
+                <div class="unit__addr">Full-floor penthouse · Floor 52 · 360° views</div>
+                <div class="unit__meta"><span>3 bd</span><span>3.5 ba</span><span>2,780 sqft</span></div>
+              </div>
+            </a>
+
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <section class="band">
+      <div class="wrap">
+        <h2>Don't see your floor?</h2>
+        <p>New releases open monthly. Join the priority list for first access to pricing.</p>
+        <a class="btn" href="contact.html">Join the priority list</a>
+      </div>
+    </section>
+
+    <footer class="wrap">
+      <div>© LOFT52 Residences · Template by Pilk.ai</div>
+      <div>(000) 000-0000 · sales@example.com</div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Amenities — LOFT52</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800&family=Inter:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0c0c0f;
+        --panel: #141418;
+        --ink: #f3f2f5;
+        --muted: #9b97a6;
+        --line: rgba(255,255,255,0.1);
+        --accent: #8b5cf6;
+        --accent2: #c4b5fd;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+      body { font-family: Inter, system-ui, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; }
+      a { color: inherit; text-decoration: none; }
+      .wrap { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 28px; }
+      .nav { position: sticky; top: 0; z-index: 20; background: rgba(12,12,15,0.85); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+      .nav__in { display: flex; align-items: center; justify-content: space-between; height: 74px; }
+      .brand { font-family: Archivo, sans-serif; font-weight: 800; letter-spacing: -0.03em; font-size: 21px; }
+      .brand span { color: var(--accent2); }
+      .nav__links { display: flex; gap: 30px; font-size: 14px; }
+      .nav__links a { color: var(--muted); }
+      .nav__links a:hover { color: #fff; }
+      .nav__links a.active { color: #fff; }
+      .btn { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; font-weight: 600; font-size: 14px; padding: 12px 22px; border-radius: 10px; border: none; cursor: pointer; }
+      .btn--ghost { background: transparent; border: 1px solid var(--line); }
+      .eyebrow { text-transform: uppercase; letter-spacing: 0.24em; font-size: 12px; color: var(--accent2); font-weight: 600; }
+
+      .ahero { position: relative; min-height: 460px; display: flex; align-items: flex-end; border-bottom: 1px solid var(--line);
+        background: linear-gradient(rgba(12,12,15,.35), rgba(12,12,15,.9)), url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=1600&q=75') center/cover no-repeat, linear-gradient(140deg, #211b35, #0c0c0f); }
+      .ahero__in { padding: 70px 0; }
+      .ahero h1 { font-family: Archivo, sans-serif; font-weight: 800; font-size: clamp(40px, 7vw, 84px); line-height: 0.94; letter-spacing: -0.045em; margin: 14px 0 0; max-width: 15ch; }
+      .ahero p { color: var(--muted); font-size: 19px; max-width: 56ch; margin-top: 16px; }
+
+      .section { padding: 84px 0; }
+      .section h2 { font-family: Archivo, sans-serif; font-weight: 800; font-size: clamp(28px, 4.5vw, 46px); letter-spacing: -0.03em; }
+      .sub { color: var(--muted); margin-top: 8px; max-width: 56ch; }
+
+      .feature { margin-top: 40px; border: 1px solid var(--line); border-radius: 22px; overflow: hidden; background: var(--panel); display: grid; grid-template-columns: 1.15fr 1fr; }
+      .feature.rev { grid-template-columns: 1fr 1.15fr; }
+      .feature.rev .feature__img { order: 2; }
+      .feature__img { min-height: 360px; }
+      .feature__body { padding: 44px; align-self: center; }
+      .feature__body h3 { font-family: Archivo, sans-serif; font-weight: 800; font-size: 28px; letter-spacing: -0.02em; }
+      .feature__body p { color: var(--muted); margin-top: 12px; }
+      .feature__list { list-style: none; margin-top: 18px; display: flex; flex-direction: column; gap: 8px; }
+      .feature__list li { color: var(--muted); font-size: 14px; padding-left: 18px; position: relative; }
+      .feature__list li::before { content: ""; position: absolute; left: 0; top: 9px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+      .img-pool { background: url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=1000&q=72') center/cover no-repeat, linear-gradient(135deg, #1f2a44, #3b82f6); }
+      .img-lounge { background: url('https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1000&q=72') center/cover no-repeat, linear-gradient(135deg, #3b2f63, #8b5cf6); }
+      .img-gym { background: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1000&q=72') center/cover no-repeat, linear-gradient(135deg, #2a2140, #7c3aed); }
+
+      .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 40px; }
+      .card { position: relative; min-height: 240px; display: flex; flex-direction: column; justify-content: flex-end; border: 1px solid var(--line); border-radius: 18px; padding: 26px; overflow: hidden; }
+      .card b { font-family: Archivo, sans-serif; display: block; font-size: 20px; margin-bottom: 6px; }
+      .card span { color: var(--muted); font-size: 14px; }
+      .c1 { background: linear-gradient(rgba(10,8,20,.4), rgba(10,8,20,.88)), url('https://images.unsplash.com/photo-1556912173-3bb406ef7e77?auto=format&fit=crop&w=900&q=72') center/cover no-repeat, var(--panel); }
+      .c2 { background: linear-gradient(rgba(10,8,20,.4), rgba(10,8,20,.88)), url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=72') center/cover no-repeat, var(--panel); }
+      .c3 { background: linear-gradient(rgba(10,8,20,.4), rgba(10,8,20,.88)), url('https://images.unsplash.com/photo-1545558014-8692077e9b5c?auto=format&fit=crop&w=900&q=72') center/cover no-repeat, var(--panel); }
+      .c4 { background: linear-gradient(rgba(10,8,20,.4), rgba(10,8,20,.88)), url('https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&w=900&q=72') center/cover no-repeat, var(--panel); }
+      .c5 { background: linear-gradient(rgba(10,8,20,.4), rgba(10,8,20,.88)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=72') center/cover no-repeat, var(--panel); }
+      .c6 { background: linear-gradient(rgba(10,8,20,.4), rgba(10,8,20,.88)), url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=900&q=72') center/cover no-repeat, var(--panel); }
+
+      .band { text-align: center; padding: 96px 0; border-top: 1px solid var(--line); }
+      .band h2 { font-family: Archivo, sans-serif; font-weight: 800; font-size: clamp(30px, 5vw, 56px); letter-spacing: -0.03em; }
+      .band p { color: var(--muted); margin: 14px 0 28px; }
+      footer { border-top: 1px solid var(--line); padding: 40px 0; color: var(--muted); font-size: 14px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+      @media (max-width: 900px) {
+        .nav__links { display: none; }
+        .feature, .feature.rev { grid-template-columns: 1fr; }
+        .feature.rev .feature__img { order: 0; }
+        .grid { grid-template-columns: 1fr 1fr; }
+      }
+      @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <header class="nav">
+      <div class="wrap nav__in">
+        <div class="brand"><a href="index.html">LOFT<span>52</span></a></div>
+        <nav class="nav__links">
+          <a href="residences.html">Residences</a>
+          <a href="amenities.html" class="active">Amenities</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+        <a class="btn" href="contact.html">Inquire</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="ahero">
+        <div class="wrap ahero__in">
+          <p class="eyebrow">40,000 sq ft of amenities</p>
+          <h1>Everything above the street.</h1>
+          <p>Two amenity floors, a rooftop deck, and a ground-level arrival sequence — built so the building works as hard as the city does.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap">
+          <h2>The signature spaces</h2>
+          <p class="sub">Three floors that set the tone for how LOFT52 lives.</p>
+
+          <div class="feature">
+            <div class="feature__img img-pool"></div>
+            <div class="feature__body">
+              <p class="eyebrow">Level 40 · Sky Deck</p>
+              <h3>Rooftop pool & sky deck</h3>
+              <p>A heated infinity-edge pool that reads straight out to Tampa Bay, framed by cabanas, fire features, and an outdoor kitchen built for golden hour.</p>
+              <ul class="feature__list">
+                <li>75-foot heated infinity pool, open year-round</li>
+                <li>Private cabanas and chaise terraces</li>
+                <li>Gas grilling stations and a covered dining pavilion</li>
+                <li>Fire pits with bay and skyline sightlines</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="feature rev">
+            <div class="feature__img img-lounge"></div>
+            <div class="feature__body">
+              <p class="eyebrow">Level 39 · Resident Club</p>
+              <h3>Sky lounge & private dining</h3>
+              <p>A double-height lounge with a catering kitchen, chef's table, and a screening room — the place residents take a meeting, then a nightcap.</p>
+              <ul class="feature__list">
+                <li>Chef's demonstration kitchen and private dining room for 16</li>
+                <li>Lounge bar with curated programming</li>
+                <li>Screening room with tiered seating</li>
+                <li>Game lounge and golf simulator</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="feature">
+            <div class="feature__img img-gym"></div>
+            <div class="feature__body">
+              <p class="eyebrow">Level 38 · Wellness Floor</p>
+              <h3>Fitness club & spa</h3>
+              <p>A full wellness floor — Technogym strength and cardio, a movement studio, and a recovery suite with sauna, steam, and cold plunge.</p>
+              <ul class="feature__list">
+                <li>Technogym strength, cardio, and free-weight zones</li>
+                <li>Yoga and pilates movement studio</li>
+                <li>Sauna, steam room, and cold plunge</li>
+                <li>Treatment room for booked spa services</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" style="background:var(--panel)">
+        <div class="wrap">
+          <h2>Everyday essentials</h2>
+          <p class="sub">The services that make a tower feel like a home.</p>
+          <div class="grid">
+            <div class="card c1"><b>24/7 concierge</b><span>Front-desk attendants, package management, and valet on call around the clock.</span></div>
+            <div class="card c2"><b>Coworking & study</b><span>Private call rooms, hot desks, and a quiet library with high-speed fiber.</span></div>
+            <div class="card c3"><b>Pet spa</b><span>On-site grooming station and a landscaped dog run on the amenity deck.</span></div>
+            <div class="card c4"><b>Secure parking</b><span>Gated garage with EV charging and dedicated guest spaces.</span></div>
+            <div class="card c5"><b>Children's room</b><span>A bright play studio and family lounge on the resident floor.</span></div>
+            <div class="card c6"><b>Wine room</b><span>Temperature-controlled private storage lockers for residents.</span></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <section class="band">
+      <div class="wrap">
+        <h2>Walk the amenity floors.</h2>
+        <p>Private tours include the sky deck, club level, and wellness floor.</p>
+        <a class="btn" href="contact.html">Book a tour</a>
+      </div>
+    </section>
+
+    <footer class="wrap">
+      <div>© LOFT52 Residences · Template by Pilk.ai</div>
+      <div>(000) 000-0000 · sales@example.com</div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Our Agents — Meridian Group</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0a0e17;
+        --panel: #111827;
+        --panel2: #0f1623;
+        --ink: #eef2f7;
+        --muted: #93a0b4;
+        --line: rgba(255,255,255,0.09);
+        --accent: #3b82f6;
+        --accent2: #22d3ee;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+      body { font-family: Inter, system-ui, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; }
+      a { color: inherit; text-decoration: none; }
+      .display { font-family: "Space Grotesk", sans-serif; }
+      .wrap { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 28px; }
+      .nav { position: sticky; top: 0; z-index: 20; background: rgba(10,14,23,0.85); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+      .nav__in { display: flex; align-items: center; justify-content: space-between; height: 76px; }
+      .brand { font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 20px; letter-spacing: -0.02em; }
+      .brand b { color: var(--accent); }
+      .nav__links { display: flex; gap: 30px; font-size: 14px; }
+      .nav__links a { color: var(--muted); }
+      .nav__links a:hover, .nav__links a.active { color: #fff; }
+      .btn { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; font-weight: 600; font-size: 14px; padding: 12px 22px; border-radius: 999px; cursor: pointer; }
+      .btn--ghost { background: transparent; border: 1px solid var(--line); }
+      .head { padding: 70px 0 10px; position: relative; overflow: hidden; }
+      .head::after { content:""; position:absolute; width:560px; height:560px; right:-180px; top:-200px; border-radius:50%; background: radial-gradient(circle, rgba(59,130,246,0.30), transparent 65%); filter: blur(20px); }
+      .eyebrow { text-transform: uppercase; letter-spacing: 0.22em; font-size: 12px; color: var(--accent2); font-weight: 600; }
+      h1 { font-family: "Space Grotesk", sans-serif; font-size: clamp(40px, 6vw, 72px); line-height: 1; letter-spacing: -0.04em; font-weight: 700; margin: 14px 0; max-width: 16ch; }
+      .lead { color: var(--muted); font-size: 18px; max-width: 56ch; }
+      .section { padding: 44px 0 90px; }
+      .roster { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+      .agent { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; transition: transform 0.3s, border-color 0.3s; }
+      .agent:hover { transform: translateY(-4px); border-color: rgba(59,130,246,0.5); }
+      .agent__img { aspect-ratio: 1; }
+      .agent__body { padding: 16px 18px 20px; }
+      .agent__name { font-weight: 600; font-size: 16px; }
+      .agent__role { color: var(--accent2); font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 3px; }
+      .agent__spec { color: var(--muted); font-size: 13px; margin-top: 10px; }
+      .agent__contact { display: flex; gap: 14px; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+      .agent__contact a:hover { color: #fff; }
+      .band { text-align: center; padding: 90px 0; background: var(--panel2); border-top: 1px solid var(--line); }
+      .band h2 { font-family: "Space Grotesk", sans-serif; font-size: clamp(30px, 5vw, 50px); letter-spacing: -0.03em; }
+      .band p { color: var(--muted); margin: 14px 0 28px; }
+      footer { border-top: 1px solid var(--line); padding: 40px 0; color: var(--muted); font-size: 14px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+      @media (max-width: 900px) {
+        .nav__links { display: none; }
+        .roster { grid-template-columns: 1fr 1fr; }
+      }
+      @media (max-width: 560px) { .roster { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <header class="nav">
+      <div class="wrap nav__in">
+        <a href="index.html" class="brand">MERIDIAN<b>·</b>GROUP</a>
+        <nav class="nav__links">
+          <a href="listings.html">Listings</a>
+          <a href="agents.html" class="active">Agents</a>
+          <a href="about.html">About</a>
+          <a href="recruiting.html">Careers</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+        <a class="btn" href="contact.html">Work with us</a>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section class="head">
+        <p class="eyebrow">The people behind the deals</p>
+        <h1>Meet the team.</h1>
+        <p class="lead">Forty-eight agents, one bench. Specialists across buying, selling, luxury, waterfront, new construction, and relocation — all backed by the same marketing engine and support staff.</p>
+      </section>
+
+      <section class="section">
+        <div class="roster">
+          <article class="agent"><div class="agent__img" style="background:url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=70') center/cover no-repeat,linear-gradient(160deg,#334155,#1e293b)"></div><div class="agent__body"><div class="agent__name">Jordan Reyes</div><div class="agent__role">Managing Broker</div><div class="agent__spec">Runs the firm. 18 years in Tampa Bay, $300M+ personal volume.</div><div class="agent__contact"><a href="contact.html">Contact</a><a href="tel:+10000000000">Call</a></div></div></article>
+          <article class="agent"><div class="agent__img" style="background:url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=70') center/cover no-repeat,linear-gradient(160deg,#3b3563,#1e1b3a)"></div><div class="agent__body"><div class="agent__name">Mia Chen</div><div class="agent__role">Luxury Specialist</div><div class="agent__spec">Waterfront & estate homes across St. Pete and the beaches.</div><div class="agent__contact"><a href="contact.html">Contact</a><a href="tel:+10000000000">Call</a></div></div></article>
+          <article class="agent"><div class="agent__img" style="background:url('https://images.unsplash.com/photo-1519345182560-3f2917c472ef?auto=format&fit=crop&w=400&q=70') center/cover no-repeat,linear-gradient(160deg,#14505a,#0c2d33)"></div><div class="agent__body"><div class="agent__name">Andre Brooks</div><div class="agent__role">Buyer's Agent</div><div class="agent__spec">First-time buyers and investors. Negotiation-first, patient.</div><div class="agent__contact"><a href="contact.html">Contact</a><a href="tel:+10000000000">Call</a></div></div></article>
+          <article class="agent"><div class="agent__img" style="background:url('https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=70') center/cover no-repeat,linear-gradient(160deg,#3a3552,#221f33)"></div><div class="agent__body"><div class="agent__name">Sofia Marin</div><div class="agent__role">New Construction</div><div class="agent__spec">Builder relationships across Tampa, Apollo Beach & Wesley Chapel.</div><div class="agent__contact"><a href="contact.html">Contact</a><a href="tel:+10000000000">Call</a></div></div></article>
+          <article class="agent"><div class="agent__img" style="background:url('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=70') center/cover no-repeat,linear-gradient(160deg,#334155,#1e293b)"></div><div class="agent__body"><div class="agent__name">Marcus Webb</div><div class="agent__role">Listing Agent</div><div class="agent__spec">Sells the hard ones. Pricing strategy and staging-led marketing.</div><div class="agent__contact"><a href="contact.html">Contact</a><a href="tel:+10000000000">Call</a></div></div></article>
+          <article class="agent"><div class="agent__img" style="background:url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=70') center/cover no-repeat,linear-gradient(160deg,#3b3563,#1e1b3a)"></div><div class="agent__body"><div class="agent__name">Priya Nair</div><div class="agent__role">Relocation Lead</div><div class="agent__spec">Corporate moves and out-of-state buyers. Speaks 3 languages.</div><div class="agent__contact"><a href="contact.html">Contact</a><a href="tel:+10000000000">Call</a></div></div></article>
+          <article class="agent"><div class="agent__img" style="background:url('https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=70') center/cover no-repeat,linear-gradient(160deg,#14505a,#0c2d33)"></div><div class="agent__body"><div class="agent__name">Dylan Pierce</div><div class="agent__role">Buyer's Agent</div><div class="agent__spec">Condos & downtown living in Tampa and St. Pete cores.</div><div class="agent__contact"><a href="contact.html">Contact</a><a href="tel:+10000000000">Call</a></div></div></article>
+          <article class="agent"><div class="agent__img" style="background:url('https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=70') center/cover no-repeat,linear-gradient(160deg,#3a3552,#221f33)"></div><div class="agent__body"><div class="agent__name">Hannah Lowe</div><div class="agent__role">Listing Agent</div><div class="agent__spec">Suburban families in Carrollwood, Westchase & Lutz.</div><div class="agent__contact"><a href="contact.html">Contact</a><a href="tel:+10000000000">Call</a></div></div></article>
+          <article class="agent"><div class="agent__img" style="background:url('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=70') center/cover no-repeat,linear-gradient(160deg,#334155,#1e293b);filter:saturate(1.1)"></div><div class="agent__body"><div class="agent__name">Eli Carter</div><div class="agent__role">Investment Specialist</div><div class="agent__spec">Multi-family, short-term rentals, and 1031 exchanges.</div><div class="agent__contact"><a href="contact.html">Contact</a><a href="tel:+10000000000">Call</a></div></div></article>
+          <article class="agent"><div class="agent__img" style="background:url('https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=400&q=70') center/cover no-repeat,linear-gradient(160deg,#3b3563,#1e1b3a)"></div><div class="agent__body"><div class="agent__name">Grace Okafor</div><div class="agent__role">Luxury Specialist</div><div class="agent__spec">Gated communities and golf properties across Pinellas.</div><div class="agent__contact"><a href="contact.html">Contact</a><a href="tel:+10000000000">Call</a></div></div></article>
+          <article class="agent"><div class="agent__img" style="background:url('https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=70') center/cover no-repeat,linear-gradient(160deg,#14505a,#0c2d33)"></div><div class="agent__body"><div class="agent__name">Tomás Rivera</div><div class="agent__role">Buyer's Agent</div><div class="agent__spec">Hablo español. Helps families navigate their first purchase.</div><div class="agent__contact"><a href="contact.html">Contact</a><a href="tel:+10000000000">Call</a></div></div></article>
+          <article class="agent"><div class="agent__img" style="background:url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=400&q=70') center/cover no-repeat,linear-gradient(160deg,#3a3552,#221f33)"></div><div class="agent__body"><div class="agent__name">Avery Sloan</div><div class="agent__role">Marketing Director</div><div class="agent__spec">Runs listing media, shoots, and the team's lead engine.</div><div class="agent__contact"><a href="contact.html">Contact</a><a href="tel:+10000000000">Call</a></div></div></article>
+        </div>
+      </section>
+    </main>
+
+    <section class="band">
+      <div class="wrap">
+        <h2>Don't see the right fit?</h2>
+        <p>Tell us what you're after and we'll match you to the agent who lives in your market.</p>
+        <a class="btn" href="contact.html">Get matched</a>
+      </div>
+    </section>
+
+    <footer class="wrap">
+      <div>© Meridian Group · Template by Pilk.ai</div>
+      <div>(000) 000-0000 · team@example.com</div>
+    </footer>
+  </body>
+</html>

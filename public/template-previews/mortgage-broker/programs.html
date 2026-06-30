@@ -55,6 +55,18 @@
   .pcard li:last-child{border-bottom:none}
   .pcard li::before{content:"✓";color:var(--teal);font-weight:800;flex-shrink:0}
 
+  .rates-sec{background:#fff}
+  .rate-table-wrap{max-width:920px;margin:0 auto;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow-sm)}
+  table.rates{width:100%;border-collapse:collapse;font-size:.96rem}
+  table.rates th,table.rates td{padding:16px 20px;text-align:left}
+  table.rates thead th{background:var(--teal-soft);color:var(--teal);font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;font-weight:700}
+  table.rates tbody tr{border-top:1px solid var(--line)}
+  table.rates tbody tr:hover{background:var(--mint)}
+  table.rates td:first-child{font-weight:700}
+  table.rates td .apr{color:var(--slate);font-size:.82rem}
+  .rate-disc{max-width:920px;margin:18px auto 0;font-size:.8rem;color:var(--slate);line-height:1.5}
+  @media(max-width:620px){table.rates th,table.rates td{padding:12px 12px;font-size:.86rem}}
+
   .faq-sec{background:linear-gradient(180deg,var(--mint),#fff)}
   .sec-head{max-width:620px;margin:0 auto 40px;text-align:center}
   .sec-head .eyebrow{color:var(--teal);font-weight:700;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase}
@@ -79,8 +91,11 @@
   .foot-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
   .foot-inner .fbrand{display:flex;align-items:center;gap:9px;font-weight:700}
   .foot-inner small{color:var(--slate);font-size:.88rem}
-  .foot-links{display:flex;gap:22px;font-size:.9rem;color:var(--slate)}
+  .foot-links{display:flex;gap:22px;font-size:.9rem;color:var(--slate);flex-wrap:wrap}
   .foot-links a:hover{color:var(--teal)}
+  .foot-legal{border-top:1px solid var(--line);margin-top:24px;padding-top:20px;display:flex;flex-direction:column;gap:10px}
+  .foot-legal p{color:var(--slate);font-size:.78rem;line-height:1.55;max-width:880px}
+  .foot-legal small{color:var(--slate);font-size:.84rem}
   .mark-sm{width:24px;height:24px;font-size:.85rem;border-radius:7px;background:linear-gradient(135deg,var(--teal),#3aa99c);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800}
 
   @media(max-width:820px){
@@ -96,12 +111,14 @@
   <div class="wrap nav-inner">
     <a href="index.html" class="brand"><span class="mark">B</span>Beacon Lending</a>
     <nav class="nav-links">
-      <a href="programs.html">Programs</a>
-      <a href="index.html#calculator">Calculator</a>
-      <a href="index.html#reviews">Reviews</a>
+      <a href="programs.html">Loan Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="apply.html">Apply</a>
       <a href="contact.html">Contact</a>
     </nav>
-    <a href="contact.html" class="btn btn-primary">Apply now</a>
+    <a href="apply.html" class="btn btn-primary">Get pre-approved</a>
   </div>
 </header>
 
@@ -121,7 +138,7 @@
         <span class="tag">Most popular</span>
         <h2>Conventional</h2>
         <p class="who">For buyers with good credit and a steady income looking for the lowest long-term cost.</p>
-        <a href="contact.html" class="btn btn-primary apply">Apply for conventional</a>
+        <a href="apply.html" class="btn btn-primary apply">Apply for conventional</a>
       </div>
       <div class="body">
         <h4>Typical terms</h4>
@@ -140,7 +157,7 @@
         <span class="tag">Low down payment</span>
         <h2>FHA</h2>
         <p class="who">For first-time and lower-down buyers who want flexible credit requirements.</p>
-        <a href="contact.html" class="btn btn-primary apply">Apply for FHA</a>
+        <a href="apply.html" class="btn btn-primary apply">Apply for FHA</a>
       </div>
       <div class="body">
         <h4>Typical terms</h4>
@@ -159,7 +176,7 @@
         <span class="tag">Zero down</span>
         <h2>VA</h2>
         <p class="who">For eligible veterans, active service members, and surviving spouses.</p>
-        <a href="contact.html" class="btn btn-primary apply">Apply for VA</a>
+        <a href="apply.html" class="btn btn-primary apply">Apply for VA</a>
       </div>
       <div class="body">
         <h4>Typical terms</h4>
@@ -178,7 +195,7 @@
         <span class="tag">High value</span>
         <h2>Jumbo</h2>
         <p class="who">For financing homes priced above standard conforming loan limits.</p>
-        <a href="contact.html" class="btn btn-primary apply">Apply for jumbo</a>
+        <a href="apply.html" class="btn btn-primary apply">Apply for jumbo</a>
       </div>
       <div class="body">
         <h4>Typical terms</h4>
@@ -197,7 +214,7 @@
         <span class="tag">Lower your rate</span>
         <h2>Refinance</h2>
         <p class="who">For homeowners who want to lower a rate, shorten a term, or tap equity.</p>
-        <a href="contact.html" class="btn btn-primary apply">Apply to refinance</a>
+        <a href="apply.html" class="btn btn-primary apply">Apply to refinance</a>
       </div>
       <div class="body">
         <h4>Typical terms</h4>
@@ -216,7 +233,7 @@
         <span class="tag">First home</span>
         <h2>First-time buyer</h2>
         <p class="who">For people buying their very first home who want extra guidance and help.</p>
-        <a href="contact.html" class="btn btn-primary apply">Get started</a>
+        <a href="apply.html" class="btn btn-primary apply">Get started</a>
       </div>
       <div class="body">
         <h4>Typical terms</h4>
@@ -230,6 +247,32 @@
       </div>
     </div>
 
+  </div>
+</section>
+
+<section class="rates-sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Sample rates</span>
+      <h2>Today's example rates</h2>
+      <p>Illustrative pricing for a well-qualified borrower. Your actual rate depends on credit, down payment, property, and market conditions.</p>
+    </div>
+    <div class="rate-table-wrap">
+      <table class="rates">
+        <thead>
+          <tr><th>Program</th><th>Term</th><th>Rate (example)</th><th>Min. down</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Conventional<div class="apr">Fixed</div></td><td>30-year</td><td>6.250%<div class="apr">6.412% APR</div></td><td>3%</td></tr>
+          <tr><td>Conventional<div class="apr">Fixed</div></td><td>15-year</td><td>5.500%<div class="apr">5.689% APR</div></td><td>3%</td></tr>
+          <tr><td>FHA<div class="apr">Fixed</div></td><td>30-year</td><td>5.990%<div class="apr">6.842% APR</div></td><td>3.5%</td></tr>
+          <tr><td>VA<div class="apr">Fixed</div></td><td>30-year</td><td>5.875%<div class="apr">6.103% APR</div></td><td>0%</td></tr>
+          <tr><td>Jumbo<div class="apr">Fixed</div></td><td>30-year</td><td>6.500%<div class="apr">6.598% APR</div></td><td>10%</td></tr>
+          <tr><td>Refinance<div class="apr">Rate &amp; term</div></td><td>30-year</td><td>6.375%<div class="apr">6.501% APR</div></td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="rate-disc">Rates shown are examples for illustration only, assume a 740+ credit score and a single-family primary residence, and are not a quote, lock, or commitment to lend. APR reflects estimated costs over the loan term. Rates change daily. Get a personalized quote by <a href="apply.html" style="color:var(--teal);font-weight:600">starting an application</a>.</p>
   </div>
 </section>
 
@@ -274,23 +317,31 @@
     <div class="cta-band">
       <h2>Not sure which program fits?</h2>
       <p>Tell us a bit about your situation and we'll point you to the right loan — no pressure, no obligation.</p>
-      <a href="contact.html" class="btn">Talk to a loan officer</a>
+      <a href="apply.html" class="btn">Talk to a loan officer</a>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="wrap foot-inner">
-    <div>
-      <div class="fbrand"><span class="mark-sm">B</span>Beacon Lending</div>
-      <small>NMLS #000000 · Equal Housing Lender</small>
+  <div class="wrap">
+    <div class="foot-inner">
+      <div>
+        <div class="fbrand"><span class="mark-sm">B</span>Beacon Lending</div>
+        <small>Home financing without the runaround.</small>
+      </div>
+      <div class="foot-links">
+        <a href="programs.html">Loan Programs</a>
+        <a href="calculator.html">Calculator</a>
+        <a href="about.html">About</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="apply.html">Apply</a>
+        <a href="contact.html">Contact</a>
+      </div>
     </div>
-    <div class="foot-links">
-      <a href="programs.html">Programs</a>
-      <a href="index.html#calculator">Calculator</a>
-      <a href="contact.html">Contact</a>
+    <div class="foot-legal">
+      <p>Equal Housing Lender · NMLS #1234567 (example) · Beacon Lending, LLC. Not a commitment to lend. All loans subject to credit approval, income verification, and property appraisal. Rates and terms shown are illustrative examples and subject to change without notice. Programs vary by state. This is a demo template and not a real lender.</p>
+      <small>© 2026 Beacon Lending · Template by Pilk.ai</small>
     </div>
-    <small>© Beacon Lending · Template by Pilk.ai</small>
   </div>
 </footer>
 

@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>About — LOFT52</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800&family=Inter:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0c0c0f;
+        --panel: #141418;
+        --ink: #f3f2f5;
+        --muted: #9b97a6;
+        --line: rgba(255,255,255,0.1);
+        --accent: #8b5cf6;
+        --accent2: #c4b5fd;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+      body { font-family: Inter, system-ui, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; }
+      a { color: inherit; text-decoration: none; }
+      .wrap { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 28px; }
+      .nav { position: sticky; top: 0; z-index: 20; background: rgba(12,12,15,0.85); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+      .nav__in { display: flex; align-items: center; justify-content: space-between; height: 74px; }
+      .brand { font-family: Archivo, sans-serif; font-weight: 800; letter-spacing: -0.03em; font-size: 21px; }
+      .brand span { color: var(--accent2); }
+      .nav__links { display: flex; gap: 30px; font-size: 14px; }
+      .nav__links a { color: var(--muted); }
+      .nav__links a:hover { color: #fff; }
+      .nav__links a.active { color: #fff; }
+      .btn { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; font-weight: 600; font-size: 14px; padding: 12px 22px; border-radius: 10px; border: none; cursor: pointer; }
+      .btn--ghost { background: transparent; border: 1px solid var(--line); }
+      .eyebrow { text-transform: uppercase; letter-spacing: 0.24em; font-size: 12px; color: var(--accent2); font-weight: 600; }
+
+      .ahero { position: relative; min-height: 480px; display: flex; align-items: flex-end; border-bottom: 1px solid var(--line);
+        background: linear-gradient(rgba(12,12,15,.35), rgba(12,12,15,.9)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=75') center/cover no-repeat, linear-gradient(140deg, #211b35, #0c0c0f); }
+      .ahero__in { padding: 72px 0; }
+      .ahero h1 { font-family: Archivo, sans-serif; font-weight: 800; font-size: clamp(40px, 7vw, 84px); line-height: 0.94; letter-spacing: -0.045em; margin: 14px 0 0; max-width: 14ch; }
+      .ahero p { color: var(--muted); font-size: 19px; max-width: 58ch; margin-top: 16px; }
+
+      .section { padding: 84px 0; }
+      .section h2 { font-family: Archivo, sans-serif; font-weight: 800; font-size: clamp(28px, 4.5vw, 46px); letter-spacing: -0.03em; }
+      .sub { color: var(--muted); margin-top: 8px; max-width: 58ch; }
+      .prose { max-width: 720px; }
+      .prose p { color: var(--muted); font-size: 18px; margin-top: 18px; }
+      .prose p strong { color: var(--ink); font-weight: 600; }
+
+      .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 48px; }
+      .stat { border: 1px solid var(--line); border-radius: 16px; padding: 26px; background: var(--panel); }
+      .stat .n { font-family: Archivo, sans-serif; font-weight: 800; font-size: 40px; letter-spacing: -0.03em; }
+      .stat .l { color: var(--muted); font-size: 14px; margin-top: 4px; }
+
+      .twocol { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-top: 40px; }
+      .pillar { border: 1px solid var(--line); border-radius: 18px; padding: 32px; background: var(--panel); }
+      .pillar h3 { font-family: Archivo, sans-serif; font-weight: 800; font-size: 22px; letter-spacing: -0.02em; }
+      .pillar p { color: var(--muted); margin-top: 10px; font-size: 15px; }
+
+      .imgband { min-height: 420px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+        background: linear-gradient(rgba(12,12,15,.3), rgba(12,12,15,.75)), url('https://images.unsplash.com/photo-1449157291145-7efd050a4d0e?auto=format&fit=crop&w=1600&q=75') center/cover no-repeat, linear-gradient(140deg, #1f2a44, #0c0c0f); }
+
+      .timeline { margin-top: 44px; border-left: 1px solid var(--line); padding-left: 30px; display: flex; flex-direction: column; gap: 34px; }
+      .tl { position: relative; }
+      .tl::before { content: ""; position: absolute; left: -36px; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); border: 3px solid var(--bg); }
+      .tl .yr { font-family: Archivo, sans-serif; font-weight: 800; color: var(--accent2); font-size: 14px; letter-spacing: 0.06em; }
+      .tl h4 { font-family: Archivo, sans-serif; font-weight: 700; font-size: 19px; margin-top: 4px; }
+      .tl p { color: var(--muted); font-size: 15px; margin-top: 6px; max-width: 60ch; }
+
+      .team { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 40px; }
+      .member { border: 1px solid var(--line); border-radius: 18px; overflow: hidden; background: var(--panel); }
+      .member__img { aspect-ratio: 4/3; }
+      .m1 { background: url('https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=900&q=72') center/cover no-repeat, linear-gradient(135deg, #2a2140, #7c3aed); }
+      .m2 { background: url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=900&q=72') center/cover no-repeat, linear-gradient(135deg, #1f2a44, #3b82f6); }
+      .m3 { background: url('https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=900&q=72') center/cover no-repeat, linear-gradient(135deg, #3a2330, #db2777); }
+      .member__body { padding: 22px; }
+      .member__body b { font-family: Archivo, sans-serif; font-size: 17px; }
+      .member__body span { display: block; color: var(--muted); font-size: 13px; margin-top: 2px; }
+
+      .band { text-align: center; padding: 96px 0; border-top: 1px solid var(--line); }
+      .band h2 { font-family: Archivo, sans-serif; font-weight: 800; font-size: clamp(30px, 5vw, 56px); letter-spacing: -0.03em; }
+      .band p { color: var(--muted); margin: 14px 0 28px; }
+      footer { border-top: 1px solid var(--line); padding: 40px 0; color: var(--muted); font-size: 14px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+      @media (max-width: 900px) {
+        .nav__links { display: none; }
+        .stats { grid-template-columns: 1fr 1fr; }
+        .twocol { grid-template-columns: 1fr; }
+        .team { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="nav">
+      <div class="wrap nav__in">
+        <div class="brand"><a href="index.html">LOFT<span>52</span></a></div>
+        <nav class="nav__links">
+          <a href="residences.html">Residences</a>
+          <a href="amenities.html">Amenities</a>
+          <a href="about.html" class="active">About</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+        <a class="btn" href="contact.html">Inquire</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="ahero">
+        <div class="wrap ahero__in">
+          <p class="eyebrow">The development</p>
+          <h1>A tower built for downtown.</h1>
+          <p>LOFT52 is a 52-story residential tower on Central Avenue — the tallest address in downtown St. Petersburg, and the first to put the whole city within a ten-minute walk of your front door.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap prose">
+          <p class="eyebrow">The story</p>
+          <h2>Why we built it.</h2>
+          <p>St. Petersburg outgrew its skyline. The waterfront, the arts district, the restaurants, the new pier — all of it arrived faster than the housing did. <strong>LOFT52 was conceived to close that gap:</strong> a single, design-led tower that puts residents in the center of everything, without asking them to compromise on light, space, or service.</p>
+          <p>Every residence is a loft at heart — high ceilings, exposed structure, and floor-to-ceiling glass — refined with the finishes and amenities you'd expect from a flagship address. The result is a building that feels like the city itself: open, modern, and unapologetically urban.</p>
+        </div>
+
+        <div class="wrap">
+          <div class="stats">
+            <div class="stat"><div class="n">52</div><div class="l">Floors above Central Ave</div></div>
+            <div class="stat"><div class="n">218</div><div class="l">Total residences</div></div>
+            <div class="stat"><div class="n">40k</div><div class="l">Sq ft of amenities</div></div>
+            <div class="stat"><div class="n">2027</div><div class="l">Move-in ready</div></div>
+          </div>
+        </div>
+      </section>
+
+      <div class="imgband"></div>
+
+      <section class="section" style="background:var(--panel)">
+        <div class="wrap">
+          <p class="eyebrow">Design philosophy</p>
+          <h2>Built on three ideas.</h2>
+          <div class="twocol">
+            <div class="pillar">
+              <h3>Light first</h3>
+              <p>Floor-to-ceiling glass on every residence, corner layouts wherever the structure allows, and ceiling heights that let the city in. The architecture is engineered around daylight, not around the floor plate.</p>
+            </div>
+            <div class="pillar">
+              <h3>Honest materials</h3>
+              <p>Exposed concrete, blackened steel, white oak, and stone — left to read as themselves. Nothing faux, nothing fighting for attention. The loft language carries through from the lobby to the penthouse.</p>
+            </div>
+            <div class="pillar">
+              <h3>Service that disappears</h3>
+              <p>A 24/7 team, seamless arrival, and amenities you actually use. Good service should be felt, not noticed — the building handles the logistics so the city stays the focus.</p>
+            </div>
+            <div class="pillar">
+              <h3>Of the neighborhood</h3>
+              <p>A ground floor that gives back to the street: retail, a café, and a public plaza. LOFT52 is designed to make Central Avenue better, not just taller.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap">
+          <p class="eyebrow">The neighborhood</p>
+          <h2>Central Avenue & the arts district.</h2>
+          <p class="sub">Step out the lobby and you're in it — the Dali Museum, the new St. Pete Pier, the Saturday Morning Market, and a stretch of independent restaurants and galleries that made the city a destination.</p>
+          <div class="twocol">
+            <div class="pillar">
+              <h3>Walk everywhere</h3>
+              <p>Waterfront parks, the pier, and the EDGE District are all under a 12-minute walk. A 96 Walk Score means most days the car never leaves the garage.</p>
+            </div>
+            <div class="pillar">
+              <h3>Connected out</h3>
+              <p>Quick access to I-275 puts Tampa International Airport at roughly 30 minutes and the Gulf beaches at 20 — close to the energy, close to the escape.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" style="background:var(--panel)">
+        <div class="wrap">
+          <p class="eyebrow">From groundbreaking to move-in</p>
+          <h2>The timeline.</h2>
+          <div class="timeline">
+            <div class="tl"><div class="yr">2024</div><h4>Land assembly & design</h4><p>Site acquired on Central Avenue. Schematic design completed with the architecture team and entitlements secured with the City of St. Petersburg.</p></div>
+            <div class="tl"><div class="yr">2025</div><h4>Sales gallery opens</h4><p>Priority list opens to the public and the first release of residences goes to contract. The on-site sales gallery and model loft open by appointment.</p></div>
+            <div class="tl"><div class="yr">2026</div><h4>Vertical construction</h4><p>The tower rises floor by floor through the year, with structure topping out and the amenity floors taking shape ahead of finishing.</p></div>
+            <div class="tl"><div class="yr">2027</div><h4>Move-in & closings</h4><p>Final finishes, building inspections, and the first residents take occupancy. Closings begin and the amenity floors open.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap">
+          <p class="eyebrow">The team</p>
+          <h2>Who's behind it.</h2>
+          <p class="sub">A development, architecture, and design team with a track record of building landmarks people actually want to live in.</p>
+          <div class="team">
+            <div class="member">
+              <div class="member__img m1"></div>
+              <div class="member__body"><b>Meridian Urban Development</b><span>Developer · 11 delivered residential towers across the Southeast</span></div>
+            </div>
+            <div class="member">
+              <div class="member__img m2"></div>
+              <div class="member__body"><b>Hollis &amp; Park Architects</b><span>Design architect · Award-winning tall-building studio</span></div>
+            </div>
+            <div class="member">
+              <div class="member__img m3"></div>
+              <div class="member__body"><b>Studio Verema</b><span>Interiors · Residence finishes and amenity design</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <section class="band">
+      <div class="wrap">
+        <h2>Be part of it.</h2>
+        <p>Join the priority list for first access to releases and pricing.</p>
+        <a class="btn" href="contact.html">Join the priority list</a>
+      </div>
+    </section>
+
+    <footer class="wrap">
+      <div>© LOFT52 Residences · Template by Pilk.ai</div>
+      <div>(000) 000-0000 · sales@example.com</div>
+    </footer>
+  </body>
+</html>

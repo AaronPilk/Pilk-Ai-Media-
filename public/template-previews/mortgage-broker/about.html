@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Beacon Lending</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal:#0f766e;--teal-dark:#0b5750;--teal-soft:#e6f5f2;--mint:#f0faf8;
+    --ink:#10241f;--slate:#4b5b57;--line:#e3ebe9;--bg:#ffffff;
+    --shadow:0 10px 30px -12px rgba(15,118,110,.18);
+    --shadow-sm:0 4px 16px -8px rgba(16,36,31,.18);--radius:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{text-decoration:none;color:inherit}
+  img{max-width:100%}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+
+  header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.18rem;letter-spacing:-.01em}
+  .brand .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--teal),#3aa99c);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;font-weight:800;box-shadow:var(--shadow-sm)}
+  .nav-links{display:flex;align-items:center;gap:30px}
+  .nav-links a{font-weight:500;color:var(--slate);font-size:.95rem;transition:color .15s}
+  .nav-links a:hover{color:var(--teal)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:600;font-size:.95rem;border-radius:10px;cursor:pointer;padding:11px 20px;transition:transform .12s,box-shadow .15s,background .15s;border:none}
+  .btn-primary{background:var(--teal);color:#fff;box-shadow:var(--shadow-sm)}
+  .btn-primary:hover{background:var(--teal-dark);transform:translateY(-1px)}
+  .btn-ghost{background:#fff;color:var(--teal);border:1.5px solid var(--line)}
+  .btn-ghost:hover{border-color:var(--teal);background:var(--mint)}
+
+  /* HERO */
+  .about-hero{background:radial-gradient(800px 380px at 85% -15%,var(--teal-soft),transparent 60%),linear-gradient(180deg,#fff,var(--mint));padding:74px 0 64px}
+  .ah-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:50px;align-items:center}
+  .eyebrow{color:var(--teal);font-weight:700;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase}
+  .about-hero h1{font-size:2.9rem;line-height:1.07;letter-spacing:-.025em;font-weight:800;margin:12px 0 18px}
+  .about-hero p{color:var(--slate);font-size:1.14rem;max-width:520px;margin-bottom:26px}
+  .ah-img{height:380px;border-radius:20px;box-shadow:var(--shadow);background:url('https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&w=1200&q=70') center/cover no-repeat;border:1px solid var(--line)}
+
+  /* STATS */
+  .stats{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff}
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);text-align:center}
+  .stat{padding:36px 16px}
+  .stat + .stat{border-left:1px solid var(--line)}
+  .stat .num{font-size:2.1rem;font-weight:800;letter-spacing:-.02em;color:var(--teal)}
+  .stat .lbl{color:var(--slate);font-size:.92rem;margin-top:4px}
+
+  section{padding:74px 0}
+  .sec-head{max-width:640px;margin:0 auto 48px;text-align:center}
+  .sec-head .eyebrow{display:block;margin-bottom:10px}
+  .sec-head h2{font-size:2.2rem;letter-spacing:-.02em;font-weight:800;margin-bottom:12px}
+  .sec-head p{color:var(--slate);font-size:1.05rem}
+
+  /* STORY */
+  .story-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  .story-grid h2{font-size:2.1rem;letter-spacing:-.02em;font-weight:800;margin-bottom:18px}
+  .story-grid p{color:var(--slate);font-size:1.04rem;margin-bottom:16px}
+  .story-img{height:420px;border-radius:20px;box-shadow:var(--shadow);background:url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=70') center/cover no-repeat;border:1px solid var(--line)}
+
+  /* WHY */
+  .why-sec{background:linear-gradient(180deg,var(--mint),#fff)}
+  .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .why{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px;transition:transform .15s,box-shadow .15s,border-color .15s}
+  .why:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:#cfe3df}
+  .why .ico{width:46px;height:46px;border-radius:12px;margin-bottom:16px;background:linear-gradient(135deg,var(--teal-soft),#fff);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--teal);font-size:1.3rem}
+  .why h3{font-size:1.14rem;margin-bottom:7px}
+  .why p{color:var(--slate);font-size:.95rem}
+
+  /* TEAM */
+  .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+  .member{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;text-align:left;transition:box-shadow .15s,border-color .15s}
+  .member:hover{box-shadow:var(--shadow);border-color:#cfe3df}
+  .member .photo{height:210px;background-size:cover;background-position:center}
+  .member .body{padding:20px}
+  .member h3{font-size:1.08rem;margin-bottom:2px}
+  .member .role{color:var(--teal);font-weight:700;font-size:.85rem;margin-bottom:8px}
+  .member .bio{color:var(--slate);font-size:.88rem}
+  .member .nmls{color:var(--slate);font-size:.78rem;margin-top:10px;border-top:1px solid var(--line);padding-top:10px}
+
+  /* LICENSE */
+  .lic-sec{background:#fff}
+  .lic-card{max-width:920px;margin:0 auto;display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:center;background:linear-gradient(160deg,var(--teal),var(--teal-dark));color:#fff;border-radius:22px;padding:38px;box-shadow:var(--shadow)}
+  .lic-card .badge{width:90px;height:90px;border-radius:18px;background:rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;font-size:2.2rem;flex-shrink:0}
+  .lic-card h3{font-size:1.35rem;font-weight:800;margin-bottom:10px}
+  .lic-card p{opacity:.92;font-size:.98rem;line-height:1.6}
+  .lic-card .meta{display:flex;gap:26px;flex-wrap:wrap;margin-top:16px;font-size:.9rem}
+  .lic-card .meta b{display:block;font-size:1.05rem}
+  .lic-card .meta span{opacity:.8;font-size:.8rem}
+
+  .cta-band{background:linear-gradient(135deg,var(--teal),var(--teal-dark));border-radius:24px;padding:52px;text-align:center;color:#fff;box-shadow:var(--shadow)}
+  .cta-band h2{font-size:2.1rem;font-weight:800;letter-spacing:-.02em;margin-bottom:12px}
+  .cta-band p{opacity:.9;font-size:1.05rem;max-width:520px;margin:0 auto 26px}
+  .cta-band .btn{background:#fff;color:var(--teal);padding:15px 34px;font-size:1.02rem}
+  .cta-band .btn:hover{background:var(--mint);transform:translateY(-1px)}
+
+  footer{border-top:1px solid var(--line);background:var(--mint);padding:40px 0;margin-top:20px}
+  .foot-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+  .foot-inner .fbrand{display:flex;align-items:center;gap:9px;font-weight:700}
+  .foot-inner small{color:var(--slate);font-size:.88rem}
+  .foot-links{display:flex;gap:22px;font-size:.9rem;color:var(--slate);flex-wrap:wrap}
+  .foot-links a:hover{color:var(--teal)}
+  .foot-legal{border-top:1px solid var(--line);margin-top:24px;padding-top:20px;display:flex;flex-direction:column;gap:10px}
+  .foot-legal p{color:var(--slate);font-size:.78rem;line-height:1.55;max-width:880px}
+  .foot-legal small{color:var(--slate);font-size:.84rem}
+  .mark-sm{width:24px;height:24px;font-size:.85rem;border-radius:7px;background:linear-gradient(135deg,var(--teal),#3aa99c);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800}
+
+  @media(max-width:960px){.team-grid{grid-template-columns:1fr 1fr}.stats-grid{grid-template-columns:1fr 1fr}.stat:nth-child(3){border-left:none}}
+  @media(max-width:880px){.ah-grid,.story-grid{grid-template-columns:1fr;gap:32px}.why-grid{grid-template-columns:1fr}.ah-img{height:280px}.nav-links{display:none}.about-hero h1{font-size:2.2rem}.lic-card{grid-template-columns:1fr;text-align:center}.lic-card .meta{justify-content:center}}
+  @media(max-width:560px){.team-grid,.stats-grid{grid-template-columns:1fr}.stat + .stat{border-left:none;border-top:1px solid var(--line)}.cta-band{padding:40px 24px}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="brand"><span class="mark">B</span>Beacon Lending</a>
+    <nav class="nav-links">
+      <a href="programs.html">Loan Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="apply.html">Apply</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a href="apply.html" class="btn btn-primary">Get pre-approved</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="about-hero">
+  <div class="wrap ah-grid">
+    <div>
+      <span class="eyebrow">About Beacon Lending</span>
+      <h1>A mortgage should feel like a partnership, not a maze.</h1>
+      <p>We started Beacon because too many people get lost in jargon, ghosted by their lender, and surprised at the closing table. We do the opposite: straight answers, real people, and a process you can actually follow.</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap">
+        <a href="apply.html" class="btn btn-primary">Get pre-approved</a>
+        <a href="programs.html" class="btn btn-ghost">Explore programs</a>
+      </div>
+    </div>
+    <div class="ah-img" role="img" aria-label="Family in front of their new home"></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="wrap stats-grid">
+    <div class="stat"><div class="num">$2.4B</div><div class="lbl">funded to date</div></div>
+    <div class="stat"><div class="num">11,000+</div><div class="lbl">families served</div></div>
+    <div class="stat"><div class="num">4.9★</div><div class="lbl">average client rating</div></div>
+    <div class="stat"><div class="num">14-day</div><div class="lbl">average close time</div></div>
+  </div>
+</div>
+
+<!-- STORY -->
+<section>
+  <div class="wrap story-grid">
+    <div class="story-img" role="img" aria-label="Loan officers reviewing a file together"></div>
+    <div>
+      <span class="eyebrow">Our story</span>
+      <h2>Built by people who got tired of the runaround.</h2>
+      <p>Beacon Lending was founded in 2014 by a small group of loan officers who'd spent years inside big banks watching good borrowers get treated like file numbers. Applications would stall for weeks. Calls went unreturned. Fees appeared out of nowhere on closing day.</p>
+      <p>We decided to build the lender we wished our own families had used — one that quotes honest rates, explains every line, and answers the phone. No call centers. No bait-and-switch pricing. Just a loan officer who owns your file from application to keys.</p>
+      <p>A decade later, we've helped more than 11,000 families buy and refinance across the country, and the standard hasn't changed: tell people the truth, move fast, and close on time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why-sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Why Beacon</span>
+      <h2>What makes us different</h2>
+      <p>The things that sound obvious — but somehow most lenders still get wrong.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why">
+        <div class="ico">⚡</div>
+        <h3>We move fast</h3>
+        <p>A 14-day average close, with underwriting that doesn't sit on your file. When the market moves, speed protects your rate and your offer.</p>
+      </div>
+      <div class="why">
+        <div class="ico">🔍</div>
+        <h3>No hidden fees</h3>
+        <p>Your rate and costs are laid out up front in plain English. What you see at pre-approval is what you'll see at closing — no surprises.</p>
+      </div>
+      <div class="why">
+        <div class="ico">📞</div>
+        <h3>A real human</h3>
+        <p>One dedicated loan officer owns your file start to finish. You get their direct line, not a ticket number and a queue.</p>
+      </div>
+      <div class="why">
+        <div class="ico">🎯</div>
+        <h3>The right program</h3>
+        <p>Conventional, FHA, VA, jumbo, or first-time buyer assistance — we match you to the loan that costs you the least, not the one that pays us the most.</p>
+      </div>
+      <div class="why">
+        <div class="ico">🛡️</div>
+        <h3>Licensed &amp; accountable</h3>
+        <p>Every loan officer is NMLS-licensed and held to it. We're an Equal Housing Lender and we treat that as the floor, not the ceiling.</p>
+      </div>
+      <div class="why">
+        <div class="ico">🤝</div>
+        <h3>We stick around</h3>
+        <p>Most of our business comes from referrals and repeat clients. When rates drop or your situation changes, we're the first to tell you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">The team</span>
+      <h2>People you'll actually talk to</h2>
+      <p>No call centers. The person who picks up is the person handling your loan.</p>
+    </div>
+    <div class="team-grid">
+      <div class="member">
+        <div class="photo" style="background-image:url('https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=70')"></div>
+        <div class="body">
+          <h3>David Reyes</h3>
+          <div class="role">Founder &amp; Principal Loan Officer</div>
+          <p class="bio">15+ years in lending. Started Beacon to fix what big banks broke.</p>
+          <div class="nmls">NMLS #201145</div>
+        </div>
+      </div>
+      <div class="member">
+        <div class="photo" style="background-image:url('https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=600&q=70')"></div>
+        <div class="body">
+          <h3>Priya Nair</h3>
+          <div class="role">Senior Loan Officer</div>
+          <p class="bio">First-time buyer specialist. Patient, thorough, and rate-obsessed.</p>
+          <div class="nmls">NMLS #318772</div>
+        </div>
+      </div>
+      <div class="member">
+        <div class="photo" style="background-image:url('https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=70')"></div>
+        <div class="body">
+          <h3>Marcus Bell</h3>
+          <div class="role">VA &amp; Refinance Lead</div>
+          <p class="bio">Veteran himself. Knows VA loans inside and out — zero down, done right.</p>
+          <div class="nmls">NMLS #294501</div>
+        </div>
+      </div>
+      <div class="member">
+        <div class="photo" style="background-image:url('https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=600&q=70')"></div>
+        <div class="body">
+          <h3>Sofia Alvarez</h3>
+          <div class="role">Head of Underwriting</div>
+          <p class="bio">Keeps files moving and closings on schedule. The reason we close early.</p>
+          <div class="nmls">NMLS #336028</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LICENSING / TRUST -->
+<section class="lic-sec">
+  <div class="wrap">
+    <div class="lic-card">
+      <div class="badge">🛡️</div>
+      <div>
+        <h3>Licensed, regulated, and accountable</h3>
+        <p>Beacon Lending, LLC is a licensed mortgage lender and an Equal Housing Lender. Every loan officer on our team is registered with the Nationwide Multistate Licensing System (NMLS), and we lend in full compliance with federal and state regulations. You can verify any of our license numbers through the NMLS Consumer Access portal.</p>
+        <div class="meta">
+          <div><b>NMLS #1234567</b><span>Company ID (example)</span></div>
+          <div><b>Equal Housing Lender</b><span>Fair lending, always</span></div>
+          <div><b>Licensed in 38 states</b><span>and growing</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="cta-band">
+      <h2>Let's get you home.</h2>
+      <p>See your real numbers in minutes — with a loan officer who actually answers. No obligation, no credit impact to check.</p>
+      <a href="apply.html" class="btn">Get pre-approved</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-inner">
+      <div>
+        <div class="fbrand"><span class="mark-sm">B</span>Beacon Lending</div>
+        <small>Home financing without the runaround.</small>
+      </div>
+      <div class="foot-links">
+        <a href="programs.html">Loan Programs</a>
+        <a href="calculator.html">Calculator</a>
+        <a href="about.html">About</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="apply.html">Apply</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <p>Equal Housing Lender · NMLS #1234567 (example) · Beacon Lending, LLC. Not a commitment to lend. All loans subject to credit approval, income verification, and property appraisal. Rates and terms shown are illustrative examples and subject to change without notice. Programs vary by state. This is a demo template and not a real lender.</p>
+      <small>© 2026 Beacon Lending · Template by Pilk.ai</small>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

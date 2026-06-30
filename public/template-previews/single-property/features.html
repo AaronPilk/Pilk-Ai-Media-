@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Features &amp; Specifications · The Bayfront Residence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --violet: #9d6bff;
+    --violet-soft: #b794ff;
+    --ink: #0a0a0c;
+    --ink-soft: #16161a;
+    --paper: #f6f4f1;
+    --paper-warm: #efeae3;
+    --line: rgba(10, 10, 12, 0.12);
+    --muted: #6c6c72;
+    --serif: 'Cormorant Garamond', serif;
+    --sans: 'Jost', sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans); color: var(--ink); background: var(--paper);
+    line-height: 1.6; font-weight: 300; -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+
+  /* NAV */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 48px;
+    background: rgba(10, 10, 12, 0.92);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .nav__brand { font-family: var(--serif); font-size: 22px; letter-spacing: 0.06em; color: #fff; font-weight: 500; }
+  .nav__links { display: flex; align-items: center; gap: 34px; }
+  .nav__links a { font-size: 12.5px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.78); transition: color 0.25s; }
+  .nav__links a:hover { color: #fff; }
+  .nav__cta { border: 1px solid var(--violet); color: #fff !important; padding: 11px 22px; border-radius: 2px; background: rgba(157,107,255,0.12); transition: background 0.3s; }
+  .nav__cta:hover { background: var(--violet); }
+  .nav__price { font-family: var(--serif); font-size: 17px; letter-spacing: 0.04em; color: #fff !important; padding-left: 18px; border-left: 1px solid rgba(255,255,255,0.18); }
+
+  /* PAGE HEAD */
+  .page-head {
+    padding: 86px 48px 56px; text-align: center;
+    background:
+      linear-gradient(rgba(10,8,16,0.72), rgba(10,8,16,0.86)),
+      url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1600&q=72') center/cover no-repeat,
+      linear-gradient(160deg, #14101f 0%, #0a0810 100%);
+    color: #fff;
+  }
+  .page-head .eyebrow { font-size: 12px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--violet-soft); margin-bottom: 18px; }
+  .page-head h1 { font-family: var(--serif); font-size: clamp(40px, 6vw, 72px); font-weight: 500; max-width: 18ch; margin: 0 auto; line-height: 1.04; }
+  .page-head p { color: rgba(255,255,255,0.62); margin-top: 18px; font-size: 16px; letter-spacing: 0.04em; }
+  .back-link { display: inline-block; margin-top: 26px; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.7); border-bottom: 1px solid var(--violet); padding-bottom: 5px; }
+  .back-link:hover { color: #fff; }
+
+  /* SECTION SHELL */
+  .section { padding: 96px 48px; }
+  .wrap { max-width: 1180px; margin: 0 auto; }
+  .eyebrow { font-size: 12px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--violet); margin-bottom: 18px; }
+  .h-serif { font-family: var(--serif); font-size: clamp(30px, 4vw, 50px); font-weight: 500; line-height: 1.06; letter-spacing: 0.01em; }
+  .lead { max-width: 760px; font-size: 18px; color: #3a3a40; line-height: 1.85; margin-top: 24px; }
+
+  /* SPEC TABLE */
+  .spec { background: var(--ink); color: #fff; }
+  .spec .wrap { padding: 0; }
+  .spec-eyebrow { color: var(--violet-soft); }
+  .spec h2 { color: #fff; }
+  .spec-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    margin-top: 46px; border-top: 1px solid rgba(255,255,255,0.12);
+    border-left: 1px solid rgba(255,255,255,0.12);
+  }
+  .spec-cell {
+    padding: 26px 24px;
+    border-right: 1px solid rgba(255,255,255,0.12);
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+  }
+  .spec-cell .k { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 10px; }
+  .spec-cell .v { font-family: var(--serif); font-size: 28px; color: #fff; line-height: 1; }
+  .spec-cell .v small { font-family: var(--sans); font-size: 13px; color: rgba(255,255,255,0.55); letter-spacing: 0.04em; }
+
+  /* ROOM ROWS */
+  .rooms { display: grid; gap: 0; margin-top: 50px; }
+  .room {
+    display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 56px; align-items: center;
+    padding: 56px 0; border-bottom: 1px solid var(--line);
+  }
+  .room:last-child { border-bottom: none; }
+  .room--flip .room__media { order: 2; }
+  .room__media { height: 360px; border-radius: 4px; position: relative; overflow: hidden; background-size: cover; background-position: center; }
+  .room__media span { position: absolute; left: 22px; bottom: 18px; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.9); text-shadow: 0 1px 8px rgba(0,0,0,0.5); }
+  .room__body h3 { font-family: var(--serif); font-size: 30px; font-weight: 500; margin-bottom: 8px; }
+  .room__body .sq { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--violet); margin-bottom: 16px; }
+  .room__body p { font-size: 16px; color: #3a3a40; line-height: 1.8; }
+  .room__body ul { list-style: none; margin-top: 18px; display: grid; gap: 9px; }
+  .room__body li { display: flex; gap: 12px; font-size: 14.5px; color: #3a3a40; }
+  .room__body li::before { content: ""; flex: 0 0 6px; height: 6px; margin-top: 8px; background: var(--violet); border-radius: 50%; }
+
+  .rm1 { background-image: url('https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=900&q=72'); }
+  .rm2 { background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=72'); }
+  .rm3 { background-image: url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=900&q=72'); }
+  .rm4 { background-image: url('https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=72'); }
+  .rm5 { background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=72'); }
+
+  /* FINISHES + SYSTEMS GRID */
+  .colset { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; margin-top: 50px; }
+  .feat-col h3 { font-family: var(--serif); font-size: 25px; font-weight: 500; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--line); }
+  .feat-col ul { list-style: none; }
+  .feat-col li { display: flex; gap: 14px; padding: 12px 0; font-size: 15px; color: #3a3a40; border-bottom: 1px solid rgba(10,10,12,0.06); }
+  .feat-col li::before { content: ""; flex: 0 0 6px; height: 6px; margin-top: 9px; background: var(--violet); border-radius: 50%; }
+
+  /* SYSTEMS CARDS */
+  .sys-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 46px; }
+  .sys-card { background: #fff; border: 1px solid var(--line); border-radius: 4px; padding: 30px 26px; }
+  .sys-card .tag { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--violet); margin-bottom: 14px; }
+  .sys-card h4 { font-family: var(--serif); font-size: 22px; font-weight: 500; margin-bottom: 12px; }
+  .sys-card p { font-size: 14.5px; color: #3a3a40; line-height: 1.75; }
+
+  /* FLOORPLAN NOTE */
+  .floorplan {
+    background: var(--paper-warm); border-radius: 4px;
+    margin-top: 50px; padding: 48px 44px;
+    display: grid; grid-template-columns: 1fr 1.4fr; gap: 48px; align-items: center;
+  }
+  .floorplan .badge { width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(140deg, #6b4ea3, #9d6bff); display:flex; align-items:center; justify-content:center; color:#fff; font-family: var(--serif); font-size: 26px; margin-bottom: 22px; }
+  .floorplan h3 { font-family: var(--serif); font-size: 28px; font-weight: 500; margin-bottom: 12px; }
+  .floorplan p { font-size: 15.5px; color: #3a3a40; line-height: 1.8; }
+  .floorplan .levels { list-style: none; display: grid; gap: 12px; }
+  .floorplan .levels li { display: flex; justify-content: space-between; font-size: 14.5px; padding-bottom: 11px; border-bottom: 1px solid var(--line); letter-spacing: 0.03em; }
+  .floorplan .levels li span { color: var(--muted); }
+
+  /* CTA BAND */
+  .cta-band { background: var(--ink); color: #fff; text-align: center; padding: 110px 48px; position: relative; overflow: hidden; }
+  .cta-band::before { content: ""; position: absolute; inset: 0; background: radial-gradient(80% 120% at 50% 0%, rgba(157,107,255,0.28), transparent 60%); }
+  .cta-band > * { position: relative; }
+  .cta-band .h-serif { color: #fff; max-width: 18ch; margin: 0 auto; }
+  .cta-band p { color: rgba(255,255,255,0.7); margin-top: 18px; font-size: 16px; }
+  .btn { display: inline-block; margin-top: 36px; background: var(--violet); color: #fff; padding: 17px 44px; border-radius: 2px; font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; transition: transform 0.25s, background 0.25s; }
+  .btn:hover { background: var(--violet-soft); transform: translateY(-2px); }
+
+  .footer { background: var(--ink-soft); color: rgba(255,255,255,0.5); text-align: center; padding: 40px 48px; font-size: 12.5px; letter-spacing: 0.14em; }
+  .footer span { color: var(--violet-soft); }
+
+  @media (max-width: 900px) {
+    .nav { padding: 18px 22px; }
+    .nav__links { gap: 16px; }
+    .nav__links a:not(.nav__cta) { display: none; }
+    .section { padding: 64px 22px; }
+    .page-head { padding: 60px 22px 44px; }
+    .spec-grid { grid-template-columns: repeat(2, 1fr); }
+    .room, .room--flip { grid-template-columns: 1fr; gap: 28px; }
+    .room--flip .room__media { order: 0; }
+    .room__media { height: 260px; }
+    .colset { grid-template-columns: 1fr; gap: 40px; }
+    .sys-grid { grid-template-columns: 1fr; }
+    .floorplan { grid-template-columns: 1fr; gap: 32px; padding: 36px 26px; }
+  }
+  @media (max-width: 480px) {
+    .spec-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html" class="nav__brand">The Bayfront Residence</a>
+    <div class="nav__links">
+      <a href="gallery.html">Gallery</a>
+      <a href="features.html">Features</a>
+      <a href="neighborhood.html">Neighborhood</a>
+      <a href="index.html" class="nav__price">$4,250,000</a>
+      <a href="contact.html" class="nav__cta">Schedule a Showing</a>
+    </div>
+  </nav>
+
+  <header class="page-head">
+    <p class="eyebrow">The Bayfront Residence</p>
+    <h1>Features &amp; Specifications</h1>
+    <p>Davis Islands · Tampa · Built 2022 · 6,400 sq ft on a rare point lot</p>
+    <a href="index.html" class="back-link">← Back to residence</a>
+  </header>
+
+  <!-- SPEC TABLE -->
+  <section class="section spec">
+    <div class="wrap">
+      <p class="eyebrow spec-eyebrow">At a Glance</p>
+      <h2 class="h-serif">The numbers.</h2>
+      <div class="spec-grid">
+        <div class="spec-cell"><div class="k">Bedrooms</div><div class="v">5</div></div>
+        <div class="spec-cell"><div class="k">Bathrooms</div><div class="v">5 <small>full</small> · 1 <small>half</small></div></div>
+        <div class="spec-cell"><div class="k">Interior</div><div class="v">6,400 <small>sq ft</small></div></div>
+        <div class="spec-cell"><div class="k">Lot Size</div><div class="v">0.48 <small>acre point lot</small></div></div>
+        <div class="spec-cell"><div class="k">Year Built</div><div class="v">2022</div></div>
+        <div class="spec-cell"><div class="k">Garage</div><div class="v">3 <small>car + motor court</small></div></div>
+        <div class="spec-cell"><div class="k">Water Frontage</div><div class="v">182 <small>ft, three sides</small></div></div>
+        <div class="spec-cell"><div class="k">Annual Taxes</div><div class="v">$38,600 <small>(2023)</small></div></div>
+        <div class="spec-cell"><div class="k">Stories</div><div class="v">2 <small>+ rooftop terrace</small></div></div>
+        <div class="spec-cell"><div class="k">Pool</div><div class="v">Yes <small>zero-edge infinity</small></div></div>
+        <div class="spec-cell"><div class="k">Dock</div><div class="v">Yes <small>16,000 lb lift</small></div></div>
+        <div class="spec-cell"><div class="k">MLS #</div><div class="v">DI-2024-0417</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROOM BY ROOM -->
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Room by Room</p>
+      <h2 class="h-serif">Walk the residence.</h2>
+      <p class="lead">Each principal room was placed to capture water and light. Below, the spaces that define daily life at The Bayfront Residence.</p>
+
+      <div class="rooms">
+        <div class="room">
+          <div class="room__media rm1"><span>The Great Room</span></div>
+          <div class="room__body">
+            <h3>The Great Room</h3>
+            <div class="sq">Approx. 740 sq ft · 22-ft ceilings</div>
+            <p>The heart of the home — a double-height volume where floor-to-ceiling impact glass folds open to the bay. Bookmatched stone fireplace, integrated audio, and wide-plank white oak underfoot.</p>
+            <ul>
+              <li>Linear gas fireplace with full-height stone surround</li>
+              <li>Pocketing sliding glass to the waterfront lanai</li>
+              <li>Concealed lighting and motorized solar shades</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="room room--flip">
+          <div class="room__media rm2"><span>Chef's Kitchen</span></div>
+          <div class="room__body">
+            <h3>Chef's Kitchen</h3>
+            <div class="sq">Approx. 410 sq ft · 12-ft island</div>
+            <p>Built for both quiet mornings and full dinner service. Italian cabinetry, honed quartzite counters, and a full Wolf and Sub-Zero suite, backed by a fully appointed butler's pantry.</p>
+            <ul>
+              <li>48" Wolf dual-fuel range and dual Sub-Zero refrigeration</li>
+              <li>Waterfall-edge island seating for six</li>
+              <li>Walk-in butler's pantry with secondary sink and prep zone</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="room">
+          <div class="room__media rm3"><span>Primary Suite</span></div>
+          <div class="room__body">
+            <h3>Primary Suite</h3>
+            <div class="sq">Approx. 680 sq ft · private terrace</div>
+            <p>A full-floor retreat occupying the water side of the upper level. Private terrace over the bay, dual dressing rooms, and spa baths finished in marble and bronze.</p>
+            <ul>
+              <li>Two separate water closets and dual vanities</li>
+              <li>Freestanding soaking tub framed by the view</li>
+              <li>His-and-hers custom dressing rooms with island storage</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="room room--flip">
+          <div class="room__media rm4"><span>Infinity Pool &amp; Lanai</span></div>
+          <div class="room__body">
+            <h3>Infinity Pool &amp; Lanai</h3>
+            <div class="sq">Zero-edge · spa · summer kitchen</div>
+            <p>The outdoor living core. A zero-edge infinity pool reads straight into the bay, with an elevated spa, full summer kitchen, and a covered lanai built for year-round Florida evenings.</p>
+            <ul>
+              <li>Heated zero-edge pool and elevated spa with auto-cover</li>
+              <li>Summer kitchen with grill, refrigeration, and bar seating</li>
+              <li>Phantom screens and overhead heaters on the covered lanai</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="room">
+          <div class="room__media rm5"><span>Private Deepwater Dock</span></div>
+          <div class="room__body">
+            <h3>Private Deepwater Dock</h3>
+            <div class="sq">16,000 lb lift · direct bay access</div>
+            <p>Step from the lawn to your own deepwater dock with no fixed bridges to open water. A 16,000 lb lift, composite decking, and shore power make leaving the dock as easy as leaving the driveway.</p>
+            <ul>
+              <li>16,000 lb covered boat lift plus floating jet-ski dock</li>
+              <li>Dock-side power, water, and night lighting</li>
+              <li>Direct, no-bridge access to Tampa Bay and the Gulf</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINISHES -->
+  <section class="section" style="background:var(--paper-warm);">
+    <div class="wrap">
+      <p class="eyebrow">Finishes &amp; Materials</p>
+      <h2 class="h-serif">Down to the materials.</h2>
+      <div class="colset">
+        <div class="feat-col">
+          <h3>Interior Finishes</h3>
+          <ul>
+            <li>Wide-plank, hand-finished European white oak flooring</li>
+            <li>Honed quartzite and natural marble throughout baths</li>
+            <li>Custom Italian cabinetry with integrated hardware</li>
+            <li>Bronze and matte-black plumbing and door furniture</li>
+            <li>Solid-core interior doors with concealed hinges</li>
+            <li>Venetian plaster feature walls in entry and stair</li>
+            <li>Bookmatched stone fireplace and kitchen surrounds</li>
+          </ul>
+        </div>
+        <div class="feat-col">
+          <h3>Construction &amp; Envelope</h3>
+          <ul>
+            <li>Poured concrete and CMU construction, elevated base flood elevation</li>
+            <li>Impact-rated, hurricane-tested glazing on all elevations</li>
+            <li>Standing-seam metal and flat membrane roof system</li>
+            <li>Spray-foam insulation and high-efficiency building envelope</li>
+            <li>Composite exterior decking and stone-clad terraces</li>
+            <li>Built 2022 to current Florida high-velocity wind code</li>
+            <li>Transferable structural and roofing warranties</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SYSTEMS -->
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Systems &amp; Technology</p>
+      <h2 class="h-serif">Engineered to run quietly.</h2>
+      <div class="sys-grid">
+        <div class="sys-card">
+          <div class="tag">Smart Home</div>
+          <h4>Whole-Home Control</h4>
+          <p>Control4 automation for lighting, climate, shades, audio, security, and cameras — managed from wall keypads, mobile, or voice. Distributed audio across interior and exterior zones.</p>
+        </div>
+        <div class="sys-card">
+          <div class="tag">Climate</div>
+          <h4>HVAC &amp; Air</h4>
+          <p>Four-zone, variable-speed high-efficiency HVAC with whole-home dehumidification and fresh-air exchange. Smart thermostats per zone and MERV-rated filtration throughout.</p>
+        </div>
+        <div class="sys-card">
+          <div class="tag">Power</div>
+          <h4>Resilience</h4>
+          <p>Whole-home natural-gas standby generator with automatic transfer, surge protection, and EV charging in the garage. Solar-ready roof structure and conduit pre-run.</p>
+        </div>
+        <div class="sys-card">
+          <div class="tag">Pool &amp; Spa</div>
+          <h4>Water Features</h4>
+          <p>Automated zero-edge infinity pool and spa with app-based control of heat, lighting, water features, and the safety cover. Saltwater sanitation and self-cleaning circulation.</p>
+        </div>
+        <div class="sys-card">
+          <div class="tag">Dock &amp; Marine</div>
+          <h4>Waterfront Systems</h4>
+          <p>16,000 lb covered boat lift with remote operation, shore power, fresh-water wash-down, and dock-side lighting. Composite decking rated for direct salt exposure.</p>
+        </div>
+        <div class="sys-card">
+          <div class="tag">Security</div>
+          <h4>Protection</h4>
+          <p>Gated entry, full perimeter cameras with cloud recording, monitored alarm, and motion lighting. Hardened network with mesh Wi-Fi and a dedicated equipment room.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLOOR PLAN NOTE -->
+  <section class="section" style="padding-top:0;">
+    <div class="wrap">
+      <div class="floorplan">
+        <div>
+          <div class="badge">¶</div>
+          <h3>Floor Plan</h3>
+          <p>The residence is arranged over two levels plus a rooftop terrace, with all principal living oriented to the bay. Detailed architectural floor plans and a 3D matterport tour are available to qualified buyers upon request.</p>
+        </div>
+        <ul class="levels">
+          <li>Ground Level <span>Great room, kitchen, dining, guest suite, lanai</span></li>
+          <li>Upper Level <span>Primary suite, three bedroom suites, lounge</span></li>
+          <li>Rooftop Terrace <span>Open-air entertaining with skyline + bay views</span></li>
+          <li>Lower / Service <span>Wine room, home theater, gym, three-car garage</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-band">
+    <p class="eyebrow" style="color:var(--violet-soft);">Private Showings</p>
+    <h2 class="h-serif">See the specifications in person.</h2>
+    <p>Detailed plans, surveys, and disclosures available on request.</p>
+    <a href="contact.html" class="btn">Schedule a Showing</a>
+  </section>
+
+  <footer class="footer">
+    © Represented by Maison Laurent · Template by <span>Pilk.ai</span>
+  </footer>
+
+</body>
+</html>

@@ -33,7 +33,7 @@
       .brand b { color: var(--accent); }
       .nav__links { display: flex; gap: 30px; font-size: 14px; }
       .nav__links a { color: var(--muted); }
-      .nav__links a:hover { color: #fff; }
+      .nav__links a:hover, .nav__links a.active { color: #fff; }
       .btn { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; font-weight: 600; font-size: 14px; padding: 12px 22px; border-radius: 999px; cursor: pointer; }
       .btn--ghost { background: transparent; border: 1px solid var(--line); }
       .crumbs { font-size: 13px; color: var(--muted); padding: 28px 0 0; }
@@ -71,6 +71,18 @@
       .agent-card__contact { color: var(--muted); font-size: 14px; margin: 18px 0; border-top: 1px solid var(--line); padding-top: 18px; }
       .agent-card__contact div { margin-bottom: 6px; }
       .agent-card .btn { width: 100%; justify-content: center; }
+      .agent-card__link { display: inline-block; margin-top: 12px; font-size: 13px; color: var(--accent2); }
+      .agent-card__link:hover { color: #fff; }
+      .similar { padding: 0 0 90px; }
+      .similar h2 { font-family: "Space Grotesk", sans-serif; font-size: 28px; letter-spacing: -0.02em; margin-bottom: 20px; }
+      .similar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+      .scard { display: block; background: var(--panel); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; transition: transform 0.3s, border-color 0.3s; }
+      .scard:hover { transform: translateY(-4px); border-color: rgba(59,130,246,0.5); }
+      .scard__img { aspect-ratio: 16/11; }
+      .scard__body { padding: 16px 18px; }
+      .scard__price { font-family: "Space Grotesk", sans-serif; font-size: 20px; font-weight: 600; }
+      .scard__addr { color: var(--muted); font-size: 13px; margin-top: 4px; }
+      .scard__meta { display: flex; gap: 14px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
       footer { border-top: 1px solid var(--line); padding: 40px 0; color: var(--muted); font-size: 14px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
       @media (max-width: 900px) {
         .nav__links { display: none; }
@@ -78,6 +90,7 @@
         .agent-card { position: static; }
         .thumbs { grid-template-columns: repeat(3, 1fr); }
         .features { grid-template-columns: 1fr; }
+        .similar-grid { grid-template-columns: 1fr; }
       }
       @media (max-width: 560px) { .specs { width: 100%; } .spec { flex: 1; padding: 12px; } }
     </style>
@@ -87,9 +100,10 @@
       <div class="wrap nav__in">
         <a href="index.html" class="brand">MERIDIAN<b>·</b>GROUP</a>
         <nav class="nav__links">
-          <a href="index.html#listings">Listings</a>
-          <a href="index.html#team">Our Team</a>
-          <a href="index.html#join">Join Us</a>
+          <a href="listings.html" class="active">Listings</a>
+          <a href="agents.html">Agents</a>
+          <a href="about.html">About</a>
+          <a href="recruiting.html">Careers</a>
           <a href="contact.html">Contact</a>
         </nav>
         <a class="btn" href="contact.html">Work with us</a>
@@ -97,7 +111,7 @@
     </header>
 
     <main class="wrap">
-      <div class="crumbs"><a href="index.html">Home</a> / <a href="index.html#listings">Listings</a> / 15 Beach Dr NE</div>
+      <div class="crumbs"><a href="index.html">Home</a> / <a href="listings.html">Listings</a> / 15 Beach Dr NE</div>
 
       <section class="listing-hero">
         <div class="hero-img"><span class="status-tag">Active · For Sale</span></div>
@@ -152,7 +166,17 @@
             <div>mia@example.com</div>
           </div>
           <a class="btn" href="contact.html">Request a showing</a>
+          <a class="agent-card__link" href="agents.html">View all agents →</a>
         </aside>
+      </section>
+
+      <section class="similar">
+        <h2>Similar homes you may like</h2>
+        <div class="similar-grid">
+          <a class="scard" href="listing.html"><div class="scard__img" style="background:url('https://images.unsplash.com/photo-1576941089067-2de3c901e126?auto=format&fit=crop&w=800&q=70') center/cover no-repeat,linear-gradient(135deg,#1e3a8a,#2563eb 55%,#22d3ee)"></div><div class="scard__body"><div class="scard__price">$742,500</div><div class="scard__addr">1820 Snell Isle Blvd, St. Pete</div><div class="scard__meta"><span>3 bd</span><span>2.5 ba</span><span>2,180 sqft</span></div></div></a>
+          <a class="scard" href="listing.html"><div class="scard__img" style="background:url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=70') center/cover no-repeat,linear-gradient(135deg,#312e81,#6d28d9 55%,#a78bfa)"></div><div class="scard__body"><div class="scard__price">$675,000</div><div class="scard__addr">512 Maritime Pl, Apollo Beach</div><div class="scard__meta"><span>4 bd</span><span>3 ba</span><span>2,400 sqft</span></div></div></a>
+          <a class="scard" href="listing.html"><div class="scard__img" style="background:url('https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=800&q=70') center/cover no-repeat,linear-gradient(135deg,#0e7490,#0891b2 55%,#34d399)"></div><div class="scard__body"><div class="scard__price">$695,000</div><div class="scard__addr">301 1st St S #2204, St. Pete</div><div class="scard__meta"><span>2 bd</span><span>2 ba</span><span>1,490 sqft</span></div></div></a>
+        </div>
       </section>
     </main>
 

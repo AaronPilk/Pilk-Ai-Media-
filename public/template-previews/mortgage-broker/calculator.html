@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mortgage Calculator — Beacon Lending</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal:#0f766e;--teal-dark:#0b5750;--teal-soft:#e6f5f2;--mint:#f0faf8;
+    --ink:#10241f;--slate:#4b5b57;--line:#e3ebe9;--bg:#ffffff;
+    --shadow:0 10px 30px -12px rgba(15,118,110,.18);
+    --shadow-sm:0 4px 16px -8px rgba(16,36,31,.18);--radius:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{text-decoration:none;color:inherit}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+
+  header.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.18rem;letter-spacing:-.01em}
+  .brand .mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--teal),#3aa99c);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;font-weight:800;box-shadow:var(--shadow-sm)}
+  .nav-links{display:flex;align-items:center;gap:30px}
+  .nav-links a{font-weight:500;color:var(--slate);font-size:.95rem;transition:color .15s}
+  .nav-links a:hover{color:var(--teal)}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:600;font-size:.95rem;border-radius:10px;cursor:pointer;padding:11px 20px;transition:transform .12s,box-shadow .15s,background .15s;border:none}
+  .btn-primary{background:var(--teal);color:#fff;box-shadow:var(--shadow-sm)}
+  .btn-primary:hover{background:var(--teal-dark);transform:translateY(-1px)}
+
+  .page-hero{background:radial-gradient(800px 360px at 80% -20%,var(--teal-soft),transparent 60%),linear-gradient(180deg,#fff,var(--mint));padding:64px 0 48px;text-align:center}
+  .page-hero .eyebrow{color:var(--teal);font-weight:700;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase}
+  .page-hero h1{font-size:2.6rem;letter-spacing:-.025em;font-weight:800;margin:10px 0 12px}
+  .page-hero p{color:var(--slate);font-size:1.1rem;max-width:580px;margin:0 auto}
+
+  .calc-sec{padding:56px 0 64px}
+  .calc-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:34px;align-items:start}
+  .calc-panel{background:#fff;border:1px solid var(--line);border-radius:20px;padding:30px;box-shadow:var(--shadow-sm)}
+  .field{margin-bottom:18px}
+  .field label{display:flex;justify-content:space-between;font-size:.85rem;font-weight:600;color:var(--slate);margin-bottom:7px}
+  .field label .v{color:var(--teal);font-weight:700}
+  .field input[type=number],.field input[type=text],.field select{
+    width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;
+    font-family:inherit;font-size:1rem;color:var(--ink);background:#fff;transition:border-color .15s;
+  }
+  .field input:focus,.field select:focus{outline:none;border-color:var(--teal)}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  input[type=range]{width:100%;accent-color:var(--teal);margin-top:4px}
+  .helper{font-size:.78rem;color:var(--slate);margin-top:6px}
+
+  .result{background:linear-gradient(150deg,var(--teal),var(--teal-dark));color:#fff;border-radius:20px;padding:34px;box-shadow:var(--shadow);position:sticky;top:96px}
+  .result .cap{opacity:.85;font-size:.92rem;font-weight:500}
+  .result .big{font-size:3.2rem;font-weight:800;letter-spacing:-.02em;margin:6px 0 2px;line-height:1}
+  .result .big span{font-size:1.4rem;font-weight:600}
+  .result .per{opacity:.85;font-size:.98rem}
+  .result .breakdown{margin-top:24px;border-top:1px solid rgba(255,255,255,.22);padding-top:18px}
+  .result .breakdown .r{display:flex;justify-content:space-between;font-size:.93rem;padding:7px 0;opacity:.94}
+  .result .breakdown .r b{font-weight:700}
+  .result .loan-row{display:flex;justify-content:space-between;font-size:.9rem;opacity:.9;margin-top:14px;border-top:1px solid rgba(255,255,255,.22);padding-top:14px}
+  .result .btn{background:#fff;color:var(--teal);width:100%;padding:13px;margin-top:22px;font-size:1rem}
+  .result .btn:hover{background:var(--mint)}
+  .result .disc{margin-top:16px;font-size:.76rem;opacity:.72;line-height:1.5}
+
+  .bars{margin-top:18px}
+  .bar{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:.82rem;opacity:.95}
+  .bar .dot{width:11px;height:11px;border-radius:3px;flex-shrink:0}
+  .bartrack{height:9px;border-radius:6px;background:rgba(255,255,255,.18);margin-top:10px;display:flex;overflow:hidden}
+  .bartrack i{display:block;height:100%}
+
+  .info-sec{background:linear-gradient(180deg,var(--mint),#fff);padding:60px 0}
+  .sec-head{max-width:620px;margin:0 auto 40px;text-align:center}
+  .sec-head .eyebrow{color:var(--teal);font-weight:700;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase}
+  .sec-head h2{font-size:2.1rem;letter-spacing:-.02em;font-weight:800;margin:10px 0 10px}
+  .sec-head p{color:var(--slate);font-size:1.05rem}
+  .info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .icard{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:26px}
+  .icard .ico{width:44px;height:44px;border-radius:12px;margin-bottom:14px;background:linear-gradient(135deg,var(--teal-soft),#fff);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--teal);font-size:1.2rem;font-weight:800}
+  .icard h3{font-size:1.1rem;margin-bottom:6px}
+  .icard p{color:var(--slate);font-size:.94rem}
+
+  .cta-band{background:linear-gradient(135deg,var(--teal),var(--teal-dark));border-radius:24px;padding:52px;text-align:center;color:#fff;box-shadow:var(--shadow);margin-top:56px}
+  .cta-band h2{font-size:2.1rem;font-weight:800;letter-spacing:-.02em;margin-bottom:12px}
+  .cta-band p{opacity:.9;font-size:1.05rem;max-width:520px;margin:0 auto 26px}
+  .cta-band .btn{background:#fff;color:var(--teal);padding:15px 34px;font-size:1.02rem}
+  .cta-band .btn:hover{background:var(--mint);transform:translateY(-1px)}
+
+  footer{border-top:1px solid var(--line);background:var(--mint);padding:40px 0;margin-top:0}
+  .foot-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+  .foot-inner .fbrand{display:flex;align-items:center;gap:9px;font-weight:700}
+  .foot-inner small{color:var(--slate);font-size:.88rem}
+  .foot-links{display:flex;gap:22px;font-size:.9rem;color:var(--slate);flex-wrap:wrap}
+  .foot-links a:hover{color:var(--teal)}
+  .foot-legal{border-top:1px solid var(--line);margin-top:24px;padding-top:20px;display:flex;flex-direction:column;gap:10px}
+  .foot-legal p{color:var(--slate);font-size:.78rem;line-height:1.55;max-width:880px}
+  .foot-legal small{color:var(--slate);font-size:.84rem}
+  .mark-sm{width:24px;height:24px;font-size:.85rem;border-radius:7px;background:linear-gradient(135deg,var(--teal),#3aa99c);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800}
+
+  @media(max-width:900px){.calc-grid{grid-template-columns:1fr}.result{position:static}.info-grid{grid-template-columns:1fr}.nav-links{display:none}.page-hero h1{font-size:2.1rem}}
+  @media(max-width:520px){.field-row{grid-template-columns:1fr}.result .big{font-size:2.6rem}.cta-band{padding:40px 24px}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="brand"><span class="mark">B</span>Beacon Lending</a>
+    <nav class="nav-links">
+      <a href="programs.html">Loan Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="apply.html">Apply</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a href="apply.html" class="btn btn-primary">Get pre-approved</a>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow">Payment calculator</span>
+    <h1>See what you'd actually pay.</h1>
+    <p>Adjust the home price, down payment, rate, and term to estimate your monthly payment — including taxes, insurance, and PMI. Updates as you type.</p>
+  </div>
+</section>
+
+<section class="calc-sec">
+  <div class="wrap calc-grid">
+
+    <!-- INPUTS -->
+    <div class="calc-panel">
+      <div class="field">
+        <label for="price">Home price <span class="v" id="priceV">$425,000</span></label>
+        <input id="price" type="range" min="100000" max="2000000" step="5000" value="425000">
+      </div>
+
+      <div class="field">
+        <label for="down">Down payment <span class="v" id="downV">$85,000 · 20%</span></label>
+        <input id="down" type="range" min="0" max="80" step="1" value="20">
+        <div class="helper">Move the slider to set your down payment as a percentage of the home price.</div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="rate">Interest rate <span class="v" id="rateV">6.25%</span></label>
+          <input id="rate" type="range" min="2" max="10" step="0.05" value="6.25">
+        </div>
+        <div class="field">
+          <label for="term">Loan term</label>
+          <select id="term">
+            <option value="30">30-year fixed</option>
+            <option value="20">20-year fixed</option>
+            <option value="15">15-year fixed</option>
+            <option value="10">10-year fixed</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="tax">Property tax / yr <span class="v" id="taxV">1.00%</span></label>
+          <input id="tax" type="range" min="0" max="3" step="0.05" value="1.00">
+        </div>
+        <div class="field">
+          <label for="ins">Home insurance / yr</label>
+          <input id="ins" type="number" value="1400" step="50">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="hoa">Monthly HOA dues</label>
+        <input id="hoa" type="number" value="0" step="10">
+        <div class="helper">PMI is automatically estimated when your down payment is below 20%.</div>
+      </div>
+    </div>
+
+    <!-- RESULT -->
+    <div class="result">
+      <span class="cap">Estimated monthly payment</span>
+      <div class="big" id="payout">$0<span>/mo</span></div>
+      <span class="per" id="loanSub">based on $0 financed</span>
+
+      <div class="breakdown">
+        <div class="r"><span>Principal &amp; interest</span><b id="pi">$0</b></div>
+        <div class="r"><span>Property tax</span><b id="taxOut">$0</b></div>
+        <div class="r"><span>Homeowners insurance</span><b id="insOut">$0</b></div>
+        <div class="r"><span>PMI</span><b id="pmiOut">$0</b></div>
+        <div class="r"><span>HOA dues</span><b id="hoaOut">$0</b></div>
+      </div>
+
+      <div class="bars">
+        <div class="bartrack">
+          <i id="barPI" style="background:#fff"></i>
+          <i id="barTax" style="background:#bfeae3"></i>
+          <i id="barIns" style="background:#7fd0c5"></i>
+          <i id="barPMI" style="background:#ffd27f"></i>
+        </div>
+      </div>
+
+      <div class="loan-row"><span>Loan amount</span><b id="loanAmt">$0</b></div>
+      <div class="loan-row" style="border-top:none;padding-top:4px"><span>Total interest over term</span><b id="totalInt">$0</b></div>
+
+      <a href="apply.html" class="btn">Get my real rate →</a>
+      <div class="disc">Estimates are for illustration only and do not constitute a loan offer, quote, or commitment to lend. Taxes and insurance vary by location and property.</div>
+    </div>
+
+  </div>
+</section>
+
+<section class="info-sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">How it works</span>
+      <h2>What goes into your payment</h2>
+      <p>A monthly mortgage payment is more than principal and interest. Here's what we factor in.</p>
+    </div>
+    <div class="info-grid">
+      <div class="icard">
+        <div class="ico">P&amp;I</div>
+        <h3>Principal &amp; interest</h3>
+        <p>The core of your payment — what you borrowed plus the cost of borrowing it, spread evenly across your loan term.</p>
+      </div>
+      <div class="icard">
+        <div class="ico">T+I</div>
+        <h3>Taxes &amp; insurance</h3>
+        <p>Property taxes and homeowners insurance are usually collected monthly and held in an escrow account, then paid on your behalf.</p>
+      </div>
+      <div class="icard">
+        <div class="ico">PMI</div>
+        <h3>Mortgage insurance</h3>
+        <p>If you put down less than 20% on a conventional loan, PMI applies until you reach 20% equity. We estimate it at roughly 0.5% of the loan per year.</p>
+      </div>
+    </div>
+
+    <div class="cta-band">
+      <h2>Numbers looking right?</h2>
+      <p>An estimate is a starting point. Apply in minutes to get a real, personalized rate with no impact to your credit score.</p>
+      <a href="apply.html" class="btn">Start your application</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-inner">
+      <div>
+        <div class="fbrand"><span class="mark-sm">B</span>Beacon Lending</div>
+        <small>Home financing without the runaround.</small>
+      </div>
+      <div class="foot-links">
+        <a href="programs.html">Loan Programs</a>
+        <a href="calculator.html">Calculator</a>
+        <a href="about.html">About</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="apply.html">Apply</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <p>Equal Housing Lender · NMLS #1234567 (example) · Beacon Lending, LLC. Not a commitment to lend. All loans subject to credit approval, income verification, and property appraisal. Rates and terms shown are illustrative examples and subject to change without notice. Programs vary by state. This is a demo template and not a real lender.</p>
+      <small>© 2026 Beacon Lending · Template by Pilk.ai</small>
+    </div>
+  </div>
+</footer>
+
+<script>
+  var $ = function(id){ return document.getElementById(id); };
+  var fmt = function(n){ return '$' + Math.round(n).toLocaleString('en-US'); };
+
+  function calc(){
+    var price = +$('price').value;
+    var downPct = +$('down').value;
+    var rate = +$('rate').value;
+    var years = +$('term').value;
+    var taxPct = +$('tax').value;
+    var insYr = +$('ins').value || 0;
+    var hoa = +$('hoa').value || 0;
+
+    var downAmt = price * downPct/100;
+    var loan = price - downAmt;
+
+    // P&I
+    var r = rate/100/12;
+    var n = years*12;
+    var pi = r > 0 ? loan * r / (1 - Math.pow(1+r, -n)) : loan/n;
+
+    var taxMo = price * (taxPct/100) / 12;
+    var insMo = insYr / 12;
+    var pmiMo = downPct < 20 ? (loan * 0.005) / 12 : 0;
+
+    var total = pi + taxMo + insMo + pmiMo + hoa;
+    var totalInterest = (pi * n) - loan;
+
+    // labels
+    $('priceV').textContent = fmt(price);
+    $('downV').textContent = fmt(downAmt) + ' · ' + downPct + '%';
+    $('rateV').textContent = rate.toFixed(2) + '%';
+    $('taxV').textContent = taxPct.toFixed(2) + '%';
+
+    // outputs
+    $('payout').innerHTML = fmt(total) + '<span>/mo</span>';
+    $('loanSub').textContent = 'based on ' + fmt(loan) + ' financed at ' + rate.toFixed(2) + '% over ' + years + ' years';
+    $('pi').textContent = fmt(pi);
+    $('taxOut').textContent = fmt(taxMo);
+    $('insOut').textContent = fmt(insMo);
+    $('pmiOut').textContent = pmiMo > 0 ? fmt(pmiMo) : '$0';
+    $('hoaOut').textContent = fmt(hoa);
+    $('loanAmt').textContent = fmt(loan);
+    $('totalInt').textContent = fmt(totalInterest);
+
+    // bar widths
+    var sum = total || 1;
+    $('barPI').style.width  = (pi/sum*100) + '%';
+    $('barTax').style.width = (taxMo/sum*100) + '%';
+    $('barIns').style.width = ((insMo+hoa)/sum*100) + '%';
+    $('barPMI').style.width = (pmiMo/sum*100) + '%';
+  }
+
+  ['price','down','rate','term','tax','ins','hoa'].forEach(function(id){
+    $(id).addEventListener('input', calc);
+    $(id).addEventListener('change', calc);
+  });
+  calc();
+</script>
+
+</body>
+</html>

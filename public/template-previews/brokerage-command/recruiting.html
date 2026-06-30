@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Careers — Join Meridian Group</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0a0e17;
+        --panel: #111827;
+        --panel2: #0f1623;
+        --ink: #eef2f7;
+        --muted: #93a0b4;
+        --line: rgba(255,255,255,0.09);
+        --accent: #3b82f6;
+        --accent2: #22d3ee;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+      body { font-family: Inter, system-ui, sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; }
+      a { color: inherit; text-decoration: none; }
+      .display { font-family: "Space Grotesk", sans-serif; }
+      .wrap { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 28px; }
+      .nav { position: sticky; top: 0; z-index: 20; background: rgba(10,14,23,0.85); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+      .nav__in { display: flex; align-items: center; justify-content: space-between; height: 76px; }
+      .brand { font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 20px; letter-spacing: -0.02em; }
+      .brand b { color: var(--accent); }
+      .nav__links { display: flex; gap: 30px; font-size: 14px; }
+      .nav__links a { color: var(--muted); }
+      .nav__links a:hover, .nav__links a.active { color: #fff; }
+      .btn { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; font-weight: 600; font-size: 14px; padding: 12px 22px; border-radius: 999px; cursor: pointer; border: none; }
+      .btn--ghost { background: transparent; border: 1px solid var(--line); }
+      .hero { padding: 90px 0 60px; position: relative; overflow: hidden; }
+      .hero::after { content:""; position:absolute; width:600px; height:600px; right:-160px; top:-160px; border-radius:50%; background: radial-gradient(circle, rgba(59,130,246,0.35), transparent 65%); filter: blur(20px); }
+      .eyebrow { text-transform: uppercase; letter-spacing: 0.22em; font-size: 12px; color: var(--accent2); font-weight: 600; }
+      h1 { font-family: "Space Grotesk", sans-serif; font-size: clamp(44px, 7vw, 84px); line-height: 0.98; letter-spacing: -0.04em; font-weight: 700; margin: 16px 0; max-width: 15ch; }
+      .lead { color: var(--muted); font-size: 19px; max-width: 54ch; }
+      .cta-row { display: flex; gap: 14px; margin-top: 28px; flex-wrap: wrap; }
+      .section { padding: 70px 0; }
+      .section h2 { font-family: "Space Grotesk", sans-serif; font-size: clamp(30px, 4.5vw, 48px); letter-spacing: -0.03em; }
+      .section .sub { color: var(--muted); margin-top: 8px; max-width: 56ch; }
+      .why { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 40px; }
+      .card { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 26px; }
+      .card .ic { width: 42px; height: 42px; border-radius: 12px; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-weight: 700; font-family: "Space Grotesk", sans-serif; margin-bottom: 16px; }
+      .card h3 { font-family: "Space Grotesk", sans-serif; font-size: 19px; letter-spacing: -0.01em; margin-bottom: 8px; }
+      .card p { color: var(--muted); font-size: 14px; }
+      .splits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 40px; }
+      .tier { background: linear-gradient(120deg, var(--panel), var(--panel2)); border: 1px solid var(--line); border-radius: 20px; padding: 30px; }
+      .tier.feat { border-color: rgba(59,130,246,0.55); box-shadow: 0 0 0 1px rgba(59,130,246,0.25); }
+      .tier .name { font-family: "Space Grotesk", sans-serif; font-size: 15px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent2); }
+      .tier .split { font-family: "Space Grotesk", sans-serif; font-size: 46px; font-weight: 700; letter-spacing: -0.03em; margin: 12px 0 4px; }
+      .tier .for { color: var(--muted); font-size: 14px; }
+      .tier ul { list-style: none; margin-top: 20px; }
+      .tier li { color: var(--muted); font-size: 14px; padding: 9px 0 9px 26px; position: relative; border-top: 1px solid var(--line); }
+      .tier li::before { content: "✓"; position: absolute; left: 0; color: var(--accent2); font-weight: 700; }
+      .culture { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; align-items: center; background: linear-gradient(120deg, var(--panel), var(--panel2)); border: 1px solid var(--line); border-radius: 24px; padding: 48px; margin-top: 40px; }
+      .culture h2 { margin-bottom: 12px; }
+      .culture p { color: var(--muted); margin-bottom: 14px; }
+      .cultureart { aspect-ratio: 4/3; border-radius: 16px; background: url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=70') center/cover no-repeat, radial-gradient(circle at 30% 30%, rgba(59,130,246,0.6), transparent 60%), linear-gradient(140deg, #1e293b, #0b1220); border: 1px solid var(--line); }
+      .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 40px; }
+      .stat { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 24px; }
+      .stat b { font-family: "Space Grotesk", sans-serif; font-size: 32px; display: block; letter-spacing: -0.02em; }
+      .stat span { color: var(--muted); font-size: 13px; }
+      .apply { background: linear-gradient(120deg, var(--panel), var(--panel2)); border: 1px solid var(--line); border-radius: 24px; padding: 40px; margin-top: 40px; }
+      .apply h2 { margin-bottom: 6px; }
+      .apply .sub { margin-bottom: 26px; }
+      .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      .field { display: flex; flex-direction: column; gap: 7px; }
+      .field.full { grid-column: 1 / -1; }
+      label { font-size: 13px; color: var(--muted); font-weight: 500; }
+      input, select, textarea { font-family: inherit; font-size: 15px; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 13px 15px; width: 100%; outline: none; transition: border-color 0.2s; }
+      input:focus, select:focus, textarea:focus { border-color: var(--accent); }
+      textarea { resize: vertical; min-height: 110px; }
+      .form-grid .btn { grid-column: 1 / -1; justify-content: center; padding: 15px; font-size: 15px; margin-top: 4px; }
+      footer { border-top: 1px solid var(--line); padding: 40px 0; color: var(--muted); font-size: 14px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+      @media (max-width: 900px) {
+        .nav__links { display: none; }
+        .why, .splits, .stats { grid-template-columns: 1fr; }
+        .culture { grid-template-columns: 1fr; }
+        .stats { grid-template-columns: 1fr 1fr; }
+      }
+      @media (max-width: 560px) { .form-grid { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <header class="nav">
+      <div class="wrap nav__in">
+        <a href="index.html" class="brand">MERIDIAN<b>·</b>GROUP</a>
+        <nav class="nav__links">
+          <a href="listings.html">Listings</a>
+          <a href="agents.html">Agents</a>
+          <a href="about.html">About</a>
+          <a href="recruiting.html" class="active">Careers</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+        <a class="btn" href="#apply">Apply now</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="wrap">
+          <p class="eyebrow">Careers at Meridian</p>
+          <h1>Build your business. We'll handle the rest.</h1>
+          <p class="lead">Most brokerages hand you a desk and a login. We hand you leads, marketing, a coordinator, and a brand that opens doors — so you spend your time with clients, not chasing busywork.</p>
+          <div class="cta-row">
+            <a class="btn" href="#apply">Apply to join</a>
+            <a class="btn btn--ghost" href="#splits">See the splits</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" style="background:var(--panel2)">
+        <div class="wrap">
+          <h2>Why agents move to Meridian</h2>
+          <p class="sub">We invest in the things that actually grow an agent's business — not ping-pong tables.</p>
+          <div class="why">
+            <div class="card"><div class="ic">L</div><h3>Real leads, not scraps</h3><p>Our marketing engine generates inbound buyer and seller leads daily, routed by market and price point. You get a real pipeline from week one.</p></div>
+            <div class="card"><div class="ic">M</div><h3>Done-for-you marketing</h3><p>Professional photo, video, and social for every listing. Branded materials, email campaigns, and a personal landing page — all built by our in-house team.</p></div>
+            <div class="card"><div class="ic">T</div><h3>Tech that does the work</h3><p>CRM, automated follow-up, e-sign, and transaction tracking in one stack. Less admin, faster closes, nothing falling through the cracks.</p></div>
+            <div class="card"><div class="ic">C</div><h3>A transaction coordinator</h3><p>From contract to close, a dedicated TC handles the paperwork and deadlines so you can stay in front of the next deal.</p></div>
+            <div class="card"><div class="ic">$</div><h3>Splits that scale</h3><p>Competitive splits with a real cap. Hit it and you keep 100% the rest of the year. The more you produce, the more you keep.</p></div>
+            <div class="card"><div class="ic">+</div><h3>Mentorship, not management</h3><p>New agents get a 90-day ramp with a senior partner. Experienced agents get a team that gets out of the way.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="splits">
+        <div class="wrap">
+          <h2>Plans built for every stage</h2>
+          <p class="sub">Pick the structure that fits where you are. Switch anytime as you grow.</p>
+          <div class="splits">
+            <div class="tier">
+              <div class="name">Launch</div>
+              <div class="split">70/30</div>
+              <div class="for">New & newer agents finding their footing</div>
+              <ul>
+                <li>90-day mentorship ramp</li>
+                <li>Shared lead pool access</li>
+                <li>Listing marketing included</li>
+                <li>Full CRM + tech stack</li>
+                <li>Weekly training & role-play</li>
+              </ul>
+            </div>
+            <div class="tier feat">
+              <div class="name">Producer</div>
+              <div class="split">85/15</div>
+              <div class="for">Steady agents doing 12+ deals a year</div>
+              <ul>
+                <li>$18K annual cap, then 100%</li>
+                <li>Priority lead routing</li>
+                <li>Dedicated transaction coordinator</li>
+                <li>Pro photo + video every listing</li>
+                <li>Personal branded landing page</li>
+              </ul>
+            </div>
+            <div class="tier">
+              <div class="name">Partner</div>
+              <div class="split">100%</div>
+              <div class="for">Top producers & team leaders</div>
+              <ul>
+                <li>Flat monthly fee, keep 100%</li>
+                <li>Build & brand your own team</li>
+                <li>Revenue share on recruits</li>
+                <li>Priority on new construction</li>
+                <li>Equity opportunity at scale</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" style="background:var(--panel2)">
+        <div class="wrap">
+          <div class="culture">
+            <div>
+              <h2>A team that actually shows up.</h2>
+              <p>We hire for character first and skill second. The agents here cover for each other, share deals, and answer the phone on a Saturday because that's what good service looks like.</p>
+              <p>No politics, no fighting over leads, no broker who disappears. Just a tight bench of people who want everyone in the room to win.</p>
+              <div class="cta-row"><a class="btn" href="#apply">Start the conversation</a></div>
+            </div>
+            <div class="cultureart"></div>
+          </div>
+          <div class="stats">
+            <div class="stat"><b>94%</b><span>Agent retention</span></div>
+            <div class="stat"><b>31</b><span>Avg. deals / producer</span></div>
+            <div class="stat"><b>$18K</b><span>Cap, then 100%</span></div>
+            <div class="stat"><b>90</b><span>Day ramp program</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="wrap">
+          <div class="apply" id="apply">
+            <h2>Apply to join the team</h2>
+            <p class="sub">Tell us a little about where you are. We keep every conversation confidential.</p>
+            <form action="#" method="post" class="form-grid">
+              <div class="field"><label for="name">Full name</label><input id="name" name="name" type="text" placeholder="Your name" required /></div>
+              <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" placeholder="you@example.com" required /></div>
+              <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" placeholder="(000) 000-0000" /></div>
+              <div class="field"><label for="status">License status</label><select id="status" name="status"><option>Licensed & active</option><option>Licensed, not active</option><option>In licensing school</option><option>Just exploring</option></select></div>
+              <div class="field"><label for="exp">Years in real estate</label><select id="exp" name="exp"><option>New / under 1 year</option><option>1–3 years</option><option>3–7 years</option><option>7+ years</option></select></div>
+              <div class="field"><label for="vol">Last 12-month volume</label><select id="vol" name="vol"><option>Under $1M</option><option>$1M–$5M</option><option>$5M–$15M</option><option>$15M+</option></select></div>
+              <div class="field full"><label for="message">What are you looking for in a brokerage?</label><textarea id="message" name="message" placeholder="The honest version — what's missing where you are now?"></textarea></div>
+              <button class="btn" type="submit">Submit application</button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="wrap">
+      <div>© Meridian Group · Template by Pilk.ai</div>
+      <div>(000) 000-0000 · team@example.com</div>
+    </footer>
+  </body>
+</html>

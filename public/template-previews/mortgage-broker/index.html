@@ -199,8 +199,11 @@
   .foot-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
   .foot-inner .fbrand{display:flex;align-items:center;gap:9px;font-weight:700}
   .foot-inner small{color:var(--slate);font-size:.88rem}
-  .foot-links{display:flex;gap:22px;font-size:.9rem;color:var(--slate)}
+  .foot-links{display:flex;gap:22px;font-size:.9rem;color:var(--slate);flex-wrap:wrap}
   .foot-links a:hover{color:var(--teal)}
+  .foot-legal{border-top:1px solid var(--line);margin-top:24px;padding-top:20px;display:flex;flex-direction:column;gap:10px}
+  .foot-legal p{color:var(--slate);font-size:.78rem;line-height:1.55;max-width:880px}
+  .foot-legal small{color:var(--slate);font-size:.84rem}
 
   @media(max-width:900px){
     .hero-grid,.calc-grid{grid-template-columns:1fr}
@@ -225,12 +228,14 @@
   <div class="wrap nav-inner">
     <a href="index.html" class="brand"><span class="mark">B</span>Beacon Lending</a>
     <nav class="nav-links">
-      <a href="programs.html">Programs</a>
-      <a href="#calculator">Calculator</a>
-      <a href="#reviews">Reviews</a>
+      <a href="programs.html">Loan Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="apply.html">Apply</a>
       <a href="contact.html">Contact</a>
     </nav>
-    <a href="contact.html" class="btn btn-primary">Apply now</a>
+    <a href="apply.html" class="btn btn-primary">Get pre-approved</a>
   </div>
 </header>
 
@@ -238,12 +243,12 @@
 <section class="hero">
   <div class="wrap hero-grid">
     <div>
-      <span class="pill">Licensed mortgage lender · NMLS #000000</span>
+      <span class="pill">Licensed mortgage lender · NMLS #1234567 · Equal Housing Lender</span>
       <h1>Home financing without the runaround.</h1>
       <p class="sub">Straight answers, real rates, and a team that closes on time. Get pre-approved in minutes and know exactly where you stand — no jargon, no surprises.</p>
       <div class="hero-actions">
-        <a href="contact.html" class="btn btn-primary">Apply now</a>
-        <a href="contact.html" class="btn btn-ghost">Get pre-approved</a>
+        <a href="apply.html" class="btn btn-primary">Apply now</a>
+        <a href="calculator.html" class="btn btn-ghost">Estimate my payment</a>
       </div>
       <div class="hero-note"><span class="dot">✓</span> Checking your rate won't affect your credit score.</div>
     </div>
@@ -366,7 +371,7 @@
             <option>Refinance</option>
           </select>
         </div>
-        <a href="contact.html" class="btn btn-primary" style="width:100%;padding:13px;margin-top:6px">Get my real rate →</a>
+        <a href="apply.html" class="btn btn-primary" style="width:100%;padding:13px;margin-top:6px">Get my real rate →</a>
       </div>
       <div class="result">
         <span class="cap">Estimated payment</span>
@@ -389,7 +394,7 @@
     <div class="sec-head">
       <span class="eyebrow">Reviews</span>
       <h2>People close with us — and stay with us</h2>
-      <p>A few words from buyers and homeowners we've worked with recently.</p>
+      <p>A few words from buyers and homeowners we've worked with recently. <a href="reviews.html" style="color:var(--teal);font-weight:600">Read all reviews →</a></p>
     </div>
     <div class="rev-grid">
       <div class="quote">
@@ -417,24 +422,32 @@
     <div class="cta-band">
       <h2>Ready to see your numbers?</h2>
       <p>Apply in minutes and get a real, personalized rate — with a human you can actually reach. No obligation, no credit impact to check.</p>
-      <a href="contact.html" class="btn">Start your application</a>
+      <a href="apply.html" class="btn">Start your application</a>
     </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="wrap foot-inner">
-    <div>
-      <div class="fbrand"><span class="mark" style="width:24px;height:24px;font-size:.85rem;border-radius:7px">B</span>Beacon Lending</div>
-      <small>NMLS #000000 · Equal Housing Lender</small>
+  <div class="wrap">
+    <div class="foot-inner">
+      <div>
+        <div class="fbrand"><span class="mark" style="width:24px;height:24px;font-size:.85rem;border-radius:7px">B</span>Beacon Lending</div>
+        <small>Home financing without the runaround.</small>
+      </div>
+      <div class="foot-links">
+        <a href="programs.html">Loan Programs</a>
+        <a href="calculator.html">Calculator</a>
+        <a href="about.html">About</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="apply.html">Apply</a>
+        <a href="contact.html">Contact</a>
+      </div>
     </div>
-    <div class="foot-links">
-      <a href="programs.html">Programs</a>
-      <a href="#calculator">Calculator</a>
-      <a href="contact.html">Contact</a>
+    <div class="foot-legal">
+      <p>Equal Housing Lender · NMLS #1234567 (example) · Beacon Lending, LLC. Not a commitment to lend. All loans subject to credit approval, income verification, and property appraisal. Rates and terms shown are illustrative examples and subject to change without notice. Programs vary by state. This is a demo template and not a real lender.</p>
+      <small>© 2026 Beacon Lending · Template by Pilk.ai</small>
     </div>
-    <small>© Beacon Lending · Template by Pilk.ai</small>
   </div>
 </footer>
 

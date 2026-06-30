@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Neighborhood · Davis Islands · The Bayfront Residence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --violet: #9d6bff;
+    --violet-soft: #b794ff;
+    --ink: #0a0a0c;
+    --ink-soft: #16161a;
+    --paper: #f6f4f1;
+    --paper-warm: #efeae3;
+    --line: rgba(10, 10, 12, 0.12);
+    --muted: #6c6c72;
+    --serif: 'Cormorant Garamond', serif;
+    --sans: 'Jost', sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans); color: var(--ink); background: var(--paper);
+    line-height: 1.6; font-weight: 300; -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+
+  /* NAV */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 48px;
+    background: rgba(10, 10, 12, 0.92);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .nav__brand { font-family: var(--serif); font-size: 22px; letter-spacing: 0.06em; color: #fff; font-weight: 500; }
+  .nav__links { display: flex; align-items: center; gap: 34px; }
+  .nav__links a { font-size: 12.5px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.78); transition: color 0.25s; }
+  .nav__links a:hover { color: #fff; }
+  .nav__cta { border: 1px solid var(--violet); color: #fff !important; padding: 11px 22px; border-radius: 2px; background: rgba(157,107,255,0.12); transition: background 0.3s; }
+  .nav__cta:hover { background: var(--violet); }
+  .nav__price { font-family: var(--serif); font-size: 17px; letter-spacing: 0.04em; color: #fff !important; padding-left: 18px; border-left: 1px solid rgba(255,255,255,0.18); }
+
+  /* HERO HEAD with image */
+  .page-head {
+    position: relative; min-height: 64vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 48px 64px; color: #fff; overflow: hidden;
+  }
+  .page-head__bg {
+    position: absolute; inset: 0; z-index: -1;
+    background:
+      linear-gradient(rgba(8,6,14,0.35), rgba(8,6,14,0.78)),
+      url('https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&w=1600&q=72') center/cover no-repeat,
+      linear-gradient(160deg, #1d2535, #46618a 70%, #9d6bff);
+  }
+  .page-head .eyebrow { font-size: 12px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--violet-soft); margin-bottom: 16px; }
+  .page-head h1 { font-family: var(--serif); font-size: clamp(44px, 7vw, 90px); font-weight: 500; line-height: 1; }
+  .page-head p { color: rgba(255,255,255,0.78); margin-top: 16px; font-size: 16px; letter-spacing: 0.04em; max-width: 52ch; }
+  .back-link { display: inline-block; margin-top: 24px; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.78); border-bottom: 1px solid var(--violet); padding-bottom: 5px; width: fit-content; }
+  .back-link:hover { color: #fff; }
+
+  /* SECTION SHELL */
+  .section { padding: 96px 48px; }
+  .wrap { max-width: 1180px; margin: 0 auto; }
+  .eyebrow { font-size: 12px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--violet); margin-bottom: 18px; }
+  .h-serif { font-family: var(--serif); font-size: clamp(30px, 4vw, 52px); font-weight: 500; line-height: 1.06; letter-spacing: 0.01em; }
+
+  /* INTRO */
+  .intro { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 64px; align-items: center; }
+  .intro p { font-size: 17px; color: #3a3a40; line-height: 1.85; margin-top: 22px; }
+  .intro__img { height: 460px; border-radius: 4px; position: relative; overflow: hidden; background: url('https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?auto=format&fit=crop&w=1000&q=72') center/cover no-repeat, linear-gradient(150deg, #1d2535, #46618a); }
+  .intro__img span { position: absolute; left: 22px; bottom: 18px; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.9); text-shadow: 0 1px 8px rgba(0,0,0,0.5); }
+
+  /* LIFESTYLE CARDS */
+  .life-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 48px; }
+  .life-card { border-radius: 4px; overflow: hidden; background: #fff; border: 1px solid var(--line); }
+  .life-card__img { height: 200px; background-size: cover; background-position: center; }
+  .lc1 { background-image: url('https://images.unsplash.com/photo-1559827260-dc66d52bef19?auto=format&fit=crop&w=800&q=72'); }
+  .lc2 { background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=72'); }
+  .lc3 { background-image: url('https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=800&q=72'); }
+  .lc4 { background-image: url('https://images.unsplash.com/photo-1505761671935-60b3a7427bad?auto=format&fit=crop&w=800&q=72'); }
+  .lc5 { background-image: url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=800&q=72'); }
+  .lc6 { background-image: url('https://images.unsplash.com/photo-1523287562758-66c7fc58967f?auto=format&fit=crop&w=800&q=72'); }
+  .life-card__body { padding: 24px 24px 28px; }
+  .life-card .tag { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--violet); margin-bottom: 12px; }
+  .life-card h3 { font-family: var(--serif); font-size: 23px; font-weight: 500; margin-bottom: 10px; }
+  .life-card p { font-size: 14.5px; color: #3a3a40; line-height: 1.75; }
+
+  /* DINING / MARINA columns */
+  .colset { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; margin-top: 50px; }
+  .feat-col h3 { font-family: var(--serif); font-size: 25px; font-weight: 500; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--line); }
+  .feat-col ul { list-style: none; }
+  .feat-col li { display: flex; justify-content: space-between; gap: 14px; padding: 13px 0; font-size: 15px; color: #3a3a40; border-bottom: 1px solid rgba(10,10,12,0.06); }
+  .feat-col li span { color: var(--muted); font-size: 13px; letter-spacing: 0.04em; white-space: nowrap; }
+
+  /* SCHOOLS */
+  .schools { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 46px; }
+  .school { background: #fff; border: 1px solid var(--line); border-radius: 4px; padding: 28px 26px; }
+  .school .lvl { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--violet); margin-bottom: 12px; }
+  .school h4 { font-family: var(--serif); font-size: 21px; font-weight: 500; margin-bottom: 6px; }
+  .school p { font-size: 13.5px; color: var(--muted); }
+
+  /* COMMUTE / WALK */
+  .commute { background: var(--ink); color: #fff; }
+  .commute .eyebrow { color: var(--violet-soft); }
+  .commute h2 { color: #fff; }
+  .commute-grid { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 44px; border-top: 1px solid rgba(255,255,255,0.12); border-left: 1px solid rgba(255,255,255,0.12); }
+  .commute-cell { padding: 28px 24px; border-right: 1px solid rgba(255,255,255,0.12); border-bottom: 1px solid rgba(255,255,255,0.12); }
+  .commute-cell .v { font-family: var(--serif); font-size: 34px; color: #fff; line-height: 1; }
+  .commute-cell .k { font-size: 12px; letter-spacing: 0.1em; color: rgba(255,255,255,0.6); margin-top: 12px; }
+  .commute-note { margin-top: 28px; font-size: 14px; color: rgba(255,255,255,0.55); letter-spacing: 0.03em; max-width: 70ch; }
+
+  /* CTA */
+  .cta-band { background: var(--paper-warm); text-align: center; padding: 100px 48px; }
+  .cta-band .h-serif { color: var(--ink); max-width: 20ch; margin: 0 auto; }
+  .cta-band p { color: var(--muted); margin-top: 16px; font-size: 16px; }
+  .btn { display: inline-block; margin-top: 34px; background: var(--ink); color: #fff; padding: 17px 44px; border-radius: 2px; font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; transition: transform 0.25s, background 0.25s; }
+  .btn:hover { background: var(--violet); transform: translateY(-2px); }
+
+  .footer { background: var(--ink-soft); color: rgba(255,255,255,0.5); text-align: center; padding: 40px 48px; font-size: 12.5px; letter-spacing: 0.14em; }
+  .footer span { color: var(--violet-soft); }
+
+  @media (max-width: 900px) {
+    .nav { padding: 18px 22px; }
+    .nav__links { gap: 16px; }
+    .nav__links a:not(.nav__cta) { display: none; }
+    .section { padding: 64px 22px; }
+    .page-head { padding: 0 22px 48px; min-height: 54vh; }
+    .intro { grid-template-columns: 1fr; gap: 36px; }
+    .intro__img { height: 300px; }
+    .life-grid { grid-template-columns: 1fr; }
+    .colset { grid-template-columns: 1fr; gap: 40px; }
+    .schools { grid-template-columns: 1fr; }
+    .commute-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 480px) {
+    .commute-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html" class="nav__brand">The Bayfront Residence</a>
+    <div class="nav__links">
+      <a href="gallery.html">Gallery</a>
+      <a href="features.html">Features</a>
+      <a href="neighborhood.html">Neighborhood</a>
+      <a href="index.html" class="nav__price">$4,250,000</a>
+      <a href="contact.html" class="nav__cta">Schedule a Showing</a>
+    </div>
+  </nav>
+
+  <header class="page-head">
+    <div class="page-head__bg"></div>
+    <p class="eyebrow">The Neighborhood</p>
+    <h1>Davis Islands</h1>
+    <p>A storied, tree-lined island enclave — minutes from downtown Tampa, a world apart in feel.</p>
+    <a href="index.html" class="back-link">← Back to residence</a>
+  </header>
+
+  <!-- INTRO -->
+  <section class="section">
+    <div class="wrap intro">
+      <div>
+        <p class="eyebrow">The Setting</p>
+        <h2 class="h-serif">An island built for the few who know it.</h2>
+        <p>
+          Carved from Tampa Bay in the 1920s, Davis Islands is one of the city's most coveted
+          addresses — a pair of man-made islands wrapped in protected coves, mature oaks, and
+          Mediterranean-revival architecture. It carries the rare combination of true waterfront
+          living and a genuine neighborhood: people walk to coffee, wave from the docks, and know
+          their barista by name.
+        </p>
+        <p>
+          Despite sitting minutes from downtown Tampa and Water Street, the island feels removed
+          and quiet — its own village center, yacht club, and private airfield keeping life
+          contained and unhurried. It is the kind of place residents rarely leave once they arrive.
+        </p>
+      </div>
+      <div class="intro__img"><span>Davis Islands · Tampa Bay</span></div>
+    </div>
+  </section>
+
+  <!-- LIFESTYLE -->
+  <section class="section" style="background:var(--paper-warm);">
+    <div class="wrap">
+      <p class="eyebrow">The Lifestyle</p>
+      <h2 class="h-serif">A day on the island.</h2>
+      <div class="life-grid">
+        <div class="life-card">
+          <div class="life-card__img lc1"></div>
+          <div class="life-card__body">
+            <div class="tag">On the Water</div>
+            <h3>Boating &amp; the Bay</h3>
+            <p>Direct, no-bridge access to Tampa Bay and the Gulf. Sandbars, waterfront dining by boat, and sunset cruises are a daily option from your own dock.</p>
+          </div>
+        </div>
+        <div class="life-card">
+          <div class="life-card__img lc2"></div>
+          <div class="life-card__body">
+            <div class="tag">The Village</div>
+            <h3>Davis Islands Village</h3>
+            <p>A walkable cluster of cafés, a wine bar, boutique fitness, and the island market — the social center of the neighborhood, all minutes from the residence.</p>
+          </div>
+        </div>
+        <div class="life-card">
+          <div class="life-card__img lc3"></div>
+          <div class="life-card__body">
+            <div class="tag">Outdoors</div>
+            <h3>Parks &amp; Trails</h3>
+            <p>Marjorie Park, the dog beach, the seaplane basin promenade, and tennis courts wrap the islands in green space and waterfront walking paths.</p>
+          </div>
+        </div>
+        <div class="life-card">
+          <div class="life-card__img lc4"></div>
+          <div class="life-card__body">
+            <div class="tag">Members' Club</div>
+            <h3>Davis Islands Yacht Club</h3>
+            <p>One of Florida's oldest yacht clubs sits three minutes away — racing, dining, and a calendar of member events at the water's edge.</p>
+          </div>
+        </div>
+        <div class="life-card">
+          <div class="life-card__img lc5"></div>
+          <div class="life-card__body">
+            <div class="tag">Dining</div>
+            <h3>Tampa's Best, Nearby</h3>
+            <p>From island cafés to the award-winning kitchens of Hyde Park, Water Street, and Armature Works — all within a short drive or boat ride.</p>
+          </div>
+        </div>
+        <div class="life-card">
+          <div class="life-card__img lc6"></div>
+          <div class="life-card__body">
+            <div class="tag">Culture</div>
+            <h3>Downtown &amp; the Riverwalk</h3>
+            <p>The Tampa Riverwalk, Sparkman Wharf, the Straz arts center, and pro sports are six minutes away — city energy without city living.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DINING + MARINA -->
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Eat, Drink &amp; Berth</p>
+      <h2 class="h-serif">Where the island gathers.</h2>
+      <div class="colset">
+        <div class="feat-col">
+          <h3>Dining &amp; Cafés</h3>
+          <ul>
+            <li>220 East — island bistro &amp; wine <span>2 min</span></li>
+            <li>The Sandwich Bar — island staple <span>2 min</span></li>
+            <li>Estuary at Tampa Edition <span>7 min</span></li>
+            <li>Bern's Steak House — Tampa institution <span>9 min</span></li>
+            <li>Armature Works food hall <span>10 min</span></li>
+            <li>Hyde Park Village dining <span>9 min</span></li>
+          </ul>
+        </div>
+        <div class="feat-col">
+          <h3>Marina &amp; On the Water</h3>
+          <ul>
+            <li>Private deepwater dock (this residence) <span>at home</span></li>
+            <li>Davis Islands Yacht Club <span>3 min</span></li>
+            <li>Marjorie Park Marina &amp; ramp <span>4 min</span></li>
+            <li>Peter O. Knight Airport (private) <span>4 min</span></li>
+            <li>Open Tampa Bay — no fixed bridges <span>direct</span></li>
+            <li>Gulf of Mexico access <span>~45 min by water</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCHOOLS -->
+  <section class="section" style="background:var(--paper-warm);">
+    <div class="wrap">
+      <p class="eyebrow">Schools</p>
+      <h2 class="h-serif">Education close to home.</h2>
+      <div class="schools">
+        <div class="school">
+          <div class="lvl">Elementary</div>
+          <h4>Gorrie Elementary</h4>
+          <p>Highly rated public elementary in adjacent Hyde Park · ~7 min</p>
+        </div>
+        <div class="school">
+          <div class="lvl">Middle</div>
+          <h4>Wilson Middle School</h4>
+          <p>Established South Tampa public middle school · ~8 min</p>
+        </div>
+        <div class="school">
+          <div class="lvl">High</div>
+          <h4>Plant High School</h4>
+          <p>One of the region's top public high schools · ~9 min</p>
+        </div>
+        <div class="school">
+          <div class="lvl">Private</div>
+          <h4>Academy of the Holy Names</h4>
+          <p>Premier private college-prep on Bayshore · ~10 min</p>
+        </div>
+        <div class="school">
+          <div class="lvl">Private</div>
+          <h4>Tampa Preparatory School</h4>
+          <p>Independent 6–12 prep school downtown · ~8 min</p>
+        </div>
+        <div class="school">
+          <div class="lvl">Higher Ed</div>
+          <h4>University of Tampa</h4>
+          <p>Riverfront private university campus · ~8 min</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMUTE -->
+  <section class="section commute">
+    <div class="wrap">
+      <p class="eyebrow">Walk &amp; Commute</p>
+      <h2 class="h-serif">Everything is minutes away.</h2>
+      <div class="commute-grid">
+        <div class="commute-cell"><div class="v">6 min</div><div class="k">Downtown Tampa &amp; Water Street</div></div>
+        <div class="commute-cell"><div class="v">4 min</div><div class="k">Tampa General Hospital</div></div>
+        <div class="commute-cell"><div class="v">3 min</div><div class="k">Davis Islands Yacht Club</div></div>
+        <div class="commute-cell"><div class="v">9 min</div><div class="k">Hyde Park &amp; Bayshore Blvd</div></div>
+        <div class="commute-cell"><div class="v">18 min</div><div class="k">Tampa International Airport</div></div>
+        <div class="commute-cell"><div class="v">12 min</div><div class="k">Amalie Arena &amp; Sparkman Wharf</div></div>
+        <div class="commute-cell"><div class="v">25 min</div><div class="k">St. Petersburg via the bridges</div></div>
+        <div class="commute-cell"><div class="v">4 min</div><div class="k">Peter O. Knight (private airfield)</div></div>
+      </div>
+      <p class="commute-note">
+        Davis Islands is highly walkable to the village center and waterfront, with quick island roads
+        and a single causeway connecting to South Tampa and downtown. Drive times are approximate and
+        vary with traffic.
+      </p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-band">
+    <h2 class="h-serif">The best way to understand the island is to stand on the dock.</h2>
+    <p>Arrange a private showing of The Bayfront Residence.</p>
+    <a href="contact.html" class="btn">Schedule a Showing</a>
+  </section>
+
+  <footer class="footer">
+    © Represented by Maison Laurent · Template by <span>Pilk.ai</span>
+  </footer>
+
+</body>
+</html>
