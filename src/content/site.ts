@@ -24,11 +24,11 @@ export const site = {
   ],
 
   nav: [
-    { label: "Work", href: "/work" },
-    { label: "Process", href: "/process" },
-    { label: "Apps", href: "/apps" },
     { label: "Real Estate / Mortgage", href: "/real-estate" },
     { label: "Rent vs Own", href: "/own-vs-rent" },
+    { label: "Process", href: "/process" },
+    { label: "Apps", href: "/apps" },
+    { label: "Work", href: "/work" },
   ],
 
   cta: {
