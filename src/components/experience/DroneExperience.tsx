@@ -16,6 +16,7 @@ export function DroneExperience({ config }: { config: ExperienceConfig }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const sceneRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const introWrapRef = useRef<HTMLDivElement>(null);
   const introBaseRef = useRef<HTMLDivElement>(null);
   const introTextRef = useRef<HTMLDivElement>(null);
   const smokeRef = useRef<HTMLDivElement>(null);
@@ -69,7 +70,7 @@ export function DroneExperience({ config }: { config: ExperienceConfig }) {
         // Footage progress starts only after the intro section.
         const fp = clamp((p - INTRO) / (1 - INTRO), 0, 1);
 
-        curFrame += (fp * (frameCount - 1) - curFrame) * 0.2;
+        curFrame += (fp * (frameCount - 1) - curFrame) * 0.12;
         const idx = Math.round(curFrame);
         if (idx !== lastDrawn) {
           draw(idx);
@@ -85,14 +86,19 @@ export function DroneExperience({ config }: { config: ExperienceConfig }) {
           el.style.pointerEvents = o > 0.6 ? "auto" : "none";
         }
 
-        // Intro: welcome text + black base clear first, smoke lingers, revealing footage.
-        const baseO = clamp(1 - p / (INTRO * 0.62), 0, 1);
-        if (introBaseRef.current) {
-          introBaseRef.current.style.opacity = String(baseO);
-          introBaseRef.current.style.pointerEvents = baseO > 0.5 ? "auto" : "none";
+        // Intro: welcome + smoke. Fully removed once past intro so the expensive
+        // blur/animation isn't running during the flight (keeps scrubbing smooth).
+        const showIntro = p < INTRO + 0.02;
+        if (introWrapRef.current) introWrapRef.current.style.display = showIntro ? "block" : "none";
+        if (showIntro) {
+          const baseO = clamp(1 - p / (INTRO * 0.62), 0, 1);
+          if (introBaseRef.current) {
+            introBaseRef.current.style.opacity = String(baseO);
+            introBaseRef.current.style.pointerEvents = baseO > 0.5 ? "auto" : "none";
+          }
+          if (introTextRef.current) introTextRef.current.style.opacity = String(baseO);
+          if (smokeRef.current) smokeRef.current.style.opacity = String(clamp(1 - p / INTRO, 0, 1) * 0.95);
         }
-        if (introTextRef.current) introTextRef.current.style.opacity = String(baseO);
-        if (smokeRef.current) smokeRef.current.style.opacity = String(clamp(1 - p / INTRO, 0, 1) * 0.95);
         if (barRef.current) barRef.current.style.transform = `scaleX(${p})`;
       }
       raf = requestAnimationFrame(tick);
@@ -212,7 +218,7 @@ export function DroneExperience({ config }: { config: ExperienceConfig }) {
         ))}
 
         {/* Intro — welcome + smoke-screen reveal */}
-        <div className="absolute inset-0 z-30">
+        <div ref={introWrapRef} className="absolute inset-0 z-30">
           <div ref={introBaseRef} className="absolute inset-0 bg-[#0b0b0e]" />
           <div ref={smokeRef} className="exp-smoke pointer-events-none absolute inset-0" />
           <div

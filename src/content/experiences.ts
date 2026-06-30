@@ -54,7 +54,7 @@ export const experiences: Record<string, ExperienceConfig> = {
     blurb: "A continuous FPV drone tour of a modern waterfront mansion — buttery-smooth scrubbing with agent, firm, and property details revealing as you fly through.",
     framesDir: F,
     frameCount: 161,
-    scrollVh: 820,
+    scrollVh: 1300,
     video: "/experience/mansion/drone.mp4",
     poster: "/experience/mansion/poster.jpg",
     ctaHref: "/contact?projectType=custom&service=real-estate",
