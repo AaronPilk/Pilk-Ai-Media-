@@ -66,36 +66,6 @@ export default function RealEstatePage() {
         </Container>
       </header>
 
-      <section className="relative z-10 pt-8">
-        <Container>
-          <SectionLabel>Interactive experience · custom build</SectionLabel>
-          <Link
-            href="/real-estate/experience/estate"
-            className="group relative mt-8 block overflow-hidden rounded-[24px] border border-line"
-            style={{
-              backgroundImage: "linear-gradient(180deg, rgba(0,0,0,0.32), rgba(0,0,0,0.82)), url('/experience/mansion-v4/frames/frame-008.jpg')",
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          >
-            <div className="relative flex min-h-[420px] flex-col justify-end gap-4 p-8 sm:p-14">
-              <span className="eyebrow text-white/80">Interactive listing experience</span>
-              <h2 className="max-w-[20ch] text-balance text-white" style={{ fontSize: "var(--text-2xl)" }}>
-                Fly through the property as you scroll.
-              </h2>
-              <p className="max-w-xl text-white/80">
-                A fully custom, scroll-driven listing site built from a single continuous drone
-                shot — buyers fly through the home as the property, agent, and firm details reveal.
-                The top tier of what we build.
-              </p>
-              <span className="mt-2 inline-flex w-fit items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-medium text-white transition-transform group-hover:-translate-y-0.5">
-                Open the full site ↗
-              </span>
-            </div>
-          </Link>
-        </Container>
-      </section>
-
       <section className="section relative z-10 pt-12">
         <Container>
           <SectionLabel index="01">Built for real estate &amp; mortgage</SectionLabel>
@@ -145,9 +115,40 @@ export default function RealEstatePage() {
         </Container>
       </section>
 
+      <section className="section relative z-10 pt-4">
+        <Container>
+          <SectionLabel index="04">Interactive experience · custom build</SectionLabel>
+          <Link
+            href="/real-estate/experience/estate"
+            className="group relative mt-8 block overflow-hidden rounded-[24px] border border-line"
+            style={{
+              backgroundImage:
+                "linear-gradient(180deg, rgba(0,0,0,0.28), rgba(0,0,0,0.85)), url('/experience/mansion-v4/poster.jpg')",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          >
+            <div className="relative flex min-h-[460px] flex-col justify-end gap-4 p-8 sm:p-14">
+              <span className="eyebrow text-white/80">Interactive listing experience</span>
+              <h2 className="max-w-[20ch] text-balance text-white" style={{ fontSize: "var(--text-2xl)" }}>
+                Fly through the property as you scroll.
+              </h2>
+              <p className="max-w-xl text-white/80">
+                A fully custom, scroll-driven listing site built from a single continuous drone
+                shot — buyers fly through the home as the property, agent, and firm details reveal.
+                The top tier of what we build.
+              </p>
+              <span className="mt-2 inline-flex w-fit items-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-medium text-white transition-transform group-hover:-translate-y-0.5">
+                Open the full site ↗
+              </span>
+            </div>
+          </Link>
+        </Container>
+      </section>
+
       <section className="section env-light relative z-10">
         <Container>
-          <SectionLabel index="04">IDX / MLS</SectionLabel>
+          <SectionLabel index="05">IDX / MLS</SectionLabel>
           <h2 className="mt-6 max-w-[20ch] text-balance" style={{ fontSize: "var(--text-xl)" }}>
             Yes, we can connect listings — but it depends on your market.
           </h2>
