@@ -13,7 +13,7 @@ export const projects: Project[] = [
       "A full mobile app build with a matching marketing site — custom UI, native iOS & Android, and a complete brand and launch system.",
     services: ["App Design", "Development", "Brand", "Marketing Site"],
     cover: "/work/watchman.jpg",
-    liveUrl: "https://thewatchman.app",
+    liveUrl: "https://watchmen-web-2j7.pages.dev",
     cost: "$75,000",
     costLabel: "App build cost",
   },
@@ -27,7 +27,8 @@ export const projects: Project[] = [
     summary:
       "A personal real-estate brand site — clean, modern, and built to capture qualified leads.",
     services: ["Design", "Development", "Lead Capture"],
-    cover: "/showcase-sites/stephenie-tocado/desktop.jpg",
+    cover: "/work/stephenie-tocado.jpg",
+    liveUrl: "https://tocado-realty-group.pages.dev",
   },
   {
     slug: "star-processing",
@@ -39,7 +40,7 @@ export const projects: Project[] = [
     summary:
       "A credible, conversion-focused website for a third-party loan-processing company.",
     services: ["Design", "Development", "Conversion"],
-    cover: "/showcase-sites/star-processing/desktop.jpg",
+    cover: "/work/star-processing.jpg",
     liveUrl: "https://www.star-processing.com",
   },
   {
@@ -51,7 +52,8 @@ export const projects: Project[] = [
     accent: "#0f766e",
     summary: "A trust-driven title company site built for a joint venture.",
     services: ["Design", "Development"],
-    cover: "/showcase-sites/ballantyne-title/desktop.jpg",
+    cover: "/work/ballantyne-title.jpg",
+    liveUrl: "https://ballantyne-title-main.pages.dev",
   },
   {
     slug: "carnegie-title",
@@ -62,7 +64,8 @@ export const projects: Project[] = [
     accent: "#b08d57",
     summary: "A clean, professional title-company website focused on quotes and services.",
     services: ["Design", "Development"],
-    cover: "/showcase-sites/carnegie-title/desktop.jpg",
+    cover: "/work/carnegie-title.jpg",
+    liveUrl: "https://carnegie-title.pages.dev",
   },
   {
     slug: "refine-title",
@@ -73,7 +76,8 @@ export const projects: Project[] = [
     accent: "#3b82f6",
     summary: "A modern title-company brand and website built to convert.",
     services: ["Design", "Development"],
-    cover: "/showcase-sites/refine-title/desktop.jpg",
+    cover: "/work/refine-title.jpg",
+    liveUrl: "https://refine-title.pages.dev",
   },
   {
     slug: "stage-echo",
@@ -84,7 +88,8 @@ export const projects: Project[] = [
     accent: "#9d6bff",
     summary: "A bold brand and site for an events and entertainment company.",
     services: ["Brand", "Design", "Development"],
-    cover: "/showcase-sites/stage-echo/desktop.jpg",
+    cover: "/work/stage-echo.jpg",
+    liveUrl: "https://stage-echo.pages.dev",
   },
   {
     slug: "famlink",
@@ -108,6 +113,7 @@ export const projects: Project[] = [
       "A high-concept brand and controlled-access drop experience built around mystery and exclusivity.",
     services: ["Brand", "Design", "Development"],
     cover: "/work/chrome-hurt.jpg",
+    liveUrl: "https://mors-d09.pages.dev",
   },
   {
     slug: "uncapped-poker",
@@ -119,6 +125,7 @@ export const projects: Project[] = [
     summary: "A product and app build for a modern poker brand.",
     services: ["Product Design", "Development"],
     cover: "/work/uncapped-poker.jpg",
+    liveUrl: "https://uncappedpoker.pages.dev",
   },
   {
     slug: "rolodex-ai",
@@ -130,6 +137,7 @@ export const projects: Project[] = [
     summary: "An AI-driven contact and relationship tool.",
     services: ["Product", "Development", "AI"],
     cover: "/work/rolodex-ai.jpg",
+    liveUrl: "https://pilkai.pages.dev",
   },
   {
     slug: "home-with-richard",

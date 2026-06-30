@@ -20,13 +20,18 @@ const PROJECT = process.cwd();
 const PARENT = path.resolve(PROJECT, "..");
 const OUT = path.join(PROJECT, "public", "work");
 
-// slug -> local build dir OR live url. Add/adjust freely.
+// slug -> live deployment URL (output: public/work/<slug>.jpg).
 const targets = [
-  { slug: "watchman", dir: path.join(PARENT, "watchmen website") },
-  { slug: "rolodex-ai", dir: path.join(PARENT, "rolodex AI", "website") },
-  { slug: "uncapped-poker", dir: path.join(PARENT, "UncappedPoker") },
-  { slug: "chrome-hurt", dir: path.join(PARENT, "chrome Hurt") },
+  { slug: "watchman", url: "https://watchmen-web-2j7.pages.dev" },
+  { slug: "stephenie-tocado", url: "https://tocado-realty-group.pages.dev" },
   { slug: "star-processing", url: "https://www.star-processing.com" },
+  { slug: "ballantyne-title", url: "https://ballantyne-title-main.pages.dev" },
+  { slug: "carnegie-title", url: "https://carnegie-title.pages.dev" },
+  { slug: "refine-title", url: "https://refine-title.pages.dev" },
+  { slug: "stage-echo", url: "https://stage-echo.pages.dev" },
+  { slug: "chrome-hurt", url: "https://mors-d09.pages.dev" },
+  { slug: "uncapped-poker", url: "https://uncappedpoker.pages.dev" },
+  { slug: "rolodex-ai", url: "https://pilkai.pages.dev" },
   { slug: "home-with-richard", url: "https://www.homewithrichard.com/" },
   { slug: "bubble-down", url: "https://bubble-car-wash-app.pages.dev/" },
 ];
