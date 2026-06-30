@@ -10,7 +10,16 @@ import { cn } from "@/lib/utils";
 
 export function Pricing() {
   return (
-    <section className="section relative z-10" id="pricing">
+    <section
+      className="section relative z-10 overflow-hidden bg-[#0a0a0b]"
+      id="pricing"
+      style={{
+        backgroundImage:
+          "linear-gradient(180deg, rgba(10,10,11,0.9), rgba(10,10,11,0.96)), url('/brand/brand-automation.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       <Container>
         <SectionLabel index="07">Pricing</SectionLabel>
         <h2 className="mt-6 max-w-[16ch] text-balance" style={{ fontSize: "var(--text-2xl)" }}>

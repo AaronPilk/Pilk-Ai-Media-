@@ -60,7 +60,7 @@ export function DroneExperience({ config }: { config: ExperienceConfig }) {
         for (let i = 0; i < scenes.length; i++) {
           const el = sceneRefs.current[i];
           if (!el) continue;
-          const o = clamp(1 - Math.abs(fp - scenes[i].at) / 0.1, 0, 1);
+          const o = clamp(1 - Math.abs(fp - scenes[i].at) / 0.14, 0, 1);
           el.style.opacity = String(o);
           el.style.transform = `translateY(${(1 - o) * 30}px)`;
           el.style.pointerEvents = o > 0.6 ? "auto" : "none";

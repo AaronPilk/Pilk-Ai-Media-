@@ -3,6 +3,10 @@ import type { ExperienceConfig } from "@/content/experiences";
 import { Container } from "@/components/ui/Container";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Reveal } from "@/components/ui/Reveal";
+import { ExperienceGallery } from "@/components/experience/ExperienceGallery";
+import { ShowingBooker } from "@/components/experience/ShowingBooker";
+
+const A = "/template-previews/_assets";
 
 /**
  * The "rest of the website" that continues below the cinematic drone hero,
@@ -13,7 +17,6 @@ import { Reveal } from "@/components/ui/Reveal";
  */
 export function ExperienceSite({ config }: { config: ExperienceConfig }) {
   const s = config.site;
-  const F = config.framesDir;
 
   const keyFacts = [
     { v: "$24.5M", l: "Offered at" },
@@ -27,14 +30,14 @@ export function ExperienceSite({ config }: { config: ExperienceConfig }) {
   ];
 
   const gallery = [
-    { img: `${F}/frame-018.jpg`, caption: "Great Room" },
-    { img: `${F}/frame-046.jpg`, caption: "Chef's Kitchen" },
-    { img: `${F}/frame-072.jpg`, caption: "Primary Suite" },
-    { img: `${F}/frame-100.jpg`, caption: "Infinity Pool" },
-    { img: `${F}/frame-128.jpg`, caption: "Home Theater" },
-    { img: `${F}/frame-152.jpg`, caption: "Wine Room" },
-    { img: `${F}/frame-180.jpg`, caption: "Spa & Wellness" },
-    { img: `${F}/frame-210.jpg`, caption: "Waterfront" },
+    { img: `${A}/hero-open-living.jpg`, caption: "Great Room" },
+    { img: `${A}/kitchen.jpg`, caption: "Chef's Kitchen" },
+    { img: `${A}/bedroom.jpg`, caption: "Primary Suite" },
+    { img: `${A}/pool-backyard.jpg`, caption: "Infinity Pool" },
+    { img: `${A}/home-theater.jpg`, caption: "Home Theater" },
+    { img: `${A}/dining-wine.jpg`, caption: "Wine Room" },
+    { img: `${A}/bathroom.jpg`, caption: "Spa & Wellness" },
+    { img: `${A}/hero-waterfront.jpg`, caption: "Waterfront" },
   ];
 
   const interiorFeatures = [
@@ -185,27 +188,7 @@ export function ExperienceSite({ config }: { config: ExperienceConfig }) {
               View all photos →
             </Link>
           </div>
-          <div className="mt-12 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
-            {gallery.map((g, i) => (
-              <Reveal key={g.caption} delay={i * 45}>
-                <div className="group relative overflow-hidden rounded-xl border border-white/10">
-                  <div className="aspect-[3/4] overflow-hidden">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={g.img}
-                      alt={g.caption}
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                  </div>
-                  <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-                    <span className="text-xs uppercase tracking-[0.2em] text-white/85">
-                      {g.caption}
-                    </span>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+          <ExperienceGallery gallery={gallery} />
         </Container>
       </section>
 
@@ -272,7 +255,7 @@ export function ExperienceSite({ config }: { config: ExperienceConfig }) {
               <div className="overflow-hidden rounded-2xl border border-white/10">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={`${F}/frame-060.jpg`}
+                  src={`${A}/ext-glass-home.jpg`}
                   alt="Residence layout"
                   className="aspect-[4/5] w-full object-cover"
                 />
@@ -472,76 +455,7 @@ export function ExperienceSite({ config }: { config: ExperienceConfig }) {
             </Reveal>
 
             <Reveal delay={100}>
-              <form className="rounded-2xl border border-white/10 bg-white/[0.03] p-7 sm:p-8">
-                <div className="grid gap-5 sm:grid-cols-2">
-                  <div className="sm:col-span-1">
-                    <label htmlFor="inq-name" className="text-xs uppercase tracking-[0.15em] text-white/50">
-                      Full name
-                    </label>
-                    <input
-                      id="inq-name"
-                      name="name"
-                      type="text"
-                      placeholder="Jane Doe"
-                      className="mt-2 w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-sm text-white placeholder-white/30 outline-none transition-colors focus:border-accent"
-                    />
-                  </div>
-                  <div className="sm:col-span-1">
-                    <label htmlFor="inq-email" className="text-xs uppercase tracking-[0.15em] text-white/50">
-                      Email
-                    </label>
-                    <input
-                      id="inq-email"
-                      name="email"
-                      type="email"
-                      placeholder="you@email.com"
-                      className="mt-2 w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-sm text-white placeholder-white/30 outline-none transition-colors focus:border-accent"
-                    />
-                  </div>
-                  <div className="sm:col-span-1">
-                    <label htmlFor="inq-phone" className="text-xs uppercase tracking-[0.15em] text-white/50">
-                      Phone
-                    </label>
-                    <input
-                      id="inq-phone"
-                      name="phone"
-                      type="tel"
-                      placeholder="(555) 555-5555"
-                      className="mt-2 w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-sm text-white placeholder-white/30 outline-none transition-colors focus:border-accent"
-                    />
-                  </div>
-                  <div className="sm:col-span-1">
-                    <label htmlFor="inq-time" className="text-xs uppercase tracking-[0.15em] text-white/50">
-                      Preferred showing time
-                    </label>
-                    <input
-                      id="inq-time"
-                      name="showingTime"
-                      type="text"
-                      placeholder="Weekday afternoons"
-                      className="mt-2 w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-sm text-white placeholder-white/30 outline-none transition-colors focus:border-accent"
-                    />
-                  </div>
-                  <div className="sm:col-span-2">
-                    <label htmlFor="inq-message" className="text-xs uppercase tracking-[0.15em] text-white/50">
-                      Message
-                    </label>
-                    <textarea
-                      id="inq-message"
-                      name="message"
-                      rows={4}
-                      placeholder="Tell us a little about what you're looking for."
-                      className="mt-2 w-full resize-none rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-sm text-white placeholder-white/30 outline-none transition-colors focus:border-accent"
-                    />
-                  </div>
-                </div>
-                <Link
-                  href={config.ctaHref}
-                  className="mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-accent px-8 py-4 text-sm font-medium text-white transition-transform hover:-translate-y-0.5"
-                >
-                  {config.ctaLabel}
-                </Link>
-              </form>
+              <ShowingBooker ctaLabel={config.ctaLabel} />
             </Reveal>
           </div>
         </Container>
