@@ -7,14 +7,14 @@ import type { ExperienceConfig, ExpScene } from "@/content/experiences";
 const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v));
 
 // Fraction of the scroll track used by the intro (welcome + smoke reveal).
-const INTRO = 0.14;
+const INTRO = 0.06;
 
 export function DroneExperience({ config }: { config: ExperienceConfig }) {
-  const { framesDir, frameCount, scrollVh, video, poster, scenes, ctaHref, ctaLabel } = config;
-  const frameSrc = (i: number) => `${framesDir}/frame-${String(i + 1).padStart(3, "0")}.jpg`;
+  const { scrollVh, video, scrubVideo, poster, scenes, ctaHref, ctaLabel } = config;
+  const src = scrubVideo ?? video;
 
   const trackRef = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const sceneRefs = useRef<(HTMLDivElement | null)[]>([]);
   const introWrapRef = useRef<HTMLDivElement>(null);
   const introBaseRef = useRef<HTMLDivElement>(null);
@@ -33,48 +33,28 @@ export function DroneExperience({ config }: { config: ExperienceConfig }) {
       return;
     }
 
-    const images: HTMLImageElement[] = [];
-    let loaded = 0;
-    let cancelled = false;
+    const v = videoRef.current!;
     let raf = 0;
-    let curFrame = 0;
-    let lastDrawn = -1;
-
-    const canvas = canvasRef.current!;
-    const ctx = canvas.getContext("2d", { alpha: false })!;
-
-    const resize = () => {
-      const dpr = 1; // fixed 1x — far fewer pixels to push each frame = smoother scrub
-      canvas.width = Math.round(window.innerWidth * dpr);
-      canvas.height = Math.round(window.innerHeight * dpr);
-      lastDrawn = -1;
-    };
-
-    const draw = (idx: number) => {
-      const img = images[idx];
-      if (!img || !img.complete || !img.naturalWidth) return;
-      const W = canvas.width;
-      const H = canvas.height;
-      const s = Math.max(W / img.naturalWidth, H / img.naturalHeight);
-      const w = img.naturalWidth * s;
-      const h = img.naturalHeight * s;
-      ctx.drawImage(img, (W - w) / 2, (H - h) / 2, w, h);
-    };
+    let started = false;
+    let curT = 0;
 
     const tick = () => {
       const track = trackRef.current;
-      if (track) {
+      if (track && v.duration) {
         const rect = track.getBoundingClientRect();
         const total = rect.height - window.innerHeight;
         const p = clamp(-rect.top / total, 0, 1);
-        // Footage progress starts only after the intro section.
         const fp = clamp((p - INTRO) / (1 - INTRO), 0, 1);
 
-        curFrame += (fp * (frameCount - 1) - curFrame) * 0.12;
-        const idx = Math.round(curFrame);
-        if (idx !== lastDrawn) {
-          draw(idx);
-          lastDrawn = idx;
+        // Smoothly ease the playhead toward the scroll target.
+        const targetT = fp * (v.duration - 0.05);
+        curT += (targetT - curT) * 0.1;
+        if (Math.abs(v.currentTime - curT) > 0.02) {
+          try {
+            v.currentTime = curT;
+          } catch {
+            /* ignore mid-seek */
+          }
         }
 
         for (let i = 0; i < scenes.length; i++) {
@@ -86,12 +66,10 @@ export function DroneExperience({ config }: { config: ExperienceConfig }) {
           el.style.pointerEvents = o > 0.6 ? "auto" : "none";
         }
 
-        // Intro: welcome + smoke. Fully removed once past intro so the expensive
-        // blur/animation isn't running during the flight (keeps scrubbing smooth).
         const showIntro = p < INTRO + 0.02;
         if (introWrapRef.current) introWrapRef.current.style.display = showIntro ? "block" : "none";
         if (showIntro) {
-          const baseO = clamp(1 - p / (INTRO * 0.62), 0, 1);
+          const baseO = clamp(1 - p / (INTRO * 0.6), 0, 1);
           if (introBaseRef.current) {
             introBaseRef.current.style.opacity = String(baseO);
             introBaseRef.current.style.pointerEvents = baseO > 0.5 ? "auto" : "none";
@@ -104,30 +82,33 @@ export function DroneExperience({ config }: { config: ExperienceConfig }) {
       raf = requestAnimationFrame(tick);
     };
 
-    resize();
-    window.addEventListener("resize", resize);
+    const begin = () => {
+      if (started) return;
+      started = true;
+      setMode("scrub");
+      raf = requestAnimationFrame(tick);
+    };
 
-    for (let i = 0; i < frameCount; i++) {
-      const img = new Image();
-      img.decoding = "async";
-      const done = () => {
-        loaded++;
-        setProgress(Math.round((loaded / frameCount) * 100));
-        if (i === 0) draw(0);
-        if (loaded === frameCount && !cancelled) {
-          setMode("scrub");
-          raf = requestAnimationFrame(tick);
-        }
-      };
-      img.src = frameSrc(i);
-      img.decode().then(done).catch(done);
-      images[i] = img;
-    }
+    const onProgress = () => {
+      if (!v.duration) return;
+      const end = v.buffered.length ? v.buffered.end(v.buffered.length - 1) : 0;
+      setProgress(Math.round((end / v.duration) * 100));
+      if (end >= v.duration * 0.96) begin();
+    };
+
+    v.muted = true;
+    v.addEventListener("progress", onProgress);
+    v.addEventListener("loadeddata", onProgress);
+    // Fallback: once it can play through, give it a moment to buffer then start.
+    const onCanPlay = () => setTimeout(begin, 1500);
+    v.addEventListener("canplaythrough", onCanPlay);
+    v.load();
 
     return () => {
-      cancelled = true;
       cancelAnimationFrame(raf);
-      window.removeEventListener("resize", resize);
+      v.removeEventListener("progress", onProgress);
+      v.removeEventListener("loadeddata", onProgress);
+      v.removeEventListener("canplaythrough", onCanPlay);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -184,14 +165,23 @@ export function DroneExperience({ config }: { config: ExperienceConfig }) {
     );
   }
 
-  // ---- Desktop scrub experience ----
+  // ---- Desktop video-scrub experience ----
   const alignCls = (a: ExpScene["align"]) =>
     a === "left" ? "items-end justify-start text-left" : a === "right" ? "items-end justify-end text-right" : "items-center justify-center text-center";
 
   return (
-    <div ref={trackRef} style={{ height: `${scrollVh + 140}vh` }} className="relative z-10 bg-black">
+    <div ref={trackRef} style={{ height: `${scrollVh}vh` }} className="relative z-10 bg-black">
       <div className="sticky top-0 h-[100svh] overflow-hidden bg-black">
-        <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
+        {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+        <video
+          ref={videoRef}
+          src={src}
+          poster={poster}
+          muted
+          playsInline
+          preload="auto"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/25" />
 
         {scenes.map((s, i) => (
@@ -229,9 +219,7 @@ export function DroneExperience({ config }: { config: ExperienceConfig }) {
             <h1 className="mt-5 max-w-[14ch] font-display text-6xl font-semibold text-white xl:text-7xl">
               Welcome to your new home.
             </h1>
-            <p className="mt-10 text-xs uppercase tracking-[0.4em] text-white/65">
-              Scroll to experience ↓
-            </p>
+            <p className="mt-10 text-xs uppercase tracking-[0.4em] text-white/65">Scroll to experience ↓</p>
           </div>
         </div>
 

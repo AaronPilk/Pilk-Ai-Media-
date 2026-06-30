@@ -38,6 +38,8 @@ export type ExperienceConfig = {
   frameCount: number;
   scrollVh: number;
   video: string;
+  /** High-quality video scrubbed by scroll on desktop (full resolution). */
+  scrubVideo?: string;
   poster: string;
   ctaHref: string;
   ctaLabel: string;
@@ -56,6 +58,7 @@ export const experiences: Record<string, ExperienceConfig> = {
     frameCount: 381,
     scrollVh: 1700,
     video: "/experience/mansion-v4/drone.mp4",
+    scrubVideo: "/experience/mansion-v4/scrub.mp4",
     poster: "/experience/mansion-v4/poster.jpg",
     ctaHref: "/contact?projectType=custom&service=real-estate",
     ctaLabel: "Schedule a private showing →",

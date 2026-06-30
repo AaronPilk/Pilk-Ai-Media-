@@ -73,7 +73,7 @@ export default function RealEstatePage() {
             href="/real-estate/experience/estate"
             className="group relative mt-8 block overflow-hidden rounded-[24px] border border-line"
             style={{
-              backgroundImage: "linear-gradient(180deg, rgba(0,0,0,0.32), rgba(0,0,0,0.82)), url('/experience/mansion/poster.jpg')",
+              backgroundImage: "linear-gradient(180deg, rgba(0,0,0,0.32), rgba(0,0,0,0.82)), url('/experience/mansion-v4/frames/frame-008.jpg')",
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
