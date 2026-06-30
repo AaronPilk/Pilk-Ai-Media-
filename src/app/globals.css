@@ -539,3 +539,17 @@ h4 {
   animation: exp-smoke-drift 18s ease-in-out infinite alternate;
   will-change: transform, opacity;
 }
+
+/* Ken Burns slow zoom for hero photography */
+@keyframes kenburns {
+  from { transform: scale(1); }
+  to   { transform: scale(1.09); }
+}
+.kenburns {
+  transform-origin: 50% 55%;
+  animation: kenburns 26s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .kenburns { animation: none; }
+}

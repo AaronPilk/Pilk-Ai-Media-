@@ -34,17 +34,26 @@ export default function RealEstatePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd()) }}
       />
 
-      <header
-        className="relative z-10 flex min-h-[88vh] items-end overflow-hidden"
-        style={{
-          backgroundImage:
-            "linear-gradient(180deg, rgba(8,8,11,0.55) 0%, rgba(8,8,11,0.38) 38%, rgba(8,8,11,0.92) 100%), url('/template-previews/_assets/hero-estate.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
+      <header className="relative z-10 flex min-h-[88vh] items-end overflow-hidden">
+        <div
+          aria-hidden
+          className="kenburns absolute inset-0"
+          style={{
+            backgroundImage: "url('/template-previews/_assets/hero-estate.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(8,8,11,0.55) 0%, rgba(8,8,11,0.38) 38%, rgba(8,8,11,0.92) 100%)",
+          }}
+        />
         <Container>
-          <div className="pb-16 pt-[clamp(8rem,20vh,13rem)]">
+          <div className="relative z-10 pb-16 pt-[clamp(8rem,20vh,13rem)]">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-white/90 backdrop-blur-sm">
               Real estate &amp; mortgage websites — it&apos;s all we build here
             </span>
