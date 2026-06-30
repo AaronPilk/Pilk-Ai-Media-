@@ -73,7 +73,8 @@ export default async function ProjectPage({
 
           {project.cost && (
             <p className="mt-8 text-sm text-muted">
-              Project cost: <span className="font-display text-2xl font-semibold text-ink">{project.cost}</span>
+              {project.costLabel ?? "Project cost"}:{" "}
+              <span className="font-display text-2xl font-semibold text-ink">{project.cost}</span>
             </p>
           )}
 
