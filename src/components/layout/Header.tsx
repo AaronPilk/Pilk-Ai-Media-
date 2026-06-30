@@ -63,7 +63,10 @@ export function Header() {
             ))}
           </nav>
 
-          <div className="hidden md:block">
+          <div className="hidden items-center gap-3 md:flex">
+            <Button href={site.cta.inquiry.href} variant="primary" data-cursor="open">
+              {site.cta.inquiry.label}
+            </Button>
             <Button href={site.cta.primary.href} variant="ghost" withArrow data-cursor="open">
               {site.cta.primary.label}
             </Button>

@@ -32,10 +32,11 @@ export const site = {
 
   cta: {
     primary: { label: "Start a Project", href: "/contact" },
+    inquiry: { label: "Inquiry Now", href: "/inquiry" },
     primaryHomeLabel: "Explore Our Work",
     primaryHomeHref: "/work",
-    secondaryHomeLabel: "Start a Website",
-    secondaryHomeHref: "/contact",
+    secondaryHomeLabel: "Inquiry Now",
+    secondaryHomeHref: "/inquiry",
   },
 
   hero: {

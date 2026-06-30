@@ -61,8 +61,11 @@ export function MobileMenu({
         ))}
       </nav>
 
-      <div className="container-page py-8">
-        <Button href={site.cta.primary.href} variant="primary" withArrow onClick={onClose}>
+      <div className="container-page flex flex-col gap-3 py-8">
+        <Button href={site.cta.inquiry.href} variant="primary" onClick={onClose}>
+          {site.cta.inquiry.label}
+        </Button>
+        <Button href={site.cta.primary.href} variant="ghost" withArrow onClick={onClose}>
           {site.cta.primary.label}
         </Button>
       </div>
