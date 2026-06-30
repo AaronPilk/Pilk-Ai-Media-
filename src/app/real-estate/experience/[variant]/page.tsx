@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { DroneExperience } from "@/components/experience/DroneExperience";
 import { ExperienceSite } from "@/components/experience/ExperienceSite";
+import { QuickInquiry } from "@/components/experience/QuickInquiry";
 
 export function generateStaticParams() {
   return experienceList.map((e) => ({ variant: e.slug }));
@@ -42,6 +43,9 @@ export default async function ExperienceVariantPage({
 
       {/* The rest of the full website continues below the cinematic hero */}
       <ExperienceSite config={cfg} />
+
+      {/* Always-available quick inquiry */}
+      <QuickInquiry source={`${cfg.label} listing experience`} />
 
       <section className="section relative z-10 bg-[#0b0b0e]">
         <Container className="text-center">
