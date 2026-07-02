@@ -72,11 +72,7 @@ export function SceneCanvas() {
   }, [setGlobalProgress, setHeroProgress]);
 
   // Pages with their own full backdrop — no agency orb behind them.
-  if (
-    pathname?.startsWith("/real-estate") ||
-    pathname?.startsWith("/own-vs-rent") ||
-    pathname?.startsWith("/fourth-of-july")
-  ) {
+  if (pathname?.startsWith("/real-estate") || pathname?.startsWith("/own-vs-rent")) {
     return null;
   }
 
