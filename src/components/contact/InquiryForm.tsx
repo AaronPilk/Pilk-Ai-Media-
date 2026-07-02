@@ -10,7 +10,13 @@ const inputCls =
  * Short, low-friction lead form — just enough to capture a contact. Posts to
  * /api/leads. (The full project brief lives at /contact via "Start a Project".)
  */
-export function InquiryForm() {
+export function InquiryForm({
+  intent,
+  submitLabel,
+}: {
+  intent?: string;
+  submitLabel?: string;
+} = {}) {
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState("");
@@ -40,9 +46,9 @@ export function InquiryForm() {
           phone: phone.trim(),
           businessDescription:
             (message.trim() ? message.trim() + " — " : "") +
-            "Quick inquiry — please reach out.",
+            (intent ?? "Quick inquiry — please reach out."),
           projectType: "unsure",
-          primaryGoal: "Be contacted",
+          primaryGoal: intent ?? "Be contacted",
           preferredContact: phone.trim() ? "phone" : "email",
           consent: true,
           landingPage: typeof window !== "undefined" ? window.location.pathname : "",
@@ -106,7 +112,7 @@ export function InquiryForm() {
       )}
       <div>
         <Button type="submit" variant="primary" withArrow>
-          {sending ? "Sending…" : "Submit inquiry"}
+          {sending ? "Sending…" : submitLabel ?? "Submit inquiry"}
         </Button>
       </div>
     </form>

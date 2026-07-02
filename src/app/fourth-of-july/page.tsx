@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/Button";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Reveal } from "@/components/ui/Reveal";
 import { TemplateCard } from "@/components/templates/TemplateCard";
+import { InquiryForm } from "@/components/contact/InquiryForm";
 
 export const metadata: Metadata = buildMetadata({
   title: "4th of July Sale — $499 Websites",
@@ -46,11 +47,25 @@ export default function FourthOfJulyPage() {
             website — professionally built and ready to capture leads — for a flat{" "}
             <span className="text-ink">$499</span>. Don&apos;t miss out.
           </p>
-          <div className="mt-10 flex flex-wrap gap-4">
-            <Button href="#offer" variant="primary" withArrow>
-              Don&apos;t miss out
-            </Button>
-            <Button href="/contact?projectType=template&promo=july4" variant="ghost">
+          <div className="mt-4 text-sm text-muted">See a real $499 site we built — live:</div>
+          <div className="mt-4 flex flex-wrap gap-4">
+            <a
+              href="https://homewithrichard.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary"
+            >
+              Mortgage website ↗
+            </a>
+            <a
+              href="https://tocadorealty.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary"
+            >
+              Real estate website ↗
+            </a>
+            <Button href="#claim" variant="ghost">
               Claim the deal
             </Button>
           </div>
@@ -104,7 +119,7 @@ export default function FourthOfJulyPage() {
           </div>
 
           <div className="mt-10">
-            <Button href="/contact?projectType=template&promo=july4" variant="ghost" withArrow>
+            <Button href="#claim" variant="ghost" withArrow>
               Claim your $499 website
             </Button>
           </div>
@@ -218,6 +233,26 @@ export default function FourthOfJulyPage() {
         </Container>
       </section>
 
+      {/* Claim — basic lead form */}
+      <section id="claim" className="section relative z-10">
+        <Container>
+          <SectionLabel index="04">Claim the deal</SectionLabel>
+          <h2 className="mt-6 max-w-[18ch] text-balance" style={{ fontSize: "var(--text-2xl)" }}>
+            Claim your $499 website.
+          </h2>
+          <p className="mt-4 max-w-2xl text-muted">
+            Drop your details and we&apos;ll reach out to lock in your Independence Day price. No
+            commitment — just a quick hello.
+          </p>
+          <div className="mt-10">
+            <InquiryForm
+              intent="4th of July $499 website — please reach out to lock in the deal."
+              submitLabel="Claim my $499 website"
+            />
+          </div>
+        </Container>
+      </section>
+
       {/* Final CTA — brand accent card with 4th of July stars */}
       <section className="section relative z-10">
         <Container>
@@ -232,7 +267,7 @@ export default function FourthOfJulyPage() {
               $499 websites this Independence Day only. Claim yours before the fireworks fade.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
-              <Button href="/contact?projectType=template&promo=july4" variant="primary" withArrow>
+              <Button href="#claim" variant="primary" withArrow>
                 Claim your $499 website
               </Button>
               <Button href="/inquiry" variant="ghost">
