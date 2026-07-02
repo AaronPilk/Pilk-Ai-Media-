@@ -48,26 +48,30 @@ export default function FourthOfJulyPage() {
             <span className="text-ink">$499</span>. Don&apos;t miss out.
           </p>
           <div className="mt-4 text-sm text-muted">See a real $499 site we built — live:</div>
-          <div className="mt-4 flex flex-wrap gap-4">
-            <a
-              href="https://homewithrichard.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-primary"
-            >
-              Mortgage website ↗
-            </a>
-            <a
-              href="https://tocadorealty.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-primary"
-            >
-              Real estate website ↗
-            </a>
-            <Button href="#claim" variant="ghost">
-              Claim the deal
-            </Button>
+          <div className="mt-4 max-w-xl">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+              <a
+                href="https://homewithrichard.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary w-full justify-center text-center"
+              >
+                Mortgage site ↗
+              </a>
+              <a
+                href="https://tocadorealty.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary w-full justify-center text-center"
+              >
+                Real estate site ↗
+              </a>
+            </div>
+            <div className="mt-3 flex justify-center sm:mt-4">
+              <Button href="#claim" variant="ghost">
+                Claim the deal
+              </Button>
+            </div>
           </div>
         </Container>
       </header>
