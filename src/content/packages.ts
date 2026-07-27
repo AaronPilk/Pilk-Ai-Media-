@@ -1,5 +1,5 @@
 export type PackageTier = {
-  id: "template" | "premium-template" | "custom" | "crm";
+  id: "listing" | "template" | "premium-template" | "custom" | "crm";
   name: string;
   price: number;
   priceLabel: string;
@@ -13,36 +13,36 @@ export type PackageTier = {
 /** Edit prices/features/CTAs here — no component changes needed. */
 export const packages: PackageTier[] = [
   {
-    id: "template",
-    name: "Template Website",
-    price: 750,
-    priceLabel: "Starting at $750",
-    summary: "Start with an existing design and make it yours.",
+    id: "listing",
+    name: "Single Listing Page",
+    price: 250,
+    priceLabel: "$250 per listing",
+    summary: "A dedicated page for one listing — a fresh page built for each property as it comes in.",
     features: [
-      "Start with a proven design",
-      "Your copy, photos & branding",
-      "Brand colors and content",
+      "One property, one standout page",
+      "Cinematic hero + photo gallery",
+      "Key details & neighborhood",
+      "Lead capture / inquiry",
       "Mobile responsive",
-      "Lead capture form",
-      "Launch in ~7 days",
+      "2–3 day turnaround",
     ],
-    cta: { label: "Start with a template", href: "/templates" },
+    cta: { label: "Add a listing page", href: "/contact?projectType=template&template=listing-page" },
   },
   {
-    id: "premium-template",
-    name: "Premium Template",
+    id: "template",
+    name: "Complete Website",
     price: 1000,
-    priceLabel: "Starting at $1,000",
-    summary: "More layout, more customization, stronger storytelling.",
+    priceLabel: "$1,000",
+    summary: "A full website — start from a proven design and make it your own.",
     features: [
-      "Premium layout options",
-      "More pages & sections",
-      "Deeper customization",
-      "Stronger visual storytelling",
+      "Start from a proven design",
+      "Your copy, photos & branding",
+      "Multiple pages & sections",
       "Enhanced motion",
+      "Mobile responsive",
       "Lead capture form",
     ],
-    cta: { label: "Choose premium", href: "/templates" },
+    cta: { label: "Start with a template", href: "/templates" },
     mostPopular: true,
   },
   {
