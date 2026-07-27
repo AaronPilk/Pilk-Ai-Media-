@@ -48,6 +48,17 @@ function sanitizeFileName(value: string): string {
     .slice(0, 120);
 }
 
+/** Base64-encode an ArrayBuffer in chunks (avoids call-stack overflow on large files). */
+function toBase64(buf: ArrayBuffer): string {
+  const bytes = new Uint8Array(buf);
+  let binary = "";
+  const chunk = 0x8000;
+  for (let i = 0; i < bytes.length; i += chunk) {
+    binary += String.fromCharCode(...bytes.subarray(i, i + chunk));
+  }
+  return btoa(binary);
+}
+
 export const onRequestPost = async (context: {
   request: Request;
   env: Env;
@@ -104,26 +115,38 @@ export const onRequestPost = async (context: {
       return json({ success: false, error: "The combined upload is larger than 60 MB." }, 400);
     }
 
-    // Store files (private R2) only after payload validates
-    const uploadedFiles: Array<{ key: string; name: string; type: string; size: number }> = [];
+    // Read each file once; store in R2 when the bucket is bound, AND attach to
+    // the internal email when small enough. This guarantees uploads actually
+    // reach the inbox even if R2 isn't configured.
+    const uploadedFiles: Array<{ key?: string; name: string; type: string; size: number }> = [];
+    const emailAttachments: Array<{ filename: string; content: string }> = [];
+    const ATTACH_LIMIT = 20 * 1024 * 1024; // stay within Resend + worker memory
+    const canAttach = files.length > 0 && totalSize <= ATTACH_LIMIT;
+
+    if (files.length > 0 && !env.PROJECT_UPLOADS && !canAttach) {
+      return json(
+        { success: false, error: "These files are large — please email them directly, or remove them to submit." },
+        400
+      );
+    }
+
     if (files.length > 0) {
-      if (!env.PROJECT_UPLOADS) {
-        return json(
-          { success: false, error: "File uploads are temporarily unavailable. Remove the files or email us directly." },
-          503
-        );
-      }
       const submissionId = crypto.randomUUID();
       for (const file of files) {
-        const safeName = sanitizeFileName(file.name);
-        const key = `project-briefs/${submissionId}/${crypto.randomUUID()}-${safeName}`;
-        await env.PROJECT_UPLOADS.put(key, file.stream(), {
-          httpMetadata: { contentType: file.type },
-          customMetadata: {
-            originalName: file.name.slice(0, 200),
-            submittedBy: lead.email,
-          },
-        });
+        const buf = await file.arrayBuffer();
+        const safeName = sanitizeFileName(file.name) || "file";
+        let key: string | undefined;
+        if (env.PROJECT_UPLOADS) {
+          key = `project-briefs/${submissionId}/${crypto.randomUUID()}-${safeName}`;
+          await env.PROJECT_UPLOADS.put(key, buf, {
+            httpMetadata: { contentType: file.type },
+            customMetadata: {
+              originalName: file.name.slice(0, 200),
+              submittedBy: lead.email,
+            },
+          });
+        }
+        if (canAttach) emailAttachments.push({ filename: safeName, content: toBase64(buf) });
         uploadedFiles.push({ key, name: file.name, type: file.type, size: file.size });
       }
     }
@@ -152,15 +175,31 @@ export const onRequestPost = async (context: {
 
     // Emails (escaped). Internal includes R2 keys; prospect never does.
     if (env.RESEND_API_KEY && env.LEADS_FROM_EMAIL) {
-      const send = (to: string, subject: string, html: string) =>
+      const send = (
+        to: string,
+        subject: string,
+        html: string,
+        attachments?: Array<{ filename: string; content: string }>
+      ) =>
         fetch("https://api.resend.com/emails", {
           method: "POST",
           headers: { "Content-Type": "application/json", Authorization: `Bearer ${env.RESEND_API_KEY}` },
-          body: JSON.stringify({ from: env.LEADS_FROM_EMAIL, to, subject, html }),
+          body: JSON.stringify({
+            from: env.LEADS_FROM_EMAIL,
+            to,
+            subject,
+            html,
+            ...(attachments && attachments.length ? { attachments } : {}),
+          }),
         });
 
       const fileLines = uploadedFiles
-        .map((f) => `<li>${esc(f.name)} (${Math.round(f.size / 1024)} KB) — <code>${esc(f.key)}</code></li>`)
+        .map(
+          (f) =>
+            `<li>${esc(f.name)} (${Math.round(f.size / 1024)} KB)${
+              f.key ? ` — <code>${esc(f.key)}</code>` : " — attached to this email"
+            }</li>`
+        )
         .join("");
 
       const internalHtml = `
@@ -171,7 +210,7 @@ export const onRequestPost = async (context: {
         <p>Goal: ${esc(lead.primaryGoal) || "—"}</p>
         <p>Pages: ${esc((lead.requiredPages ?? []).join(", ")) || "—"}</p>
         <p>Integrations: ${esc((lead.integrations ?? []).join(", ")) || "—"}</p>
-        <p>Palette: ${esc(lead.selectedPalette) || "—"} · Colors: ${esc((lead.preferredColors ?? []).join(" "))}</p>
+        <p>Palette: ${esc(lead.selectedPalette) || "—"} · Colors: ${esc((lead.preferredColors ?? []).join(" "))}${lead.colorNotes ? " · Wants: " + esc(lead.colorNotes) : ""}</p>
         <p>Style: ${esc(lead.styleDirection) || "—"} · Theme: ${esc(lead.themePreference) || "—"}</p>
         <p>Inspiration: ${(lead.inspirationSites ?? []).map((s) => esc(s.url)).join(", ") || "—"}</p>
         <p>Budget: ${esc(lead.budget) || "—"} · Launch: ${esc(lead.timeline) || "—"}</p>
@@ -189,7 +228,7 @@ export const onRequestPost = async (context: {
 
       const tasks: Promise<unknown>[] = [];
       if (env.LEADS_NOTIFICATION_EMAIL) {
-        tasks.push(send(env.LEADS_NOTIFICATION_EMAIL, `New website brief — ${name}`, internalHtml));
+        tasks.push(send(env.LEADS_NOTIFICATION_EMAIL, `New website brief — ${name}`, internalHtml, emailAttachments));
       }
       tasks.push(send(lead.email, "We received your website brief — Pilk.ai Media", prospectHtml));
       await Promise.allSettled(tasks);

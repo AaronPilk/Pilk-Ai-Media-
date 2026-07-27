@@ -35,8 +35,11 @@ export function InspirationUrls() {
             </button>
           </div>
           <input
-            type="url"
-            placeholder="https://example.com"
+            type="text"
+            inputMode="url"
+            autoCapitalize="none"
+            autoCorrect="off"
+            placeholder="example.com"
             className={`${inputCls} mt-3`}
             {...register(`inspirationSites.${index}.url` as const)}
           />

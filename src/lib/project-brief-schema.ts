@@ -6,8 +6,26 @@ import { z } from "zod";
  * Keep this file dependency-free except for zod.
  */
 
+/**
+ * Website field that accepts a bare domain ("example.com") OR a full URL and
+ * normalizes to https://. Empty is allowed. Removes the "type the whole URL"
+ * friction while still keeping a usable URL for the email/CRM.
+ */
+export const websiteField = z
+  .string()
+  .trim()
+  .transform((v) => {
+    if (!v) return "";
+    const s = v.replace(/^\/+/, "");
+    return /^https?:\/\//i.test(s) ? s : `https://${s}`;
+  })
+  .refine(
+    (v) => v === "" || /^https?:\/\/([a-z0-9-]+\.)+[a-z]{2,}(\/[^\s]*)?$/i.test(v),
+    { message: "Enter a website like example.com" }
+  );
+
 const inspirationSiteSchema = z.object({
-  url: z.string().trim().url("Enter a complete URL"),
+  url: websiteField,
   note: z.string().trim().max(500).optional().or(z.literal("")),
 });
 
@@ -21,7 +39,7 @@ export const projectBriefSchema = z.object({
   phone: z.string().trim().max(40).optional().or(z.literal("")),
   company: z.string().trim().max(160).optional().or(z.literal("")),
   industry: z.string().trim().max(120).optional().or(z.literal("")),
-  currentWebsite: z.string().trim().url("Enter a valid URL").max(300).optional().or(z.literal("")),
+  currentWebsite: websiteField,
   businessDescription: z.string().trim().min(10, "Tell us a little more").max(2000),
   targetAudience: z.string().trim().max(1000).optional().or(z.literal("")),
 
@@ -36,6 +54,7 @@ export const projectBriefSchema = z.object({
   // Step 4 — style
   selectedPalette: z.string().max(100).optional().or(z.literal("")),
   preferredColors: z.array(z.string().regex(/^#[0-9a-fA-F]{6}$/)).max(8).optional(),
+  colorNotes: z.string().trim().max(400).optional().or(z.literal("")),
   styleDirection: z.string().max(120).optional().or(z.literal("")),
   styleKeywords: z.array(z.string().max(80)).max(12).optional(),
   themePreference: z.enum(["light", "dark", "mixed", "unsure"]).optional(),

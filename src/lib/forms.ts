@@ -6,7 +6,13 @@ export const leadSchema = z.object({
   email: z.string().trim().email("Enter a valid email").max(200),
   phone: z.string().trim().max(40).optional().or(z.literal("")),
   company: z.string().trim().max(160).optional().or(z.literal("")),
-  currentWebsite: z.string().trim().url("Enter a valid URL").max(300).optional().or(z.literal("")),
+  currentWebsite: z
+    .string()
+    .trim()
+    .transform((v) => (v ? (/^https?:\/\//i.test(v) ? v : `https://${v.replace(/^\/+/, "")}`) : ""))
+    .refine((v) => v === "" || /^https?:\/\/([a-z0-9-]+\.)+[a-z]{2,}(\/[^\s]*)?$/i.test(v), {
+      message: "Enter a website like example.com",
+    }),
   industry: z.string().trim().max(120).optional().or(z.literal("")),
   projectType: z.enum(["template", "premium-template", "custom", "redesign", "unsure"]),
   selectedTemplate: z.string().trim().max(120).optional().or(z.literal("")),

@@ -28,7 +28,7 @@ export const templates: WebsiteTemplate[] = [
     accent: "#1f6feb",
     shortDescription:
       "A clean personal site for an individual agent — just showcase you, your listings, and how to reach you. The fast, simple option.",
-    price: 750,
+    price: 1000,
     pages: 4,
     timeline: "7-day build available",
     featured: true,
@@ -62,7 +62,7 @@ export const templates: WebsiteTemplate[] = [
     accent: "#3b82f6",
     shortDescription:
       "A bold, team-focused brokerage website with agent roster, featured properties, recruiting, and inquiry paths.",
-    price: 1500,
+    price: 1000,
     pages: 7,
     timeline: "10–14 day build available",
     featured: true,
@@ -79,7 +79,7 @@ export const templates: WebsiteTemplate[] = [
     accent: "#1f7a6b",
     shortDescription:
       "A warm, coastal real-estate template built around lifestyle — perfect for beach, waterfront, and resort markets.",
-    price: 1200,
+    price: 1000,
     pages: 6,
     timeline: "7–10 day build available",
     featured: true,
@@ -96,7 +96,7 @@ export const templates: WebsiteTemplate[] = [
     accent: "#8b5cf6",
     shortDescription:
       "A dark, modern template for downtown condos, lofts, and new developments — sleek residences and amenity storytelling.",
-    price: 1500,
+    price: 1000,
     pages: 6,
     timeline: "10–14 day build available",
     featured: true,
@@ -113,7 +113,7 @@ export const templates: WebsiteTemplate[] = [
     accent: "#0f766e",
     shortDescription:
       "A trust-driven mortgage / lending website with loan programs, a rate-style calculator, and a clean application path.",
-    price: 1200,
+    price: 1000,
     pages: 6,
     timeline: "7–10 day build available",
     featured: true,
@@ -146,8 +146,9 @@ export const templates: WebsiteTemplate[] = [
     label: "Premium Template",
     accent: "#2563eb",
     shortDescription:
-      "A property-management / rentals website with featured rentals, owner and tenant services, and application paths.",
-    price: 1500,
+      "A full property-management / rentals build — featured rentals, owner and tenant portals, and application paths. Every property-management site is custom-scoped.",
+    price: 0,
+    priceLabel: "Custom · contact for pricing",
     pages: 7,
     timeline: "10–14 day build available",
     featured: true,
@@ -155,6 +156,24 @@ export const templates: WebsiteTemplate[] = [
     preview: { desktop: "/template-previews/rental-management/desktop.jpg" },
     features: ["Management homepage", "Featured rentals", "Owner services", "Tenant services", "Application form", "Mobile responsive"],
     upgrades: ["Rental sync / listings feed", "Tenant portal", "Online payments", "CRM connection"],
+  },
+  {
+    slug: "listing-page",
+    name: "Single Listing Page",
+    category: "agent",
+    label: "Template",
+    accent: "#1f6feb",
+    shortDescription:
+      "A dedicated page for one listing — we build a fresh page for each of your properties as they come in. The affordable, per-listing option for agents.",
+    price: 250,
+    priceLabel: "$250 per listing",
+    pages: 1,
+    timeline: "2–3 day build available",
+    featured: true,
+    liveUrl: "/template-previews/single-property/index.html",
+    preview: { desktop: "/template-previews/single-property/desktop.jpg" },
+    features: ["Cinematic property hero", "Photo gallery", "Key details & features", "Neighborhood blurb", "Lead capture / inquiry", "Mobile responsive"],
+    upgrades: ["Video / drone flythrough", "Floor plans", "Schedule a showing", "IDX listing sync"],
   },
   {
     slug: "custom-site",

@@ -41,7 +41,8 @@ export function TemplateCard({ template }: { template: WebsiteTemplate }) {
 
       <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-xs text-muted">
         <span>
-          {template.price > 0 ? `From $${formatPrice(template.price)}` : "Scope-based"}
+          {template.priceLabel ??
+            (template.price > 0 ? `From $${formatPrice(template.price)}` : "Scope-based")}
         </span>
         {template.pages > 0 && <span>{template.pages} pages</span>}
         <span>{template.timeline}</span>

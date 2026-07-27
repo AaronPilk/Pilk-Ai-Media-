@@ -18,6 +18,8 @@ export type WebsiteTemplate = {
   /** Accent used by the procedural preview + detail page. */
   accent: string;
   price: number;
+  /** Optional override for the displayed price (e.g. "Custom · contact for pricing", "$250 per listing"). */
+  priceLabel?: string;
   pages: number;
   timeline: string;
   featured: boolean;

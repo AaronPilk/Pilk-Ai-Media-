@@ -50,7 +50,13 @@ export const templateIntakeSchema = z.object({
   serviceArea: optStr(300),
 
   // Links / socials
-  website: z.string().trim().url("Enter a valid URL").max(300).optional().or(z.literal("")),
+  website: z
+    .string()
+    .trim()
+    .transform((v) => (v ? (/^https?:\/\//i.test(v) ? v : `https://${v.replace(/^\/+/, "")}`) : ""))
+    .refine((v) => v === "" || /^https?:\/\/([a-z0-9-]+\.)+[a-z]{2,}(\/[^\s]*)?$/i.test(v), {
+      message: "Enter a website like example.com",
+    }),
   instagram: optStr(300),
   facebook: optStr(300),
   linkedin: optStr(300),

@@ -2,12 +2,18 @@
 
 import { useFormContext } from "react-hook-form";
 import type { ProjectBriefInput } from "@/lib/project-brief-schema";
+import type { WebsiteTemplate } from "@/types/template";
 import { templates, templateCategories } from "@/content/templates";
-import { FauxBrowser } from "@/components/templates/FauxBrowser";
+import { TemplateLivePreview } from "@/components/templates/TemplateLivePreview";
 import { formatPrice, cn } from "@/lib/utils";
 
 function categoryLabel(id: string) {
   return templateCategories.find((c) => c.id === id)?.label ?? "Template";
+}
+
+function priceText(t: WebsiteTemplate) {
+  if (t.priceLabel) return t.priceLabel;
+  return t.price > 0 ? `From $${formatPrice(t.price)}` : "Scope-based";
 }
 
 export function TemplateSelector() {
@@ -46,29 +52,36 @@ export function TemplateSelector() {
                 )}
               >
                 <div className="aspect-[16/10]">
-                  <FauxBrowser accent={t.accent} url={`${t.slug}.pilk.ai`} image={t.preview.desktop} />
+                  <TemplateLivePreview
+                    liveUrl={t.liveUrl}
+                    accent={t.accent}
+                    slug={t.slug}
+                    image={t.preview.desktop}
+                  />
                 </div>
                 <div className="mt-3 flex items-center justify-between">
                   <span className="font-medium">{t.name}</span>
                   <span className="eyebrow opacity-70">{categoryLabel(t.category)}</span>
                 </div>
                 <p className="mt-1 text-sm text-muted">
-                  {t.price > 0 ? `From $${formatPrice(t.price)}` : "Scope-based"}
-                  {t.pages > 0 ? ` · ${t.pages} pages` : ""}
+                  {priceText(t)}
+                  {t.pages > 0 ? ` · ${t.pages} ${t.pages === 1 ? "page" : "pages"}` : ""}
                 </p>
               </button>
             );
           })}
       </div>
 
-      <div className="mt-5 flex flex-wrap gap-3">
+      <div className="mt-8 grid gap-3 sm:grid-cols-2">
         <button
           type="button"
           onClick={chooseCustom}
           aria-pressed={projectType === "custom"}
           className={cn(
-            "rounded-full border px-4 py-2 text-sm transition-colors",
-            projectType === "custom" ? "border-accent bg-accent text-white" : "border-line text-muted hover:text-ink"
+            "rounded-full border px-8 py-4 text-base font-medium transition-colors",
+            projectType === "custom"
+              ? "border-accent bg-accent text-white"
+              : "border-accent/50 bg-[color:var(--accent-soft)] text-ink hover:border-accent"
           )}
         >
           I want a fully custom design
@@ -76,7 +89,7 @@ export function TemplateSelector() {
         <button
           type="button"
           onClick={() => setValue("selectedTemplate", "", { shouldDirty: true })}
-          className="rounded-full border border-line px-4 py-2 text-sm text-muted hover:text-ink"
+          className="rounded-full border border-line px-8 py-4 text-base font-medium text-muted transition-colors hover:border-ink/30 hover:text-ink"
         >
           Decide later
         </button>

@@ -52,7 +52,7 @@ export function BusinessStep() {
 
       <div>
         <label htmlFor="currentWebsite" className="mb-2 block text-sm text-muted">Current website (optional)</label>
-        <input id="currentWebsite" type="url" placeholder="https://" className={inputCls} {...register("currentWebsite")} />
+        <input id="currentWebsite" type="text" inputMode="url" autoCapitalize="none" autoCorrect="off" placeholder="example.com" className={inputCls} {...register("currentWebsite")} />
         {errors.currentWebsite && <p className="mt-1 text-xs text-accent">{errors.currentWebsite.message}</p>}
       </div>
 
