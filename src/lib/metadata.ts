@@ -3,19 +3,23 @@ import { site } from "@/content/site";
 import { faq } from "@/content/faq";
 
 const base = site.url;
+const DEFAULT_OG = "/pilk-logo-dark.png";
 
 export function buildMetadata({
   title,
   description,
   path = "/",
+  image = DEFAULT_OG,
 }: {
   title?: string;
   description?: string;
   path?: string;
+  image?: string;
 }): Metadata {
   const fullTitle = title ? `${title} · ${site.name}` : `${site.name} — ${site.tagline}`;
   const desc = description ?? site.description;
   const url = `${base}${path}`;
+  const ogImage = image.startsWith("http") ? image : `${base}${image}`;
 
   return {
     title: fullTitle,
@@ -28,11 +32,13 @@ export function buildMetadata({
       url,
       siteName: site.name,
       type: "website",
+      images: [{ url: ogImage }],
     },
     twitter: {
       card: "summary_large_image",
       title: fullTitle,
       description: desc,
+      images: [ogImage],
     },
   };
 }
@@ -45,6 +51,7 @@ export function organizationJsonLd() {
     url: site.url,
     description: site.description,
     email: site.contact.email,
+    logo: `${base}/pilk-logo-dark.png`,
   };
 }
 
@@ -57,6 +64,35 @@ export function professionalServiceJsonLd() {
     description: site.description,
     areaServed: site.location,
     serviceType: "Web design and development",
+  };
+}
+
+export function websiteJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: site.name,
+    url: site.url,
+    description: site.description,
+  };
+}
+
+export function mortgageServiceJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Mortgage Website Design & Build",
+    serviceType: "Website design for mortgage professionals",
+    provider: { "@type": "Organization", name: site.name, url: site.url },
+    areaServed: "United States",
+    description:
+      "15 fully built mortgage website templates for loan officers, brokers, and brokerages — $500 one-time plus $100/mo hosting, GoHighLevel connected.",
+    offers: {
+      "@type": "Offer",
+      price: "500",
+      priceCurrency: "USD",
+      description: "$500 one-time build plus $100/mo hosting and support",
+    },
   };
 }
 

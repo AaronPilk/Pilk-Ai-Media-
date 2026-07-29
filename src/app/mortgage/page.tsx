@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { Check } from "lucide-react";
 import { templates } from "@/content/templates";
-import { buildMetadata } from "@/lib/metadata";
+import { buildMetadata, mortgageServiceJsonLd, breadcrumbJsonLd } from "@/lib/metadata";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { SectionLabel } from "@/components/ui/SectionLabel";
@@ -16,6 +16,7 @@ export const metadata: Metadata = buildMetadata({
   description:
     "15 fully built mortgage website templates for loan officers, brokers, and brokerages. $500 + $100/mo hosting, live in about a week. GoHighLevel connected. Pick your design and start a project.",
   path: "/mortgage",
+  image: "/template-previews/_assets/hero-warm-home.jpg",
 });
 
 const mortgageTemplates = templates.filter((t) => t.category === "mortgage");
@@ -34,6 +35,21 @@ const included = [
 export default function MortgagePage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(mortgageServiceJsonLd()) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: "Home", path: "/" },
+              { name: "Mortgage Websites", path: "/mortgage" },
+            ])
+          ),
+        }}
+      />
       {/* Hero */}
       <header
         className="relative z-10 flex min-h-[80vh] items-end overflow-hidden"
