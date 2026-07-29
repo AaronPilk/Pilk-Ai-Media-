@@ -15,6 +15,7 @@ export type GhlContact = {
   companyName?: string;
   source?: string;
   tags?: string[];
+  customFields?: { key: string; field_value: string }[];
 };
 
 export async function sendToGhl(env: GhlEnv, contact: GhlContact): Promise<void> {

@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Check } from "lucide-react";
 import { ADDONS, priceCents, CHECKOUT, type AddonKey } from "@/lib/checkout-pricing";
+import { getTemplate } from "@/content/templates";
 import { Button } from "@/components/ui/Button";
 
 const money = (cents: number) =>
@@ -12,6 +13,7 @@ const money = (cents: number) =>
 export function CheckoutClient() {
   const params = useSearchParams();
   const template = params.get("template") || "";
+  const templateName = getTemplate(template)?.name || template;
   const [selected, setSelected] = useState<AddonKey[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -47,7 +49,8 @@ export function CheckoutClient() {
       </h1>
       {template ? (
         <p className="mt-3 text-muted">
-          Design selected: <span className="font-medium text-ink">{template}</span>
+          Your details are saved ✓ — finalizing your{" "}
+          <span className="font-medium text-ink">{templateName}</span> build. Pick any add-ons and complete payment to start.
         </p>
       ) : null}
 

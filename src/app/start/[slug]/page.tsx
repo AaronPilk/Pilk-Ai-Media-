@@ -41,20 +41,11 @@ export default async function TemplateIntakePage({
 
   return (
     <>
-      <header className="relative z-10 pt-[clamp(7rem,18vh,12rem)]">
-        <Container>
+      <header className="relative z-10 pt-[clamp(6rem,14vh,9rem)]">
+        <Container className="max-w-lg">
           <Link href={`/templates/${tpl.slug}`} className="text-sm text-muted hover:text-ink">
             ← Back to {tpl.name}
           </Link>
-          <span className="eyebrow mt-6 block opacity-70">Order this template</span>
-          <h1 className="mt-3" style={{ fontSize: "var(--text-2xl)" }}>
-            Let&apos;s build your {tpl.name} site
-          </h1>
-          <p className="mt-4 max-w-2xl text-lg text-muted">
-            Fill this out and upload your logo, photos, and any copy you have. It all comes
-            straight to us and we&apos;ll build your site with your content. Don&apos;t have
-            something? Leave it blank — we&apos;ll handle the copy and use clean placeholders.
-          </p>
         </Container>
       </header>
 

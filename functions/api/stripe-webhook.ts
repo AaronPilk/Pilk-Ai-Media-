@@ -4,6 +4,7 @@
 // first monthly charge lands one month after the initial payment.
 import { stripe } from "./_stripe";
 import { CHECKOUT } from "../../src/lib/checkout-pricing";
+import { sendToGhl } from "./_ghl";
 
 type Env = {
   STRIPE_SECRET_KEY?: string;
@@ -12,6 +13,8 @@ type Env = {
   RESEND_API_KEY?: string;
   LEADS_FROM_EMAIL?: string;
   LEADS_NOTIFICATION_EMAIL?: string;
+  GHL_PIT_TOKEN?: string;
+  GHL_LOCATION_ID?: string;
 };
 
 const encoder = new TextEncoder();
@@ -138,6 +141,20 @@ export const onRequestPost = async (context: {
             },
             { idempotencyKey: `sub_${session.id}` }
           );
+        }
+
+        // Tag the contact as paid in GoHighLevel so the PILK AI pipeline advances
+        const paidEmail = session.customer_details?.email;
+        if (paidEmail) {
+          await sendToGhl(env, {
+            email: paidEmail,
+            tags: ["pilk-paid"],
+            customFields: [
+              { key: "template_chosen", field_value: session.metadata?.template || "" },
+              { key: "addons_purchased", field_value: session.metadata?.addons || "none" },
+              { key: "order_amount", field_value: ((session.amount_total ?? 0) / 100).toFixed(2) },
+            ],
+          });
         }
 
         // Notify Aaron of the new order (best-effort)

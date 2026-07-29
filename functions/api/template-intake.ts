@@ -68,6 +68,12 @@ function row(label: string, value: unknown): string {
   return `<p style="margin:4px 0"><strong>${esc(label)}:</strong> ${esc(v).replace(/\n/g, "<br/>")}</p>`;
 }
 
+const DO_WHAT_LABEL: Record<string, string> = {
+  mortgage: "Mortgage / loans",
+  realestate: "Real estate agent",
+  both: "Both",
+};
+
 export const onRequestPost = async (context: {
   request: Request;
   env: Env;
@@ -116,7 +122,7 @@ export const onRequestPost = async (context: {
     let totalSize = 0;
     for (const { file } of collected) {
       totalSize += file.size;
-      if (!ALLOWED.has(file.type)) {
+      if (file.type && !ALLOWED.has(file.type)) {
         return json({ success: false, error: `${file.name} is not an accepted file type.` }, 400);
       }
       if (file.size > INTAKE_MAX_FILE_SIZE) {
@@ -132,7 +138,6 @@ export const onRequestPost = async (context: {
 
     const submissionId = crypto.randomUUID();
 
-    // Read bytes once; reuse for R2 + email attachments.
     const prepared: Array<{ group: string; name: string; type: string; size: number; base64: string; key?: string }> = [];
     for (const { group, file } of collected) {
       const ab = await file.arrayBuffer();
@@ -153,68 +158,49 @@ export const onRequestPost = async (context: {
       prepared.push({ group, name: file.name, type: file.type, size: file.size, base64, key });
     }
 
-    const tplName = data.templateName || data.templateSlug;
+    const tplName = data.templateName || data.templateSlug || "template";
+    const doWhat = data.doWhat === "other" ? (data.doWhatOther || "Something else") : DO_WHAT_LABEL[data.doWhat ?? ""] ?? "";
+    const services = (data.services ?? []).join(", ");
+    const links = (data.links ?? []).filter(Boolean).join("\n");
+    const displayEmail = data.useAccountEmail === false ? data.displayEmail : data.email;
 
     // Email the studio with everything + attachments.
     if (env.RESEND_API_KEY && env.LEADS_FROM_EMAIL && env.LEADS_NOTIFICATION_EMAIL) {
       const filesByGroup = UPLOAD_FIELDS.map((g) => {
         const list = prepared.filter((f) => f.group === g);
         if (!list.length) return "";
-        const items = list
-          .map((f) => `<li>${esc(f.name)} — ${Math.round(f.size / 1024)} KB</li>`)
-          .join("");
+        const items = list.map((f) => `<li>${esc(f.name)} — ${Math.round(f.size / 1024)} KB</li>`).join("");
         return `<p style="margin:8px 0 2px"><strong>${esc(g)}</strong></p><ul style="margin:0">${items}</ul>`;
       }).join("");
-
-      const colors = (data.brandColors ?? []).join("  ");
-      const socials = [
-        data.website && `Website: ${data.website}`,
-        data.instagram && `Instagram: ${data.instagram}`,
-        data.facebook && `Facebook: ${data.facebook}`,
-        data.linkedin && `LinkedIn: ${data.linkedin}`,
-        data.youtube && `YouTube: ${data.youtube}`,
-        data.tiktok && `TikTok: ${data.tiktok}`,
-      ].filter(Boolean).join("\n");
 
       const internalHtml = `
         <h2 style="margin:0 0 4px">Template order — ${esc(tplName)}</h2>
         <p style="margin:0 0 12px;color:#666">Slug: <code>${esc(data.templateSlug)}</code></p>
 
         <h3 style="margin:16px 0 4px">Contact</h3>
-        ${row("Name", data.yourName)}
+        ${row("Name", data.name)}
         ${row("Email", data.email)}
         ${row("Phone", data.phone)}
 
-        <h3 style="margin:16px 0 4px">Brand</h3>
+        <h3 style="margin:16px 0 4px">Business</h3>
         ${row("Business name", data.businessName)}
-        ${row("Title / role", data.agentTitle)}
-        ${row("Tagline", data.tagline)}
-        ${row("Brand colors", colors)}
-
-        <h3 style="margin:16px 0 4px">Hero</h3>
-        ${row("Headline", data.heroHeadline)}
-        ${row("Subtext", data.heroSubtext)}
-        ${row("Button text", data.ctaText)}
-
-        <h3 style="margin:16px 0 4px">About</h3>
-        ${row("About headline", data.aboutHeadline)}
-        ${row("About body", data.aboutBody)}
-
-        <h3 style="margin:16px 0 4px">Content</h3>
-        ${row("Services / why", data.servicesText)}
-        ${row("Listings / featured", data.listingsText)}
-        ${row("Testimonials", data.testimonialsText)}
-
-        <h3 style="margin:16px 0 4px">Contact info to display</h3>
-        ${row("Phone", data.displayPhone)}
-        ${row("Email", data.displayEmail)}
-        ${row("Address", data.address)}
+        ${row("What they do", doWhat)}
+        ${row("Title", data.title)}
+        ${row("NMLS #", data.nmls)}
         ${row("Service area", data.serviceArea)}
-        ${row("Links", socials)}
+
+        <h3 style="margin:16px 0 4px">Site copy</h3>
+        ${row("About / one-liner", data.about)}
+        ${row("Services", services)}
+
+        <h3 style="margin:16px 0 4px">Show on the site</h3>
+        ${row("Display phone", data.displayPhone || data.phone)}
+        ${row("Display email", displayEmail)}
+        ${row("Links", links)}
 
         <h3 style="margin:16px 0 4px">Notes</h3>
-        ${row("Anything else", data.notes)}
-        ${row("File notes", data.fileNotes)}
+        ${row("Notes", data.notes)}
+        ${data.sendPhotosLater ? row("Photos", "Client will send photos later") : ""}
 
         <h3 style="margin:16px 0 4px">Uploaded files (${prepared.length})</h3>
         ${filesByGroup || "<p style='color:#888'>None uploaded.</p>"}
@@ -232,27 +218,15 @@ export const onRequestPost = async (context: {
         });
 
       const clientHtml = `
-        <h2>Thanks, ${esc(data.yourName)} — we've got your template order</h2>
-        <p>You chose the <strong>${esc(tplName)}</strong> template. We received your content${prepared.length ? ` and ${prepared.length} file${prepared.length === 1 ? "" : "s"}` : ""}, and we'll get your site built and back to you shortly.</p>
+        <h2>Thanks, ${esc(data.name)} — we've got your details</h2>
+        <p>You chose the <strong>${esc(tplName)}</strong> design. We received your info${prepared.length ? ` and ${prepared.length} file${prepared.length === 1 ? "" : "s"}` : ""}, and we'll start building your site. Watch your inbox for your first preview.</p>
         <p>— Pilk.ai Media</p>
       `;
 
       try {
-        const r = await send(
-          env.LEADS_NOTIFICATION_EMAIL,
-          `Template order — ${tplName} — ${data.yourName}`,
-          internalHtml,
-          attachments
-        );
-        if (!r.ok) {
-          console.error("[template-intake] resend error", r.status, (await r.text()).slice(0, 400));
-        }
-        // Client confirmation (best effort — don't let it mask the main result).
-        await send(
-          data.email,
-          `We received your ${tplName} template order — Pilk.ai Media`,
-          clientHtml
-        ).catch(() => {});
+        const r = await send(env.LEADS_NOTIFICATION_EMAIL, `Template order — ${tplName} — ${data.name}`, internalHtml, attachments);
+        if (!r.ok) console.error("[template-intake] resend error", r.status, (await r.text()).slice(0, 400));
+        await send(data.email, `We received your ${tplName} order — Pilk.ai Media`, clientHtml).catch(() => {});
       } catch (e) {
         console.error("[template-intake] send failed", e);
       }
@@ -260,14 +234,14 @@ export const onRequestPost = async (context: {
       console.log("[template-intake]", tplName, data.email, `${prepared.length} files`);
     }
 
-    // GoHighLevel (best effort)
+    // GoHighLevel (best effort — hot lead into the CRM)
     await sendToGhl(env, {
-      name: data.businessName,
+      name: data.name,
       companyName: data.businessName,
       email: data.email,
       phone: data.phone,
       source: "pilk.ai template intake",
-      tags: ["pilk-template-intake", data.templateSlug],
+      tags: ["pilk-template-intake", data.templateSlug || ""],
     });
 
     return json({ success: true });
