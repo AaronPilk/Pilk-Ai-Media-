@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClearPath Mortgage — Mortgages, made clear.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;color:#111;background:#fff;line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  a{color:inherit;text-decoration:none}
+  /* NAV */
+  header{position:sticky;top:0;background:rgba(255,255,255,0.94);backdrop-filter:blur(10px);border-bottom:1px solid #ececec;z-index:100}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+  .logo{font-weight:700;font-size:17px;letter-spacing:-0.02em}
+  .logo span{color:#16a34a}
+  .nav-links{display:flex;align-items:center;gap:28px;font-size:14px;color:#555}
+  .nav-links a:hover{color:#111}
+  .nav-links a.active{color:#111;font-weight:600}
+  .btn{display:inline-block;padding:12px 24px;font-size:14px;font-weight:600;border-radius:4px;transition:opacity .15s ease,background .15s ease;cursor:pointer;border:none}
+  .btn-dark{background:#111;color:#fff}
+  .btn-dark:hover{opacity:.85}
+  .btn-ghost{border:1px solid #d4d4d4;color:#111;background:#fff}
+  .btn-ghost:hover{border-color:#111}
+  .nav .btn{padding:10px 20px}
+  /* HERO */
+  .hero{padding:96px 0 80px;border-bottom:1px solid #ececec}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center}
+  .eyebrow{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#16a34a;margin-bottom:20px}
+  h1{font-size:56px;line-height:1.08;letter-spacing:-0.03em;font-weight:700}
+  .hero p.lead{margin-top:24px;font-size:18px;color:#555;max-width:44ch}
+  .hero-ctas{margin-top:36px;display:flex;gap:14px;flex-wrap:wrap}
+  .hero-img{aspect-ratio:4/5;border-radius:6px;background:linear-gradient(160deg,#e8ede9,#d7ded8);background-image:linear-gradient(160deg,rgba(232,237,233,.0),rgba(215,222,216,.0)),url('/template-previews/_assets/hero-open-living.jpg');background-size:cover;background-position:center}
+  .hero-note{margin-top:28px;font-size:13px;color:#888}
+  .hero-note b{color:#111}
+  /* STATS */
+  .stats{padding:56px 0;border-bottom:1px solid #ececec}
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
+  .stat{border-left:1px solid #e5e5e5;padding-left:24px}
+  .stat .num{font-size:32px;font-weight:700;letter-spacing:-0.02em}
+  .stat .num em{font-style:normal;color:#16a34a}
+  .stat .lbl{font-size:13px;color:#777;margin-top:4px}
+  /* SECTIONS */
+  section{padding:96px 0}
+  .sec-head{max-width:560px;margin-bottom:56px}
+  h2{font-size:36px;letter-spacing:-0.025em;line-height:1.15;font-weight:700}
+  .sec-head p{margin-top:16px;color:#555;font-size:16px}
+  .rule{height:1px;background:#ececec;border:none}
+  /* PROGRAM CARDS */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#ececec;border:1px solid #ececec}
+  .card{background:#fff;padding:40px 32px;display:flex;flex-direction:column}
+  .card h3{font-size:19px;font-weight:600;letter-spacing:-0.01em}
+  .card .tag{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#16a34a;margin-bottom:14px}
+  .card p{margin-top:12px;font-size:14.5px;color:#555;flex:1}
+  .card a{margin-top:24px;font-size:14px;font-weight:600;color:#111;border-bottom:1px solid #111;align-self:flex-start;padding-bottom:2px}
+  .card a:hover{color:#16a34a;border-color:#16a34a}
+  /* STEPS */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:48px}
+  .step .n{font-size:13px;font-weight:700;color:#16a34a;letter-spacing:.1em}
+  .step h3{margin-top:14px;font-size:19px;font-weight:600}
+  .step p{margin-top:10px;font-size:14.5px;color:#555}
+  .step{border-top:2px solid #111;padding-top:24px}
+  /* TESTIMONIALS */
+  .quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+  .quote{border-top:1px solid #e5e5e5;padding-top:28px}
+  .quote .stars{color:#16a34a;font-size:14px;letter-spacing:2px}
+  .quote p{margin-top:14px;font-size:15px;color:#333}
+  .quote .who{margin-top:18px;font-size:13px;color:#888}
+  .quote .who b{color:#111;font-weight:600}
+  /* CTA BAND */
+  .band{background:#111;color:#fff;border-radius:8px;padding:72px 64px;display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap}
+  .band h2{color:#fff;max-width:18ch}
+  .band p{color:#a3a3a3;margin-top:12px;max-width:40ch}
+  .band .btn-green{background:#16a34a;color:#fff}
+  .band .btn-green:hover{opacity:.88}
+  .band .btn-white{background:#fff;color:#111;margin-left:12px}
+  /* FOOTER */
+  footer{border-top:1px solid #ececec;padding:56px 0 40px;margin-top:40px}
+  .foot-grid{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap}
+  .foot-brand{max-width:320px}
+  .foot-brand .logo{font-size:16px}
+  .foot-brand p{margin-top:12px;font-size:13px;color:#888}
+  .foot-links{display:flex;gap:56px;flex-wrap:wrap}
+  .foot-links div h4{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#aaa;margin-bottom:14px}
+  .foot-links a{display:block;font-size:14px;color:#555;margin-bottom:9px}
+  .foot-links a:hover{color:#111}
+  .legal{margin-top:48px;padding-top:24px;border-top:1px solid #ececec;font-size:12px;color:#999;line-height:1.8}
+  @media(max-width:820px){
+    .hero{padding:56px 0}
+    .hero-grid{grid-template-columns:1fr;gap:40px}
+    .hero-img{aspect-ratio:16/10}
+    h1{font-size:38px}
+    h2{font-size:28px}
+    .stats-grid{grid-template-columns:repeat(2,1fr)}
+    .cards{grid-template-columns:1fr}
+    .steps,.quotes{grid-template-columns:1fr;gap:32px}
+    .band{padding:48px 28px}
+    section{padding:64px 0}
+    .nav{height:auto;flex-wrap:wrap;padding:14px 0}
+    .nav-links{gap:16px;flex-wrap:wrap;font-size:13px;order:3;width:100%;padding-bottom:4px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="index.html" class="logo">ClearPath<span>.</span></a>
+    <nav class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+    </nav>
+    <a href="apply.html" class="btn btn-dark">Apply now</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Home loans without the noise</div>
+      <h1>Mortgages, made clear.</h1>
+      <p class="lead">No jargon, no junk fees, no guessing where your file is. Just a straightforward path from application to keys — with a real person on the other end of the line.</p>
+      <div class="hero-ctas">
+        <a href="apply.html" class="btn btn-dark">Start your application</a>
+        <a href="calculator.html" class="btn btn-ghost">Estimate your payment</a>
+      </div>
+      <p class="hero-note"><b>Free rate quote in minutes.</b> No credit pull required to get started.</p>
+    </div>
+    <div class="hero-img" role="img" aria-label="Bright open living room in a modern home"></div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="wrap stats-grid">
+    <div class="stat"><div class="num">$480<em>M</em></div><div class="lbl">Loans funded to date</div></div>
+    <div class="stat"><div class="num">1,900<em>+</em></div><div class="lbl">Families in new homes</div></div>
+    <div class="stat"><div class="num">4.9<em>/5</em></div><div class="lbl">Average client rating</div></div>
+    <div class="stat"><div class="num">12 <em>days</em></div><div class="lbl">Average clear-to-close</div></div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>The right loan, not the loudest one.</h2>
+      <p>We quote every borrower across multiple programs and show you the math side by side. Here are the three we place most often.</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="tag">Most popular</div>
+        <h3>Conventional</h3>
+        <p>Competitive rates for borrowers with solid credit and as little as 3% down. Fixed terms from 15 to 30 years, with no upfront mortgage insurance fee.</p>
+        <a href="programs.html">Explore conventional →</a>
+      </div>
+      <div class="card">
+        <div class="tag">Low down payment</div>
+        <h3>FHA</h3>
+        <p>Down payments from 3.5% and flexible credit guidelines make FHA a strong first step for buyers who are still building their financial profile.</p>
+        <a href="programs.html">Explore FHA →</a>
+      </div>
+      <div class="card">
+        <div class="tag">Lower your payment</div>
+        <h3>Refinance</h3>
+        <p>Trade your current rate for a better one, shorten your term, or take cash out for a renovation. We'll show you the break-even point before you commit.</p>
+        <a href="programs.html">Explore refinance →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Three steps. That's the whole process.</h2>
+      <p>Most of our clients go from first call to clear-to-close in under three weeks. Here's how it works.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="n">STEP 01</div>
+        <h3>Apply in about 8 minutes</h3>
+        <p>Answer a short set of questions online. No documents needed up front — we'll tell you exactly what we need and when.</p>
+      </div>
+      <div class="step">
+        <div class="n">STEP 02</div>
+        <h3>Compare real options</h3>
+        <p>Your loan advisor prices your file across our full lender panel and walks you through the trade-offs in plain English.</p>
+      </div>
+      <div class="step">
+        <div class="n">STEP 03</div>
+        <h3>Close with confidence</h3>
+        <p>We lock your rate, manage underwriting, and keep you updated at every milestone — right up to signing day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>What clients say when it's over.</h2>
+    </div>
+    <div class="quotes">
+      <div class="quote">
+        <div class="stars">★★★★★</div>
+        <p>"I'd been told 'no' by two banks. ClearPath found a program that fit, explained why, and closed in 16 days. I still don't fully believe it happened."</p>
+        <div class="who"><b>Danielle R.</b> · First-time buyer</div>
+      </div>
+      <div class="quote">
+        <div class="stars">★★★★★</div>
+        <p>"Every fee was on the table from day one. When I compared their estimate to the final numbers at closing, they matched to the dollar."</p>
+        <div class="who"><b>Marcus T.</b> · Refinance client</div>
+      </div>
+      <div class="quote">
+        <div class="stars">★★★★★</div>
+        <p>"Our advisor answered a text at 8pm the night before closing. That's the level of service. We've sent three friends already."</p>
+        <div class="who"><b>Priya &amp; Sam K.</b> · Move-up buyers</div>
+      </div>
+    </div>
+    <div style="margin-top:40px"><a href="reviews.html" class="btn btn-ghost">Read all reviews</a></div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="band">
+      <div>
+        <h2>See what your monthly payment looks like.</h2>
+        <p>Run the numbers yourself with our calculator, or apply now and get a personalized quote today.</p>
+      </div>
+      <div>
+        <a href="calculator.html" class="btn btn-green">Open the calculator</a>
+        <a href="apply.html" class="btn btn-white">Apply now</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo">ClearPath<span style="color:#16a34a">.</span></div>
+        <p>A modern mortgage brokerage built on one idea: if you can't explain a loan clearly, you shouldn't be selling it.</p>
+      </div>
+      <div class="foot-links">
+        <div>
+          <h4>Company</h4>
+          <a href="about.html">About us</a>
+          <a href="reviews.html">Reviews</a>
+          <a href="apply.html">Apply now</a>
+        </div>
+        <div>
+          <h4>Loans</h4>
+          <a href="programs.html">All programs</a>
+          <a href="calculator.html">Payment calculator</a>
+          <a href="programs.html">Refinance</a>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <a href="apply.html">(000) 000-0000</a>
+          <a href="apply.html">hello@example.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="legal">
+      ClearPath Mortgage · NMLS #000000 · Equal Housing Opportunity. This is a demo website; all rates, statistics, and testimonials are sample content for illustration only and do not constitute an offer to lend.<br>
+      (000) 000-0000 · hello@example.com · Template by Pilk.ai
+    </div>
+  </div>
+</footer>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

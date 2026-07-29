@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us — Harbor Home Loans</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#fdfdfb;
+  --seaglass:#e8f1ef;
+  --teal:#0e7490;
+  --teal-dark:#0c5f78;
+  --deep:#164e63;
+  --deeper:#0f3a4a;
+  --sand:#d6b98c;
+  --sand-light:#e7d3ae;
+  --ink:#22333b;
+  --ink-soft:#4c6270;
+  --radius:20px;
+  --shadow:0 10px 30px rgba(22,78,99,0.10);
+  --shadow-lift:0 18px 44px rgba(22,78,99,0.16);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Nunito Sans',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif;color:var(--deep);line-height:1.18;font-weight:600;}
+a{color:var(--teal);text-decoration:none;}
+img{max-width:100%;display:block;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+
+.nav{position:sticky;top:0;z-index:50;background:rgba(253,253,251,0.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(22,78,99,0.08);}
+.nav-inner{max-width:1180px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Fraunces',Georgia,serif;font-size:1.25rem;font-weight:700;color:var(--deep);}
+.nav-links{display:flex;align-items:center;gap:4px;flex-wrap:wrap;}
+.nav-links a{padding:8px 14px;border-radius:999px;color:var(--ink-soft);font-weight:700;font-size:0.92rem;transition:background .2s,color .2s;}
+.nav-links a:hover{background:var(--seaglass);color:var(--deep);}
+.nav-links a.active{background:var(--seaglass);color:var(--teal);}
+.nav-cta{padding:10px 22px;border-radius:999px;background:var(--teal);color:#fff !important;font-weight:800;font-size:0.92rem;box-shadow:0 6px 18px rgba(14,116,144,0.32);transition:transform .2s,background .2s;}
+.nav-cta:hover{background:var(--teal-dark);transform:translateY(-2px);}
+
+.btn{display:inline-block;padding:15px 32px;border-radius:999px;font-weight:800;font-size:1rem;transition:transform .2s,background .2s;cursor:pointer;border:none;font-family:'Nunito Sans',sans-serif;}
+.btn-primary{background:var(--teal);color:#fff;box-shadow:0 8px 22px rgba(14,116,144,0.35);}
+.btn-primary:hover{background:var(--teal-dark);transform:translateY(-2px);}
+.btn-sand{background:var(--sand);color:var(--deeper);box-shadow:0 8px 22px rgba(214,185,140,0.4);}
+.btn-sand:hover{background:var(--sand-light);transform:translateY(-2px);}
+
+/* Page hero */
+.page-hero{
+  position:relative;color:#fff;text-align:center;
+  background:linear-gradient(160deg,#0f3a4a 0%,#164e63 55%,#0e7490 100%);
+  background-image:linear-gradient(rgba(15,58,74,0.66),rgba(15,58,74,0.5)),url('/template-previews/_assets/hero-waterfront.jpg');
+  background-size:cover;background-position:center;
+  padding:clamp(70px,10vw,120px) 0 clamp(96px,12vw,140px);
+}
+.page-hero h1{font-size:clamp(2.2rem,5vw,3.5rem);color:#fff;margin-bottom:16px;}
+.page-hero p{max-width:620px;margin:0 auto;font-size:clamp(1rem,2vw,1.18rem);color:rgba(255,255,255,0.92);}
+.hero-eyebrow{display:inline-block;padding:8px 20px;border-radius:999px;background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.3);font-size:0.82rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:22px;backdrop-filter:blur(6px);}
+.wave{display:block;width:100%;height:auto;}
+.page-hero .wave-bottom{position:absolute;left:0;right:0;bottom:-1px;line-height:0;}
+
+.section{padding:clamp(64px,8vw,96px) 0;}
+.section-seaglass{background:var(--seaglass);}
+.kicker{display:inline-block;font-size:0.8rem;font-weight:800;letter-spacing:0.16em;text-transform:uppercase;color:var(--teal);margin-bottom:12px;}
+.section h2{font-size:clamp(1.9rem,4vw,2.7rem);margin-bottom:16px;}
+.section-lead{max-width:640px;color:var(--ink-soft);font-size:1.08rem;margin-bottom:48px;}
+.center{text-align:center;}
+.center .section-lead{margin-left:auto;margin-right:auto;}
+
+/* Story split */
+.split{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(32px,5vw,72px);align-items:center;}
+.split-img{border-radius:24px;overflow:hidden;box-shadow:var(--shadow-lift);background:linear-gradient(140deg,#0e7490,#164e63);aspect-ratio:4/3.2;}
+.split-img img{width:100%;height:100%;object-fit:cover;}
+.split p{color:var(--ink-soft);margin-bottom:16px;}
+
+/* Values */
+.values{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+.value{
+  background:#fff;border-radius:var(--radius);padding:32px 26px;text-align:center;
+  box-shadow:var(--shadow);border:1px solid rgba(22,78,99,0.06);transition:transform .25s,box-shadow .25s;
+}
+.value:hover{transform:translateY(-6px);box-shadow:var(--shadow-lift);}
+.value .icon{width:54px;height:54px;border-radius:16px;background:var(--seaglass);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;}
+.value h3{font-size:1.15rem;margin-bottom:10px;}
+.value p{color:var(--ink-soft);font-size:0.92rem;}
+
+/* Image band */
+.band{
+  position:relative;color:#fff;text-align:center;
+  background:linear-gradient(160deg,#164e63,#0e7490);
+  background-image:linear-gradient(rgba(15,58,74,0.62),rgba(15,58,74,0.55)),url('/template-previews/_assets/hero-open-living.jpg');
+  background-size:cover;background-position:center;background-attachment:scroll;
+  padding:clamp(72px,10vw,120px) 0;
+}
+.band h2{color:#fff;font-size:clamp(1.8rem,4vw,2.6rem);max-width:760px;margin:0 auto 14px;}
+.band p{color:rgba(255,255,255,0.9);max-width:560px;margin:0 auto;font-size:1.05rem;}
+
+/* Team */
+.team{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+.member{
+  background:#fff;border-radius:var(--radius);overflow:hidden;
+  box-shadow:var(--shadow);border:1px solid rgba(22,78,99,0.06);transition:transform .25s,box-shadow .25s;
+}
+.member:hover{transform:translateY(-6px);box-shadow:var(--shadow-lift);}
+.member .photo{aspect-ratio:1/1.05;overflow:hidden;background:linear-gradient(140deg,#e8f1ef,#d3e5e1);}
+.member .photo img{width:100%;height:100%;object-fit:cover;}
+.member .info{padding:22px 22px 26px;text-align:center;}
+.member h3{font-size:1.15rem;margin-bottom:4px;}
+.member .role{color:var(--teal);font-weight:800;font-size:0.88rem;margin-bottom:8px;}
+.member .nmls{display:inline-block;padding:4px 12px;border-radius:999px;background:var(--seaglass);color:var(--ink-soft);font-size:0.75rem;font-weight:800;letter-spacing:0.06em;}
+
+/* CTA band */
+.cta-band{
+  background:linear-gradient(150deg,var(--deep),var(--teal));
+  border-radius:28px;padding:clamp(44px,6vw,72px) clamp(28px,5vw,72px);
+  color:#fff;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;
+  box-shadow:var(--shadow-lift);
+}
+.cta-band h2{color:#fff;font-size:clamp(1.6rem,3.4vw,2.3rem);margin-bottom:8px;}
+.cta-band p{color:rgba(255,255,255,0.9);max-width:520px;}
+
+/* Footer */
+.footer{background:var(--deeper);color:rgba(255,255,255,0.82);padding:64px 0 36px;}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1.2fr;gap:44px;margin-bottom:44px;}
+.footer .brand{color:#fff;margin-bottom:14px;}
+.footer p{font-size:0.92rem;}
+.footer h4{color:#fff;font-family:'Nunito Sans',sans-serif;font-size:0.82rem;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:16px;font-weight:800;}
+.footer ul{list-style:none;}
+.footer ul li{margin-bottom:10px;}
+.footer ul a{color:rgba(255,255,255,0.82);font-size:0.94rem;}
+.footer ul a:hover{color:var(--sand-light);}
+.footer-legal{border-top:1px solid rgba(255,255,255,0.14);padding-top:26px;font-size:0.82rem;color:rgba(255,255,255,0.62);}
+.footer-legal p{margin-bottom:8px;font-size:0.82rem;}
+
+@media (max-width:960px){
+  .split{grid-template-columns:1fr;}
+  .values{grid-template-columns:repeat(2,1fr);}
+  .team{grid-template-columns:repeat(2,1fr);}
+  .footer-grid{grid-template-columns:1fr;gap:32px;}
+}
+@media (max-width:560px){
+  .values{grid-template-columns:1fr;}
+  .team{grid-template-columns:1fr;}
+  .nav-inner{justify-content:center;}
+  .nav-links{justify-content:center;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0e7490" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2.4"/><path d="M12 7.4V21"/><path d="M8 9.5h8"/><path d="M4.5 14c0 4.2 3.4 7 7.5 7s7.5-2.8 7.5-7"/><path d="M4.5 14l-2 -1.5M4.5 14l2 -1.5M19.5 14l2 -1.5M19.5 14l-2 -1.5"/></svg>
+      Harbor Home Loans
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html" class="active">About</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="apply.html" class="nav-cta">Apply now</a>
+    </div>
+  </div>
+</nav>
+
+<header class="page-hero">
+  <div class="wrap">
+    <span class="hero-eyebrow">Our story</span>
+    <h1>Built in a harbor town, for harbor towns</h1>
+    <p>We started with a folding table, a phone, and a view of the marina. The view got better. The philosophy never changed.</p>
+  </div>
+  <div class="wave-bottom">
+    <svg class="wave" viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M0,48 C240,88 480,8 720,38 C960,68 1200,20 1440,52 L1440,90 L0,90 Z" fill="#fdfdfb"/></svg>
+  </div>
+</header>
+
+<section class="section">
+  <div class="wrap">
+    <div class="split">
+      <div class="split-img">
+        <img src="/template-previews/_assets/home-ext-a.jpg" alt="Exterior of a welcoming coastal home on a sunny day">
+      </div>
+      <div>
+        <span class="kicker">How we got here</span>
+        <h2>Founded where the ferries dock</h2>
+        <p>Harbor Home Loans began in a small harbor town office above a bait shop — close enough to the water that we could hear the gulls during client calls. Our founder had spent a decade at a big national lender watching coastal buyers get treated like edge cases: flood zones flagged as problems, second homes as red tape, seasonal income as a mystery.</p>
+        <p>We thought those buyers deserved a lender who considered the coast the main event, not the exception. So we built one. Fifteen years and $800 million in funded loans later, we still work the same way: one advisor per client, plain answers, and no surprises at the closing table.</p>
+        <p>Today we lend across 20+ coastal markets — from weathered-shingle villages in the Northeast to bright stucco towns on the Gulf — and every file still gets read by a human who knows what a wind mitigation report is.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-seaglass">
+  <div class="wrap center">
+    <span class="kicker">What we steer by</span>
+    <h2>Our compass points</h2>
+    <p class="section-lead">Four values, held since day one. They're printed on the wall of our office, but more importantly, they show up in every file we close.</p>
+    <div class="values">
+      <div class="value">
+        <div class="icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0e7490" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2a7 7 0 017 7c0 5-7 13-7 13S5 14 5 9a7 7 0 017-7z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+        <h3>Local knowledge</h3>
+        <p>We know these markets street by street — the flood maps, the insurance quirks, the seasonal rhythms that big lenders miss.</p>
+      </div>
+      <div class="value">
+        <div class="icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0e7490" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div>
+        <h3>Patience</h3>
+        <p>Good decisions take the time they take. We'll never pressure you toward a loan you're not sure about — the right house waits.</p>
+      </div>
+      <div class="value">
+        <div class="icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0e7490" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg></div>
+        <h3>Clear waters</h3>
+        <p>No hidden fees, no fine-print surprises, no jargon left untranslated. Every number explained before you sign anything.</p>
+      </div>
+      <div class="value">
+        <div class="icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0e7490" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M21 21v-2a4 4 0 00-3-3.87"/><path d="M15 3.13a4 4 0 010 7.75"/></svg></div>
+        <h3>Community</h3>
+        <p>We sponsor the regatta, coach the little league, and fund the homes of the people we see at the farmers market. This is home.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <h2>"A mortgage is just the paperwork. What we're really doing is helping someone stand in their own kitchen and watch the light come in."</h2>
+    <p>— The whole crew at Harbor, more or less in unison</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap center">
+    <span class="kicker">The crew</span>
+    <h2>Meet your advisors</h2>
+    <p class="section-lead">Small team, deep experience, zero call centers. When you call Harbor, one of these four picks up.</p>
+    <div class="team">
+      <div class="member">
+        <div class="photo"><img src="/template-previews/_assets/agent-f1.jpg" alt="Portrait of Maren Costa, Founder and Lead Advisor"></div>
+        <div class="info">
+          <h3>Maren Costa</h3>
+          <div class="role">Founder &amp; Lead Advisor</div>
+          <span class="nmls">NMLS #000000</span>
+        </div>
+      </div>
+      <div class="member">
+        <div class="photo"><img src="/template-previews/_assets/agent-m1.jpg" alt="Portrait of Deke Alvarez, Senior Loan Advisor for waterfront and jumbo lending"></div>
+        <div class="info">
+          <h3>Deke Alvarez</h3>
+          <div class="role">Senior Advisor, Waterfront &amp; Jumbo</div>
+          <span class="nmls">NMLS #000000</span>
+        </div>
+      </div>
+      <div class="member">
+        <div class="photo"><img src="/template-previews/_assets/agent-f2.jpg" alt="Portrait of Sailor Whitfield, First-Time Buyer Specialist"></div>
+        <div class="info">
+          <h3>Sailor Whitfield</h3>
+          <div class="role">First-Time Buyer Specialist</div>
+          <span class="nmls">NMLS #000000</span>
+        </div>
+      </div>
+      <div class="member">
+        <div class="photo"><img src="/template-previews/_assets/agent-m2.jpg" alt="Portrait of Reed Calloway, Refinance and Second-Home Advisor"></div>
+        <div class="info">
+          <h3>Reed Calloway</h3>
+          <div class="role">Refinance &amp; Second-Home Advisor</div>
+          <span class="nmls">NMLS #000000</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-seaglass" style="padding-top:0;padding-bottom:clamp(64px,8vw,96px);margin-top:0;">
+  <div class="wrap" style="padding-top:clamp(64px,8vw,96px);">
+    <div class="cta-band">
+      <div>
+        <h2>Come say hello</h2>
+        <p>Whether you're six months out or ready to make an offer this weekend, we'd love to hear what you're planning. First conversation is always free and never pushy.</p>
+      </div>
+      <a href="apply.html" class="btn btn-sand">Apply now</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="brand">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e7d3ae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2.4"/><path d="M12 7.4V21"/><path d="M8 9.5h8"/><path d="M4.5 14c0 4.2 3.4 7 7.5 7s7.5-2.8 7.5-7"/><path d="M4.5 14l-2 -1.5M4.5 14l2 -1.5M19.5 14l2 -1.5M19.5 14l-2 -1.5"/></svg>
+          Harbor Home Loans
+        </div>
+        <p>Mortgage lending for beach houses, vacation escapes, and everyday coastal living. Calm process, clear waters, honest guidance from first call to closing.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="programs.html">Programs</a></li>
+          <li><a href="calculator.html">Calculator</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="reviews.html">Reviews</a></li>
+          <li><a href="apply.html">Apply now</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get in touch</h4>
+        <ul>
+          <li><a href="tel:0000000000">(000) 000-0000</a></li>
+          <li><a href="mailto:hello@example.com">hello@example.com</a></li>
+          <li><a href="apply.html">Start an application</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <p>NMLS #000000 &middot; Equal Housing Lender</p>
+      <p>We are committed to the letter and spirit of U.S. fair housing law and do not discriminate on the basis of race, color, religion, national origin, sex, disability, or familial status.</p>
+      <p>This is a demo template. All rates, names and reviews are sample content.</p>
+      <p>Template by Pilk.ai</p>
+    </div>
+  </div>
+</footer>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

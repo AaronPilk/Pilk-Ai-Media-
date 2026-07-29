@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apply Now — PrimeRate Financial</title>
+<meta name="description" content="Apply with PrimeRate Financial in about 8 minutes. No credit impact to get started, and a licensed loan officer responds within one business day.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#15803d;
+  --green-dark:#166534;
+  --forest:#14532d;
+  --forest-deep:#0f3d21;
+  --tint:#f0fdf4;
+  --tint-line:#bbf7d0;
+  --ink:#0f172a;
+  --muted:#5b6472;
+  --line:#e5e7eb;
+  --error:#b91c1c;
+  --white:#ffffff;
+  --r-sm:8px;
+  --r-md:10px;
+  --r-lg:12px;
+  --shadow:0 1px 2px rgba(15,23,42,.05),0 8px 24px rgba(15,23,42,.06);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;color:var(--ink);background:var(--white);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased;}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+.container{max-width:1160px;margin:0 auto;padding:0 24px;}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;}
+.micro{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green);}
+.micro.on-dark{color:#86efac;}
+h1,h2,h3{line-height:1.15;letter-spacing:-0.02em;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:15px;padding:13px 26px;border-radius:var(--r-md);border:1px solid transparent;cursor:pointer;transition:background .18s,color .18s,border-color .18s,transform .18s;}
+.btn-solid{background:var(--green);color:#fff;}
+.btn-solid:hover{background:var(--green-dark);transform:translateY(-1px);}
+
+.nav{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+.nav-inner{max-width:1160px;margin:0 auto;padding:0 24px;height:68px;display:flex;align-items:center;justify-content:space-between;gap:24px;}
+.brand{display:flex;align-items:center;gap:10px;font-size:19px;letter-spacing:-0.02em;white-space:nowrap;}
+.brand-mark{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,var(--green),var(--forest));display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:13px;flex:0 0 auto;}
+.brand strong{font-weight:800;color:var(--ink);}
+.brand span.lite{font-weight:400;color:var(--muted);}
+.nav-links{display:flex;align-items:center;gap:28px;}
+.nav-links a{font-size:14.5px;font-weight:600;color:var(--muted);padding:6px 2px;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;}
+.nav-links a:hover{color:var(--ink);}
+.nav-links a.active{color:var(--green);border-bottom-color:var(--green);}
+.nav-cta{padding:10px 20px;font-size:14px;}
+.menu-btn{display:none;background:none;border:1px solid var(--line);border-radius:var(--r-sm);width:42px;height:42px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;}
+.menu-btn span{display:block;width:18px;height:2px;background:var(--ink);}
+.mobile-menu{display:none;background:#fff;border-bottom:1px solid var(--line);padding:8px 24px 18px;}
+.mobile-menu a{display:block;padding:12px 4px;font-weight:600;font-size:15.5px;color:var(--ink);border-bottom:1px solid var(--line);}
+.mobile-menu a.active{color:var(--green);}
+.mobile-menu a:last-child{border-bottom:none;}
+.mobile-menu.open{display:block;}
+
+.page-hero{position:relative;padding:80px 0 130px;background:linear-gradient(115deg,#0f3d21,#14532d);overflow:hidden;}
+.page-hero::before{content:"";position:absolute;inset:0;background:linear-gradient(95deg,rgba(10,36,20,.94) 0%,rgba(15,61,33,.84) 55%,rgba(15,61,33,.55) 100%),url('/template-previews/_assets/hero-estate.jpg') center/cover no-repeat;}
+.page-hero .container{position:relative;z-index:2;}
+.page-hero h1{color:#fff;font-size:clamp(32px,4.4vw,48px);font-weight:800;max-width:640px;margin:16px 0 14px;}
+.page-hero p{color:rgba(255,255,255,.82);max-width:560px;font-size:17px;}
+.hero-points{display:flex;gap:26px;flex-wrap:wrap;margin-top:24px;}
+.hero-points span{color:rgba(255,255,255,.85);font-size:13.5px;font-weight:600;display:inline-flex;align-items:center;gap:8px;}
+.hero-points span::before{content:"✓";width:18px;height:18px;border-radius:5px;background:rgba(134,239,172,.2);color:#86efac;font-size:11px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;}
+
+/* FORM */
+.form-section{padding:0 0 96px;background:var(--tint);border-bottom:1px solid var(--tint-line);}
+.form-wrap{max-width:760px;margin:-70px auto 0;position:relative;z-index:5;padding:0 24px;}
+.form-card{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow);overflow:hidden;}
+.form-body{padding:38px 40px 40px;}
+fieldset{border:none;margin-bottom:34px;}
+fieldset:last-of-type{margin-bottom:26px;}
+legend{width:100%;padding-bottom:14px;margin-bottom:22px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;}
+legend .step-n{width:30px;height:30px;border-radius:var(--r-sm);background:var(--forest);color:#fff;font-weight:800;font-size:14px;display:inline-flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums;}
+legend .step-t{font-size:18px;font-weight:800;letter-spacing:-0.01em;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.field{margin-bottom:18px;}
+.field label{display:block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;}
+.field label .req{color:var(--green);}
+.field input,.field select,.field textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:var(--r-sm);font:500 15.5px 'Inter',sans-serif;color:var(--ink);background:#fff;transition:border-color .15s,box-shadow .15s;}
+.field select{font-weight:600;cursor:pointer;}
+.field textarea{resize:vertical;min-height:110px;}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(21,128,61,.15);}
+.field input.invalid,.field select.invalid{border-color:var(--error);box-shadow:0 0 0 3px rgba(185,28,28,.1);}
+.form-error{display:none;margin-bottom:18px;padding:13px 16px;border:1px solid #fecaca;background:#fef2f2;color:var(--error);border-radius:var(--r-sm);font-size:14px;font-weight:600;}
+.form-error.show{display:block;}
+.submit-row{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;}
+.submit-row .note{font-size:12.5px;color:var(--muted);max-width:340px;}
+.submit-row .btn{padding:15px 34px;font-size:16px;}
+/* SUCCESS */
+.success{display:none;padding:56px 40px;text-align:center;}
+.success.show{display:block;}
+.success .check{width:64px;height:64px;border-radius:16px;background:var(--tint);border:1px solid var(--tint-line);color:var(--green);font-size:30px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;margin-bottom:22px;}
+.success h2{font-size:26px;font-weight:800;margin-bottom:12px;}
+.success p{color:var(--muted);max-width:460px;margin:0 auto 10px;}
+.success .demo-note{font-size:12.5px;color:var(--muted);margin-top:18px;padding-top:18px;border-top:1px solid var(--line);}
+
+footer{background:var(--forest-deep);color:rgba(255,255,255,.72);padding:64px 0 110px;font-size:14px;}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.4fr;gap:44px;margin-bottom:44px;}
+.foot-brand{display:flex;align-items:center;gap:10px;font-size:18px;margin-bottom:14px;color:#fff;}
+.foot-brand strong{font-weight:800;}
+.foot-brand span.lite{font-weight:400;color:rgba(255,255,255,.6);}
+.foot-col h4{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#86efac;margin-bottom:16px;}
+.foot-col a{display:block;padding:5px 0;color:rgba(255,255,255,.72);transition:color .15s;}
+.foot-col a:hover{color:#fff;}
+.foot-legal{border-top:1px solid rgba(255,255,255,.12);padding-top:28px;font-size:12.5px;color:rgba(255,255,255,.5);line-height:1.7;}
+.foot-legal strong{color:rgba(255,255,255,.75);}
+.eh-mark{display:inline-flex;align-items:center;gap:8px;margin-bottom:10px;color:rgba(255,255,255,.75);font-weight:700;font-size:12.5px;letter-spacing:.06em;}
+
+@media (max-width:900px){
+  .nav-links,.nav-cta{display:none;}
+  .menu-btn{display:flex;}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:32px;}
+}
+@media (max-width:560px){
+  .grid-2{grid-template-columns:1fr;}
+  .form-body{padding:28px 22px 30px;}
+  .success{padding:44px 22px;}
+  .foot-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">%</span><strong>PrimeRate</strong><span class="lite">Financial</span></a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+    </nav>
+    <a class="btn btn-solid nav-cta" href="apply.html" style="background:var(--forest);">Apply now</a>
+    <button class="menu-btn" aria-label="Open menu" onclick="document.getElementById('mm').classList.toggle('open')"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mm">
+    <a href="index.html">Home</a>
+    <a href="programs.html">Programs</a>
+    <a href="calculator.html">Calculator</a>
+    <a href="about.html">About</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="apply.html" class="active" style="color:var(--green);font-weight:700;">Apply now →</a>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="micro on-dark">Application · about 8 minutes</div>
+    <h1>Let's find your number.</h1>
+    <p>Tell us the basics below. A licensed loan officer prices your scenario across every program you qualify for and responds within one business day.</p>
+    <div class="hero-points">
+      <span>No credit impact to start</span>
+      <span>No obligation</span>
+      <span>Response within 1 business day</span>
+    </div>
+  </div>
+</div>
+
+<section class="form-section">
+  <div class="form-wrap">
+    <div class="form-card">
+
+      <form id="applyForm" class="form-body" novalidate>
+        <div class="form-error" id="formError">Please complete the highlighted required fields.</div>
+
+        <fieldset>
+          <legend><span class="step-n">1</span><span class="step-t">About you</span></legend>
+          <div class="grid-2">
+            <div class="field">
+              <label for="fname">First name <span class="req">*</span></label>
+              <input type="text" id="fname" name="fname" autocomplete="given-name" required>
+            </div>
+            <div class="field">
+              <label for="lname">Last name <span class="req">*</span></label>
+              <input type="text" id="lname" name="lname" autocomplete="family-name" required>
+            </div>
+            <div class="field">
+              <label for="email">Email <span class="req">*</span></label>
+              <input type="email" id="email" name="email" autocomplete="email" placeholder="you@example.com" required>
+            </div>
+            <div class="field">
+              <label for="phone">Phone <span class="req">*</span></label>
+              <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="(000) 000-0000" required>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend><span class="step-n">2</span><span class="step-t">The loan</span></legend>
+          <div class="grid-2">
+            <div class="field">
+              <label for="purpose">Loan purpose <span class="req">*</span></label>
+              <select id="purpose" name="purpose" required>
+                <option value="">Select…</option>
+                <option>Buy a home</option>
+                <option>Refinance — lower my rate</option>
+                <option>Refinance — cash out</option>
+                <option>First-time purchase</option>
+                <option>Investment property</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="state">Property state <span class="req">*</span></label>
+              <select id="state" name="state" required>
+                <option value="">Select…</option>
+                <option>Arizona</option>
+                <option>Colorado</option>
+                <option>Florida</option>
+                <option>Georgia</option>
+                <option>Minnesota</option>
+                <option>North Carolina</option>
+                <option>Ohio</option>
+                <option>Tennessee</option>
+                <option>Texas</option>
+                <option>Washington</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="priceRange">Estimated price range <span class="req">*</span></label>
+              <select id="priceRange" name="priceRange" required class="num">
+                <option value="">Select…</option>
+                <option>Under $250,000</option>
+                <option>$250,000 – $400,000</option>
+                <option>$400,000 – $600,000</option>
+                <option>$600,000 – $800,000</option>
+                <option>$800,000 – $1,500,000</option>
+                <option>Over $1,500,000</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="downPay">Down payment <span class="req">*</span></label>
+              <select id="downPay" name="downPay" required class="num">
+                <option value="">Select…</option>
+                <option>0% (VA eligible)</option>
+                <option>3% – 5%</option>
+                <option>5% – 10%</option>
+                <option>10% – 20%</option>
+                <option>20% or more</option>
+                <option>Not sure yet</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend><span class="step-n">3</span><span class="step-t">Timeline</span></legend>
+          <div class="field">
+            <label for="timeline">When do you want to move? <span class="req">*</span></label>
+            <select id="timeline" name="timeline" required>
+              <option value="">Select…</option>
+              <option>ASAP — I'm under contract or close to it</option>
+              <option>1–3 months</option>
+              <option>3–6 months</option>
+              <option>Just researching rates</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="message">Anything else we should know?</label>
+            <textarea id="message" name="message" placeholder="Existing quotes to beat, credit questions, special circumstances — the more numbers, the better."></textarea>
+          </div>
+        </fieldset>
+
+        <div class="submit-row">
+          <p class="note">By submitting, you agree to be contacted about your inquiry. No credit check is performed at this stage.</p>
+          <button type="submit" class="btn btn-solid">Submit application →</button>
+        </div>
+      </form>
+
+      <div class="success" id="successPanel" role="status">
+        <div class="check">✓</div>
+        <h2>Application received</h2>
+        <p>Application received — a licensed loan officer will contact you within 1 business day.</p>
+        <p>In the meantime, feel free to <a href="calculator.html" style="color:var(--green);font-weight:700;">run payment scenarios</a> or <a href="programs.html" style="color:var(--green);font-weight:700;">compare programs</a>.</p>
+        <p class="demo-note">This is a demo template — no data was sent or stored anywhere.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand"><span class="brand-mark">%</span><strong>PrimeRate</strong><span class="lite">Financial</span></div>
+        <p>A direct mortgage lender built by rate analysts. We publish our pricing daily, underwrite up front, and close on schedule. Obsessed with your rate — because nobody else is.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Explore</h4>
+        <a href="index.html">Home</a>
+        <a href="programs.html">Programs</a>
+        <a href="calculator.html">Calculator</a>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <a href="about.html">About</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="apply.html">Apply now</a>
+      </div>
+      <div class="foot-col">
+        <h4>Contact</h4>
+        <a href="tel:0000000000" class="num">(000) 000-0000</a>
+        <a href="mailto:hello@example.com">hello@example.com</a>
+        <a href="#">Mon–Fri, 8am–7pm ET</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <div class="eh-mark">⌂ EQUAL HOUSING LENDER</div>
+      <p><strong>NMLS #000000 · Equal Housing Lender.</strong> PrimeRate Financial is committed to the letter and spirit of U.S. policy for the achievement of equal housing opportunity, and we encourage and support an affirmative program in which there are no barriers to obtaining housing because of race, color, religion, sex, handicap, familial status, or national origin.</p>
+      <p style="margin-top:10px;">Sample rates for demonstration only — not an offer of credit. This is a demo website template; all names, numbers, rates, and reviews are fictional sample content and do not represent a real lender.</p>
+      <p style="margin-top:10px;">© 2026 PrimeRate Financial (Demo) · Template by Pilk.ai</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var form = document.getElementById('applyForm');
+  var errorBox = document.getElementById('formError');
+  var successPanel = document.getElementById('successPanel');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var required = form.querySelectorAll('[required]');
+    var valid = true;
+    var firstInvalid = null;
+
+    required.forEach(function(el){
+      var bad = !el.value || !el.value.trim();
+      if (!bad && el.type === 'email') {
+        bad = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim());
+      }
+      el.classList.toggle('invalid', bad);
+      if (bad) {
+        valid = false;
+        if (!firstInvalid) firstInvalid = el;
+      }
+    });
+
+    if (!valid) {
+      errorBox.classList.add('show');
+      if (firstInvalid) firstInvalid.focus();
+      return;
+    }
+
+    errorBox.classList.remove('show');
+    form.style.display = 'none';
+    successPanel.classList.add('show');
+    successPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+
+  // Clear invalid state as the user fixes fields
+  form.addEventListener('input', function(e){
+    if (e.target.classList && e.target.classList.contains('invalid') && e.target.value.trim()) {
+      e.target.classList.remove('invalid');
+    }
+  });
+})();
+</script>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

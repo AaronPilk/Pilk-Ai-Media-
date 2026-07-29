@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loan Programs — TrustPoint Lending</title>
+<meta name="description" content="Conventional, FHA, VA, Jumbo, refinance, and first-time buyer programs from TrustPoint Lending.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0d2247;
+  --navy-dark:#091a38;
+  --gold:#c9a227;
+  --gold-hover:#b8931f;
+  --ink:#1d2637;
+  --muted:#5b6577;
+  --band:#f4f6f9;
+  --line:#e2e7ef;
+  --r:5px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Source Sans 3',system-ui,-apple-system,sans-serif;color:var(--ink);background:#fff;line-height:1.65;font-size:16.5px;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:'Source Serif 4',Georgia,'Times New Roman',serif;color:var(--navy);line-height:1.2;font-weight:600}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+.eyebrow{display:block;font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.gold-rule{width:52px;height:2px;background:var(--gold);border:0;margin:18px 0 22px}
+.gold-rule.center{margin-left:auto;margin-right:auto}
+.btn{display:inline-block;padding:14px 30px;border-radius:4px;font-weight:700;font-size:15.5px;letter-spacing:.02em;transition:background .18s,color .18s,border-color .18s;cursor:pointer;border:1px solid transparent;text-align:center}
+.btn-gold{background:var(--gold);color:var(--navy-dark)}
+.btn-gold:hover{background:var(--gold-hover)}
+.btn-sm{padding:11px 22px;font-size:14px}
+.btn-outline-navy{border-color:var(--navy);color:var(--navy)}
+.btn-outline-navy:hover{background:var(--navy);color:#fff}
+.util{background:var(--navy-dark);color:#aab6cc;font-size:12.5px;letter-spacing:.04em}
+.util-in{display:flex;justify-content:space-between;align-items:center;padding:8px 0;gap:12px}
+.util-in .tag{color:#8d9cb8;font-style:italic;font-family:'Source Serif 4',Georgia,serif}
+.util-in strong{color:#d5dcea;font-weight:600}
+.nav{background:var(--navy);border-bottom:1px solid rgba(201,162,39,.35);position:sticky;top:0;z-index:1000}
+.nav-in{display:flex;align-items:center;justify-content:space-between;padding:16px 0;gap:18px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Source Serif 4',Georgia,serif;font-size:21px;font-weight:700;color:#fff}
+.brand span{color:var(--gold)}
+.nav-links{display:flex;align-items:center;gap:26px;flex-wrap:wrap}
+.nav-links a{color:rgba(255,255,255,.85);font-size:15px;font-weight:600;padding:6px 0;border-bottom:2px solid transparent;transition:color .15s,border-color .15s}
+.nav-links a:hover{color:#fff}
+.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-cta{background:var(--gold);color:var(--navy-dark);padding:11px 22px;border-radius:4px;font-weight:700;font-size:14.5px;transition:background .18s}
+.nav-cta:hover{background:var(--gold-hover)}
+
+/* page header */
+.page-head{background-image:linear-gradient(rgba(13,34,71,.78),rgba(9,26,56,.88)),url('/template-previews/_assets/home-ext-b.jpg');background-size:cover;background-position:center;color:#fff;padding:84px 0;text-align:center}
+.page-head h1{color:#fff;font-size:44px;margin-bottom:14px}
+.page-head p{color:rgba(255,255,255,.84);max-width:620px;margin:0 auto;font-size:18px}
+
+.section{padding:88px 0}
+.section.band{background:var(--band)}
+
+/* program blocks */
+.prog-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.prog{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:40px 36px;display:flex;flex-direction:column;transition:box-shadow .2s,transform .2s;position:relative}
+.prog:hover{box-shadow:0 14px 34px rgba(13,34,71,.12);transform:translateY(-3px)}
+.prog .glyph{width:48px;height:48px;border-radius:4px;background:var(--navy);color:var(--gold);display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.prog h2{font-size:25px;margin-bottom:6px}
+.prog .sub{font-size:12.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.prog p{color:var(--muted);font-size:15.5px;margin-bottom:20px}
+.prog ul{list-style:none;margin:0 0 26px;flex:1}
+.prog li{padding:8px 0 8px 30px;position:relative;font-size:15px;border-bottom:1px solid var(--band)}
+.prog li:last-child{border-bottom:0}
+.prog li:before{content:"";position:absolute;left:2px;top:15px;width:14px;height:8px;border-left:2.5px solid var(--gold);border-bottom:2.5px solid var(--gold);transform:rotate(-45deg)}
+.prog li b{color:var(--navy)}
+.prog .btn{align-self:flex-start}
+
+/* featured jumbo */
+.prog.featured{grid-column:1 / -1;background:var(--navy);border-color:var(--navy);border-top:3px solid var(--gold);display:grid;grid-template-columns:1.2fr 1fr;gap:44px;align-items:center}
+.prog.featured:hover{transform:none;box-shadow:0 18px 44px rgba(9,26,56,.35)}
+.prog.featured h2{color:#fff;font-size:31px}
+.prog.featured .flag{display:inline-block;background:var(--gold);color:var(--navy-dark);font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:5px 12px;border-radius:3px;margin-bottom:18px}
+.prog.featured p{color:#b9c4d8}
+.prog.featured li{color:#dfe5f0;border-bottom-color:rgba(255,255,255,.08)}
+.prog.featured li b{color:#fff}
+.prog.featured .glyph{background:rgba(201,162,39,.15)}
+.featured-img{border-radius:var(--r);overflow:hidden;border:1px solid rgba(201,162,39,.35);min-height:320px;background-image:linear-gradient(rgba(13,34,71,.15),rgba(13,34,71,.25)),url('/template-previews/_assets/ext-glass-home.jpg');background-size:cover;background-position:center}
+
+/* rate note */
+.note{background:var(--band);border-left:3px solid var(--gold);border-radius:0 var(--r) var(--r) 0;padding:26px 30px;margin-top:56px;color:var(--muted);font-size:14.5px}
+.note b{color:var(--navy)}
+
+/* cta band */
+.cta-band{background-image:linear-gradient(rgba(13,34,71,.82),rgba(9,26,56,.9)),url('/template-previews/_assets/home-ext-c.jpg');background-size:cover;background-position:center;color:#fff;padding:92px 0;text-align:center}
+.cta-band h2{color:#fff;font-size:35px;margin-bottom:14px}
+.cta-band p{color:rgba(255,255,255,.82);max-width:540px;margin:0 auto 30px;font-size:17.5px}
+
+/* footer */
+.footer{background:var(--navy-dark);color:#9aa7bf;font-size:14.5px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1.2fr;gap:48px;padding:70px 0 54px}
+.f-brand{display:flex;align-items:center;gap:10px;font-family:'Source Serif 4',Georgia,serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:16px}
+.f-brand span{color:var(--gold)}
+.footer p{max-width:360px}
+.footer h4{color:#fff;font-family:'Source Sans 3',sans-serif;font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:18px;font-weight:700}
+.footer h4:after{content:"";display:block;width:28px;height:2px;background:var(--gold);margin-top:8px}
+.f-links a{display:block;padding:4px 0;transition:color .15s}
+.f-links a:hover{color:var(--gold)}
+.f-contact div{padding:4px 0}
+.f-contact b{color:#d5dcea;font-weight:600}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding:22px 0;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:13px;color:#7a889f}
+.footer-bottom a{color:var(--gold)}
+
+@media (max-width:960px){
+  .prog-grid{grid-template-columns:1fr}
+  .prog.featured{grid-template-columns:1fr}
+  .featured-img{min-height:240px}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .util-in{justify-content:center;text-align:center}
+  .util-in .tag{display:none}
+  .nav-in{justify-content:center}
+  .nav-links{justify-content:center;gap:16px}
+  .page-head{padding:60px 0}
+  .page-head h1{font-size:32px}
+  .section{padding:60px 0}
+  .prog{padding:30px 24px}
+  .prog.featured h2{font-size:25px}
+  .cta-band h2{font-size:27px}
+  .footer-grid{grid-template-columns:1fr;gap:36px;padding:54px 0 40px}
+  .footer-bottom{justify-content:center;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<div class="util">
+  <div class="wrap util-in">
+    <span class="tag">Lending you can bank on.</span>
+    <span><strong>(000) 000-0000</strong> &nbsp;·&nbsp; NMLS #345678</span>
+  </div>
+</div>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="index.html">
+      <svg width="22" height="26" viewBox="0 0 22 26" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11 1 21 4.8v7.1c0 6.2-4.2 10.9-10 13.1C5.2 22.8 1 18.1 1 11.9V4.8L11 1Z" fill="#c9a227"/><path d="M11 5.6 16.4 7.7v4.1c0 3.7-2.3 6.5-5.4 8-3.1-1.5-5.4-4.3-5.4-8V7.7L11 5.6Z" fill="#0d2247"/><path d="M11 9.4l3 1.2v2.1c0 2-1.3 3.5-3 4.4-1.7-.9-3-2.4-3-4.4v-2.1l3-1.2Z" fill="#c9a227"/></svg>
+      TrustPoint&nbsp;<span>Lending</span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html" class="active">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="apply.html" class="nav-cta">Apply now</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-head">
+  <div class="wrap">
+    <span class="eyebrow">Loan Programs</span>
+    <h1>Six programs. One standard.</h1>
+    <p>Whatever the loan, the discipline is the same: documented rates, in-house underwriting, and a closing date we treat as a commitment.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="prog-grid">
+
+      <!-- JUMBO — featured -->
+      <div class="prog featured">
+        <div>
+          <span class="flag">Our Specialty</span>
+          <h2>Jumbo Loans</h2>
+          <div class="sub">For loan amounts above conforming limits</div>
+          <p>Large loans deserve judgment, not checkboxes. Our jumbo portfolio is underwritten in-house by senior underwriters who understand complex income, substantial assets, and properties that don't fit an algorithm. It is the program our reputation was built on.</p>
+          <ul>
+            <li><b>Loan amounts to $3.5M</b> — higher by exception, reviewed case-by-case</li>
+            <li><b>As little as 10.01% down</b> on qualifying loan amounts</li>
+            <li><b>Credit guidance:</b> strongest terms at 700+, with in-house flexibility for well-documented files</li>
+            <li><b>Best for:</b> luxury purchases, relocation executives, self-employed borrowers with layered income</li>
+          </ul>
+          <a class="btn btn-gold" href="apply.html">Apply for a jumbo loan</a>
+        </div>
+        <div class="featured-img" role="img" aria-label="Modern glass luxury home"></div>
+      </div>
+
+      <!-- Conventional -->
+      <div class="prog">
+        <div class="glyph"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9.5 21v-6h5v6"/></svg></div>
+        <h2>Conventional</h2>
+        <div class="sub">Fixed &amp; adjustable · 10 to 30 year terms</div>
+        <p>The benchmark mortgage, executed properly. Competitive pricing on fixed and adjustable terms, with rate locks documented in writing the day you commit.</p>
+        <ul>
+          <li><b>Down payments from 3%</b> for qualifying borrowers</li>
+          <li><b>Credit guidance:</b> 620 minimum; best pricing typically at 740+</li>
+          <li><b>Best for:</b> established buyers who want the strongest long-term terms</li>
+        </ul>
+        <a class="btn btn-outline-navy btn-sm" href="apply.html">Start an application</a>
+      </div>
+
+      <!-- FHA -->
+      <div class="prog">
+        <div class="glyph"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V9l8-6 8 6v12"/><path d="M4 21h16"/><path d="M10 21v-5a2 2 0 0 1 4 0v5"/></svg></div>
+        <h2>FHA</h2>
+        <div class="sub">Government-insured · lower barriers to entry</div>
+        <p>A federally insured program administered with private-bank care. Lower down payment and credit thresholds, without a lowered standard of service.</p>
+        <ul>
+          <li><b>Down payments from 3.5%</b></li>
+          <li><b>Credit guidance:</b> 580+, with documented compensating factors below that</li>
+          <li><b>Best for:</b> buyers building credit or purchasing with limited savings</li>
+        </ul>
+        <a class="btn btn-outline-navy btn-sm" href="apply.html">Start an application</a>
+      </div>
+
+      <!-- VA -->
+      <div class="prog">
+        <div class="glyph"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 20 5.5V11c0 5.2-3.4 9.2-8 11-4.6-1.8-8-5.8-8-11V5.5L12 2Z"/><path d="m8.5 11.5 2.5 2.5 4.5-4.5"/></svg></div>
+        <h2>VA</h2>
+        <div class="sub">For those who served · zero down available</div>
+        <p>An earned benefit, handled with the seriousness it deserves. Our VA team knows entitlement, funding fee exemptions, and the paperwork cold — so you don't have to.</p>
+        <ul>
+          <li><b>0% down</b> for eligible veterans, service members, and surviving spouses</li>
+          <li><b>No private mortgage insurance</b>, ever</li>
+          <li><b>Best for:</b> eligible military families who want maximum buying power</li>
+        </ul>
+        <a class="btn btn-outline-navy btn-sm" href="apply.html">Start an application</a>
+      </div>
+
+      <!-- Refinance -->
+      <div class="prog">
+        <div class="glyph"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.3"/><path d="M21 3v6h-6"/></svg></div>
+        <h2>Refinance</h2>
+        <div class="sub">Rate &amp; term · cash-out · consolidation</div>
+        <p>A refinance is a calculation, not a gamble. Before you commit, we model your break-even point, total interest saved, and cash-flow impact — in writing.</p>
+        <ul>
+          <li><b>Written break-even analysis</b> before any commitment</li>
+          <li><b>Cash-out options</b> to 80% of appraised value</li>
+          <li><b>Best for:</b> lowering payments, shortening terms, or funding major projects prudently</li>
+        </ul>
+        <a class="btn btn-outline-navy btn-sm" href="apply.html">Start an application</a>
+      </div>
+
+      <!-- First-Time Buyer -->
+      <div class="prog">
+        <div class="glyph"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7a4 4 0 1 1-6 3.5"/><path d="M3 21v-2a6 6 0 0 1 6-6h2"/><path d="m16 11 2 2 4-4"/></svg></div>
+        <h2>First-Time Buyer</h2>
+        <div class="sub">Guidance-first lending for first purchases</div>
+        <p>Your first mortgage sets the pattern for every one after it. We pair first-time buyers with a senior officer who explains every line item — and we put the education in writing.</p>
+        <ul>
+          <li><b>Down payments from 3%</b>, with down-payment assistance program guidance</li>
+          <li><b>Credit guidance:</b> a written improvement roadmap if you're not ready yet</li>
+          <li><b>Best for:</b> first purchases where confidence matters as much as the rate</li>
+        </ul>
+        <a class="btn btn-outline-navy btn-sm" href="apply.html">Start an application</a>
+      </div>
+
+    </div>
+
+    <div class="note">
+      <b>A note on rates.</b> We do not publish teaser rates. Your quoted rate reflects your actual file — credit, loan size, property, and term — and once locked, it is documented in writing and honored. For illustration figures, use our <a href="calculator.html" style="color:var(--gold-hover);font-weight:700">payment calculator</a>.
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap">
+    <span class="eyebrow">Next Step</span>
+    <h2>Not sure which program fits?</h2>
+    <p>Apply once. A senior loan officer will review your file and recommend the program that actually serves you — with the reasoning documented.</p>
+    <a class="btn btn-gold" href="apply.html">Apply now</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div>
+      <div class="f-brand">
+        <svg width="20" height="24" viewBox="0 0 22 26" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11 1 21 4.8v7.1c0 6.2-4.2 10.9-10 13.1C5.2 22.8 1 18.1 1 11.9V4.8L11 1Z" fill="#c9a227"/><path d="M11 5.6 16.4 7.7v4.1c0 3.7-2.3 6.5-5.4 8-3.1-1.5-5.4-4.3-5.4-8V7.7L11 5.6Z" fill="#091a38"/></svg>
+        TrustPoint&nbsp;<span>Lending</span>
+      </div>
+      <p>Three decades of disciplined mortgage lending. Documented rates, in-house underwriting, and closings that arrive on schedule. Lending you can bank on.</p>
+    </div>
+    <div>
+      <h4>Navigate</h4>
+      <div class="f-links">
+        <a href="index.html">Home</a>
+        <a href="programs.html">Loan Programs</a>
+        <a href="calculator.html">Payment Calculator</a>
+        <a href="about.html">About Us</a>
+        <a href="reviews.html">Client Reviews</a>
+        <a href="apply.html">Apply Now</a>
+      </div>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <div class="f-contact">
+        <div><b>(000) 000-0000</b></div>
+        <div><b>hello@example.com</b></div>
+        <div>Mon–Fri · 8:30a – 6:00p</div>
+        <div style="margin-top:12px">NMLS #345678</div>
+        <div>⌂ &nbsp;TrustPoint Lending is a demo brand. Equal Housing Lender.</div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© 2026 TrustPoint Lending · NMLS #345678 · All rights reserved.</span>
+    <span>Template by <a href="#">Pilk.ai</a></span>
+  </div>
+</footer>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

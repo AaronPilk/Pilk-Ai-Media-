@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Reviews — Harbor Home Loans</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#fdfdfb;
+  --seaglass:#e8f1ef;
+  --teal:#0e7490;
+  --teal-dark:#0c5f78;
+  --deep:#164e63;
+  --deeper:#0f3a4a;
+  --sand:#d6b98c;
+  --sand-light:#e7d3ae;
+  --ink:#22333b;
+  --ink-soft:#4c6270;
+  --radius:20px;
+  --shadow:0 10px 30px rgba(22,78,99,0.10);
+  --shadow-lift:0 18px 44px rgba(22,78,99,0.16);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Nunito Sans',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif;color:var(--deep);line-height:1.18;font-weight:600;}
+a{color:var(--teal);text-decoration:none;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+
+.nav{position:sticky;top:0;z-index:50;background:rgba(253,253,251,0.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(22,78,99,0.08);}
+.nav-inner{max-width:1180px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Fraunces',Georgia,serif;font-size:1.25rem;font-weight:700;color:var(--deep);}
+.nav-links{display:flex;align-items:center;gap:4px;flex-wrap:wrap;}
+.nav-links a{padding:8px 14px;border-radius:999px;color:var(--ink-soft);font-weight:700;font-size:0.92rem;transition:background .2s,color .2s;}
+.nav-links a:hover{background:var(--seaglass);color:var(--deep);}
+.nav-links a.active{background:var(--seaglass);color:var(--teal);}
+.nav-cta{padding:10px 22px;border-radius:999px;background:var(--teal);color:#fff !important;font-weight:800;font-size:0.92rem;box-shadow:0 6px 18px rgba(14,116,144,0.32);transition:transform .2s,background .2s;}
+.nav-cta:hover{background:var(--teal-dark);transform:translateY(-2px);}
+
+.btn{display:inline-block;padding:15px 32px;border-radius:999px;font-weight:800;font-size:1rem;transition:transform .2s,background .2s;cursor:pointer;border:none;font-family:'Nunito Sans',sans-serif;}
+.btn-sand{background:var(--sand);color:var(--deeper);box-shadow:0 8px 22px rgba(214,185,140,0.4);}
+.btn-sand:hover{background:var(--sand-light);transform:translateY(-2px);}
+
+/* Page hero */
+.page-hero{
+  position:relative;color:#fff;text-align:center;
+  background:linear-gradient(160deg,#0f3a4a 0%,#164e63 55%,#0e7490 100%);
+  background-image:linear-gradient(rgba(15,58,74,0.7),rgba(15,58,74,0.55)),url('/template-previews/_assets/living-room.jpg');
+  background-size:cover;background-position:center;
+  padding:clamp(64px,9vw,110px) 0 clamp(96px,12vw,140px);
+}
+.page-hero h1{font-size:clamp(2.2rem,5vw,3.5rem);color:#fff;margin-bottom:14px;}
+.page-hero p{max-width:600px;margin:0 auto;font-size:clamp(1rem,2vw,1.15rem);color:rgba(255,255,255,0.92);}
+.hero-eyebrow{display:inline-block;padding:8px 20px;border-radius:999px;background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.3);font-size:0.82rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:22px;backdrop-filter:blur(6px);}
+.agg{
+  display:inline-flex;align-items:center;gap:14px;margin-top:26px;padding:14px 28px;border-radius:999px;
+  background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.3);backdrop-filter:blur(6px);
+  flex-wrap:wrap;justify-content:center;
+}
+.agg .score{font-family:'Fraunces',Georgia,serif;font-size:1.7rem;font-weight:700;}
+.agg .stars{color:var(--sand-light);font-size:1.15rem;letter-spacing:3px;}
+.agg .count{font-size:0.92rem;font-weight:700;color:rgba(255,255,255,0.9);}
+.wave{display:block;width:100%;height:auto;}
+.page-hero .wave-bottom{position:absolute;left:0;right:0;bottom:-1px;line-height:0;}
+
+.section{padding:0 0 clamp(64px,8vw,96px);}
+.section-pad{padding:clamp(64px,8vw,96px) 0;}
+.section-seaglass{background:var(--seaglass);}
+
+/* Review grid */
+.review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:-56px;position:relative;z-index:2;}
+.review{
+  background:#fff;border-radius:var(--radius);padding:30px 28px;
+  box-shadow:var(--shadow);border:1px solid rgba(22,78,99,0.06);
+  display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s;
+}
+.review:hover{transform:translateY(-6px);box-shadow:var(--shadow-lift);}
+.review .stars{color:var(--sand);font-size:1.05rem;letter-spacing:2px;margin-bottom:8px;}
+.review .type{display:inline-block;align-self:flex-start;padding:4px 12px;border-radius:999px;background:var(--seaglass);color:var(--teal);font-size:0.72rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:14px;}
+.review p{color:var(--ink);font-size:0.96rem;flex:1;margin-bottom:18px;}
+.review footer{display:flex;align-items:center;gap:12px;}
+.review .avatar{
+  width:42px;height:42px;border-radius:50%;flex:none;
+  background:linear-gradient(140deg,var(--teal),var(--deep));color:#fff;
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.9rem;
+}
+.review .who b{display:block;color:var(--deep);font-size:0.94rem;}
+.review .who span{color:var(--ink-soft);font-size:0.84rem;font-weight:700;}
+
+/* CTA band */
+.cta-band{
+  background:linear-gradient(150deg,var(--deep),var(--teal));
+  border-radius:28px;padding:clamp(44px,6vw,72px) clamp(28px,5vw,72px);
+  color:#fff;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;
+  box-shadow:var(--shadow-lift);
+}
+.cta-band h2{color:#fff;font-size:clamp(1.6rem,3.4vw,2.3rem);margin-bottom:8px;}
+.cta-band p{color:rgba(255,255,255,0.9);max-width:520px;}
+
+/* Footer */
+.footer{background:var(--deeper);color:rgba(255,255,255,0.82);padding:64px 0 36px;}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1.2fr;gap:44px;margin-bottom:44px;}
+.footer .brand{color:#fff;margin-bottom:14px;}
+.footer p{font-size:0.92rem;}
+.footer h4{color:#fff;font-family:'Nunito Sans',sans-serif;font-size:0.82rem;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:16px;font-weight:800;}
+.footer ul{list-style:none;}
+.footer ul li{margin-bottom:10px;}
+.footer ul a{color:rgba(255,255,255,0.82);font-size:0.94rem;}
+.footer ul a:hover{color:var(--sand-light);}
+.footer-legal{border-top:1px solid rgba(255,255,255,0.14);padding-top:26px;font-size:0.82rem;color:rgba(255,255,255,0.62);}
+.footer-legal p{margin-bottom:8px;font-size:0.82rem;}
+
+@media (max-width:960px){
+  .review-grid{grid-template-columns:repeat(2,1fr);}
+  .footer-grid{grid-template-columns:1fr;gap:32px;}
+}
+@media (max-width:640px){
+  .review-grid{grid-template-columns:1fr;margin-top:-46px;}
+  .nav-inner{justify-content:center;}
+  .nav-links{justify-content:center;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0e7490" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2.4"/><path d="M12 7.4V21"/><path d="M8 9.5h8"/><path d="M4.5 14c0 4.2 3.4 7 7.5 7s7.5-2.8 7.5-7"/><path d="M4.5 14l-2 -1.5M4.5 14l2 -1.5M19.5 14l2 -1.5M19.5 14l-2 -1.5"/></svg>
+      Harbor Home Loans
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html" class="active">Reviews</a>
+      <a href="apply.html" class="nav-cta">Apply now</a>
+    </div>
+  </div>
+</nav>
+
+<header class="page-hero">
+  <div class="wrap">
+    <span class="hero-eyebrow">Client reviews</span>
+    <h1>Word travels up the coast</h1>
+    <p>We don't advertise much. We don't have to — our clients do it for us, one closing at a time.</p>
+    <div class="agg">
+      <span class="score">4.9</span>
+      <span class="stars" aria-label="4.9 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+      <span class="count">280+ verified client reviews</span>
+    </div>
+  </div>
+  <div class="wave-bottom">
+    <svg class="wave" viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M0,48 C240,88 480,8 720,38 C960,68 1200,20 1440,52 L1440,90 L0,90 Z" fill="#fdfdfb"/></svg>
+  </div>
+</header>
+
+<section class="section">
+  <div class="wrap">
+    <div class="review-grid">
+
+      <div class="review">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <span class="type">Vacation home</span>
+        <p>"We'd dreamed about a place on the sound for a decade and assumed the financing would be the hard part. Deke walked us through the second-home program in one call, locked our rate at exactly the right moment, and we closed in 26 days. The house has a hammock now. We're never leaving."</p>
+        <footer>
+          <div class="avatar">MR</div>
+          <div class="who"><b>Melissa &amp; Dan R.</b><span>Outer Banks, NC</span></div>
+        </footer>
+      </div>
+
+      <div class="review">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <span class="type">First home</span>
+        <p>"First house, first mortgage, a thousand questions — and Sailor answered every single one without ever making us feel behind. She even caught a down payment assistance program we qualified for that saved us $9,000. Cannot recommend this team enough."</p>
+        <footer>
+          <div class="avatar">PS</div>
+          <div class="who"><b>Priya S.</b><span>Santa Cruz, CA</span></div>
+        </footer>
+      </div>
+
+      <div class="review">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <span class="type">Purchase</span>
+        <p>"They caught a flood-zone detail our first lender completely missed — the house was mapped into a preferred zone and we'd been quoted the wrong insurance tier. That one catch saves us thousands a year. Sharp, calm, honest people."</p>
+        <footer>
+          <div class="avatar">TW</div>
+          <div class="who"><b>Tom W.</b><span>Charleston, SC</span></div>
+        </footer>
+      </div>
+
+      <div class="review">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <span class="type">Refinance</span>
+        <p>"Refinanced our 2021 loan and dropped our payment by $410 a month. Reed sent a side-by-side comparison before we committed to anything and told us honestly when waiting two weeks might get a better rate. It did. Who does that?"</p>
+        <footer>
+          <div class="avatar">JG</div>
+          <div class="who"><b>Jim &amp; Carol G.</b><span>Gulf Shores, AL</span></div>
+        </footer>
+      </div>
+
+      <div class="review">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <span class="type">Jumbo</span>
+        <p>"Self-employed with income across three businesses — two lenders gave up on my file before Harbor. Deke actually understood the returns, structured a jumbo that worked, and kept the sellers calm through a tight timeline. Consummate professionals."</p>
+        <footer>
+          <div class="avatar">AK</div>
+          <div class="who"><b>Anders K.</b><span>Bainbridge Island, WA</span></div>
+        </footer>
+      </div>
+
+      <div class="review">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <span class="type">VA loan</span>
+        <p>"Twenty years in the Navy, finally putting down roots near the base where I started. The VA process can drag with the wrong lender — Harbor had my COE sorted in days and closed with zero down, exactly as promised. They treat service members right."</p>
+        <footer>
+          <div class="avatar">DM</div>
+          <div class="who"><b>Darius M.</b><span>Virginia Beach, VA</span></div>
+        </footer>
+      </div>
+
+      <div class="review">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+        <span class="type">Purchase</span>
+        <p>"Docs requests came in a few waves rather than all at once, which was mildly annoying — hence four stars. But the communication was constant, the rate was better than three other quotes, and we closed on schedule. I'd absolutely use them again."</p>
+        <footer>
+          <div class="avatar">LB</div>
+          <div class="who"><b>Lauren B.</b><span>Portland, ME</span></div>
+        </footer>
+      </div>
+
+      <div class="review">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <span class="type">Second home</span>
+        <p>"Bought a little cottage two blocks from the beach for family summers. Harbor handled the second-home underwriting, flagged the wind insurance requirement early so there were no closing-week surprises, and even recommended a great local agent. Seamless from start to finish."</p>
+        <footer>
+          <div class="avatar">HN</div>
+          <div class="who"><b>Hannah &amp; Marcus N.</b><span>Galveston, TX</span></div>
+        </footer>
+      </div>
+
+      <div class="review">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <span class="type">Cash-out refi</span>
+        <p>"Used a cash-out refinance to finally build the wraparound porch my wife has wanted for fifteen years. Maren ran three scenarios so we could see exactly how each affected the payment. Clear numbers, no pressure, porch is done. Sunsets are excellent."</p>
+        <footer>
+          <div class="avatar">RC</div>
+          <div class="who"><b>Ray &amp; Diane C.</b><span>St. Augustine, FL</span></div>
+        </footer>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section-pad section-seaglass">
+  <div class="wrap">
+    <div class="cta-band">
+      <div>
+        <h2>Ready to write your own?</h2>
+        <p>Every review up there started with a simple application and a phone call. Yours can too — takes about three minutes, and there's no commitment.</p>
+      </div>
+      <a href="apply.html" class="btn btn-sand">Apply now</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="brand">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e7d3ae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2.4"/><path d="M12 7.4V21"/><path d="M8 9.5h8"/><path d="M4.5 14c0 4.2 3.4 7 7.5 7s7.5-2.8 7.5-7"/><path d="M4.5 14l-2 -1.5M4.5 14l2 -1.5M19.5 14l2 -1.5M19.5 14l-2 -1.5"/></svg>
+          Harbor Home Loans
+        </div>
+        <p>Mortgage lending for beach houses, vacation escapes, and everyday coastal living. Calm process, clear waters, honest guidance from first call to closing.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="programs.html">Programs</a></li>
+          <li><a href="calculator.html">Calculator</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="reviews.html">Reviews</a></li>
+          <li><a href="apply.html">Apply now</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get in touch</h4>
+        <ul>
+          <li><a href="tel:0000000000">(000) 000-0000</a></li>
+          <li><a href="mailto:hello@example.com">hello@example.com</a></li>
+          <li><a href="apply.html">Start an application</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <p>NMLS #000000 &middot; Equal Housing Lender</p>
+      <p>We are committed to the letter and spirit of U.S. fair housing law and do not discriminate on the basis of race, color, religion, national origin, sex, disability, or familial status.</p>
+      <p>This is a demo template. All rates, names and reviews are sample content.</p>
+      <p>Template by Pilk.ai</p>
+    </div>
+  </div>
+</footer>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

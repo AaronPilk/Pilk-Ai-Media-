@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apply — HomeFirst Lending</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#faf6f0; --tint:#f3e9dc; --tint2:#efe5d6;
+  --terra:#c2571b; --terra-dark:#a54812; --green:#2e5339; --green-dark:#24422d;
+  --ink:#2e2a24; --ink-soft:#5c554b; --white:#ffffff;
+  --radius:20px; --radius-sm:16px;
+  --shadow:0 10px 30px rgba(46,42,36,.08); --shadow-lg:0 18px 44px rgba(46,42,36,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito Sans',system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.65;font-size:16px}
+h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif;font-weight:600;line-height:1.2;color:var(--ink)}
+a{color:var(--terra)}
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+
+.nav{position:sticky;top:0;z-index:1000;background:rgba(250,246,240,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(46,42,36,.08)}
+.nav-inner{max-width:1140px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:1.25rem}
+.nav-links{display:flex;align-items:center;gap:6px;margin-left:auto;flex-wrap:wrap}
+.nav-links a{text-decoration:none;color:var(--ink-soft);font-weight:600;font-size:.95rem;padding:8px 14px;border-radius:999px;transition:background .2s,color .2s}
+.nav-links a:hover{background:var(--tint);color:var(--ink)}
+.nav-links a.active{background:var(--tint2);color:var(--terra)}
+.nav-cta{background:var(--terra)!important;color:#fff!important;padding:10px 22px!important;border-radius:999px;box-shadow:0 4px 14px rgba(194,87,27,.3)}
+.nav-cta:hover{background:var(--terra-dark)!important}
+
+.apply-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:start;padding:72px 0 90px}
+.side{position:sticky;top:100px}
+.page-kicker{display:inline-block;background:var(--tint2);color:var(--terra);border-radius:999px;padding:7px 18px;font-weight:700;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px}
+.side h1{font-size:clamp(2rem,4vw,2.8rem);font-weight:700;margin-bottom:16px}
+.side p{color:var(--ink-soft);font-size:1.05rem;margin-bottom:22px}
+.side-img{border-radius:24px;overflow:hidden;box-shadow:var(--shadow-lg);margin-top:8px}
+.side-img{background-image:linear-gradient(rgba(46,42,36,.12),rgba(46,42,36,.22)),url('/template-previews/_assets/int-living-bright.jpg');background-size:cover;background-position:center;height:300px}
+.reassure{list-style:none;margin-top:24px}
+.reassure li{padding:8px 0 8px 32px;position:relative;font-weight:600;font-size:.96rem;color:var(--ink)}
+.reassure li::before{content:"";position:absolute;left:0;top:13px;width:19px;height:19px;border-radius:50%;background:var(--green);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 13l4 4 10-10'/%3E%3C/svg%3E");background-size:11px;background-repeat:no-repeat;background-position:center}
+
+.form-card{background:var(--white);border-radius:24px;box-shadow:var(--shadow-lg);padding:42px 38px;border:1px solid rgba(46,42,36,.05)}
+fieldset{border:none;margin-bottom:34px}
+legend{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.3rem;color:var(--ink);margin-bottom:6px}
+.legend-sub{color:var(--ink-soft);font-size:.92rem;margin-bottom:20px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{margin-bottom:18px}
+.field label{display:block;font-weight:700;font-size:.88rem;margin-bottom:8px}
+.field input,.field select,.field textarea{width:100%;padding:13px 16px;border:1.5px solid #e3dccf;border-radius:14px;font-family:'Nunito Sans',sans-serif;font-size:1rem;background:var(--cream);color:var(--ink);transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;appearance:none}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235c554b' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:16px}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--terra);box-shadow:0 0 0 4px rgba(194,87,27,.14);background:#fff}
+.field textarea{min-height:120px;resize:vertical}
+.field input:invalid:not(:placeholder-shown){border-color:#c0392b}
+.btn{display:inline-block;border:none;cursor:pointer;font-family:'Nunito Sans',sans-serif;text-decoration:none;font-weight:700;font-size:1.05rem;padding:16px 34px;border-radius:999px;transition:transform .2s,background .2s;background:var(--terra);color:#fff;box-shadow:0 8px 24px rgba(194,87,27,.4);width:100%}
+.btn:hover{background:var(--terra-dark);transform:translateY(-2px)}
+.form-note{text-align:center;color:var(--ink-soft);font-size:.85rem;margin-top:14px}
+
+.success{display:none;text-align:center;padding:40px 20px}
+.success.show{display:block}
+.success-icon{width:76px;height:76px;border-radius:50%;background:var(--green);margin:0 auto 24px;display:flex;align-items:center;justify-content:center}
+.success h2{font-size:1.8rem;margin-bottom:14px}
+.success p{color:var(--ink-soft);font-size:1.05rem;max-width:400px;margin:0 auto 24px}
+.success a{font-weight:700}
+
+footer{background:var(--green);color:rgba(255,255,255,.85);padding:64px 0 90px}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1.4fr;gap:44px}
+.foot-brand{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:1.3rem;color:#fff;display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.foot-grid p{font-size:.92rem}
+.foot-grid h4{color:#fff;font-size:1rem;margin-bottom:14px}
+.foot-links{list-style:none}
+.foot-links li{margin-bottom:9px}
+.foot-links a{color:rgba(255,255,255,.8);text-decoration:none;font-size:.92rem}
+.foot-links a:hover{color:#fff;text-decoration:underline}
+.foot-meta{font-size:.88rem;line-height:1.9}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.18);margin-top:44px;padding-top:22px;font-size:.82rem;color:rgba(255,255,255,.6);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.foot-bottom a{color:rgba(255,255,255,.75)}
+
+@media (max-width:900px){
+  .apply-grid{grid-template-columns:1fr;gap:36px}
+  .side{position:static}
+  .foot-grid{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .nav-inner{gap:10px;justify-content:center}
+  .nav-links{margin-left:0;justify-content:center}
+  .two-col{grid-template-columns:1fr}
+  .form-card{padding:30px 22px}
+  .apply-grid{padding:52px 0 70px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M3 11.5 12 4l9 7.5" stroke="#c2571b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 10.5V20h13v-9.5" stroke="#c2571b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 20v-5h4v5" stroke="#c2571b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      HomeFirst Lending
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="apply.html" class="nav-cta active">Apply now</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="apply-grid">
+
+    <div class="side">
+      <span class="page-kicker">Apply</span>
+      <h1>Let's start with hello.</h1>
+      <p>This isn't the scary part — it's just a conversation starter. Five quick minutes, and a real person (not a robot) will read every word.</p>
+      <ul class="reassure">
+        <li>No credit check at this stage</li>
+        <li>No obligation, no pressure</li>
+        <li>A real human replies within one business day</li>
+      </ul>
+      <div class="side-img" role="img" aria-label="A bright, welcoming living room"></div>
+    </div>
+
+    <div class="form-card">
+      <form id="applyForm" novalidate>
+        <fieldset>
+          <legend>Tell us about you</legend>
+          <p class="legend-sub">Just the basics so we know who we're talking to.</p>
+          <div class="two-col">
+            <div class="field">
+              <label for="firstName">First name *</label>
+              <input type="text" id="firstName" name="firstName" placeholder="Jordan" required>
+            </div>
+            <div class="field">
+              <label for="lastName">Last name *</label>
+              <input type="text" id="lastName" name="lastName" placeholder="Avery" required>
+            </div>
+          </div>
+          <div class="two-col">
+            <div class="field">
+              <label for="email">Email *</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" required>
+            </div>
+            <div class="field">
+              <label for="phone">Phone *</label>
+              <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000" required>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>About your home goals</legend>
+          <p class="legend-sub">Rough answers are perfectly fine — "not sure yet" is a real option.</p>
+          <div class="field">
+            <label for="purpose">What brings you here? *</label>
+            <select id="purpose" name="purpose" required>
+              <option value="">Choose one...</option>
+              <option>Buying my first home</option>
+              <option>Buying my next home</option>
+              <option>Refinancing</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+          <div class="two-col">
+            <div class="field">
+              <label for="state">Property state *</label>
+              <select id="state" name="state" required>
+                <option value="">Choose a state...</option>
+                <option>Colorado</option>
+                <option>Idaho</option>
+                <option>Michigan</option>
+                <option>North Carolina</option>
+                <option>Ohio</option>
+                <option>Tennessee</option>
+                <option>Texas</option>
+                <option>Virginia</option>
+                <option>Washington</option>
+                <option>Wisconsin</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="range">Price range</label>
+              <select id="range" name="range">
+                <option value="">Not sure yet</option>
+                <option>Under $250k</option>
+                <option>$250k &ndash; $400k</option>
+                <option>$400k &ndash; $600k</option>
+                <option>$600k &ndash; $850k</option>
+                <option>$850k+</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="timeline">When are you hoping to move?</label>
+            <select id="timeline" name="timeline">
+              <option value="">No rush, just exploring</option>
+              <option>Within 3 months</option>
+              <option>3&ndash;6 months</option>
+              <option>6&ndash;12 months</option>
+              <option>More than a year out</option>
+            </select>
+          </div>
+        </fieldset>
+
+        <fieldset style="margin-bottom:20px">
+          <legend>Anything on your mind?</legend>
+          <p class="legend-sub">Questions, worries, wish lists — this is the spot.</p>
+          <div class="field">
+            <label for="notes">Your note (optional)</label>
+            <textarea id="notes" name="notes" placeholder="We're expecting our second kid in the spring and wondering if we should buy before or after..."></textarea>
+          </div>
+        </fieldset>
+
+        <button type="submit" class="btn">Send it our way</button>
+        <p class="form-note">No spam, ever. Your info stays between us.</p>
+      </form>
+
+      <div class="success" id="successPanel">
+        <div class="success-icon">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="none"><path d="M4.5 12.5l5 5 10-11" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h2>Thanks — we got it!</h2>
+        <p>We'll reach out within one business day. Keep an eye on your phone — a friendly voice is headed your way. Talk soon!</p>
+        <p>In the meantime, <a href="calculator.html">play with the calculator</a> or <a href="about.html">meet the team</a>.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 11.5 12 4l9 7.5" stroke="#f3e9dc" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 10.5V20h13v-9.5" stroke="#f3e9dc" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 20v-5h4v5" stroke="#f3e9dc" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          HomeFirst Lending
+        </div>
+        <p>The friendly path home. We're a family-first lender that believes big milestones deserve honest guidance, warm coffee, and real people who answer the phone.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul class="foot-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="programs.html">Programs</a></li>
+          <li><a href="calculator.html">Calculator</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="reviews.html">Reviews</a></li>
+          <li><a href="apply.html">Apply now</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>The fine print</h4>
+        <div class="foot-meta">
+          NMLS #234567<br>
+          HomeFirst Lending is a demo brand. Equal Housing Lender.<br>
+          (000) 000-0000 &middot; hello@example.com
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; 2026 HomeFirst Lending. All rights reserved.</span>
+      <span>Template by <a href="https://pilk.ai">Pilk.ai</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var form = document.getElementById('applyForm');
+  var success = document.getElementById('successPanel');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    var required = form.querySelectorAll('[required]');
+    var valid = true;
+    var firstBad = null;
+
+    required.forEach(function(el){
+      var ok = el.value.trim() !== '';
+      if (ok && el.type === 'email') {
+        ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim());
+      }
+      if (!ok) {
+        el.style.borderColor = '#c0392b';
+        el.style.boxShadow = '0 0 0 4px rgba(192,57,43,.12)';
+        if (!firstBad) firstBad = el;
+        valid = false;
+      } else {
+        el.style.borderColor = '';
+        el.style.boxShadow = '';
+      }
+    });
+
+    if (!valid) {
+      if (firstBad) firstBad.focus();
+      return;
+    }
+
+    form.style.display = 'none';
+    success.classList.add('show');
+    success.scrollIntoView({behavior:'smooth', block:'center'});
+  });
+
+  form.querySelectorAll('[required]').forEach(function(el){
+    el.addEventListener('input', function(){
+      if (el.value.trim() !== '') {
+        el.style.borderColor = '';
+        el.style.boxShadow = '';
+      }
+    });
+  });
+})();
+</script>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

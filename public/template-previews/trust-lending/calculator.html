@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment Calculator — TrustPoint Lending</title>
+<meta name="description" content="Estimate your monthly mortgage payment including principal, interest, taxes, and insurance with the TrustPoint Lending calculator.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0d2247;
+  --navy-dark:#091a38;
+  --gold:#c9a227;
+  --gold-hover:#b8931f;
+  --ink:#1d2637;
+  --muted:#5b6577;
+  --band:#f4f6f9;
+  --line:#e2e7ef;
+  --r:5px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Source Sans 3',system-ui,-apple-system,sans-serif;color:var(--ink);background:#fff;line-height:1.65;font-size:16.5px;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:'Source Serif 4',Georgia,'Times New Roman',serif;color:var(--navy);line-height:1.2;font-weight:600}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+.eyebrow{display:block;font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.btn{display:inline-block;padding:14px 30px;border-radius:4px;font-weight:700;font-size:15.5px;transition:background .18s,color .18s;cursor:pointer;border:1px solid transparent;text-align:center}
+.btn-gold{background:var(--gold);color:var(--navy-dark)}
+.btn-gold:hover{background:var(--gold-hover)}
+.util{background:var(--navy-dark);color:#aab6cc;font-size:12.5px;letter-spacing:.04em}
+.util-in{display:flex;justify-content:space-between;align-items:center;padding:8px 0;gap:12px}
+.util-in .tag{color:#8d9cb8;font-style:italic;font-family:'Source Serif 4',Georgia,serif}
+.util-in strong{color:#d5dcea;font-weight:600}
+.nav{background:var(--navy);border-bottom:1px solid rgba(201,162,39,.35);position:sticky;top:0;z-index:1000}
+.nav-in{display:flex;align-items:center;justify-content:space-between;padding:16px 0;gap:18px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Source Serif 4',Georgia,serif;font-size:21px;font-weight:700;color:#fff}
+.brand span{color:var(--gold)}
+.nav-links{display:flex;align-items:center;gap:26px;flex-wrap:wrap}
+.nav-links a{color:rgba(255,255,255,.85);font-size:15px;font-weight:600;padding:6px 0;border-bottom:2px solid transparent;transition:color .15s,border-color .15s}
+.nav-links a:hover{color:#fff}
+.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-cta{background:var(--gold);color:var(--navy-dark);padding:11px 22px;border-radius:4px;font-weight:700;font-size:14.5px;transition:background .18s}
+.nav-cta:hover{background:var(--gold-hover)}
+
+.page-head{background:var(--navy);color:#fff;padding:70px 0 64px;text-align:center;border-bottom:3px solid var(--gold)}
+.page-head h1{color:#fff;font-size:42px;margin-bottom:12px}
+.page-head p{color:rgba(255,255,255,.82);max-width:600px;margin:0 auto;font-size:17.5px}
+
+.section{padding:76px 0 90px;background:var(--band)}
+.calc{display:grid;grid-template-columns:1.05fr .95fr;gap:34px;align-items:start}
+.panel{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:38px 34px}
+.panel h2{font-size:22px;margin-bottom:4px}
+.panel .panel-sub{font-size:14px;color:var(--muted);margin-bottom:26px}
+.panel h2:after{content:"";display:block;width:44px;height:2px;background:var(--gold);margin-top:10px}
+
+.field{margin-bottom:22px}
+.field label{display:block;font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--navy);margin-bottom:8px}
+.in{position:relative}
+.in .pre,.in .suf{position:absolute;top:50%;transform:translateY(-50%);color:var(--muted);font-weight:600;font-size:15px;pointer-events:none}
+.in .pre{left:14px}
+.in .suf{right:14px}
+input[type=number],select{width:100%;padding:13px 14px;border:1px solid #cbd3e0;border-radius:4px;font:600 16px 'Source Sans 3',sans-serif;color:var(--ink);background:#fff;transition:border-color .15s,box-shadow .15s;-moz-appearance:textfield;appearance:textfield}
+input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.in.has-pre input{padding-left:32px}
+.in.has-suf input{padding-right:38px}
+input:focus,select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,162,39,.22)}
+select{cursor:pointer}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.down-row{display:grid;grid-template-columns:1.4fr 1fr;gap:16px}
+.hint{font-size:12.5px;color:var(--muted);margin-top:6px;letter-spacing:.02em}
+
+/* results */
+.result-panel{background:var(--navy);border:1px solid var(--navy);border-top:3px solid var(--gold);position:sticky;top:96px}
+.result-panel h2{color:#fff}
+.result-panel .panel-sub{color:#9db0d0}
+.total{text-align:center;padding:10px 0 24px;border-bottom:1px solid rgba(255,255,255,.12);margin-bottom:24px}
+.total .lbl{font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.total b{display:block;font-family:'Source Serif 4',Georgia,serif;font-size:52px;font-weight:700;color:#fff;line-height:1.1;margin-top:6px}
+.total span{font-size:14px;color:#9db0d0}
+
+.bar{display:flex;height:14px;border-radius:99px;overflow:hidden;margin:4px 0 16px;background:rgba(255,255,255,.12)}
+.bar i{display:block;height:100%;transition:width .3s ease}
+.bar .b-pi{background:var(--gold)}
+.bar .b-tax{background:#5b7bb4}
+.bar .b-ins{background:#c3cddd}
+.legend{list-style:none;margin-bottom:22px}
+.legend li{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:15px;color:#dfe5f0}
+.legend li:last-child{border-bottom:0}
+.legend .dot{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:10px;flex:none}
+.legend .d-pi{background:var(--gold)}
+.legend .d-tax{background:#5b7bb4}
+.legend .d-ins{background:#c3cddd}
+.legend .name{flex:1;display:flex;align-items:center}
+.legend b{color:#fff;font-size:16px}
+.loanline{display:flex;justify-content:space-between;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:12px 16px;font-size:14.5px;color:#b9c4d8;margin-bottom:24px}
+.loanline b{color:var(--gold);font-size:15.5px}
+.result-panel .btn{width:100%}
+.disclosure{font-size:12.5px;color:#8b9ab6;margin-top:16px;line-height:1.55;text-align:center}
+
+@media (max-width:960px){
+  .calc{grid-template-columns:1fr}
+  .result-panel{position:static}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .util-in{justify-content:center;text-align:center}
+  .util-in .tag{display:none}
+  .nav-in{justify-content:center}
+  .nav-links{justify-content:center;gap:16px}
+  .page-head h1{font-size:31px}
+  .section{padding:52px 0 64px}
+  .panel{padding:28px 22px}
+  .two,.down-row{grid-template-columns:1fr}
+  .total b{font-size:42px}
+}
+
+/* footer */
+.footer{background:var(--navy-dark);color:#9aa7bf;font-size:14.5px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1.2fr;gap:48px;padding:70px 0 54px}
+.f-brand{display:flex;align-items:center;gap:10px;font-family:'Source Serif 4',Georgia,serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:16px}
+.f-brand span{color:var(--gold)}
+.footer p{max-width:360px}
+.footer h4{color:#fff;font-family:'Source Sans 3',sans-serif;font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:18px;font-weight:700}
+.footer h4:after{content:"";display:block;width:28px;height:2px;background:var(--gold);margin-top:8px}
+.f-links a{display:block;padding:4px 0;transition:color .15s}
+.f-links a:hover{color:var(--gold)}
+.f-contact div{padding:4px 0}
+.f-contact b{color:#d5dcea;font-weight:600}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding:22px 0;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:13px;color:#7a889f}
+.footer-bottom a{color:var(--gold)}
+@media (max-width:960px){.footer-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.footer-grid{grid-template-columns:1fr;gap:36px;padding:54px 0 40px}.footer-bottom{justify-content:center;text-align:center}}
+</style>
+</head>
+<body>
+
+<div class="util">
+  <div class="wrap util-in">
+    <span class="tag">Lending you can bank on.</span>
+    <span><strong>(000) 000-0000</strong> &nbsp;·&nbsp; NMLS #345678</span>
+  </div>
+</div>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="index.html">
+      <svg width="22" height="26" viewBox="0 0 22 26" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11 1 21 4.8v7.1c0 6.2-4.2 10.9-10 13.1C5.2 22.8 1 18.1 1 11.9V4.8L11 1Z" fill="#c9a227"/><path d="M11 5.6 16.4 7.7v4.1c0 3.7-2.3 6.5-5.4 8-3.1-1.5-5.4-4.3-5.4-8V7.7L11 5.6Z" fill="#0d2247"/><path d="M11 9.4l3 1.2v2.1c0 2-1.3 3.5-3 4.4-1.7-.9-3-2.4-3-4.4v-2.1l3-1.2Z" fill="#c9a227"/></svg>
+      TrustPoint&nbsp;<span>Lending</span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html" class="active">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="apply.html" class="nav-cta">Apply now</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-head">
+  <div class="wrap">
+    <span class="eyebrow">Payment Calculator</span>
+    <h1>Know your number before you shop.</h1>
+    <p>Principal, interest, taxes, and insurance — modeled live as you adjust the figures. The way an underwriter would see it.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap calc">
+
+    <div class="panel">
+      <h2>Loan details</h2>
+      <div class="panel-sub" style="margin-top:14px">Adjust any figure. Results update instantly.</div>
+
+      <div class="field">
+        <label for="price">Home price</label>
+        <div class="in has-pre"><span class="pre">$</span><input type="number" id="price" value="400000" min="0" step="1000"></div>
+      </div>
+
+      <div class="field">
+        <label>Down payment</label>
+        <div class="down-row">
+          <div class="in has-pre"><span class="pre">$</span><input type="number" id="downDollar" value="80000" min="0" step="1000"></div>
+          <div class="in has-suf"><input type="number" id="downPct" value="20" min="0" max="100" step="0.1"><span class="suf">%</span></div>
+        </div>
+        <div class="hint">Edit either field — dollars and percent stay in sync.</div>
+      </div>
+
+      <div class="two">
+        <div class="field">
+          <label for="rate">Interest rate</label>
+          <div class="in has-suf"><input type="number" id="rate" value="6.5" min="0" max="20" step="0.125"><span class="suf">%</span></div>
+        </div>
+        <div class="field">
+          <label for="term">Loan term</label>
+          <select id="term">
+            <option value="30" selected>30 years</option>
+            <option value="20">20 years</option>
+            <option value="15">15 years</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="two">
+        <div class="field">
+          <label for="taxRate">Property tax rate</label>
+          <div class="in has-suf"><input type="number" id="taxRate" value="1.1" min="0" max="10" step="0.05"><span class="suf">%/yr</span></div>
+        </div>
+        <div class="field">
+          <label for="ins">Home insurance</label>
+          <div class="in has-pre has-suf"><span class="pre">$</span><input type="number" id="ins" value="1500" min="0" step="50"><span class="suf">/yr</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel result-panel">
+      <h2>Your estimate</h2>
+      <div class="panel-sub" style="margin-top:14px">Monthly payment, itemized.</div>
+
+      <div class="total">
+        <span class="lbl">Total Monthly Payment</span>
+        <b id="outTotal">$0</b>
+        <span>per month</span>
+      </div>
+
+      <div class="bar" aria-hidden="true">
+        <i class="b-pi" id="barPI" style="width:80%"></i>
+        <i class="b-tax" id="barTax" style="width:14%"></i>
+        <i class="b-ins" id="barIns" style="width:6%"></i>
+      </div>
+
+      <ul class="legend">
+        <li><span class="name"><span class="dot d-pi"></span>Principal &amp; interest</span><b id="outPI">$0</b></li>
+        <li><span class="name"><span class="dot d-tax"></span>Property tax</span><b id="outTax">$0</b></li>
+        <li><span class="name"><span class="dot d-ins"></span>Home insurance</span><b id="outIns">$0</b></li>
+      </ul>
+
+      <div class="loanline"><span>Loan amount</span><b id="outLoan">$0</b></div>
+
+      <a class="btn btn-gold" href="apply.html">Apply with these numbers</a>
+      <div class="disclosure">For illustration only; not a loan estimate, commitment to lend, or quote. Actual rates, taxes, insurance, and eligibility are determined during underwriting.</div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div>
+      <div class="f-brand">
+        <svg width="20" height="24" viewBox="0 0 22 26" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11 1 21 4.8v7.1c0 6.2-4.2 10.9-10 13.1C5.2 22.8 1 18.1 1 11.9V4.8L11 1Z" fill="#c9a227"/><path d="M11 5.6 16.4 7.7v4.1c0 3.7-2.3 6.5-5.4 8-3.1-1.5-5.4-4.3-5.4-8V7.7L11 5.6Z" fill="#091a38"/></svg>
+        TrustPoint&nbsp;<span>Lending</span>
+      </div>
+      <p>Three decades of disciplined mortgage lending. Documented rates, in-house underwriting, and closings that arrive on schedule. Lending you can bank on.</p>
+    </div>
+    <div>
+      <h4>Navigate</h4>
+      <div class="f-links">
+        <a href="index.html">Home</a>
+        <a href="programs.html">Loan Programs</a>
+        <a href="calculator.html">Payment Calculator</a>
+        <a href="about.html">About Us</a>
+        <a href="reviews.html">Client Reviews</a>
+        <a href="apply.html">Apply Now</a>
+      </div>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <div class="f-contact">
+        <div><b>(000) 000-0000</b></div>
+        <div><b>hello@example.com</b></div>
+        <div>Mon–Fri · 8:30a – 6:00p</div>
+        <div style="margin-top:12px">NMLS #345678</div>
+        <div>⌂ &nbsp;TrustPoint Lending is a demo brand. Equal Housing Lender.</div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© 2026 TrustPoint Lending · NMLS #345678 · All rights reserved.</span>
+    <span>Template by <a href="#">Pilk.ai</a></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var price = document.getElementById('price');
+  var downDollar = document.getElementById('downDollar');
+  var downPct = document.getElementById('downPct');
+  var rate = document.getElementById('rate');
+  var term = document.getElementById('term');
+  var taxRate = document.getElementById('taxRate');
+  var ins = document.getElementById('ins');
+
+  var outTotal = document.getElementById('outTotal');
+  var outPI = document.getElementById('outPI');
+  var outTax = document.getElementById('outTax');
+  var outIns = document.getElementById('outIns');
+  var outLoan = document.getElementById('outLoan');
+  var barPI = document.getElementById('barPI');
+  var barTax = document.getElementById('barTax');
+  var barIns = document.getElementById('barIns');
+
+  function num(el){ var v = parseFloat(el.value); return isNaN(v) || v < 0 ? 0 : v; }
+  function money(v){ return '$' + v.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2}); }
+  function money0(v){ return '$' + Math.round(v).toLocaleString('en-US'); }
+
+  function syncFromDollar(){
+    var p = num(price), d = num(downDollar);
+    downPct.value = p > 0 ? +(d / p * 100).toFixed(2) : 0;
+    calc();
+  }
+  function syncFromPct(){
+    var p = num(price), pct = num(downPct);
+    downDollar.value = Math.round(p * pct / 100);
+    calc();
+  }
+  function syncFromPrice(){
+    // keep percent fixed, recompute dollars
+    var p = num(price), pct = num(downPct);
+    downDollar.value = Math.round(p * pct / 100);
+    calc();
+  }
+
+  function calc(){
+    var p = num(price);
+    var d = Math.min(num(downDollar), p);
+    var P = p - d;
+    var r = num(rate) / 100 / 12;
+    var n = parseInt(term.value, 10) * 12;
+
+    var M;
+    if (r === 0) {
+      M = n > 0 ? P / n : 0;
+    } else {
+      var f = Math.pow(1 + r, n);
+      M = P * (r * f) / (f - 1);
+    }
+
+    var tax = p * (num(taxRate) / 100) / 12;
+    var insurance = num(ins) / 12;
+    var total = M + tax + insurance;
+
+    outPI.textContent = money(M);
+    outTax.textContent = money(tax);
+    outIns.textContent = money(insurance);
+    outTotal.textContent = money0(total);
+    outLoan.textContent = money0(P);
+
+    if (total > 0) {
+      barPI.style.width = (M / total * 100) + '%';
+      barTax.style.width = (tax / total * 100) + '%';
+      barIns.style.width = (insurance / total * 100) + '%';
+    } else {
+      barPI.style.width = '0%'; barTax.style.width = '0%'; barIns.style.width = '0%';
+    }
+  }
+
+  price.addEventListener('input', syncFromPrice);
+  downDollar.addEventListener('input', syncFromDollar);
+  downPct.addEventListener('input', syncFromPct);
+  rate.addEventListener('input', calc);
+  term.addEventListener('change', calc);
+  taxRate.addEventListener('input', calc);
+  ins.addEventListener('input', calc);
+
+  calc();
+})();
+</script>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

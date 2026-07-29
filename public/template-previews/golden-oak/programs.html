@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loan Programs — Golden Oak Lending</title>
+<meta name="description" content="Conventional, FHA, VA, Jumbo, Refinance, and First-Time Buyer programs from Golden Oak Lending.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#141210;
+  --surface:#1d1915;
+  --surface2:#24201a;
+  --gold:#d9a441;
+  --gold-dark:#b8862f;
+  --gold-border:rgba(217,164,65,0.25);
+  --gold-border-soft:rgba(217,164,65,0.12);
+  --heading:#f2ead9;
+  --body:#c9beab;
+  --muted:#8f8574;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--body);font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+h1,h2,h3{font-family:'DM Serif Display',Georgia,serif;font-weight:400;color:var(--heading);line-height:1.15;}
+a{color:var(--gold);text-decoration:none;}
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px;}
+.eyebrow{display:inline-block;font-size:12px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.btn{display:inline-block;padding:14px 30px;border-radius:4px;font-weight:600;font-size:15px;letter-spacing:0.02em;transition:all .2s ease;cursor:pointer;border:1px solid transparent;}
+.btn-gold{background:var(--gold);color:#141210;}
+.btn-gold:hover{background:var(--gold-dark);transform:translateY(-1px);}
+.btn-ghost{background:transparent;color:var(--heading);border:1px solid var(--gold-border);}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold);}
+/* NAV */
+.nav{position:sticky;top:0;z-index:1000;background:rgba(20,18,16,0.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--gold-border-soft);}
+.nav-inner{max-width:1140px;margin:0 auto;padding:0 24px;height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px;}
+.brand{font-family:'DM Serif Display',Georgia,serif;font-size:22px;color:var(--heading);white-space:nowrap;}
+.brand span{color:var(--gold);}
+.nav-links{display:flex;gap:30px;align-items:center;}
+.nav-links a{color:var(--body);font-size:14px;font-weight:500;transition:color .2s;}
+.nav-links a:hover{color:var(--gold);}
+.nav-links a.active{color:var(--gold);border-bottom:1px solid var(--gold);padding-bottom:3px;}
+.nav-cta{padding:10px 22px;font-size:14px;}
+@media(max-width:820px){.nav-links{display:none;}}
+/* PAGE HERO */
+.page-hero{background-image:linear-gradient(rgba(20,18,16,.7),rgba(20,18,16,.92)),url('/template-previews/_assets/ext-glass-home.jpg'),linear-gradient(135deg,#3a2d1c,#141210);background-size:cover;background-position:center;padding:110px 0 90px;border-bottom:1px solid var(--gold-border-soft);}
+.page-hero h1{font-size:clamp(36px,5vw,58px);max-width:720px;margin-bottom:18px;}
+.page-hero p{max-width:600px;font-size:18px;color:var(--body);}
+/* PROGRAM CARDS */
+section.block{padding:90px 0;}
+.prog-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px;}
+.prog{background:var(--surface);border:1px solid var(--gold-border-soft);border-radius:8px;padding:40px 36px;display:flex;flex-direction:column;transition:border-color .25s,transform .25s;}
+.prog:hover{border-color:var(--gold-border);transform:translateY(-3px);}
+.prog .tag{display:inline-block;align-self:flex-start;font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold-border);border-radius:999px;padding:5px 14px;margin-bottom:20px;}
+.prog h2{font-size:28px;margin-bottom:12px;}
+.prog p.desc{font-size:15.5px;color:var(--body);margin-bottom:22px;}
+.prog ul{list-style:none;margin-bottom:28px;flex-grow:1;}
+.prog li{padding-left:28px;position:relative;margin-bottom:11px;font-size:14.5px;color:var(--muted);}
+.prog li::before{content:"—";position:absolute;left:0;color:var(--gold);}
+.prog li strong{color:var(--body);font-weight:600;}
+.prog .btn{align-self:flex-start;}
+@media(max-width:860px){.prog-grid{grid-template-columns:1fr;}.prog{padding:32px 26px;}}
+/* HELP BAND */
+.band{background:var(--surface2);border-top:1px solid var(--gold-border-soft);border-bottom:1px solid var(--gold-border-soft);}
+.band-inner{max-width:1140px;margin:0 auto;padding:64px 24px;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;}
+.band h2{font-size:clamp(24px,3vw,34px);margin-bottom:8px;}
+.band p{color:var(--muted);max-width:540px;}
+.band-btns{display:flex;gap:14px;flex-wrap:wrap;}
+/* FOOTER */
+footer{border-top:1px solid var(--gold-border-soft);background:#100e0c;padding:64px 0 40px;}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1.4fr;gap:48px;margin-bottom:44px;}
+.foot-brand{font-family:'DM Serif Display',Georgia,serif;font-size:22px;color:var(--heading);margin-bottom:12px;}
+.foot-brand span{color:var(--gold);}
+.foot-grid p{font-size:14px;color:var(--muted);max-width:320px;}
+.foot-grid h4{font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;font-weight:600;}
+.foot-links a{display:block;color:var(--body);font-size:14px;margin-bottom:10px;}
+.foot-links a:hover{color:var(--gold);}
+.foot-contact div{font-size:14px;color:var(--body);margin-bottom:10px;}
+.fineprint{border-top:1px solid var(--gold-border-soft);padding-top:28px;font-size:12px;color:var(--muted);line-height:1.7;}
+.fineprint .row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:14px;font-size:12.5px;}
+@media(max-width:820px){.foot-grid{grid-template-columns:1fr;gap:36px;}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">Golden <span>Oak</span> Lending</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html" class="active">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="apply.html">Apply</a>
+    </div>
+    <a href="apply.html" class="btn btn-gold nav-cta">Apply now</a>
+  </div>
+</nav>
+
+<header class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow">Loan programs</span>
+    <h1>The right loan is the one built around your life.</h1>
+    <p>Six core programs, one honest conversation. Your loan officer will compare them side by side — payment, cash to close, and long-term cost — so you choose with clear eyes.</p>
+  </div>
+</header>
+
+<section class="block">
+  <div class="wrap">
+    <div class="prog-grid">
+
+      <div class="prog">
+        <span class="tag">Most popular</span>
+        <h2>Conventional</h2>
+        <p class="desc">The workhorse of home financing. Great rates for solid credit, flexible terms from 10 to 30 years, and mortgage insurance that drops off once you reach 20% equity.</p>
+        <ul>
+          <li><strong>Down payment:</strong> as little as 3% for qualified buyers</li>
+          <li><strong>Credit guidance:</strong> best pricing typically at 680+, options from 620</li>
+          <li><strong>Best for:</strong> buyers with steady income and established credit</li>
+          <li>PMI cancels automatically at 78% loan-to-value</li>
+        </ul>
+        <a href="apply.html" class="btn btn-ghost">Check my eligibility</a>
+      </div>
+
+      <div class="prog">
+        <span class="tag">Flexible credit</span>
+        <h2>FHA</h2>
+        <p class="desc">Backed by the Federal Housing Administration, FHA loans open the door for buyers with thinner credit files, past bumps, or smaller savings — without punishing rates.</p>
+        <ul>
+          <li><strong>Down payment:</strong> 3.5% with a 580+ score</li>
+          <li><strong>Credit guidance:</strong> options down to 580; case-by-case below</li>
+          <li><strong>Best for:</strong> first-time buyers and credit rebuilders</li>
+          <li>Gift funds allowed for the full down payment</li>
+        </ul>
+        <a href="apply.html" class="btn btn-ghost">Check my eligibility</a>
+      </div>
+
+      <div class="prog">
+        <span class="tag">For those who served</span>
+        <h2>VA</h2>
+        <p class="desc">Earned through service, and we treat it that way. Zero down, no monthly mortgage insurance, and limits on what fees you can be charged at closing.</p>
+        <ul>
+          <li><strong>Down payment:</strong> $0 for eligible veterans and active duty</li>
+          <li><strong>Credit guidance:</strong> flexible — we routinely close 600+</li>
+          <li><strong>Best for:</strong> veterans, service members, eligible surviving spouses</li>
+          <li>We pull your Certificate of Eligibility for you, same day</li>
+        </ul>
+        <a href="apply.html" class="btn btn-ghost">Check my eligibility</a>
+      </div>
+
+      <div class="prog">
+        <span class="tag">Higher price points</span>
+        <h2>Jumbo</h2>
+        <p class="desc">For loan amounts above conforming limits. Competitive jumbo pricing with common-sense underwriting for self-employed borrowers and complex income.</p>
+        <ul>
+          <li><strong>Down payment:</strong> from 10% on loans up to $2.5M</li>
+          <li><strong>Credit guidance:</strong> generally 700+ for best pricing</li>
+          <li><strong>Best for:</strong> move-up buyers and luxury or high-cost markets</li>
+          <li>Bank-statement and asset-based qualification available</li>
+        </ul>
+        <a href="apply.html" class="btn btn-ghost">Check my eligibility</a>
+      </div>
+
+      <div class="prog">
+        <span class="tag">Lower your payment</span>
+        <h2>Refinance</h2>
+        <p class="desc">Rate-and-term to cut your payment, cash-out to put your equity to work, or a shorter term to own your home years sooner. We run the break-even math before you commit.</p>
+        <ul>
+          <li><strong>Options:</strong> rate-and-term, cash-out, FHA &amp; VA streamline</li>
+          <li><strong>Credit guidance:</strong> streamlines often need no new appraisal</li>
+          <li><strong>Best for:</strong> anyone whose rate is 0.75%+ above today's market</li>
+          <li>Written break-even analysis with every quote — no pressure</li>
+        </ul>
+        <a href="apply.html" class="btn btn-ghost">Check my eligibility</a>
+      </div>
+
+      <div class="prog">
+        <span class="tag">New to this</span>
+        <h2>First-Time Buyer</h2>
+        <p class="desc">A guided path for your first purchase, pairing low-down-payment programs with state and local assistance funds you may not know you qualify for.</p>
+        <ul>
+          <li><strong>Down payment:</strong> as low as 3% — or less with assistance grants</li>
+          <li><strong>Credit guidance:</strong> we'll coach you if you're not ready yet</li>
+          <li><strong>Best for:</strong> renters ready to build equity instead</li>
+          <li>Free 30-minute readiness call, no credit pull required</li>
+        </ul>
+        <a href="apply.html" class="btn btn-ghost">Check my eligibility</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="band">
+  <div class="band-inner">
+    <div>
+      <h2>Not sure which fits?</h2>
+      <p>Answer a few questions and we'll match you to the program with the lowest true cost — or run your own numbers first.</p>
+    </div>
+    <div class="band-btns">
+      <a href="apply.html" class="btn btn-gold">Get matched</a>
+      <a href="calculator.html" class="btn btn-ghost">Try the calculator</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">Golden <span>Oak</span> Lending</div>
+        <p>Honest home financing for families who want straight answers and a fast, calm closing. Rooted in trust. Growing with you.</p>
+      </div>
+      <div class="foot-links">
+        <h4>Explore</h4>
+        <a href="index.html">Home</a>
+        <a href="programs.html">Programs</a>
+        <a href="calculator.html">Calculator</a>
+        <a href="about.html">About</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="apply.html">Apply</a>
+      </div>
+      <div class="foot-contact">
+        <h4>Contact</h4>
+        <div>(000) 000-0000</div>
+        <div>hello@example.com</div>
+        <div>NMLS #123456</div>
+        <div>⌂ Equal Housing Lender</div>
+      </div>
+    </div>
+    <div class="fineprint">
+      <div class="row"><span>© 2026 Golden Oak Lending. All rights reserved.</span><span>Template by Pilk.ai</span></div>
+      <p>This is a demonstration website. Golden Oak Lending is a fictional company created for template preview purposes. Nothing on this site constitutes a loan offer, rate quote, or commitment to lend. All program details, down payment minimums, and credit guidelines shown are sample content for illustration only.</p>
+    </div>
+  </div>
+</footer>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

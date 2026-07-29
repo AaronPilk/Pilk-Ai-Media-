@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loan Programs — PrimeRate Financial</title>
+<meta name="description" content="Six mortgage programs, one transparent pricing engine. Conventional, FHA, VA, Jumbo, Refinance, and First-Time Buyer loans from PrimeRate Financial.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#15803d;
+  --green-dark:#166534;
+  --forest:#14532d;
+  --forest-deep:#0f3d21;
+  --tint:#f0fdf4;
+  --tint-line:#bbf7d0;
+  --ink:#0f172a;
+  --muted:#5b6472;
+  --line:#e5e7eb;
+  --white:#ffffff;
+  --r-sm:8px;
+  --r-md:10px;
+  --r-lg:12px;
+  --shadow:0 1px 2px rgba(15,23,42,.05),0 8px 24px rgba(15,23,42,.06);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;color:var(--ink);background:var(--white);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased;}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+.container{max-width:1160px;margin:0 auto;padding:0 24px;}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;}
+.micro{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green);}
+.micro.on-dark{color:#86efac;}
+h1,h2,h3{line-height:1.15;letter-spacing:-0.02em;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:15px;padding:13px 26px;border-radius:var(--r-md);border:1px solid transparent;cursor:pointer;transition:background .18s,color .18s,border-color .18s,transform .18s;}
+.btn-solid{background:var(--green);color:#fff;}
+.btn-solid:hover{background:var(--green-dark);transform:translateY(-1px);}
+.btn-outline{background:transparent;color:var(--green);border-color:var(--green);}
+.btn-outline:hover{background:var(--tint);}
+.btn-white{background:#fff;color:var(--forest);}
+.btn-white:hover{background:var(--tint);}
+.btn-ghost-white{background:transparent;color:#fff;border-color:rgba(255,255,255,.5);}
+.btn-ghost-white:hover{border-color:#fff;background:rgba(255,255,255,.08);}
+
+.nav{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+.nav-inner{max-width:1160px;margin:0 auto;padding:0 24px;height:68px;display:flex;align-items:center;justify-content:space-between;gap:24px;}
+.brand{display:flex;align-items:center;gap:10px;font-size:19px;letter-spacing:-0.02em;white-space:nowrap;}
+.brand-mark{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,var(--green),var(--forest));display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:13px;flex:0 0 auto;}
+.brand strong{font-weight:800;color:var(--ink);}
+.brand span.lite{font-weight:400;color:var(--muted);}
+.nav-links{display:flex;align-items:center;gap:28px;}
+.nav-links a{font-size:14.5px;font-weight:600;color:var(--muted);padding:6px 2px;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;}
+.nav-links a:hover{color:var(--ink);}
+.nav-links a.active{color:var(--green);border-bottom-color:var(--green);}
+.nav-cta{padding:10px 20px;font-size:14px;}
+.menu-btn{display:none;background:none;border:1px solid var(--line);border-radius:var(--r-sm);width:42px;height:42px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;}
+.menu-btn span{display:block;width:18px;height:2px;background:var(--ink);}
+.mobile-menu{display:none;background:#fff;border-bottom:1px solid var(--line);padding:8px 24px 18px;}
+.mobile-menu a{display:block;padding:12px 4px;font-weight:600;font-size:15.5px;color:var(--ink);border-bottom:1px solid var(--line);}
+.mobile-menu a.active{color:var(--green);}
+.mobile-menu a:last-child{border-bottom:none;}
+.mobile-menu.open{display:block;}
+
+/* PAGE HERO */
+.page-hero{position:relative;padding:96px 0 88px;background:linear-gradient(115deg,#0f3d21,#14532d);overflow:hidden;}
+.page-hero::before{content:"";position:absolute;inset:0;background:linear-gradient(95deg,rgba(10,36,20,.94) 0%,rgba(15,61,33,.82) 55%,rgba(15,61,33,.5) 100%),url('/template-previews/_assets/home-ext-b.jpg') center/cover no-repeat;}
+.page-hero .container{position:relative;z-index:2;}
+.page-hero h1{color:#fff;font-size:clamp(34px,4.6vw,52px);font-weight:800;max-width:640px;margin:16px 0 16px;}
+.page-hero p{color:rgba(255,255,255,.82);max-width:560px;font-size:17.5px;}
+
+section{padding:88px 0;}
+.section-head{max-width:640px;margin-bottom:48px;}
+.section-head h2{font-size:clamp(28px,3.6vw,40px);font-weight:800;margin:14px 0 14px;}
+.section-head p{color:var(--muted);font-size:16.5px;}
+.section-head.center{margin-left:auto;margin-right:auto;text-align:center;}
+
+/* PROGRAM CARDS */
+.prog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.prog-card{border:1px solid var(--line);border-radius:var(--r-lg);background:#fff;padding:30px 28px;display:flex;flex-direction:column;transition:border-color .18s,box-shadow .18s,transform .18s;}
+.prog-card:hover{border-color:var(--green);box-shadow:var(--shadow);transform:translateY(-3px);}
+.prog-card .tag{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+.prog-card .headline-stat{font-size:32px;font-weight:800;color:var(--green);letter-spacing:-0.02em;font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;margin:8px 0 2px;}
+.prog-card .stat-label{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;}
+.prog-card h3{font-size:20px;font-weight:800;margin-bottom:8px;}
+.prog-card > p{font-size:14.5px;color:var(--muted);margin-bottom:18px;}
+.prog-card ul{list-style:none;margin-bottom:22px;flex:1;}
+.prog-card li{display:flex;gap:10px;align-items:flex-start;font-size:14px;font-weight:500;margin-bottom:9px;}
+.prog-card li::before{content:"✓";flex:0 0 20px;height:20px;border-radius:6px;background:var(--tint);border:1px solid var(--tint-line);color:var(--green);font-size:12px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;margin-top:2px;}
+.prog-card .btn{width:100%;}
+
+/* APR STRIP */
+.apr-section{background:var(--tint);border-top:1px solid var(--tint-line);border-bottom:1px solid var(--tint-line);}
+.table-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r-lg);background:#fff;box-shadow:var(--shadow);}
+table.rates{width:100%;border-collapse:collapse;min-width:640px;}
+table.rates th{background:var(--forest);color:#fff;font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-align:left;padding:14px 18px;}
+table.rates th.n,table.rates td.n{text-align:right;}
+table.rates td{padding:15px 18px;border-top:1px solid var(--line);font-size:15px;}
+table.rates td.prog{font-weight:700;}
+table.rates td.n{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;font-weight:600;}
+table.rates tbody tr:hover{background:var(--tint);}
+.rate-foot{padding:12px 18px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted);background:#fafafa;}
+.delta{color:var(--green);font-weight:700;}
+
+/* CTA BAND */
+.cta-band{background:linear-gradient(120deg,var(--forest-deep),var(--forest));text-align:center;padding:80px 0;}
+.cta-band h2{color:#fff;font-size:clamp(28px,3.6vw,40px);font-weight:800;margin:14px 0 14px;}
+.cta-band p{color:rgba(255,255,255,.75);max-width:520px;margin:0 auto 32px;}
+.cta-band .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+
+footer{background:var(--forest-deep);color:rgba(255,255,255,.72);padding:64px 0 110px;font-size:14px;}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.4fr;gap:44px;margin-bottom:44px;}
+.foot-brand{display:flex;align-items:center;gap:10px;font-size:18px;margin-bottom:14px;color:#fff;}
+.foot-brand strong{font-weight:800;}
+.foot-brand span.lite{font-weight:400;color:rgba(255,255,255,.6);}
+.foot-col h4{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#86efac;margin-bottom:16px;}
+.foot-col a{display:block;padding:5px 0;color:rgba(255,255,255,.72);transition:color .15s;}
+.foot-col a:hover{color:#fff;}
+.foot-legal{border-top:1px solid rgba(255,255,255,.12);padding-top:28px;font-size:12.5px;color:rgba(255,255,255,.5);line-height:1.7;}
+.foot-legal strong{color:rgba(255,255,255,.75);}
+.eh-mark{display:inline-flex;align-items:center;gap:8px;margin-bottom:10px;color:rgba(255,255,255,.75);font-weight:700;font-size:12.5px;letter-spacing:.06em;}
+
+@media (max-width:900px){
+  .nav-links,.nav-cta{display:none;}
+  .menu-btn{display:flex;}
+  .prog-grid{grid-template-columns:1fr 1fr;}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:32px;}
+}
+@media (max-width:640px){
+  section{padding:64px 0;}
+  .prog-grid{grid-template-columns:1fr;}
+  .foot-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">%</span><strong>PrimeRate</strong><span class="lite">Financial</span></a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html" class="active">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+    </nav>
+    <a class="btn btn-solid nav-cta" href="apply.html">Apply now</a>
+    <button class="menu-btn" aria-label="Open menu" onclick="document.getElementById('mm').classList.toggle('open')"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mm">
+    <a href="index.html">Home</a>
+    <a href="programs.html" class="active">Programs</a>
+    <a href="calculator.html">Calculator</a>
+    <a href="about.html">About</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="apply.html" style="color:var(--green);font-weight:700;">Apply now →</a>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="micro on-dark">Loan programs</div>
+    <h1>Six programs. One pricing engine. Zero games.</h1>
+    <p>Every program below runs through the same transparent pricing model. Same baseline assumptions, same daily publish, so the comparison is real — not a sales pitch.</p>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <div class="prog-grid">
+
+      <div class="prog-card">
+        <div class="tag">Purchase</div>
+        <div class="headline-stat">3% min down</div>
+        <div class="stat-label">Down payment</div>
+        <h3>Conventional</h3>
+        <p>The standard for strong credit. Our sharpest pricing lives here, and PMI drops off automatically at 78% LTV.</p>
+        <ul>
+          <li>Loan amounts to $806,500 in most counties</li>
+          <li>620+ FICO; best pricing at 740+</li>
+          <li>Fixed terms of 15, 20, or 30 years</li>
+          <li>No prepayment penalty, ever</li>
+        </ul>
+        <a class="btn btn-solid" href="apply.html">Apply now</a>
+      </div>
+
+      <div class="prog-card">
+        <div class="tag">Purchase</div>
+        <div class="headline-stat">3.5% down</div>
+        <div class="stat-label">From 580 FICO</div>
+        <h3>FHA</h3>
+        <p>Government-backed flexibility for thinner credit files. A precise, well-priced path in — not a consolation prize.</p>
+        <ul>
+          <li>Credit scores from 580 accepted</li>
+          <li>Gift funds allowed for the full down payment</li>
+          <li>Debt-to-income flexibility to 55% with compensating factors</li>
+        </ul>
+        <a class="btn btn-solid" href="apply.html">Apply now</a>
+      </div>
+
+      <div class="prog-card">
+        <div class="tag">Purchase</div>
+        <div class="headline-stat">$0 down</div>
+        <div class="stat-label">For eligible veterans</div>
+        <h3>VA</h3>
+        <p>If you served, this is the math to beat: no down payment and no monthly mortgage insurance — a structural pricing edge.</p>
+        <ul>
+          <li>0 down for eligible veterans and service members</li>
+          <li>No monthly mortgage insurance</li>
+          <li>Lower average rate than conventional — 5.990% sample today</li>
+          <li>Seller can pay up to 4% in concessions</li>
+        </ul>
+        <a class="btn btn-solid" href="apply.html">Apply now</a>
+      </div>
+
+      <div class="prog-card">
+        <div class="tag">Purchase</div>
+        <div class="headline-stat">To $3M+</div>
+        <div class="stat-label">Loan amounts</div>
+        <h3>Jumbo</h3>
+        <p>High-balance lending priced like we actually want the business. Only 0.125% above our conventional 30-year sample.</p>
+        <ul>
+          <li>Loan amounts from $806,501 to $3.5M</li>
+          <li>10% down available to $1.5M</li>
+          <li>Interest-only options for qualified borrowers</li>
+        </ul>
+        <a class="btn btn-solid" href="apply.html">Apply now</a>
+      </div>
+
+      <div class="prog-card">
+        <div class="tag">Refinance</div>
+        <div class="headline-stat">0.31%</div>
+        <div class="stat-label">Avg. borrower rate savings</div>
+        <h3>Refinance</h3>
+        <p>Rate-and-term or cash-out. We'll run the break-even math with you first — if refinancing doesn't pencil, we'll say so.</p>
+        <ul>
+          <li>Free break-even analysis before you apply</li>
+          <li>Cash-out to 80% of home value</li>
+          <li>Skip up to two payments at closing</li>
+        </ul>
+        <a class="btn btn-solid" href="apply.html">Apply now</a>
+      </div>
+
+      <div class="prog-card">
+        <div class="tag">Purchase</div>
+        <div class="headline-stat">$7,500</div>
+        <div class="stat-label">Max assistance credit</div>
+        <h3>First-Time Buyer</h3>
+        <p>Conventional pricing plus layered assistance programs. Our analysts stack every credit you qualify for — automatically.</p>
+        <ul>
+          <li>Down payment assistance screening in all 50 states</li>
+          <li>3% down conventional or 3.5% FHA paths</li>
+          <li>One-on-one payment planning session included</li>
+        </ul>
+        <a class="btn btn-solid" href="apply.html">Apply now</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="apr-section">
+  <div class="container">
+    <div class="section-head">
+      <div class="micro">Rate vs. APR</div>
+      <h2>Compare the whole cost, not just the headline.</h2>
+      <p>The APR folds points and standard lender fees into the rate. It's the honest number — which is why we print both, side by side, for every program.</p>
+    </div>
+    <div class="table-scroll">
+      <table class="rates">
+        <thead>
+          <tr><th>Program</th><th class="n">Rate</th><th class="n">APR</th><th class="n">APR spread</th><th class="n">Points</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="prog">30-yr fixed</td><td class="n">6.375%</td><td class="n">6.512%</td><td class="n delta">+0.137%</td><td class="n">0.8</td></tr>
+          <tr><td class="prog">15-yr fixed</td><td class="n">5.625%</td><td class="n">5.798%</td><td class="n delta">+0.173%</td><td class="n">0.7</td></tr>
+          <tr><td class="prog">FHA 30-yr</td><td class="n">6.125%</td><td class="n">6.401%</td><td class="n delta">+0.276%</td><td class="n">0.9</td></tr>
+          <tr><td class="prog">VA 30-yr</td><td class="n">5.990%</td><td class="n">6.210%</td><td class="n delta">+0.220%</td><td class="n">0.5</td></tr>
+          <tr><td class="prog">Jumbo 30-yr</td><td class="n">6.500%</td><td class="n">6.588%</td><td class="n delta">+0.088%</td><td class="n">1.0</td></tr>
+        </tbody>
+      </table>
+      <div class="rate-foot num">Sample rates as of July 29, 2026 — for demo purposes. A tight rate-to-APR spread means lower fees. Ours averages 0.179% across programs.</div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-band">
+  <div class="container">
+    <div class="micro on-dark">Not sure where you fit?</div>
+    <h2>Which program fits? Let the numbers decide.</h2>
+    <p>Apply in about 8 minutes and a licensed loan officer will price you across every program you qualify for — side by side.</p>
+    <div class="btns">
+      <a class="btn btn-white" href="apply.html">Apply now</a>
+      <a class="btn btn-ghost-white" href="calculator.html">Try the calculator</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand"><span class="brand-mark">%</span><strong>PrimeRate</strong><span class="lite">Financial</span></div>
+        <p>A direct mortgage lender built by rate analysts. We publish our pricing daily, underwrite up front, and close on schedule. Obsessed with your rate — because nobody else is.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Explore</h4>
+        <a href="index.html">Home</a>
+        <a href="programs.html">Programs</a>
+        <a href="calculator.html">Calculator</a>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <a href="about.html">About</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="apply.html">Apply now</a>
+      </div>
+      <div class="foot-col">
+        <h4>Contact</h4>
+        <a href="tel:0000000000" class="num">(000) 000-0000</a>
+        <a href="mailto:hello@example.com">hello@example.com</a>
+        <a href="#">Mon–Fri, 8am–7pm ET</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <div class="eh-mark">⌂ EQUAL HOUSING LENDER</div>
+      <p><strong>NMLS #000000 · Equal Housing Lender.</strong> PrimeRate Financial is committed to the letter and spirit of U.S. policy for the achievement of equal housing opportunity, and we encourage and support an affirmative program in which there are no barriers to obtaining housing because of race, color, religion, sex, handicap, familial status, or national origin.</p>
+      <p style="margin-top:10px;">Sample rates for demonstration only — not an offer of credit. This is a demo website template; all names, numbers, rates, and reviews are fictional sample content and do not represent a real lender.</p>
+      <p style="margin-top:10px;">© 2026 PrimeRate Financial (Demo) · Template by Pilk.ai</p>
+    </div>
+  </div>
+</footer>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

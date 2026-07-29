@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us — NorthStar Mortgage</title>
+<meta name="description" content="Meet the NorthStar Mortgage team — loan officers who guide, not sell. Learn our story, our values, and why 2,400+ homeowners trusted us to chart their course home.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#1e3a8a;
+  --deep:#16295f;
+  --tint:#eef2fb;
+  --slate:#475569;
+  --ink:#0f172a;
+  --line:#e2e8f0;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Manrope',system-ui,sans-serif;color:var(--slate);background:#ffffff;line-height:1.6;font-size:16px;}
+h1,h2,h3,h4{color:var(--ink);letter-spacing:-0.02em;line-height:1.15;}
+a{text-decoration:none;color:inherit;}
+img{display:block;max-width:100%;}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px;}
+
+.nav{position:sticky;top:0;z-index:1000;background:#ffffff;border-bottom:1px solid var(--line);}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px;}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;color:var(--ink);letter-spacing:-0.02em;white-space:nowrap;}
+.brand .star{color:var(--blue);display:inline-flex;}
+.brand span.co{color:var(--blue);}
+.nav-links{display:flex;gap:28px;font-weight:600;font-size:14.5px;color:var(--slate);}
+.nav-links a{padding:6px 2px;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;}
+.nav-links a:hover{color:var(--blue);}
+.nav-links a.active{color:var(--blue);border-bottom-color:var(--blue);}
+.btn{display:inline-block;font-weight:700;font-size:15px;padding:13px 26px;border:1px solid transparent;letter-spacing:0.01em;transition:background .15s,color .15s,border-color .15s;cursor:pointer;}
+.btn-blue{background:var(--blue);color:#fff;}
+.btn-blue:hover{background:var(--deep);}
+.btn-nav{padding:11px 22px;font-size:14px;}
+.btn-white{background:#fff;color:var(--blue);}
+.btn-white:hover{background:var(--tint);}
+.btn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.5);}
+.btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,0.08);}
+
+/* SPLIT HERO */
+.hero{display:grid;grid-template-columns:1fr 1fr;min-height:64vh;}
+.hero-left{background:var(--blue);color:#fff;display:flex;align-items:center;padding:80px 64px;}
+.hero-left-inner{max-width:520px;margin-left:auto;}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#a8bdf0;margin-bottom:20px;}
+.hero h1{color:#fff;font-size:44px;font-weight:800;letter-spacing:-0.03em;margin-bottom:18px;}
+.hero p{font-size:18px;color:#c7d4f5;font-weight:500;}
+.hero-right{background-image:url('/template-previews/_assets/coastal-house.jpg'),linear-gradient(135deg,#1e3a8a,#16295f);background-size:cover;background-position:center;min-height:360px;}
+
+/* STORY SPLIT */
+.split{display:grid;grid-template-columns:1fr 1fr;align-items:stretch;}
+.split-img{background-size:cover;background-position:center;min-height:460px;}
+.split-txt{display:flex;align-items:center;padding:88px 64px;}
+.split-txt-inner{max-width:520px;}
+.split-txt.on-left .split-txt-inner{margin-left:auto;}
+.sec-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--blue);margin-bottom:14px;}
+.split-txt h2{font-size:32px;font-weight:800;margin-bottom:16px;}
+.split-txt p{margin-bottom:16px;font-size:15.5px;}
+
+/* VALUES / STATS */
+.values{background:var(--deep);color:#fff;padding:88px 0;}
+.values .sec-head{text-align:center;max-width:640px;margin:0 auto 56px;}
+.values .sec-head h2{color:#fff;font-size:34px;font-weight:800;}
+.values .sec-eyebrow{color:#a8bdf0;}
+.val-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.15);}
+.val{background:var(--deep);padding:36px 28px;}
+.val .star{color:#a8bdf0;font-size:15px;display:block;margin-bottom:14px;}
+.val h3{color:#fff;font-size:18px;font-weight:800;margin-bottom:8px;}
+.val p{font-size:14px;color:#c7d4f5;}
+
+/* TEAM */
+.team{padding:96px 0;}
+.sec-head{max-width:640px;margin-bottom:56px;}
+.sec-head.center{margin-left:auto;margin-right:auto;text-align:center;}
+.sec-head h2{font-size:36px;font-weight:800;margin-bottom:12px;}
+.sec-head p{font-size:16.5px;}
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+.member{border:1px solid var(--line);background:#fff;}
+.member img{width:100%;aspect-ratio:4/5;object-fit:cover;background-color:#dbe4f5;}
+.member .info{padding:22px 20px;}
+.member h3{font-size:17.5px;font-weight:800;}
+.member .role{font-size:13.5px;font-weight:700;color:var(--blue);margin:3px 0 8px;}
+.member .nmls{font-size:12.5px;color:#94a3b8;font-weight:600;letter-spacing:0.04em;}
+.member .bio{font-size:13.5px;margin-top:10px;color:var(--slate);}
+
+/* CTA BAND */
+.cta-band{background-image:url('/template-previews/_assets/city-skyline.jpg'),linear-gradient(135deg,#1e3a8a,#16295f);background-size:cover;background-position:center;position:relative;}
+.cta-band:before{content:"";position:absolute;inset:0;background:rgba(22,41,95,0.88);}
+.cta-band-inner{position:relative;max-width:820px;margin:0 auto;padding:96px 24px;text-align:center;color:#fff;}
+.cta-band h2{color:#fff;font-size:36px;font-weight:800;margin-bottom:16px;}
+.cta-band p{color:#c7d4f5;font-size:17px;margin-bottom:30px;}
+.cta-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+
+footer{background:var(--deep);color:#c7d4f5;font-size:14px;border-top:1px solid rgba(255,255,255,0.12);}
+.foot-inner{max-width:1200px;margin:0 auto;padding:64px 24px 90px;display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;}
+.foot-brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;color:#fff;margin-bottom:14px;}
+.foot-brand .star{color:#a8bdf0;display:inline-flex;}
+footer h4{color:#fff;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:16px;}
+.foot-links a{display:block;padding:5px 0;color:#c7d4f5;}
+.foot-links a:hover{color:#fff;}
+.foot-legal{grid-column:1/-1;border-top:1px solid rgba(255,255,255,0.15);padding-top:24px;font-size:12.5px;color:#8fa3d9;line-height:1.7;}
+
+@media (max-width:960px){
+  .hero{grid-template-columns:1fr;min-height:0;}
+  .hero-left{padding:64px 24px;}
+  .hero-left-inner{margin-left:0;}
+  .hero h1{font-size:34px;}
+  .hero-right{min-height:280px;order:-1;}
+  .split{grid-template-columns:1fr;}
+  .split-img{min-height:300px;order:-1;}
+  .split-txt{padding:64px 24px;}
+  .split-txt.on-left .split-txt-inner{margin-left:0;}
+  .val-grid{grid-template-columns:repeat(2,1fr);}
+  .team-grid{grid-template-columns:repeat(2,1fr);}
+  .foot-inner{grid-template-columns:1fr;gap:36px;}
+}
+@media (max-width:760px){
+  .nav-links{display:none;}
+  .val-grid,.team-grid{grid-template-columns:1fr;}
+  .sec-head h2,.cta-band h2{font-size:27px;}
+  .team{padding:64px 0;}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <span class="star"><svg viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 0l2.7 9.3L24 12l-9.3 2.7L12 24l-2.7-9.3L0 12l9.3-2.7z" fill="currentColor"/></svg></span>
+      NorthStar&nbsp;<span class="co">Mortgage</span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html" class="active">About</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="apply.html">Apply</a>
+    </nav>
+    <a class="btn btn-blue btn-nav" href="apply.html">Apply now</a>
+  </div>
+</header>
+
+<!-- SPLIT HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-left-inner">
+      <span class="eyebrow">✦ Our mission</span>
+      <h1>Nobody should navigate the biggest purchase of their life alone.</h1>
+      <p>We exist to make the mortgage the calmest part of buying a home — with honest math, human guidance, and a fixed point to steer by.</p>
+    </div>
+  </div>
+  <div class="hero-right" role="img" aria-label="Coastal home overlooking the water"></div>
+</section>
+
+<!-- STORY -->
+<section class="split">
+  <div class="split-img" style="background-image:url('/template-previews/_assets/int-living-bright.jpg'),linear-gradient(135deg,#1e3a8a,#16295f);background-size:cover;background-position:center;" role="img" aria-label="Sunlit living room interior"></div>
+  <div class="split-txt">
+    <div class="split-txt-inner">
+      <span class="sec-eyebrow">✦ Our story</span>
+      <h2>Founded by two loan officers who were tired of watching buyers get lost.</h2>
+      <p>NorthStar started in 2014 with a folding table, two phones, and a simple observation: most borrowers weren't confused because mortgages are complicated. They were confused because nobody bothered to explain anything.</p>
+      <p>So we built the lender we wished existed. One loan officer per file, start to finish. Underwriting down the hall, not across the country. Weekly updates sent before you think to ask. And a standing rule that still governs every deal: if the math says wait, we say wait — even when it costs us the loan.</p>
+      <p>Eleven years and $650 million later, the folding table is gone. The rule isn't.</p>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-eyebrow">✦ What we steer by</span>
+      <h2>Four fixed points on our compass.</h2>
+    </div>
+    <div class="val-grid">
+      <div class="val">
+        <span class="star">✦</span>
+        <h3>Honest math</h3>
+        <p>Every quote itemized, every fee explained, every break-even calculated in front of you. If the numbers don't work, we'll be the first to say so.</p>
+      </div>
+      <div class="val">
+        <span class="star">✦</span>
+        <h3>One guide per voyage</h3>
+        <p>You get a single loan officer from first call to closing table. No handoffs, no call centers, no re-explaining your file to a stranger.</p>
+      </div>
+      <div class="val">
+        <span class="star">✦</span>
+        <h3>Speed with rigor</h3>
+        <p>In-house underwriting gets most files clear-to-close in 15 days — without cutting the corners that blow up at the closing table.</p>
+      </div>
+      <div class="val">
+        <span class="star">✦</span>
+        <h3>Every door open</h3>
+        <p>We lend the way the law intends: fairly, to every qualified borrower. Equal Housing Lender isn't fine print here — it's the point.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="sec-eyebrow">✦ Your navigators</span>
+      <h2>The team that answers on the second ring.</h2>
+      <p>Licensed loan officers, an average of 12 years in the business, and zero tolerance for leaving you in the dark.</p>
+    </div>
+    <div class="team-grid">
+      <div class="member">
+        <img src="/template-previews/_assets/agent-f1.jpg" alt="Sarah Whitfield, Senior Loan Officer" style="background-color:#dbe4f5;">
+        <div class="info">
+          <h3>Sarah Whitfield</h3>
+          <div class="role">Senior Loan Officer</div>
+          <div class="nmls">NMLS #000000</div>
+          <p class="bio">14 years guiding first-time buyers. Known for turning panicked 9 p.m. texts into calm 9:05 p.m. answers.</p>
+        </div>
+      </div>
+      <div class="member">
+        <img src="/template-previews/_assets/agent-m1.jpg" alt="Marcus Delgado, Loan Officer and VA Specialist" style="background-color:#dbe4f5;">
+        <div class="info">
+          <h3>Marcus Delgado</h3>
+          <div class="role">Loan Officer · VA Specialist</div>
+          <div class="nmls">NMLS #000000</div>
+          <p class="bio">Army veteran who's closed 400+ VA loans. If you served, Marcus makes sure the benefit works as hard as you did.</p>
+        </div>
+      </div>
+      <div class="member">
+        <img src="/template-previews/_assets/agent-f2.jpg" alt="Elena Vasquez, Loan Officer and Refinance Lead" style="background-color:#dbe4f5;">
+        <div class="info">
+          <h3>Elena Vasquez</h3>
+          <div class="role">Loan Officer · Refinance Lead</div>
+          <div class="nmls">NMLS #000000</div>
+          <p class="bio">The break-even whisperer. Elena has talked more clients out of bad refis than into good ones — and sleeps great.</p>
+        </div>
+      </div>
+      <div class="member">
+        <img src="/template-previews/_assets/agent-m2.jpg" alt="David Okafor, Loan Officer and Jumbo Specialist" style="background-color:#dbe4f5;">
+        <div class="info">
+          <h3>David Okafor</h3>
+          <div class="role">Loan Officer · Jumbo Specialist</div>
+          <div class="nmls">NMLS #000000</div>
+          <p class="bio">Former commercial banker who brings big-loan precision to complex files — self-employed borrowers are his specialty.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-band">
+  <div class="cta-band-inner">
+    <span class="eyebrow">✦ Ready when you are</span>
+    <h2>Let's chart your course home.</h2>
+    <p>Ten minutes to apply. One business day to hear from a real person. Zero pressure in between.</p>
+    <div class="cta-ctas">
+      <a class="btn btn-white" href="apply.html">Apply now</a>
+      <a class="btn btn-ghost" href="reviews.html">Read client reviews</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <div>
+      <div class="foot-brand">
+        <span class="star"><svg viewBox="0 0 24 24" width="16" height="16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 0l2.7 9.3L24 12l-9.3 2.7L12 24l-2.7-9.3L0 12l9.3-2.7z" fill="currentColor"/></svg></span>
+        NorthStar Mortgage
+      </div>
+      <p>Your true north to homeownership. Straightforward lending, sharp rates, and guidance every step of the way.</p>
+      <p style="margin-top:14px;font-weight:700;color:#fff;">(000) 000-0000 · hello@example.com</p>
+    </div>
+    <div class="foot-links">
+      <h4>Navigate</h4>
+      <a href="index.html">Home</a>
+      <a href="programs.html">Loan programs</a>
+      <a href="calculator.html">Payment calculator</a>
+    </div>
+    <div class="foot-links">
+      <h4>Company</h4>
+      <a href="about.html">About us</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="apply.html">Apply now</a>
+    </div>
+    <div class="foot-legal">
+      NMLS #654321 · ⌂ Equal Housing Lender. NorthStar Mortgage is a fictional company created for demonstration purposes. Team members, figures, and testimonials shown are sample content and do not constitute a loan offer or financial advice. All loans subject to credit approval.<br>
+      Template by Pilk.ai
+    </div>
+  </div>
+</footer>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

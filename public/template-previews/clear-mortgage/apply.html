@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apply — ClearPath Mortgage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;color:#111;background:#fff;line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  a{color:inherit;text-decoration:none}
+  header{position:sticky;top:0;background:rgba(255,255,255,0.94);backdrop-filter:blur(10px);border-bottom:1px solid #ececec;z-index:100}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+  .logo{font-weight:700;font-size:17px;letter-spacing:-0.02em}
+  .logo span{color:#16a34a}
+  .nav-links{display:flex;align-items:center;gap:28px;font-size:14px;color:#555}
+  .nav-links a:hover{color:#111}
+  .btn{display:inline-block;padding:12px 24px;font-size:14px;font-weight:600;border-radius:4px;transition:opacity .15s ease;cursor:pointer;border:none;font-family:inherit}
+  .btn-dark{background:#111;color:#fff}
+  .btn-dark:hover{opacity:.85}
+  .nav .btn{padding:10px 20px}
+  .page-head{padding:80px 0 48px}
+  .eyebrow{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#16a34a;margin-bottom:18px}
+  h1{font-size:44px;line-height:1.1;letter-spacing:-0.03em;font-weight:700}
+  .page-head p{margin-top:18px;font-size:16px;color:#555;max-width:52ch}
+  .apply-grid{display:grid;grid-template-columns:1fr 320px;gap:64px;align-items:start;padding-bottom:96px}
+  fieldset{border:none;margin-bottom:44px}
+  legend{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#111;padding-bottom:18px;border-bottom:1px solid #ececec;width:100%;margin-bottom:24px}
+  legend span{color:#16a34a;margin-right:8px}
+  .field{margin-bottom:22px}
+  .field label{display:block;font-size:13px;font-weight:600;margin-bottom:8px;color:#333}
+  .field input,.field select,.field textarea{width:100%;padding:13px 14px;font-size:15px;font-family:inherit;border:1px solid #d4d4d4;border-radius:4px;background:#fff;color:#111}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:#111}
+  .field textarea{min-height:110px;resize:vertical}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .side{border:1px solid #ececec;border-radius:8px;padding:32px;position:sticky;top:96px}
+  .side h3{font-size:16px;font-weight:600}
+  .side ul{list-style:none;margin-top:16px}
+  .side li{font-size:14px;color:#555;padding-left:26px;position:relative;margin-bottom:12px}
+  .side li::before{content:"✓";position:absolute;left:0;color:#16a34a;font-weight:700}
+  .side .note{margin-top:18px;padding-top:16px;border-top:1px solid #ececec;font-size:12.5px;color:#999}
+  .success{display:none;border:1px solid #d1ead9;background:#f2faf5;border-radius:8px;padding:56px 48px;text-align:center;margin-bottom:96px}
+  .success .check{width:56px;height:56px;border-radius:99px;background:#16a34a;color:#fff;font-size:26px;line-height:56px;margin:0 auto 20px;font-weight:700}
+  .success h2{font-size:30px;letter-spacing:-0.02em;font-weight:700}
+  .success p{margin-top:14px;color:#555;max-width:46ch;margin-left:auto;margin-right:auto}
+  footer{border-top:1px solid #ececec;padding:56px 0 40px}
+  .foot-grid{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap}
+  .foot-brand{max-width:320px}
+  .foot-brand p{margin-top:12px;font-size:13px;color:#888}
+  .foot-links{display:flex;gap:56px;flex-wrap:wrap}
+  .foot-links div h4{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#aaa;margin-bottom:14px}
+  .foot-links a{display:block;font-size:14px;color:#555;margin-bottom:9px}
+  .legal{margin-top:48px;padding-top:24px;border-top:1px solid #ececec;font-size:12px;color:#999;line-height:1.8}
+  @media(max-width:900px){
+    h1{font-size:32px}
+    .page-head{padding:48px 0 36px}
+    .apply-grid{grid-template-columns:1fr;gap:40px;padding-bottom:64px}
+    .side{position:static}
+    .split{grid-template-columns:1fr}
+    .nav{height:auto;flex-wrap:wrap;padding:14px 0}
+    .nav-links{gap:16px;flex-wrap:wrap;font-size:13px;order:3;width:100%;padding-bottom:4px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="index.html" class="logo">ClearPath<span>.</span></a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+    </nav>
+    <a href="apply.html" class="btn btn-dark">Apply now</a>
+  </div>
+</header>
+
+<div class="page-head">
+  <div class="wrap">
+    <div class="eyebrow">Application</div>
+    <h1>Start your application.</h1>
+    <p>About 8 minutes, no documents required yet, and no hard credit pull. A loan advisor will follow up within one business day with real numbers.</p>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="apply-grid" id="formWrap">
+    <form id="applyForm" novalidate>
+      <fieldset>
+        <legend><span>01</span>About you</legend>
+        <div class="split">
+          <div class="field">
+            <label for="firstName">First name</label>
+            <input type="text" id="firstName" name="firstName" required autocomplete="given-name">
+          </div>
+          <div class="field">
+            <label for="lastName">Last name</label>
+            <input type="text" id="lastName" name="lastName" required autocomplete="family-name">
+          </div>
+        </div>
+        <div class="split">
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required autocomplete="email">
+          </div>
+          <div class="field">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" required autocomplete="tel">
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span>02</span>Your loan</legend>
+        <div class="split">
+          <div class="field">
+            <label for="purpose">Loan purpose</label>
+            <select id="purpose" name="purpose">
+              <option>Buying a home</option>
+              <option>Refinancing</option>
+              <option>Cash-out refinance</option>
+              <option>First-time purchase</option>
+              <option>Investment property</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="state">Property state</label>
+            <select id="state" name="state">
+              <option>Texas</option><option>California</option><option>Florida</option>
+              <option>North Carolina</option><option>Colorado</option><option>Arizona</option>
+              <option>Tennessee</option><option>Georgia</option><option>Washington</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="split">
+          <div class="field">
+            <label for="range">Price range</label>
+            <select id="range" name="range">
+              <option>Under $250,000</option>
+              <option selected>$250,000 – $400,000</option>
+              <option>$400,000 – $600,000</option>
+              <option>$600,000 – $1,000,000</option>
+              <option>Over $1,000,000</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="timeline">Timeline</label>
+            <select id="timeline" name="timeline">
+              <option>ASAP — under contract</option>
+              <option selected>1–3 months</option>
+              <option>3–6 months</option>
+              <option>6+ months / just researching</option>
+            </select>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend><span>03</span>Anything else</legend>
+        <div class="field">
+          <label for="message">Questions, context, or anything we should know (optional)</label>
+          <textarea id="message" name="message" placeholder="Self-employed? Recent credit event? Curious about a specific program? Tell us here."></textarea>
+        </div>
+      </fieldset>
+
+      <button type="submit" class="btn btn-dark" style="padding:15px 36px;font-size:15px">Submit application</button>
+      <p style="font-size:12px;color:#999;margin-top:14px">Submitting does not affect your credit score. This is a demo form — no data is sent.</p>
+    </form>
+
+    <aside class="side">
+      <h3>What happens next</h3>
+      <ul>
+        <li>An advisor reviews your info same-day</li>
+        <li>You get a written quote across multiple programs</li>
+        <li>No hard credit pull until you're ready</li>
+        <li>No spam calls — one advisor, one thread</li>
+      </ul>
+      <div class="note">Prefer to talk first? Call (000) 000-0000 or email hello@example.com and ask for a no-pressure intro call.</div>
+    </aside>
+  </div>
+
+  <div class="success" id="successBox">
+    <div class="check">✓</div>
+    <h2>Application received.</h2>
+    <p>Thanks — you're in the queue. A ClearPath loan advisor will reach out within one business day with your personalized quote. Keep an eye on your inbox (and your spam folder, just in case).</p>
+    <a href="calculator.html" class="btn btn-dark" style="margin-top:24px">Run your numbers while you wait</a>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo">ClearPath<span style="color:#16a34a">.</span></div>
+        <p>A modern mortgage brokerage built on one idea: if you can't explain a loan clearly, you shouldn't be selling it.</p>
+      </div>
+      <div class="foot-links">
+        <div>
+          <h4>Company</h4>
+          <a href="about.html">About us</a>
+          <a href="reviews.html">Reviews</a>
+          <a href="apply.html">Apply now</a>
+        </div>
+        <div>
+          <h4>Loans</h4>
+          <a href="programs.html">All programs</a>
+          <a href="calculator.html">Payment calculator</a>
+          <a href="programs.html">Refinance</a>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <a href="apply.html">(000) 000-0000</a>
+          <a href="apply.html">hello@example.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="legal">
+      ClearPath Mortgage · NMLS #000000 · Equal Housing Opportunity. This is a demo website; all rates, statistics, and testimonials are sample content for illustration only and do not constitute an offer to lend.<br>
+      (000) 000-0000 · hello@example.com · Template by Pilk.ai
+    </div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('applyForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  var required=['firstName','lastName','email','phone'],ok=true;
+  required.forEach(function(id){
+    var el=document.getElementById(id);
+    if(!el.value.trim()){el.style.borderColor='#dc2626';ok=false;}
+    else{el.style.borderColor='#d4d4d4';}
+  });
+  if(!ok)return;
+  document.getElementById('formWrap').style.display='none';
+  document.getElementById('successBox').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+</script>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

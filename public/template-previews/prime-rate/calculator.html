@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mortgage Calculator — PrimeRate Financial</title>
+<meta name="description" content="Run your full monthly payment — principal, interest, taxes, and insurance — with PrimeRate Financial's live mortgage calculator.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#15803d;
+  --green-dark:#166534;
+  --forest:#14532d;
+  --forest-deep:#0f3d21;
+  --tint:#f0fdf4;
+  --tint-line:#bbf7d0;
+  --ink:#0f172a;
+  --muted:#5b6472;
+  --line:#e5e7eb;
+  --white:#ffffff;
+  --r-sm:8px;
+  --r-md:10px;
+  --r-lg:12px;
+  --shadow:0 1px 2px rgba(15,23,42,.05),0 8px 24px rgba(15,23,42,.06);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;color:var(--ink);background:var(--white);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased;}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+.container{max-width:1160px;margin:0 auto;padding:0 24px;}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;}
+.micro{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green);}
+.micro.on-dark{color:#86efac;}
+h1,h2,h3{line-height:1.15;letter-spacing:-0.02em;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:15px;padding:13px 26px;border-radius:var(--r-md);border:1px solid transparent;cursor:pointer;transition:background .18s,color .18s,border-color .18s,transform .18s;}
+.btn-solid{background:var(--green);color:#fff;}
+.btn-solid:hover{background:var(--green-dark);transform:translateY(-1px);}
+.btn-white{background:#fff;color:var(--forest);}
+.btn-white:hover{background:var(--tint);}
+.btn-ghost-white{background:transparent;color:#fff;border-color:rgba(255,255,255,.5);}
+.btn-ghost-white:hover{border-color:#fff;background:rgba(255,255,255,.08);}
+
+.nav{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+.nav-inner{max-width:1160px;margin:0 auto;padding:0 24px;height:68px;display:flex;align-items:center;justify-content:space-between;gap:24px;}
+.brand{display:flex;align-items:center;gap:10px;font-size:19px;letter-spacing:-0.02em;white-space:nowrap;}
+.brand-mark{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,var(--green),var(--forest));display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:13px;flex:0 0 auto;}
+.brand strong{font-weight:800;color:var(--ink);}
+.brand span.lite{font-weight:400;color:var(--muted);}
+.nav-links{display:flex;align-items:center;gap:28px;}
+.nav-links a{font-size:14.5px;font-weight:600;color:var(--muted);padding:6px 2px;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;}
+.nav-links a:hover{color:var(--ink);}
+.nav-links a.active{color:var(--green);border-bottom-color:var(--green);}
+.nav-cta{padding:10px 20px;font-size:14px;}
+.menu-btn{display:none;background:none;border:1px solid var(--line);border-radius:var(--r-sm);width:42px;height:42px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;}
+.menu-btn span{display:block;width:18px;height:2px;background:var(--ink);}
+.mobile-menu{display:none;background:#fff;border-bottom:1px solid var(--line);padding:8px 24px 18px;}
+.mobile-menu a{display:block;padding:12px 4px;font-weight:600;font-size:15.5px;color:var(--ink);border-bottom:1px solid var(--line);}
+.mobile-menu a.active{color:var(--green);}
+.mobile-menu a:last-child{border-bottom:none;}
+.mobile-menu.open{display:block;}
+
+.page-hero{position:relative;padding:80px 0 72px;background:linear-gradient(115deg,#0f3d21,#14532d);overflow:hidden;}
+.page-hero::before{content:"";position:absolute;inset:0;background:linear-gradient(95deg,rgba(10,36,20,.94) 0%,rgba(15,61,33,.84) 55%,rgba(15,61,33,.55) 100%),url('/template-previews/_assets/int-living-bright.jpg') center/cover no-repeat;}
+.page-hero .container{position:relative;z-index:2;}
+.page-hero h1{color:#fff;font-size:clamp(32px,4.4vw,48px);font-weight:800;max-width:640px;margin:16px 0 14px;}
+.page-hero p{color:rgba(255,255,255,.82);max-width:560px;font-size:17px;}
+
+/* CALC LAYOUT */
+.calc-section{padding:64px 0 88px;background:var(--tint);border-bottom:1px solid var(--tint-line);}
+.calc-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:28px;align-items:start;margin-top:-118px;position:relative;z-index:5;}
+.panel{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow);}
+.panel-head{padding:20px 28px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.panel-head h2{font-size:16px;font-weight:800;}
+.panel-body{padding:28px;}
+.field{margin-bottom:20px;}
+.field label{display:block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;}
+.field input,.field select{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:var(--r-sm);font:600 16px 'Inter',sans-serif;color:var(--ink);background:#fff;font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;transition:border-color .15s,box-shadow .15s;}
+.field input:focus,.field select:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(21,128,61,.15);}
+.field .hint{font-size:12px;color:var(--muted);margin-top:5px;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.input-wrap{position:relative;}
+.input-wrap .prefix{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-weight:600;color:var(--muted);font-size:15px;pointer-events:none;}
+.input-wrap .suffix{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-weight:600;color:var(--muted);font-size:14px;pointer-events:none;}
+.input-wrap input{padding-left:30px;}
+.input-wrap input.pct{padding-left:14px;padding-right:34px;}
+
+/* RESULTS */
+.total-line{padding:26px 28px;background:var(--forest);border-radius:var(--r-lg) var(--r-lg) 0 0;color:#fff;}
+.total-line .lbl{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#86efac;}
+.total-line .big{font-size:44px;font-weight:800;letter-spacing:-0.02em;line-height:1.1;font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;}
+.total-line .big small{font-size:17px;font-weight:600;color:rgba(255,255,255,.65);}
+.result-rows{padding:6px 28px 10px;}
+.r-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--line);font-size:15px;}
+.r-row:last-child{border-bottom:none;}
+.r-row .k{color:var(--muted);font-weight:600;display:flex;align-items:center;gap:9px;}
+.r-row .v{font-weight:700;font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;}
+.dot{width:10px;height:10px;border-radius:3px;flex:0 0 auto;}
+.dot.pi{background:var(--green);}
+.dot.tax{background:#65a30d;}
+.dot.ins{background:#a3e635;}
+/* Composition bar */
+.comp-wrap{padding:4px 28px 22px;}
+.comp-bar{display:flex;height:16px;border-radius:6px;overflow:hidden;background:var(--line);}
+.comp-bar .seg{height:100%;transition:width .3s ease;}
+.comp-bar .seg.pi{background:var(--green);}
+.comp-bar .seg.tax{background:#65a30d;}
+.comp-bar .seg.ins{background:#a3e635;}
+.comp-legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:10px;font-size:12.5px;font-weight:600;color:var(--muted);}
+.comp-legend span{display:inline-flex;align-items:center;gap:6px;}
+.bonus{margin:0 28px 26px;padding:16px 18px;background:var(--tint);border:1px solid var(--tint-line);border-radius:var(--r-md);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
+.bonus .k{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+.bonus .v{font-size:20px;font-weight:800;color:var(--green);font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;}
+.calc-disclaimer{margin-top:22px;font-size:12.5px;color:var(--muted);max-width:760px;}
+.panel-cta{padding:0 28px 28px;}
+.panel-cta .btn{width:100%;}
+
+.cta-band{background:linear-gradient(120deg,var(--forest-deep),var(--forest));text-align:center;padding:80px 0;}
+.cta-band h2{color:#fff;font-size:clamp(28px,3.6vw,40px);font-weight:800;margin:14px 0 14px;}
+.cta-band p{color:rgba(255,255,255,.75);max-width:520px;margin:0 auto 32px;}
+.cta-band .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+
+footer{background:var(--forest-deep);color:rgba(255,255,255,.72);padding:64px 0 110px;font-size:14px;}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.4fr;gap:44px;margin-bottom:44px;}
+.foot-brand{display:flex;align-items:center;gap:10px;font-size:18px;margin-bottom:14px;color:#fff;}
+.foot-brand strong{font-weight:800;}
+.foot-brand span.lite{font-weight:400;color:rgba(255,255,255,.6);}
+.foot-col h4{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#86efac;margin-bottom:16px;}
+.foot-col a{display:block;padding:5px 0;color:rgba(255,255,255,.72);transition:color .15s;}
+.foot-col a:hover{color:#fff;}
+.foot-legal{border-top:1px solid rgba(255,255,255,.12);padding-top:28px;font-size:12.5px;color:rgba(255,255,255,.5);line-height:1.7;}
+.foot-legal strong{color:rgba(255,255,255,.75);}
+.eh-mark{display:inline-flex;align-items:center;gap:8px;margin-bottom:10px;color:rgba(255,255,255,.75);font-weight:700;font-size:12.5px;letter-spacing:.06em;}
+
+@media (max-width:900px){
+  .nav-links,.nav-cta{display:none;}
+  .menu-btn{display:flex;}
+  .calc-grid{grid-template-columns:1fr;margin-top:-60px;}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:32px;}
+}
+@media (max-width:520px){
+  .field-row{grid-template-columns:1fr;}
+  .panel-body,.panel-head{padding-left:20px;padding-right:20px;}
+  .total-line,.result-rows,.comp-wrap,.panel-cta{padding-left:20px;padding-right:20px;}
+  .bonus{margin-left:20px;margin-right:20px;}
+  .total-line .big{font-size:36px;}
+  .foot-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">%</span><strong>PrimeRate</strong><span class="lite">Financial</span></a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html" class="active">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+    </nav>
+    <a class="btn btn-solid nav-cta" href="apply.html">Apply now</a>
+    <button class="menu-btn" aria-label="Open menu" onclick="document.getElementById('mm').classList.toggle('open')"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mm">
+    <a href="index.html">Home</a>
+    <a href="programs.html">Programs</a>
+    <a href="calculator.html" class="active">Calculator</a>
+    <a href="about.html">About</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="apply.html" style="color:var(--green);font-weight:700;">Apply now →</a>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="micro on-dark">Payment calculator</div>
+    <h1>Your full payment. Not just the pretty part.</h1>
+    <p>Principal, interest, taxes, and insurance — the whole monthly number, live as you type. Most calculators show you half the payment. Ours shows the math.</p>
+  </div>
+</div>
+
+<section class="calc-section">
+  <div class="container">
+    <div class="calc-grid">
+
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Loan inputs</h2>
+          <span class="micro">Live · updates as you type</span>
+        </div>
+        <div class="panel-body">
+          <div class="field">
+            <label for="price">Home price</label>
+            <div class="input-wrap"><span class="prefix">$</span><input type="number" id="price" value="400000" min="0" step="1000" inputmode="numeric"></div>
+          </div>
+          <div class="field">
+            <label>Down payment</label>
+            <div class="field-row">
+              <div class="input-wrap"><span class="prefix">$</span><input type="number" id="downD" value="80000" min="0" step="1000" inputmode="numeric" aria-label="Down payment in dollars"></div>
+              <div class="input-wrap"><input class="pct" type="number" id="downP" value="20" min="0" max="100" step="0.5" inputmode="decimal" aria-label="Down payment percent"><span class="suffix">%</span></div>
+            </div>
+            <div class="hint">Dollar and percent stay in sync — edit either one.</div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="rate">Interest rate</label>
+              <div class="input-wrap"><input class="pct" type="number" id="rate" value="6.5" min="0" max="20" step="0.125" inputmode="decimal"><span class="suffix">%</span></div>
+            </div>
+            <div class="field">
+              <label for="term">Loan term</label>
+              <select id="term">
+                <option value="30" selected>30 years</option>
+                <option value="20">20 years</option>
+                <option value="15">15 years</option>
+              </select>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="taxP">Property tax / yr</label>
+              <div class="input-wrap"><input class="pct" type="number" id="taxP" value="1.1" min="0" max="10" step="0.05" inputmode="decimal"><span class="suffix">%</span></div>
+            </div>
+            <div class="field">
+              <label for="ins">Annual insurance</label>
+              <div class="input-wrap"><span class="prefix">$</span><input type="number" id="ins" value="1500" min="0" step="100" inputmode="numeric"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="total-line">
+          <div class="lbl">Estimated total monthly payment</div>
+          <div class="big num" id="outTotal">$0<small>/mo</small></div>
+        </div>
+        <div class="result-rows">
+          <div class="r-row"><span class="k">Loan amount</span><span class="v num" id="outLoan">$0</span></div>
+          <div class="r-row"><span class="k"><span class="dot pi"></span>Principal &amp; interest</span><span class="v num" id="outPI">$0</span></div>
+          <div class="r-row"><span class="k"><span class="dot tax"></span>Property tax</span><span class="v num" id="outTax">$0</span></div>
+          <div class="r-row"><span class="k"><span class="dot ins"></span>Homeowners insurance</span><span class="v num" id="outIns">$0</span></div>
+        </div>
+        <div class="comp-wrap">
+          <div class="comp-bar" aria-hidden="true">
+            <div class="seg pi" id="segPI" style="width:70%"></div>
+            <div class="seg tax" id="segTax" style="width:20%"></div>
+            <div class="seg ins" id="segIns" style="width:10%"></div>
+          </div>
+          <div class="comp-legend">
+            <span><span class="dot pi"></span>P&amp;I</span>
+            <span><span class="dot tax"></span>Tax</span>
+            <span><span class="dot ins"></span>Insurance</span>
+          </div>
+        </div>
+        <div class="bonus">
+          <span class="k">Total interest over life of loan</span>
+          <span class="v num" id="outInterest">$0</span>
+        </div>
+        <div class="panel-cta">
+          <a class="btn btn-solid" href="apply.html">Get my real rate →</a>
+        </div>
+      </div>
+
+    </div>
+    <p class="calc-disclaimer">Estimates for demonstration only — not an offer of credit or a loan estimate. Actual payments will vary with your rate, taxes, insurance, and any mortgage insurance or HOA dues, which are not included here. Sample rates for demonstration only.</p>
+  </div>
+</section>
+
+<div class="cta-band">
+  <div class="container">
+    <div class="micro on-dark">Numbers look good?</div>
+    <h2>Turn the estimate into a locked rate.</h2>
+    <p>Apply in about 8 minutes. A licensed loan officer prices your exact scenario — and you can lock for 45 days, free.</p>
+    <div class="btns">
+      <a class="btn btn-white" href="apply.html">Apply now</a>
+      <a class="btn btn-ghost-white" href="programs.html">Compare programs</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand"><span class="brand-mark">%</span><strong>PrimeRate</strong><span class="lite">Financial</span></div>
+        <p>A direct mortgage lender built by rate analysts. We publish our pricing daily, underwrite up front, and close on schedule. Obsessed with your rate — because nobody else is.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Explore</h4>
+        <a href="index.html">Home</a>
+        <a href="programs.html">Programs</a>
+        <a href="calculator.html">Calculator</a>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <a href="about.html">About</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="apply.html">Apply now</a>
+      </div>
+      <div class="foot-col">
+        <h4>Contact</h4>
+        <a href="tel:0000000000" class="num">(000) 000-0000</a>
+        <a href="mailto:hello@example.com">hello@example.com</a>
+        <a href="#">Mon–Fri, 8am–7pm ET</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <div class="eh-mark">⌂ EQUAL HOUSING LENDER</div>
+      <p><strong>NMLS #000000 · Equal Housing Lender.</strong> PrimeRate Financial is committed to the letter and spirit of U.S. policy for the achievement of equal housing opportunity, and we encourage and support an affirmative program in which there are no barriers to obtaining housing because of race, color, religion, sex, handicap, familial status, or national origin.</p>
+      <p style="margin-top:10px;">Sample rates for demonstration only — not an offer of credit. This is a demo website template; all names, numbers, rates, and reviews are fictional sample content and do not represent a real lender.</p>
+      <p style="margin-top:10px;">© 2026 PrimeRate Financial (Demo) · Template by Pilk.ai</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var price = document.getElementById('price');
+  var downD = document.getElementById('downD');
+  var downP = document.getElementById('downP');
+  var rate  = document.getElementById('rate');
+  var term  = document.getElementById('term');
+  var taxP  = document.getElementById('taxP');
+  var ins   = document.getElementById('ins');
+
+  var outTotal = document.getElementById('outTotal');
+  var outLoan  = document.getElementById('outLoan');
+  var outPI    = document.getElementById('outPI');
+  var outTax   = document.getElementById('outTax');
+  var outIns   = document.getElementById('outIns');
+  var outInterest = document.getElementById('outInterest');
+  var segPI  = document.getElementById('segPI');
+  var segTax = document.getElementById('segTax');
+  var segIns = document.getElementById('segIns');
+
+  function v(el){ var n = parseFloat(el.value); return isFinite(n) && n >= 0 ? n : 0; }
+  function money(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
+
+  // Keep $ and % down payment in sync
+  function syncFromDollar(){
+    var p = v(price);
+    downP.value = p > 0 ? +(v(downD) / p * 100).toFixed(2) : 0;
+  }
+  function syncFromPercent(){
+    downD.value = Math.round(v(price) * v(downP) / 100);
+  }
+
+  function calc(){
+    var p = v(price);
+    var dd = Math.min(v(downD), p);
+    var P = p - dd;                       // loan amount
+    var r = v(rate) / 100 / 12;           // monthly rate
+    var n = (parseInt(term.value, 10) || 30) * 12;
+
+    var M;
+    if (r === 0) {
+      M = n > 0 ? P / n : 0;
+    } else {
+      var f = Math.pow(1 + r, n);
+      M = P * (r * f) / (f - 1);
+    }
+
+    var mTax = p * (v(taxP) / 100) / 12;
+    var mIns = v(ins) / 12;
+    var total = M + mTax + mIns;
+    var lifeInterest = Math.max(0, M * n - P);
+
+    outLoan.textContent = money(P);
+    outPI.textContent   = money(M);
+    outTax.textContent  = money(mTax);
+    outIns.textContent  = money(mIns);
+    outTotal.innerHTML  = money(total) + '<small>/mo</small>';
+    outInterest.textContent = money(lifeInterest);
+
+    if (total > 0) {
+      segPI.style.width  = (M / total * 100) + '%';
+      segTax.style.width = (mTax / total * 100) + '%';
+      segIns.style.width = (mIns / total * 100) + '%';
+    }
+  }
+
+  price.addEventListener('input', function(){ syncFromPercent(); calc(); });
+  downD.addEventListener('input', function(){ syncFromDollar(); calc(); });
+  downP.addEventListener('input', function(){ syncFromPercent(); calc(); });
+  [rate, term, taxP, ins].forEach(function(el){
+    el.addEventListener('input', calc);
+    el.addEventListener('change', calc);
+  });
+
+  calc();
+})();
+</script>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

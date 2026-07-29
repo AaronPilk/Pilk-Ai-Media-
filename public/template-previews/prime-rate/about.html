@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us — PrimeRate Financial</title>
+<meta name="description" content="PrimeRate Financial was started by two rate analysts who hated markups. Meet the team and the numbers behind the lender.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#15803d;
+  --green-dark:#166534;
+  --forest:#14532d;
+  --forest-deep:#0f3d21;
+  --tint:#f0fdf4;
+  --tint-line:#bbf7d0;
+  --ink:#0f172a;
+  --muted:#5b6472;
+  --line:#e5e7eb;
+  --white:#ffffff;
+  --r-sm:8px;
+  --r-md:10px;
+  --r-lg:12px;
+  --shadow:0 1px 2px rgba(15,23,42,.05),0 8px 24px rgba(15,23,42,.06);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;color:var(--ink);background:var(--white);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased;}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+.container{max-width:1160px;margin:0 auto;padding:0 24px;}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;}
+.micro{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green);}
+.micro.on-dark{color:#86efac;}
+h1,h2,h3{line-height:1.15;letter-spacing:-0.02em;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:15px;padding:13px 26px;border-radius:var(--r-md);border:1px solid transparent;cursor:pointer;transition:background .18s,color .18s,border-color .18s,transform .18s;}
+.btn-solid{background:var(--green);color:#fff;}
+.btn-solid:hover{background:var(--green-dark);transform:translateY(-1px);}
+.btn-white{background:#fff;color:var(--forest);}
+.btn-white:hover{background:var(--tint);}
+.btn-ghost-white{background:transparent;color:#fff;border-color:rgba(255,255,255,.5);}
+.btn-ghost-white:hover{border-color:#fff;background:rgba(255,255,255,.08);}
+
+.nav{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+.nav-inner{max-width:1160px;margin:0 auto;padding:0 24px;height:68px;display:flex;align-items:center;justify-content:space-between;gap:24px;}
+.brand{display:flex;align-items:center;gap:10px;font-size:19px;letter-spacing:-0.02em;white-space:nowrap;}
+.brand-mark{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,var(--green),var(--forest));display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:13px;flex:0 0 auto;}
+.brand strong{font-weight:800;color:var(--ink);}
+.brand span.lite{font-weight:400;color:var(--muted);}
+.nav-links{display:flex;align-items:center;gap:28px;}
+.nav-links a{font-size:14.5px;font-weight:600;color:var(--muted);padding:6px 2px;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;}
+.nav-links a:hover{color:var(--ink);}
+.nav-links a.active{color:var(--green);border-bottom-color:var(--green);}
+.nav-cta{padding:10px 20px;font-size:14px;}
+.menu-btn{display:none;background:none;border:1px solid var(--line);border-radius:var(--r-sm);width:42px;height:42px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;}
+.menu-btn span{display:block;width:18px;height:2px;background:var(--ink);}
+.mobile-menu{display:none;background:#fff;border-bottom:1px solid var(--line);padding:8px 24px 18px;}
+.mobile-menu a{display:block;padding:12px 4px;font-weight:600;font-size:15.5px;color:var(--ink);border-bottom:1px solid var(--line);}
+.mobile-menu a.active{color:var(--green);}
+.mobile-menu a:last-child{border-bottom:none;}
+.mobile-menu.open{display:block;}
+
+.page-hero{position:relative;padding:96px 0 88px;background:linear-gradient(115deg,#0f3d21,#14532d);overflow:hidden;}
+.page-hero::before{content:"";position:absolute;inset:0;background:linear-gradient(95deg,rgba(10,36,20,.94) 0%,rgba(15,61,33,.82) 55%,rgba(15,61,33,.5) 100%),url('/template-previews/_assets/city-skyline.jpg') center/cover no-repeat;}
+.page-hero .container{position:relative;z-index:2;}
+.page-hero h1{color:#fff;font-size:clamp(34px,4.6vw,52px);font-weight:800;max-width:680px;margin:16px 0 16px;}
+.page-hero p{color:rgba(255,255,255,.82);max-width:580px;font-size:17.5px;}
+
+section{padding:88px 0;}
+.section-head{max-width:640px;margin-bottom:48px;}
+.section-head h2{font-size:clamp(28px,3.6vw,40px);font-weight:800;margin:14px 0 14px;}
+.section-head p{color:var(--muted);font-size:16.5px;}
+.section-head.center{margin-left:auto;margin-right:auto;text-align:center;}
+
+/* STORY */
+.story-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:center;}
+.story-copy h2{font-size:clamp(28px,3.4vw,38px);font-weight:800;margin:14px 0 18px;}
+.story-copy p{color:var(--muted);margin-bottom:16px;font-size:16px;}
+.story-copy p strong{color:var(--ink);}
+.story-img{border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow);background:linear-gradient(135deg,var(--tint),var(--tint-line));}
+.story-img img{width:100%;height:440px;object-fit:cover;}
+.pull-stat{display:inline-block;margin-top:8px;padding:16px 20px;background:var(--tint);border:1px solid var(--tint-line);border-radius:var(--r-md);}
+.pull-stat .v{font-size:26px;font-weight:800;color:var(--green);font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;}
+.pull-stat .k{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+
+/* VALUES */
+.values-section{background:var(--tint);border-top:1px solid var(--tint-line);border-bottom:1px solid var(--tint-line);}
+.values-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.value{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:28px 24px;transition:border-color .18s,box-shadow .18s,transform .18s;}
+.value:hover{border-color:var(--green);box-shadow:var(--shadow);transform:translateY(-3px);}
+.value .icon{width:42px;height:42px;border-radius:var(--r-sm);background:var(--forest);color:#86efac;font-weight:800;font-size:18px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;}
+.value h3{font-size:17px;font-weight:800;margin-bottom:8px;}
+.value p{font-size:14px;color:var(--muted);}
+
+/* NUMBERS BAND */
+.numbers-band{background:var(--forest);padding:72px 0;}
+.numbers-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;text-align:center;}
+.nb{padding:10px 20px;border-left:1px solid rgba(255,255,255,.1);}
+.nb:first-child{border-left:none;}
+.nb .v{font-size:38px;font-weight:800;color:#fff;letter-spacing:-0.02em;font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;}
+.nb .k{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:4px;}
+
+/* TEAM */
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+.member{border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:#fff;transition:border-color .18s,box-shadow .18s,transform .18s;}
+.member:hover{border-color:var(--green);box-shadow:var(--shadow);transform:translateY(-3px);}
+.member img{width:100%;height:280px;object-fit:cover;background:linear-gradient(135deg,var(--tint),var(--tint-line));}
+.member .info{padding:20px 20px 22px;}
+.member h3{font-size:16.5px;font-weight:800;}
+.member .role{font-size:13px;font-weight:600;color:var(--green);margin:3px 0 8px;}
+.member .nmls{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;}
+
+.cta-band{background:linear-gradient(120deg,var(--forest-deep),var(--forest));text-align:center;padding:80px 0;}
+.cta-band h2{color:#fff;font-size:clamp(28px,3.6vw,40px);font-weight:800;margin:14px 0 14px;}
+.cta-band p{color:rgba(255,255,255,.75);max-width:520px;margin:0 auto 32px;}
+.cta-band .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+
+footer{background:var(--forest-deep);color:rgba(255,255,255,.72);padding:64px 0 110px;font-size:14px;}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.4fr;gap:44px;margin-bottom:44px;}
+.foot-brand{display:flex;align-items:center;gap:10px;font-size:18px;margin-bottom:14px;color:#fff;}
+.foot-brand strong{font-weight:800;}
+.foot-brand span.lite{font-weight:400;color:rgba(255,255,255,.6);}
+.foot-col h4{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#86efac;margin-bottom:16px;}
+.foot-col a{display:block;padding:5px 0;color:rgba(255,255,255,.72);transition:color .15s;}
+.foot-col a:hover{color:#fff;}
+.foot-legal{border-top:1px solid rgba(255,255,255,.12);padding-top:28px;font-size:12.5px;color:rgba(255,255,255,.5);line-height:1.7;}
+.foot-legal strong{color:rgba(255,255,255,.75);}
+.eh-mark{display:inline-flex;align-items:center;gap:8px;margin-bottom:10px;color:rgba(255,255,255,.75);font-weight:700;font-size:12.5px;letter-spacing:.06em;}
+
+@media (max-width:900px){
+  .nav-links,.nav-cta{display:none;}
+  .menu-btn{display:flex;}
+  .story-grid{grid-template-columns:1fr;gap:36px;}
+  .story-img img{height:320px;}
+  .values-grid{grid-template-columns:1fr 1fr;}
+  .numbers-grid{grid-template-columns:1fr 1fr;}
+  .nb{border-left:none;padding:18px 20px;}
+  .team-grid{grid-template-columns:1fr 1fr;}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:32px;}
+}
+@media (max-width:520px){
+  section{padding:64px 0;}
+  .values-grid{grid-template-columns:1fr;}
+  .team-grid{grid-template-columns:1fr;}
+  .numbers-grid{grid-template-columns:1fr 1fr;}
+  .nb .v{font-size:30px;}
+  .foot-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">%</span><strong>PrimeRate</strong><span class="lite">Financial</span></a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html" class="active">About</a>
+      <a href="reviews.html">Reviews</a>
+    </nav>
+    <a class="btn btn-solid nav-cta" href="apply.html">Apply now</a>
+    <button class="menu-btn" aria-label="Open menu" onclick="document.getElementById('mm').classList.toggle('open')"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mm">
+    <a href="index.html">Home</a>
+    <a href="programs.html">Programs</a>
+    <a href="calculator.html">Calculator</a>
+    <a href="about.html" class="active">About</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="apply.html" style="color:var(--green);font-weight:700;">Apply now →</a>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="micro on-dark">About PrimeRate</div>
+    <h1>Started by two rate analysts who hated markups.</h1>
+    <p>We spent years watching lenders pad rates behind closed doors. So we built the lender we wished existed: pricing in the open, published daily, defensible to the basis point.</p>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <div class="story-grid">
+      <div class="story-copy">
+        <div class="micro">Our story</div>
+        <h2>We priced loans for other lenders. Then we did the math on our own.</h2>
+        <p>Before PrimeRate, our founders spent a combined 19 years building pricing models inside large mortgage operations. They saw the same pattern everywhere: <strong>the rate a borrower got had less to do with the market and more to do with what a loan officer thought they could get away with.</strong></p>
+        <p>PrimeRate was built to remove that variable. One pricing engine. One margin, set once, applied to everyone. Rates published every business morning at 9:00 AM ET against the same baseline scenario — so a quote from us on Tuesday can be checked against our own sheet from Monday.</p>
+        <p>We publish our rates. Every day. Ask your bank to do that.</p>
+        <div class="pull-stat">
+          <div class="v num">0.31%</div>
+          <div class="k">Avg. savings vs. next-best quote, 2025 funded loans</div>
+        </div>
+      </div>
+      <div class="story-img">
+        <img src="/template-previews/_assets/kitchen.jpg" alt="Bright modern kitchen in a newly financed home">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="values-section">
+  <div class="container">
+    <div class="section-head center">
+      <div class="micro">What we run on</div>
+      <h2>Four rules. No exceptions.</h2>
+    </div>
+    <div class="values-grid">
+      <div class="value">
+        <div class="icon">01</div>
+        <h3>Transparency</h3>
+        <p>Our rate sheet is public. Our fees are itemized. If you find a number you can't trace, we owe you an explanation.</p>
+      </div>
+      <div class="value">
+        <div class="icon">02</div>
+        <h3>Precision</h3>
+        <p>We quote to three decimal places because that's where the money is. "Around six and a half" is not a rate.</p>
+      </div>
+      <div class="value">
+        <div class="icon">03</div>
+        <h3>Publish everything</h3>
+        <p>Rates, APRs, points, turn times, on-time close rate. If we measure it, you can see it.</p>
+      </div>
+      <div class="value">
+        <div class="icon">04</div>
+        <h3>No games</h3>
+        <p>No teaser rates, no bait-and-switch at closing, no commission incentives that work against you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="numbers-band">
+  <div class="container">
+    <div class="numbers-grid">
+      <div class="nb"><div class="v num">9</div><div class="k">Years lending</div></div>
+      <div class="nb"><div class="v num">38</div><div class="k">States licensed</div></div>
+      <div class="nb"><div class="v num">12,000+</div><div class="k">Loans closed</div></div>
+      <div class="nb"><div class="v num">98.6%</div><div class="k">On-time closings</div></div>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <div class="section-head center">
+      <div class="micro">The team</div>
+      <h2>Analysts first. Loan officers second.</h2>
+      <p>Everyone who prices a loan here came up through data, not sales. Licensed, numerate, and allergic to fluff.</p>
+    </div>
+    <div class="team-grid">
+      <div class="member">
+        <img src="/template-previews/_assets/agent-f1.jpg" alt="Elena Vasquez, Co-Founder and Chief Pricing Analyst">
+        <div class="info">
+          <h3>Elena Vasquez</h3>
+          <div class="role">Co-Founder · Chief Pricing Analyst</div>
+          <div class="nmls">NMLS #000000</div>
+        </div>
+      </div>
+      <div class="member">
+        <img src="/template-previews/_assets/agent-m1.jpg" alt="David Okafor, Co-Founder and Head of Rate Strategy">
+        <div class="info">
+          <h3>David Okafor</h3>
+          <div class="role">Co-Founder · Head of Rate Strategy</div>
+          <div class="nmls">NMLS #000000</div>
+        </div>
+      </div>
+      <div class="member">
+        <img src="/template-previews/_assets/agent-f2.jpg" alt="Sarah Lindqvist, Senior Loan Analyst for Purchase Lending">
+        <div class="info">
+          <h3>Sarah Lindqvist</h3>
+          <div class="role">Senior Loan Analyst · Purchase</div>
+          <div class="nmls">NMLS #000000</div>
+        </div>
+      </div>
+      <div class="member">
+        <img src="/template-previews/_assets/agent-m2.jpg" alt="James Whitfield, Senior Loan Analyst for Refinance Lending">
+        <div class="info">
+          <h3>James Whitfield</h3>
+          <div class="role">Senior Loan Analyst · Refinance</div>
+          <div class="nmls">NMLS #000000</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-band">
+  <div class="container">
+    <div class="micro on-dark">Work with the numbers people</div>
+    <h2>Get a rate you can actually verify.</h2>
+    <p>Apply in about 8 minutes. We'll show you the pricing sheet your rate came from.</p>
+    <div class="btns">
+      <a class="btn btn-white" href="apply.html">Apply now</a>
+      <a class="btn btn-ghost-white" href="reviews.html">Read borrower reviews</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand"><span class="brand-mark">%</span><strong>PrimeRate</strong><span class="lite">Financial</span></div>
+        <p>A direct mortgage lender built by rate analysts. We publish our pricing daily, underwrite up front, and close on schedule. Obsessed with your rate — because nobody else is.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Explore</h4>
+        <a href="index.html">Home</a>
+        <a href="programs.html">Programs</a>
+        <a href="calculator.html">Calculator</a>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <a href="about.html">About</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="apply.html">Apply now</a>
+      </div>
+      <div class="foot-col">
+        <h4>Contact</h4>
+        <a href="tel:0000000000" class="num">(000) 000-0000</a>
+        <a href="mailto:hello@example.com">hello@example.com</a>
+        <a href="#">Mon–Fri, 8am–7pm ET</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <div class="eh-mark">⌂ EQUAL HOUSING LENDER</div>
+      <p><strong>NMLS #000000 · Equal Housing Lender.</strong> PrimeRate Financial is committed to the letter and spirit of U.S. policy for the achievement of equal housing opportunity, and we encourage and support an affirmative program in which there are no barriers to obtaining housing because of race, color, religion, sex, handicap, familial status, or national origin.</p>
+      <p style="margin-top:10px;">Sample rates for demonstration only — not an offer of credit. This is a demo website template; all names, numbers, rates, and reviews are fictional sample content and do not represent a real lender.</p>
+      <p style="margin-top:10px;">© 2026 PrimeRate Financial (Demo) · Template by Pilk.ai</p>
+    </div>
+  </div>
+</footer>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

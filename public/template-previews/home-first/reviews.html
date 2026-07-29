@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reviews — HomeFirst Lending</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#faf6f0; --tint:#f3e9dc; --tint2:#efe5d6;
+  --terra:#c2571b; --terra-dark:#a54812; --green:#2e5339; --green-dark:#24422d;
+  --ink:#2e2a24; --ink-soft:#5c554b; --white:#ffffff;
+  --radius:20px; --radius-sm:16px;
+  --shadow:0 10px 30px rgba(46,42,36,.08); --shadow-lg:0 18px 44px rgba(46,42,36,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito Sans',system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.65;font-size:16px}
+h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif;font-weight:600;line-height:1.2;color:var(--ink)}
+a{color:var(--terra)}
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+
+.nav{position:sticky;top:0;z-index:1000;background:rgba(250,246,240,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(46,42,36,.08)}
+.nav-inner{max-width:1140px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:1.25rem}
+.nav-links{display:flex;align-items:center;gap:6px;margin-left:auto;flex-wrap:wrap}
+.nav-links a{text-decoration:none;color:var(--ink-soft);font-weight:600;font-size:.95rem;padding:8px 14px;border-radius:999px;transition:background .2s,color .2s}
+.nav-links a:hover{background:var(--tint);color:var(--ink)}
+.nav-links a.active{background:var(--tint2);color:var(--terra)}
+.nav-cta{background:var(--terra)!important;color:#fff!important;padding:10px 22px!important;border-radius:999px;box-shadow:0 4px 14px rgba(194,87,27,.3)}
+.nav-cta:hover{background:var(--terra-dark)!important}
+
+.agg{text-align:center;padding:76px 24px 56px}
+.page-kicker{display:inline-block;background:var(--tint2);color:var(--terra);border-radius:999px;padding:7px 18px;font-weight:700;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px}
+.agg h1{font-size:clamp(2.1rem,4.4vw,3rem);font-weight:700;margin-bottom:16px}
+.agg-stars{color:var(--terra);font-size:1.9rem;letter-spacing:6px;margin-bottom:10px}
+.agg-score{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:1.35rem;color:var(--ink)}
+.agg-score span{color:var(--ink-soft);font-family:'Nunito Sans',sans-serif;font-weight:600;font-size:1rem}
+.agg p.sub{max-width:520px;margin:14px auto 0;color:var(--ink-soft);font-size:1.05rem}
+
+.reviews{padding:16px 0 84px}
+.rev-grid{columns:3;column-gap:24px}
+.rev{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:30px 28px;border:1px solid rgba(46,42,36,.05);break-inside:avoid;margin-bottom:24px;transition:transform .25s,box-shadow .25s}
+.rev:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.rev-stars{color:var(--terra);letter-spacing:2px;margin-bottom:12px;font-size:.95rem}
+.rev p{color:var(--ink);font-size:.96rem;margin-bottom:16px}
+.rev-who{font-weight:700;font-size:.92rem}
+.rev-loc{color:var(--ink-soft);font-size:.82rem;font-weight:600}
+.rev-tag{display:inline-block;background:var(--tint);color:var(--green);font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 12px;border-radius:999px;margin-top:12px}
+
+.cta-band{background-image:linear-gradient(rgba(36,66,45,.72),rgba(36,66,45,.82)),url('/template-previews/_assets/home-ext-c.jpg');background-size:cover;background-position:center;border-radius:28px;max-width:1092px;margin:0 auto 84px;padding:76px 40px;text-align:center;color:#fff}
+.cta-band h2{color:#fff;font-size:clamp(1.8rem,3.6vw,2.5rem);margin-bottom:14px}
+.cta-band p{color:rgba(255,255,255,.9);max-width:520px;margin:0 auto 28px;font-size:1.05rem}
+.btn{display:inline-block;text-decoration:none;font-weight:700;font-size:1rem;padding:15px 32px;border-radius:999px;transition:transform .2s,background .2s;background:var(--terra);color:#fff;box-shadow:0 8px 24px rgba(194,87,27,.4)}
+.btn:hover{background:var(--terra-dark);transform:translateY(-2px)}
+
+footer{background:var(--green);color:rgba(255,255,255,.85);padding:64px 0 90px}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1.4fr;gap:44px}
+.foot-brand{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:1.3rem;color:#fff;display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.foot-grid p{font-size:.92rem}
+.foot-grid h4{color:#fff;font-size:1rem;margin-bottom:14px}
+.foot-links{list-style:none}
+.foot-links li{margin-bottom:9px}
+.foot-links a{color:rgba(255,255,255,.8);text-decoration:none;font-size:.92rem}
+.foot-links a:hover{color:#fff;text-decoration:underline}
+.foot-meta{font-size:.88rem;line-height:1.9}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.18);margin-top:44px;padding-top:22px;font-size:.82rem;color:rgba(255,255,255,.6);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.foot-bottom a{color:rgba(255,255,255,.75)}
+
+@media (max-width:900px){
+  .rev-grid{columns:2}
+  .foot-grid{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  .nav-inner{gap:10px;justify-content:center}
+  .nav-links{margin-left:0;justify-content:center}
+  .rev-grid{columns:1}
+  .cta-band{padding:56px 24px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M3 11.5 12 4l9 7.5" stroke="#c2571b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 10.5V20h13v-9.5" stroke="#c2571b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 20v-5h4v5" stroke="#c2571b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      HomeFirst Lending
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html" class="active">Reviews</a>
+      <a href="apply.html" class="nav-cta">Apply now</a>
+    </div>
+  </div>
+</nav>
+
+<header class="agg">
+  <span class="page-kicker">Reviews</span>
+  <h1>The reviews that make us blush</h1>
+  <div class="agg-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+  <div class="agg-score">4.9 out of 5 <span>&middot; 487 happy families</span></div>
+  <p class="sub">Every one of these came from a real closing, a real family, and usually a few happy tears. We keep them all.</p>
+</header>
+
+<section class="reviews">
+  <div class="wrap">
+    <div class="rev-grid">
+
+      <div class="rev">
+        <div class="rev-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>"We walked in knowing nothing — literally nothing — about mortgages. Emily drew our whole loan on a whiteboard like a football play. Six weeks later we had keys to our first house. Still can't believe it's ours."</p>
+        <div class="rev-who">Jessica M.</div>
+        <div class="rev-loc">Columbus, OH</div>
+        <span class="rev-tag">First home</span>
+      </div>
+
+      <div class="rev">
+        <div class="rev-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>"Our FHA loan got complicated because of an old medical bill on my credit. Instead of denying us, they built a six-month plan to fix it. We closed in March. Nobody else even offered to try."</p>
+        <div class="rev-who">Anthony R.</div>
+        <div class="rev-loc">San Antonio, TX</div>
+        <span class="rev-tag">FHA</span>
+      </div>
+
+      <div class="rev">
+        <div class="rev-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>"Third baby on the way and our two-bedroom was bursting. HomeFirst got us pre-approved in two days and kept us calm through a bidding war. The nursery is painted and we owe them everything."</p>
+        <div class="rev-who">Lauren K.</div>
+        <div class="rev-loc">Boise, ID</div>
+        <span class="rev-tag">Growing family</span>
+      </div>
+
+      <div class="rev">
+        <div class="rev-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>"I called with what I was sure was a dumb question about points. Marcus spent 25 minutes explaining it, then sent a one-page summary so my wife and I could decide together. That's just how they operate."</p>
+        <div class="rev-who">David H.</div>
+        <div class="rev-loc">Asheville, NC</div>
+        <span class="rev-tag">Patient answers</span>
+      </div>
+
+      <div class="rev">
+        <div class="rev-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>"After 30 years in Chicago we wanted to be near the grandkids. HomeFirst handled our purchase across state lines and even coordinated with our realtor's crazy schedule. We're ten minutes from Sunday dinner now."</p>
+        <div class="rev-who">Patricia W.</div>
+        <div class="rev-loc">Nashville, TN</div>
+        <span class="rev-tag">Closer to family</span>
+      </div>
+
+      <div class="rev">
+        <div class="rev-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+        <p>"Underwriting took a week longer than promised, which stressed me out — but they called before I could, explained why, and covered the rate-lock extension. Honest people. I'd use them again tomorrow."</p>
+        <div class="rev-who">Sam T.</div>
+        <div class="rev-loc">Madison, WI</div>
+        <span class="rev-tag">Honest process</span>
+      </div>
+
+      <div class="rev">
+        <div class="rev-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>"As a single mom I was terrified of getting talked into something I couldn't afford. They actually recommended a cheaper loan than the one I asked about. My payment fits my budget with room for soccer cleats."</p>
+        <div class="rev-who">Renee B.</div>
+        <div class="rev-loc">Grand Rapids, MI</div>
+        <span class="rev-tag">First home</span>
+      </div>
+
+      <div class="rev">
+        <div class="rev-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>"Used my VA benefit for the first time and James knew the program inside out. Zero down, no PMI, and he thanked ME for my service at closing. Class acts, the whole office."</p>
+        <div class="rev-who">Miguel A.</div>
+        <div class="rev-loc">Tacoma, WA</div>
+        <span class="rev-tag">VA loan</span>
+      </div>
+
+      <div class="rev">
+        <div class="rev-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>"Refinanced our 2021 loan and cut our term from 30 to 20 years for almost the same payment. They showed the math three ways until it clicked. Our daughter's college fund thanks you."</p>
+        <div class="rev-who">Grace L.</div>
+        <div class="rev-loc">Fort Collins, CO</div>
+        <span class="rev-tag">Refinance</span>
+      </div>
+
+      <div class="rev">
+        <div class="rev-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>"Closed on our forever home last fall. Sarah remembered our dog's name, our closing date, and that we hate phone tag — everything came by text with a call when it mattered. Small team, big hearts."</p>
+        <div class="rev-who">Nathan P.</div>
+        <div class="rev-loc">Richmond, VA</div>
+        <span class="rev-tag">Forever home</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="cta-band">
+    <h2>Your review could be next.</h2>
+    <p>Every family up there started with one small step. Take yours — we'll handle the rest together.</p>
+    <a href="apply.html" class="btn">Start your application</a>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 11.5 12 4l9 7.5" stroke="#f3e9dc" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 10.5V20h13v-9.5" stroke="#f3e9dc" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 20v-5h4v5" stroke="#f3e9dc" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          HomeFirst Lending
+        </div>
+        <p>The friendly path home. We're a family-first lender that believes big milestones deserve honest guidance, warm coffee, and real people who answer the phone.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul class="foot-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="programs.html">Programs</a></li>
+          <li><a href="calculator.html">Calculator</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="reviews.html">Reviews</a></li>
+          <li><a href="apply.html">Apply now</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>The fine print</h4>
+        <div class="foot-meta">
+          NMLS #234567<br>
+          HomeFirst Lending is a demo brand. Equal Housing Lender.<br>
+          (000) 000-0000 &middot; hello@example.com
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; 2026 HomeFirst Lending. All rights reserved.</span>
+      <span>Template by <a href="https://pilk.ai">Pilk.ai</a></span>
+    </div>
+  </div>
+</footer>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

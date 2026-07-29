@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mortgage Calculator — Summit Loans</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--bg:#0f172a;--ink:#e2e8f0;--muted:#94a3b8;--grad:linear-gradient(135deg,#4f46e5,#9333ea);--glass:rgba(255,255,255,0.05);--glass-b:rgba(255,255,255,0.1)}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+  h1,h2,h3,.logo{font-family:'Space Grotesk',sans-serif}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+  a{color:inherit;text-decoration:none}
+  .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  header{position:sticky;top:0;background:rgba(15,23,42,0.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.08);z-index:100}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:72px;gap:16px}
+  .logo{font-weight:700;font-size:20px;letter-spacing:-0.02em;display:flex;align-items:center;gap:9px}
+  .logo .mark{width:26px;height:26px;border-radius:7px;background:var(--grad);display:inline-flex;align-items:center;justify-content:center;font-size:14px;color:#fff}
+  .nav-links{display:flex;align-items:center;gap:28px;font-size:14px;color:var(--muted)}
+  .nav-links a:hover{color:#fff}
+  .nav-links a.active{color:#fff;font-weight:600}
+  .btn{display:inline-block;padding:13px 26px;font-size:14px;font-weight:600;border-radius:10px;cursor:pointer;border:none;transition:transform .15s ease;font-family:'Inter',sans-serif}
+  .btn-grad{background:var(--grad);color:#fff;box-shadow:0 8px 24px rgba(99,73,233,0.35)}
+  .btn-grad:hover{transform:translateY(-2px)}
+  .nav .btn{padding:10px 20px}
+  .page-head{padding:80px 0 48px;position:relative;overflow:hidden}
+  .page-head::before{content:"";position:absolute;top:-250px;right:-100px;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(147,51,234,0.22),transparent 65%);pointer-events:none}
+  .kicker{font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:16px}
+  h1{font-size:46px;line-height:1.08;letter-spacing:-0.03em;font-weight:700;color:#fff;position:relative}
+  .page-head p{margin-top:18px;font-size:16px;color:var(--muted);max-width:54ch;position:relative}
+  .calc-grid{display:grid;grid-template-columns:1fr 440px;gap:36px;align-items:start;padding-bottom:96px}
+  .panel{background:var(--glass);border:1px solid var(--glass-b);border-radius:18px;padding:36px}
+  .field{margin-bottom:24px}
+  .field label{display:block;font-size:13px;font-weight:600;margin-bottom:8px;color:var(--ink)}
+  .field input,.field select{width:100%;padding:13px 14px;font-size:15px;font-family:inherit;border:1px solid var(--glass-b);border-radius:10px;background:rgba(15,23,42,0.6);color:#fff}
+  .field input:focus,.field select:focus{outline:none;border-color:#a78bfa}
+  .field select option{background:#1e293b}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .hint{font-size:12.5px;color:var(--muted)}
+  .result{background:var(--glass);border:1px solid var(--glass-b);border-radius:18px;padding:36px;position:sticky;top:100px;overflow:hidden}
+  .result::before{content:"";position:absolute;top:-120px;right:-120px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(147,51,234,0.28),transparent 65%);pointer-events:none}
+  .result .lbl{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .result .total{font-family:'Space Grotesk',sans-serif;font-size:54px;font-weight:700;letter-spacing:-0.03em;color:#fff;margin-top:6px;position:relative}
+  .result .total small{font-size:18px;color:var(--muted);font-weight:500}
+  .bar{display:flex;height:14px;border-radius:99px;overflow:hidden;margin:28px 0 20px;background:rgba(255,255,255,0.08);position:relative}
+  .bar .b-pi{background:linear-gradient(135deg,#4f46e5,#9333ea)}
+  .bar .b-tax{background:#38bdf8}
+  .bar .b-ins{background:#f472b6}
+  .row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.07);font-size:14.5px;position:relative}
+  .row:last-of-type{border-bottom:none}
+  .row .k{display:flex;align-items:center;gap:9px;color:var(--muted)}
+  .dot{width:10px;height:10px;border-radius:99px;display:inline-block}
+  .row .v{font-weight:600;color:#fff}
+  .loanamt{margin-top:16px;font-size:13px;color:var(--muted);border-top:1px solid rgba(255,255,255,0.07);padding-top:16px;position:relative}
+  .loanamt b{color:#fff}
+  .result .btn{width:100%;text-align:center;margin-top:22px;position:relative}
+  .disclaimer{font-size:11.5px;color:#64748b;margin-top:16px;line-height:1.6;position:relative}
+  footer{border-top:1px solid rgba(255,255,255,0.08);padding:56px 0 40px}
+  .foot-grid{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap}
+  .foot-brand{max-width:320px}
+  .foot-brand p{margin-top:14px;font-size:13px;color:var(--muted)}
+  .foot-links{display:flex;gap:56px;flex-wrap:wrap}
+  .foot-links h4{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#64748b;margin-bottom:14px;font-family:'Inter',sans-serif}
+  .foot-links a{display:block;font-size:14px;color:var(--muted);margin-bottom:9px}
+  .foot-links a:hover{color:#fff}
+  .legal{margin-top:48px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.08);font-size:12px;color:#64748b;line-height:1.8}
+  @media(max-width:940px){
+    h1{font-size:32px}
+    .page-head{padding:48px 0 36px}
+    .calc-grid{grid-template-columns:1fr;gap:24px;padding-bottom:64px}
+    .result{position:static}
+    .nav{height:auto;flex-wrap:wrap;padding:14px 0}
+    .nav-links{gap:16px;flex-wrap:wrap;font-size:13px;order:3;width:100%;padding-bottom:4px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="index.html" class="logo"><span class="mark">▲</span>Summit Loans</a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html" class="active">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+    </nav>
+    <a href="apply.html" class="btn btn-grad">Apply now</a>
+  </div>
+</header>
+
+<div class="page-head">
+  <div class="wrap">
+    <div class="kicker">Payment calculator</div>
+    <h1>Know your number <span class="grad-text">before</span> you climb.</h1>
+    <p>Move the inputs, watch the payment update live. Principal &amp; interest, property tax, and insurance — all broken out so nothing surprises you later.</p>
+  </div>
+</div>
+
+<div class="wrap calc-grid">
+  <div class="panel">
+    <div class="field">
+      <label for="price">Home price</label>
+      <input type="number" id="price" value="400000" min="0" step="5000">
+    </div>
+    <div class="split">
+      <div class="field">
+        <label for="down">Down payment ($)</label>
+        <input type="number" id="down" value="80000" min="0" step="1000">
+      </div>
+      <div class="field">
+        <label for="downPct">Down payment (%)</label>
+        <input type="number" id="downPct" value="20" min="0" max="100" step="0.5">
+      </div>
+    </div>
+    <div class="split">
+      <div class="field">
+        <label for="rate">Interest rate (%)</label>
+        <input type="number" id="rate" value="6.5" min="0" max="20" step="0.125">
+      </div>
+      <div class="field">
+        <label for="term">Loan term</label>
+        <select id="term">
+          <option value="15">15 years</option>
+          <option value="20">20 years</option>
+          <option value="30" selected>30 years</option>
+        </select>
+      </div>
+    </div>
+    <div class="split">
+      <div class="field">
+        <label for="tax">Property tax rate (% / yr)</label>
+        <input type="number" id="tax" value="1.1" min="0" max="10" step="0.05">
+      </div>
+      <div class="field">
+        <label for="ins">Home insurance ($ / yr)</label>
+        <input type="number" id="ins" value="1500" min="0" step="100">
+      </div>
+    </div>
+    <p class="hint">The two down payment fields stay in sync — edit whichever one you think in.</p>
+  </div>
+
+  <div class="result">
+    <div class="lbl">Estimated monthly payment</div>
+    <div class="total"><span id="outTotal">$0</span><small>/mo</small></div>
+    <div class="bar" aria-hidden="true">
+      <div class="b-pi" id="barPI" style="width:70%"></div>
+      <div class="b-tax" id="barTax" style="width:20%"></div>
+      <div class="b-ins" id="barIns" style="width:10%"></div>
+    </div>
+    <div class="row"><span class="k"><span class="dot" style="background:linear-gradient(135deg,#4f46e5,#9333ea)"></span>Principal &amp; interest</span><span class="v" id="outPI">$0</span></div>
+    <div class="row"><span class="k"><span class="dot" style="background:#38bdf8"></span>Property tax</span><span class="v" id="outTax">$0</span></div>
+    <div class="row"><span class="k"><span class="dot" style="background:#f472b6"></span>Home insurance</span><span class="v" id="outIns">$0</span></div>
+    <div class="loanamt">Loan amount: <b id="outLoan">$0</b></div>
+    <a href="apply.html" class="btn btn-grad">Turn this into a real quote</a>
+    <p class="disclaimer">Estimates only. Excludes PMI, HOA dues, and other possible costs. Your actual rate depends on credit profile, program, and market conditions.</p>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="index.html" class="logo"><span class="mark">▲</span>Summit Loans</a>
+        <p>Digital-first mortgage lending with human loan experts. Faster approvals, transparent pricing, zero mystery.</p>
+      </div>
+      <div class="foot-links">
+        <div>
+          <h4>Company</h4>
+          <a href="about.html">About us</a>
+          <a href="reviews.html">Reviews</a>
+          <a href="apply.html">Apply now</a>
+        </div>
+        <div>
+          <h4>Loans</h4>
+          <a href="programs.html">All programs</a>
+          <a href="calculator.html">Payment calculator</a>
+          <a href="programs.html">Refinance</a>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <a href="apply.html">(000) 000-0000</a>
+          <a href="apply.html">hello@example.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="legal">
+      Summit Loans · NMLS #000000 · Equal Housing Opportunity. This is a demo website; all rates, statistics, and testimonials are sample content for illustration only and do not constitute an offer to lend.<br>
+      (000) 000-0000 · hello@example.com · Template by Pilk.ai
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var price=document.getElementById('price'),
+      down=document.getElementById('down'),
+      downPct=document.getElementById('downPct'),
+      rate=document.getElementById('rate'),
+      term=document.getElementById('term'),
+      tax=document.getElementById('tax'),
+      ins=document.getElementById('ins');
+
+  function fmt(n){return '$'+Math.round(n).toLocaleString('en-US');}
+
+  function calc(){
+    var P0=parseFloat(price.value)||0,
+        D=parseFloat(down.value)||0,
+        loan=Math.max(P0-D,0),
+        n=(parseInt(term.value,10)||30)*12,
+        r=(parseFloat(rate.value)||0)/100/12,
+        pi;
+    if(r>0){var f=Math.pow(1+r,n);pi=loan*(r*f)/(f-1);}
+    else{pi=n>0?loan/n:0;}
+    var mTax=(P0*((parseFloat(tax.value)||0)/100))/12,
+        mIns=(parseFloat(ins.value)||0)/12,
+        total=pi+mTax+mIns;
+    document.getElementById('outPI').textContent=fmt(pi);
+    document.getElementById('outTax').textContent=fmt(mTax);
+    document.getElementById('outIns').textContent=fmt(mIns);
+    document.getElementById('outTotal').textContent=fmt(total);
+    document.getElementById('outLoan').textContent=fmt(loan);
+    var t=total>0?total:1;
+    document.getElementById('barPI').style.width=(pi/t*100)+'%';
+    document.getElementById('barTax').style.width=(mTax/t*100)+'%';
+    document.getElementById('barIns').style.width=(mIns/t*100)+'%';
+  }
+  price.addEventListener('input',function(){down.value=Math.round((parseFloat(price.value)||0)*((parseFloat(downPct.value)||0)/100));calc();});
+  down.addEventListener('input',function(){var P0=parseFloat(price.value)||0;if(P0>0){downPct.value=Math.round((parseFloat(down.value)||0)/P0*1000)/10;}calc();});
+  downPct.addEventListener('input',function(){down.value=Math.round((parseFloat(price.value)||0)*((parseFloat(downPct.value)||0)/100));calc();});
+  [rate,term,tax,ins].forEach(function(el){el.addEventListener('input',calc);el.addEventListener('change',calc);});
+  calc();
+})();
+</script>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

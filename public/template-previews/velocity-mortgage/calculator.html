@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mortgage Calculator — Velocity Home Loans</title>
+<meta name="description" content="Estimate your monthly mortgage payment — principal &amp; interest, taxes and insurance — in seconds.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0b0e13;--s1:#12161f;--s2:#171c27;--line:rgba(255,255,255,.08);
+  --cyan:#22d3ee;--cyan-soft:rgba(34,211,238,.12);--glow:0 0 40px rgba(34,211,238,.15);
+  --txt:#f2f5f9;--muted:#96a0b5;
+  --fh:'Space Grotesk',sans-serif;--fb:'Inter',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:var(--fb);line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--fh);line-height:1.12;letter-spacing:-.02em;font-weight:700}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+section{padding:clamp(64px,9vw,110px) 0}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);margin-bottom:18px}
+.eyebrow::before{content:"";width:24px;height:1px;background:var(--cyan)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:600;font-size:15px;padding:14px 28px;border-radius:10px;border:1px solid transparent;cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s}
+.btn-primary{background:var(--cyan);color:#06222a;box-shadow:0 0 24px rgba(34,211,238,.35)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 44px rgba(34,211,238,.5)}
+/* NAV */
+.nav{position:sticky;top:0;z-index:1000;background:rgba(11,14,19,.85);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+.brand{font-family:var(--fh);font-weight:700;font-size:20px;letter-spacing:.14em}
+.brand em{font-style:normal;color:var(--cyan);text-shadow:0 0 18px rgba(34,211,238,.6)}
+.nav-links{display:flex;align-items:center;gap:28px}
+.nav-links a{font-size:14px;font-weight:500;color:var(--muted);transition:color .2s;position:relative}
+.nav-links a:hover{color:#fff}
+.nav-links a.active{color:#fff}
+.nav-links a.active::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;border-radius:2px;background:var(--cyan);box-shadow:0 0 10px rgba(34,211,238,.8)}
+.btn-nav{background:var(--cyan);color:#06222a !important;padding:10px 20px;border-radius:8px;font-weight:700 !important;box-shadow:0 0 18px rgba(34,211,238,.35)}
+.btn-nav:hover{box-shadow:0 0 30px rgba(34,211,238,.55)}
+.btn-nav.active::after{display:none}
+.nav-toggle{display:none;background:none;border:1px solid var(--line);border-radius:8px;padding:8px 10px;cursor:pointer}
+.nav-toggle span{display:block;width:20px;height:2px;background:var(--txt);margin:4px 0;border-radius:2px}
+@media(max-width:900px){
+  .nav-toggle{display:block}
+  .nav-links{display:none;position:absolute;top:72px;left:0;right:0;flex-direction:column;align-items:flex-start;gap:4px;background:#0d1118;border-bottom:1px solid var(--line);padding:16px 24px 20px}
+  .nav-links.open{display:flex}
+  .nav-links a{padding:10px 0;font-size:16px;width:100%}
+  .nav-links a.active::after{display:none}
+  .nav-links a.active{color:var(--cyan)}
+  .btn-nav{margin-top:8px;text-align:center;width:100%}
+}
+/* PAGE HERO */
+.page-hero{background-color:#0d1118;background-image:linear-gradient(180deg,rgba(7,9,13,.82) 0%,rgba(7,9,13,.9) 60%,#0b0e13 100%),url('/template-previews/_assets/city-skyline.jpg');background-size:cover;background-position:center;padding:clamp(60px,8vw,100px) 0}
+.page-hero h1{font-size:clamp(32px,5vw,54px);margin-bottom:14px}
+.page-hero h1 span{color:var(--cyan);text-shadow:0 0 30px rgba(34,211,238,.5)}
+.page-hero p{color:#c4ccdb;max-width:560px;font-size:clamp(15px,1.8vw,18px)}
+/* CALC LAYOUT */
+.calc-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:26px;align-items:start}
+@media(max-width:920px){.calc-grid{grid-template-columns:1fr}}
+.panel{background:var(--s1);border:1px solid var(--line);border-radius:18px;padding:clamp(24px,3.4vw,38px)}
+.panel h2{font-size:20px;margin-bottom:22px}
+.field{margin-bottom:20px}
+.field label{display:block;font-size:13px;font-weight:600;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px}
+.field input,.field select{width:100%;background:#0d1118;border:1px solid rgba(255,255,255,.12);border-radius:10px;color:var(--txt);font-family:var(--fb);font-size:16px;font-weight:500;padding:13px 15px;transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;appearance:none}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2322d3ee' stroke-width='2' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center}
+.field input:focus,.field select:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 3px rgba(34,211,238,.18),0 0 24px rgba(34,211,238,.15)}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:480px){.field-row{grid-template-columns:1fr}}
+.prefix{position:relative}
+.prefix input{padding-left:32px}
+.prefix::before{content:attr(data-sym);position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--cyan);font-weight:600;font-size:15px;pointer-events:none}
+.suffix{position:relative}
+.suffix input{padding-right:36px}
+.suffix::after{content:attr(data-sym);position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--cyan);font-weight:600;font-size:15px;pointer-events:none}
+.hint{font-size:12px;color:#6c7689;margin-top:6px}
+/* RESULTS */
+.results{background:linear-gradient(160deg,#141a26,#10141d);border:1px solid rgba(34,211,238,.3);border-radius:18px;padding:clamp(24px,3.4vw,38px);box-shadow:0 0 60px rgba(34,211,238,.16),0 24px 60px rgba(0,0,0,.45);position:sticky;top:96px}
+@media(max-width:920px){.results{position:static}}
+.results h2{font-size:20px;margin-bottom:6px}
+.total-label{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:14px}
+.total{font-family:var(--fh);font-size:clamp(40px,5.5vw,56px);font-weight:700;color:var(--cyan);text-shadow:0 0 34px rgba(34,211,238,.5);letter-spacing:-.02em;line-height:1.05}
+.total small{font-size:18px;color:var(--muted);text-shadow:none;font-family:var(--fb);font-weight:500}
+.bar{display:flex;height:14px;border-radius:999px;overflow:hidden;margin:24px 0 14px;border:1px solid rgba(255,255,255,.1);background:#0d1118}
+.bar i{display:block;height:100%;transition:width .35s ease}
+.bar .b-pi{background:linear-gradient(90deg,#0ea5c4,#22d3ee);box-shadow:0 0 14px rgba(34,211,238,.6)}
+.bar .b-tax{background:#3b82f6}
+.bar .b-ins{background:#8b5cf6}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin-bottom:22px}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.legend .b-pi{background:#22d3ee}.legend .b-tax{background:#3b82f6}.legend .b-ins{background:#8b5cf6}
+.rows{border-top:1px solid var(--line)}
+.row{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.row span{color:var(--muted)}
+.row b{font-family:var(--fh);font-size:16px;color:#fff}
+.row.hl b{color:var(--cyan)}
+.disclaimer{font-size:12px;color:#6c7689;margin-top:18px;line-height:1.5}
+.results .btn{width:100%;margin-top:22px}
+/* TIPS */
+.tips{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px}
+.tip{background:var(--s2);border:1px solid var(--line);border-radius:16px;padding:26px}
+.tip h3{font-size:16px;margin-bottom:8px;color:var(--cyan)}
+.tip p{font-size:14px;color:var(--muted)}
+@media(max-width:820px){.tips{grid-template-columns:1fr}}
+/* FOOTER */
+.footer{border-top:1px solid var(--line);background:#0a0d12;padding:64px 0 90px}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1.2fr;gap:40px;margin-bottom:44px}
+.foot-grid h4{font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:#fff;margin-bottom:16px}
+.foot-grid p,.foot-grid a{font-size:14px;color:var(--muted)}
+.foot-grid a{display:block;padding:5px 0;transition:color .2s}
+.foot-grid a:hover{color:var(--cyan)}
+.foot-brand{font-family:var(--fh);font-weight:700;font-size:20px;letter-spacing:.14em;margin-bottom:14px}
+.foot-brand em{font-style:normal;color:var(--cyan)}
+.legal{border-top:1px solid var(--line);padding-top:28px;font-size:12.5px;color:#6c7689;display:flex;flex-direction:column;gap:8px}
+@media(max-width:820px){.foot-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html">VELO<em>CITY</em></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html" class="active">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="apply.html" class="btn-nav">Apply now</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="wrap">
+    <div class="eyebrow">Payment calculator</div>
+    <h1>Know your number <span>in 60 seconds.</span></h1>
+    <p>Principal, interest, taxes and insurance — live, as you type. No email required, no sales call triggered.</p>
+  </div>
+</section>
+
+<section style="padding-top:clamp(36px,5vw,60px)">
+  <div class="wrap calc-grid">
+
+    <div class="panel">
+      <h2>Your loan details</h2>
+
+      <div class="field">
+        <label for="price">Home price</label>
+        <div class="prefix" data-sym="$"><input type="number" id="price" value="400000" min="0" step="1000" inputmode="decimal"></div>
+      </div>
+
+      <div class="field">
+        <label>Down payment</label>
+        <div class="field-row">
+          <div class="prefix" data-sym="$"><input type="number" id="dpAmt" value="80000" min="0" step="1000" inputmode="decimal" aria-label="Down payment in dollars"></div>
+          <div class="suffix" data-sym="%"><input type="number" id="dpPct" value="20" min="0" max="100" step="0.5" inputmode="decimal" aria-label="Down payment as percent"></div>
+        </div>
+        <div class="hint">Edit either box — they stay in sync.</div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="rate">Interest rate</label>
+          <div class="suffix" data-sym="%"><input type="number" id="rate" value="6.5" min="0" max="20" step="0.125" inputmode="decimal"></div>
+        </div>
+        <div class="field">
+          <label for="term">Loan term</label>
+          <select id="term">
+            <option value="30" selected>30 years</option>
+            <option value="20">20 years</option>
+            <option value="15">15 years</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="taxRate">Property tax rate</label>
+          <div class="suffix" data-sym="%/yr"><input type="number" id="taxRate" value="1.1" min="0" max="10" step="0.05" inputmode="decimal"></div>
+        </div>
+        <div class="field">
+          <label for="ins">Home insurance</label>
+          <div class="prefix" data-sym="$"><input type="number" id="ins" value="1500" min="0" step="50" inputmode="decimal"></div>
+          <div class="hint">Annual premium</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="results">
+      <h2>Estimated monthly payment</h2>
+      <div class="total-label">Total per month</div>
+      <div class="total"><span id="rTotal">$0</span><small>/mo</small></div>
+
+      <div class="bar" aria-hidden="true">
+        <i class="b-pi" id="barPI" style="width:70%"></i>
+        <i class="b-tax" id="barTax" style="width:20%"></i>
+        <i class="b-ins" id="barIns" style="width:10%"></i>
+      </div>
+      <div class="legend">
+        <span><i class="b-pi"></i>Principal &amp; interest</span>
+        <span><i class="b-tax"></i>Property tax</span>
+        <span><i class="b-ins"></i>Insurance</span>
+      </div>
+
+      <div class="rows">
+        <div class="row"><span>Loan amount</span><b id="rLoan">$0</b></div>
+        <div class="row hl"><span>Principal &amp; interest</span><b id="rPI">$0</b></div>
+        <div class="row"><span>Monthly property tax</span><b id="rTax">$0</b></div>
+        <div class="row"><span>Monthly insurance</span><b id="rIns">$0</b></div>
+      </div>
+
+      <a class="btn btn-primary" href="apply.html">Lock in a real quote &rarr;</a>
+      <p class="disclaimer">Estimates only, not a loan offer. Actual rates and payments depend on credit profile, property, and market conditions. Excludes PMI and HOA dues.</p>
+    </div>
+
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="eyebrow">Good to know</div>
+    <h2 style="font-size:clamp(24px,3.4vw,34px);margin-bottom:6px">Three quick truths about your payment</h2>
+    <div class="tips">
+      <div class="tip">
+        <h3>20% down kills PMI</h3>
+        <p>Put down less than 20% on a conventional loan and you'll usually pay private mortgage insurance. Hit 20% equity and it goes away.</p>
+      </div>
+      <div class="tip">
+        <h3>Rate beats price (sometimes)</h3>
+        <p>A half-point rate difference on a $320k loan changes your payment by roughly $100/mo. Shop the rate as hard as you shop the house.</p>
+      </div>
+      <div class="tip">
+        <h3>15-year loans build equity fast</h3>
+        <p>The payment is higher, but you'll pay a fraction of the lifetime interest and own your home outright in half the time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">VELO<em>CITY</em></div>
+        <p>Velocity Home Loans is a modern mortgage team built for speed — upfront underwriting, real humans, and a 14-day average close.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="index.html">Home</a>
+        <a href="programs.html">Programs</a>
+        <a href="calculator.html">Calculator</a>
+        <a href="about.html">About</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="apply.html">Apply now</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <p>(000) 000-0000 &middot; hello@example.com</p>
+        <p style="margin-top:10px">Mon&ndash;Sat, 8am&ndash;8pm. Real people answer.</p>
+      </div>
+    </div>
+    <div class="legal">
+      <span>NMLS #000000 &middot; Equal Housing Lender</span>
+      <span>We are committed to the letter and spirit of U.S. policy for the achievement of equal housing opportunity throughout the nation.</span>
+      <span>(000) 000-0000 &middot; hello@example.com</span>
+      <span>This is a demo template. All rates, names and reviews are sample content.</span>
+      <span>Template by Pilk.ai</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var t=document.getElementById('navToggle'),l=document.getElementById('navLinks');
+  if(t&&l){t.addEventListener('click',function(){l.classList.toggle('open');});}
+})();
+
+(function(){
+  var price=document.getElementById('price'),
+      dpAmt=document.getElementById('dpAmt'),
+      dpPct=document.getElementById('dpPct'),
+      rate=document.getElementById('rate'),
+      term=document.getElementById('term'),
+      taxRate=document.getElementById('taxRate'),
+      ins=document.getElementById('ins');
+
+  function num(el){var v=parseFloat(el.value);return isFinite(v)&&v>0?v:0;}
+  function fmt(n){return '$'+Math.round(n).toLocaleString('en-US');}
+
+  function calc(){
+    var P0=num(price),
+        down=num(dpAmt),
+        loan=Math.max(P0-down,0),
+        annualRate=num(rate),
+        years=parseInt(term.value,10)||30,
+        r=annualRate/100/12,
+        n=years*12,
+        pi;
+
+    if(r===0){ pi=n>0?loan/n:0; }
+    else{
+      var f=Math.pow(1+r,n);
+      pi=loan*(r*f)/(f-1);
+    }
+    if(!isFinite(pi))pi=0;
+
+    var tax=P0*(num(taxRate)/100)/12,
+        insM=num(ins)/12,
+        total=pi+tax+insM;
+
+    document.getElementById('rLoan').textContent=fmt(loan);
+    document.getElementById('rPI').textContent=fmt(pi);
+    document.getElementById('rTax').textContent=fmt(tax);
+    document.getElementById('rIns').textContent=fmt(insM);
+    document.getElementById('rTotal').textContent=fmt(total);
+
+    var piW=total>0?pi/total*100:0,
+        taxW=total>0?tax/total*100:0,
+        insW=total>0?insM/total*100:0;
+    document.getElementById('barPI').style.width=piW+'%';
+    document.getElementById('barTax').style.width=taxW+'%';
+    document.getElementById('barIns').style.width=insW+'%';
+  }
+
+  // Sync: editing $ updates %, editing % updates $, editing price re-derives $ from %
+  dpAmt.addEventListener('input',function(){
+    var P0=num(price);
+    if(P0>0){ dpPct.value=(num(dpAmt)/P0*100).toFixed(1).replace(/\.0$/,''); }
+    calc();
+  });
+  dpPct.addEventListener('input',function(){
+    var P0=num(price);
+    dpAmt.value=Math.round(P0*(parseFloat(dpPct.value)||0)/100);
+    calc();
+  });
+  price.addEventListener('input',function(){
+    var P0=num(price);
+    dpAmt.value=Math.round(P0*(parseFloat(dpPct.value)||0)/100);
+    calc();
+  });
+  [rate,taxRate,ins].forEach(function(el){el.addEventListener('input',calc);});
+  term.addEventListener('change',calc);
+
+  calc();
+})();
+</script>
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

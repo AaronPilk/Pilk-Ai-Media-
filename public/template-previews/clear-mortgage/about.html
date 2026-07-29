@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us — ClearPath Mortgage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;color:#111;background:#fff;line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  a{color:inherit;text-decoration:none}
+  header{position:sticky;top:0;background:rgba(255,255,255,0.94);backdrop-filter:blur(10px);border-bottom:1px solid #ececec;z-index:100}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+  .logo{font-weight:700;font-size:17px;letter-spacing:-0.02em}
+  .logo span{color:#16a34a}
+  .nav-links{display:flex;align-items:center;gap:28px;font-size:14px;color:#555}
+  .nav-links a:hover{color:#111}
+  .nav-links a.active{color:#111;font-weight:600}
+  .btn{display:inline-block;padding:12px 24px;font-size:14px;font-weight:600;border-radius:4px;transition:opacity .15s ease;cursor:pointer;border:none}
+  .btn-dark{background:#111;color:#fff}
+  .btn-dark:hover{opacity:.85}
+  .nav .btn{padding:10px 20px}
+  .page-head{padding:88px 0 72px;border-bottom:1px solid #ececec}
+  .eyebrow{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#16a34a;margin-bottom:18px}
+  h1{font-size:48px;line-height:1.1;letter-spacing:-0.03em;font-weight:700;max-width:20ch}
+  h2{font-size:32px;letter-spacing:-0.02em;font-weight:700}
+  section{padding:88px 0}
+  .story{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+  .story p{color:#444;font-size:16px;margin-bottom:18px}
+  .story-img{aspect-ratio:4/3;border-radius:6px;background:linear-gradient(160deg,#e8ede9,#d7ded8);background-image:url('/template-previews/_assets/hero-warm-home.jpg');background-size:cover;background-position:center}
+  .rule{height:1px;background:#ececec;border:none}
+  .values{display:grid;grid-template-columns:repeat(3,1fr);gap:48px;margin-top:56px}
+  .value{border-top:2px solid #111;padding-top:24px}
+  .value h3{font-size:18px;font-weight:600}
+  .value h3 span{color:#16a34a;margin-right:8px}
+  .value p{margin-top:10px;font-size:14.5px;color:#555}
+  .team{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:56px}
+  .member .photo{aspect-ratio:3/3.4;border-radius:6px;background:linear-gradient(160deg,#e5e5e5,#d4d4d4);background-size:cover;background-position:center top}
+  .member h3{margin-top:16px;font-size:16px;font-weight:600}
+  .member .role{font-size:13px;color:#16a34a;font-weight:600;margin-top:2px}
+  .member .nmls{font-size:12px;color:#999;margin-top:2px}
+  .member p{font-size:13.5px;color:#666;margin-top:10px}
+  .band{background:#111;color:#fff;border-radius:8px;padding:64px;display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap}
+  .band h2{color:#fff;max-width:20ch}
+  .band p{color:#a3a3a3;margin-top:10px;font-size:15px}
+  .btn-green{background:#16a34a;color:#fff}
+  footer{border-top:1px solid #ececec;padding:56px 0 40px}
+  .foot-grid{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap}
+  .foot-brand{max-width:320px}
+  .foot-brand p{margin-top:12px;font-size:13px;color:#888}
+  .foot-links{display:flex;gap:56px;flex-wrap:wrap}
+  .foot-links div h4{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#aaa;margin-bottom:14px}
+  .foot-links a{display:block;font-size:14px;color:#555;margin-bottom:9px}
+  .legal{margin-top:48px;padding-top:24px;border-top:1px solid #ececec;font-size:12px;color:#999;line-height:1.8}
+  @media(max-width:900px){
+    h1{font-size:34px}
+    h2{font-size:26px}
+    .page-head{padding:48px 0 40px}
+    section{padding:56px 0}
+    .story{grid-template-columns:1fr;gap:32px}
+    .values{grid-template-columns:1fr;gap:28px}
+    .team{grid-template-columns:repeat(2,1fr);gap:24px}
+    .band{padding:44px 28px}
+    .nav{height:auto;flex-wrap:wrap;padding:14px 0}
+    .nav-links{gap:16px;flex-wrap:wrap;font-size:13px;order:3;width:100%;padding-bottom:4px}
+  }
+  @media(max-width:480px){.team{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="index.html" class="logo">ClearPath<span>.</span></a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html" class="active">About</a>
+      <a href="reviews.html">Reviews</a>
+    </nav>
+    <a href="apply.html" class="btn btn-dark">Apply now</a>
+  </div>
+</header>
+
+<div class="page-head">
+  <div class="wrap">
+    <div class="eyebrow">About ClearPath</div>
+    <h1>We started this company because mortgages were confusing on purpose.</h1>
+  </div>
+</div>
+
+<section>
+  <div class="wrap story">
+    <div>
+      <h2>The short version.</h2>
+      <p style="margin-top:20px">ClearPath was founded after our team spent a combined two decades inside big retail lenders — watching good borrowers get steered into whatever product paid best that quarter, buried in disclosures nobody explained.</p>
+      <p>So we built the brokerage we wished existed. One where every quote comes with the math behind it. Where "what's the catch?" gets a straight answer. Where your advisor's job is measured by how well you understand your loan, not just whether it closes.</p>
+      <p>Today we help hundreds of families a year buy, build, and refinance — and our best marketing is still a client explaining their own mortgage to a friend, correctly, from memory.</p>
+    </div>
+    <div class="story-img" role="img" aria-label="Warm family home exterior at dusk"></div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section>
+  <div class="wrap">
+    <h2>What we won't compromise on.</h2>
+    <div class="values">
+      <div class="value">
+        <h3><span>01</span>Clarity before commitment</h3>
+        <p>You'll never be asked to sign anything you can't explain back to us. If a document is confusing, that's our failure — and we'll fix it before moving forward.</p>
+      </div>
+      <div class="value">
+        <h3><span>02</span>The math, in writing</h3>
+        <p>Every recommendation comes with a written comparison: total cost, break-even point, and the trade-offs. You keep the document whether you work with us or not.</p>
+      </div>
+      <div class="value">
+        <h3><span>03</span>One advisor, start to finish</h3>
+        <p>No call centers, no ticket numbers. The person who quotes your loan is the person who answers your texts the week you close.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section>
+  <div class="wrap">
+    <h2>The people behind the process.</h2>
+    <div class="team">
+      <div class="member">
+        <div class="photo" style="background-image:url('/template-previews/_assets/agent-f1.jpg')" role="img" aria-label="Portrait of Lauren Whitfield"></div>
+        <h3>Lauren Whitfield</h3>
+        <div class="role">Founder &amp; Principal Broker</div>
+        <div class="nmls">NMLS #000000</div>
+        <p>Fifteen years in lending, and still reads every closing disclosure line by line. Believes the best compliment is "that was easier than I expected."</p>
+      </div>
+      <div class="member">
+        <div class="photo" style="background-image:url('/template-previews/_assets/agent-m1.jpg')" role="img" aria-label="Portrait of David Okafor"></div>
+        <h3>David Okafor</h3>
+        <div class="role">Senior Loan Advisor</div>
+        <div class="nmls">NMLS #000000</div>
+        <p>Specializes in first-time buyers and down payment assistance programs. Known for answering "dumb questions" like they're the smartest ones.</p>
+      </div>
+      <div class="member">
+        <div class="photo" style="background-image:url('/template-previews/_assets/agent-f2.jpg')" role="img" aria-label="Portrait of Maya Chen"></div>
+        <h3>Maya Chen</h3>
+        <div class="role">Loan Advisor, Refinance</div>
+        <div class="nmls">NMLS #000000</div>
+        <p>Runs the break-even analysis on every refi quote herself. Has talked more clients out of refinancing than into it — and is proud of that.</p>
+      </div>
+      <div class="member">
+        <div class="photo" style="background-image:url('/template-previews/_assets/agent-m2.jpg')" role="img" aria-label="Portrait of James Herrera"></div>
+        <h3>James Herrera</h3>
+        <div class="role">Operations Manager</div>
+        <div class="nmls">NMLS #000000</div>
+        <p>The reason our average clear-to-close is 12 days. Tracks every file daily and sends updates before clients think to ask.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="band">
+      <div>
+        <h2>Work with people who explain things.</h2>
+        <p>Start an application, or run your numbers first — either way, you'll understand every step.</p>
+      </div>
+      <a href="apply.html" class="btn btn-green">Apply now</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo">ClearPath<span style="color:#16a34a">.</span></div>
+        <p>A modern mortgage brokerage built on one idea: if you can't explain a loan clearly, you shouldn't be selling it.</p>
+      </div>
+      <div class="foot-links">
+        <div>
+          <h4>Company</h4>
+          <a href="about.html">About us</a>
+          <a href="reviews.html">Reviews</a>
+          <a href="apply.html">Apply now</a>
+        </div>
+        <div>
+          <h4>Loans</h4>
+          <a href="programs.html">All programs</a>
+          <a href="calculator.html">Payment calculator</a>
+          <a href="programs.html">Refinance</a>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <a href="apply.html">(000) 000-0000</a>
+          <a href="apply.html">hello@example.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="legal">
+      ClearPath Mortgage · NMLS #000000 · Equal Housing Opportunity. This is a demo website; all rates, statistics, and testimonials are sample content for illustration only and do not constitute an offer to lend.<br>
+      (000) 000-0000 · hello@example.com · Template by Pilk.ai
+    </div>
+  </div>
+</footer>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

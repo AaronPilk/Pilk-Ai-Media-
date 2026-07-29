@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrustPoint Lending — Lending You Can Bank On</title>
+<meta name="description" content="TrustPoint Lending. Three decades of disciplined mortgage lending. Conventional, FHA, VA, Jumbo, and refinance programs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0d2247;
+  --navy-dark:#091a38;
+  --gold:#c9a227;
+  --gold-hover:#b8931f;
+  --ink:#1d2637;
+  --muted:#5b6577;
+  --band:#f4f6f9;
+  --line:#e2e7ef;
+  --r:5px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Source Sans 3',system-ui,-apple-system,sans-serif;color:var(--ink);background:#fff;line-height:1.65;font-size:16.5px;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:'Source Serif 4',Georgia,'Times New Roman',serif;color:var(--navy);line-height:1.2;font-weight:600}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+.eyebrow{display:block;font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.gold-rule{width:52px;height:2px;background:var(--gold);border:0;margin:18px 0 22px}
+.gold-rule.center{margin-left:auto;margin-right:auto}
+.btn{display:inline-block;padding:14px 30px;border-radius:4px;font-weight:700;font-size:15.5px;letter-spacing:.02em;transition:background .18s,color .18s,border-color .18s,transform .18s;cursor:pointer;border:1px solid transparent;text-align:center}
+.btn-gold{background:var(--gold);color:var(--navy-dark)}
+.btn-gold:hover{background:var(--gold-hover)}
+.btn-outline-light{border-color:rgba(255,255,255,.55);color:#fff}
+.btn-outline-light:hover{border-color:var(--gold);color:var(--gold)}
+.btn-outline-navy{border-color:var(--navy);color:var(--navy)}
+.btn-outline-navy:hover{background:var(--navy);color:#fff}
+
+/* utility bar */
+.util{background:var(--navy-dark);color:#aab6cc;font-size:12.5px;letter-spacing:.04em}
+.util-in{display:flex;justify-content:space-between;align-items:center;padding:8px 0;gap:12px}
+.util-in .tag{color:#8d9cb8;font-style:italic;font-family:'Source Serif 4',Georgia,serif}
+.util-in strong{color:#d5dcea;font-weight:600}
+
+/* nav */
+.nav{background:var(--navy);border-bottom:1px solid rgba(201,162,39,.35);position:sticky;top:0;z-index:1000}
+.nav-in{display:flex;align-items:center;justify-content:space-between;padding:16px 0;gap:18px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Source Serif 4',Georgia,serif;font-size:21px;font-weight:700;color:#fff;letter-spacing:.01em}
+.brand svg{flex:none}
+.brand span{color:var(--gold)}
+.nav-links{display:flex;align-items:center;gap:26px;flex-wrap:wrap}
+.nav-links a{color:rgba(255,255,255,.85);font-size:15px;font-weight:600;padding:6px 0;border-bottom:2px solid transparent;transition:color .15s,border-color .15s}
+.nav-links a:hover{color:#fff}
+.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-cta{background:var(--gold);color:var(--navy-dark);padding:11px 22px;border-radius:4px;font-weight:700;font-size:14.5px;letter-spacing:.03em;transition:background .18s}
+.nav-cta:hover{background:var(--gold-hover)}
+
+/* hero */
+.hero{background-image:linear-gradient(rgba(13,34,71,.74),rgba(9,26,56,.86)),url('/template-previews/_assets/hero-estate.jpg');background-size:cover;background-position:center;color:#fff;padding:120px 0 130px;position:relative}
+.hero-in{max-width:720px}
+.hero .eyebrow{color:var(--gold)}
+.hero h1{color:#fff;font-size:54px;font-weight:700;letter-spacing:-.01em;margin-bottom:20px}
+.hero p{font-size:19px;color:rgba(255,255,255,.85);max-width:560px;margin-bottom:36px}
+.hero-ctas{display:flex;gap:16px;flex-wrap:wrap}
+
+/* stat bar */
+.statbar{background:var(--navy-dark);border-top:1px solid rgba(201,162,39,.4);border-bottom:1px solid rgba(201,162,39,.4)}
+.statbar-in{display:grid;grid-template-columns:repeat(4,1fr);padding:34px 0}
+.stat{text-align:center;padding:0 18px;border-right:1px solid rgba(201,162,39,.35)}
+.stat:last-child{border-right:0}
+.stat b{display:block;font-family:'Source Serif 4',Georgia,serif;font-size:30px;font-weight:700;color:var(--gold);line-height:1.15}
+.stat span{display:block;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:#aab6cc;margin-top:5px}
+
+/* sections */
+.section{padding:92px 0}
+.section.band{background:var(--band)}
+.section-head{max-width:640px;margin-bottom:52px}
+.section-head.center{margin-left:auto;margin-right:auto;text-align:center}
+.section-head h2{font-size:37px;margin-bottom:0}
+.section-head p{color:var(--muted);margin-top:16px;font-size:17.5px}
+
+/* program cards */
+.prog-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+.prog-card{background:#fff;border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:var(--r);padding:34px 28px;display:flex;flex-direction:column;transition:box-shadow .2s,transform .2s}
+.prog-card:hover{box-shadow:0 14px 34px rgba(13,34,71,.12);transform:translateY(-3px)}
+.prog-card .glyph{width:46px;height:46px;border-radius:4px;background:var(--navy);color:var(--gold);display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.prog-card h3{font-size:21px;margin-bottom:10px}
+.prog-card p{font-size:15px;color:var(--muted);flex:1}
+.prog-card .more{margin-top:20px;font-weight:700;font-size:14px;color:var(--navy);letter-spacing:.05em;text-transform:uppercase}
+.prog-card .more b{color:var(--gold)}
+.prog-card:hover .more{color:var(--gold-hover)}
+
+/* how it works */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+.step{background:var(--band);border:1px solid var(--line);border-radius:var(--r);padding:38px 30px;position:relative}
+.step .num{font-family:'Source Serif 4',Georgia,serif;font-size:15px;font-weight:700;color:var(--navy-dark);width:38px;height:38px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.step h3{font-size:20px;margin-bottom:10px}
+.step p{font-size:15px;color:var(--muted)}
+
+/* testimonials */
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.quote{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:32px 28px}
+.quote .stars{color:var(--gold);font-size:15px;letter-spacing:3px;margin-bottom:14px}
+.quote p{font-size:15.5px;color:var(--ink);font-style:italic;font-family:'Source Serif 4',Georgia,serif}
+.quote .who{margin-top:18px;font-size:13.5px;font-weight:700;color:var(--navy);letter-spacing:.06em;text-transform:uppercase}
+.quote .who em{display:block;font-style:normal;font-weight:400;color:var(--muted);text-transform:none;letter-spacing:0;margin-top:2px}
+
+/* cta band */
+.cta-band{background-image:linear-gradient(rgba(13,34,71,.82),rgba(9,26,56,.9)),url('/template-previews/_assets/city-skyline.jpg');background-size:cover;background-position:center;color:#fff;padding:96px 0;text-align:center}
+.cta-band h2{color:#fff;font-size:36px;margin-bottom:14px}
+.cta-band p{color:rgba(255,255,255,.82);max-width:540px;margin:0 auto 32px;font-size:17.5px}
+
+/* footer */
+.footer{background:var(--navy-dark);color:#9aa7bf;font-size:14.5px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1.2fr;gap:48px;padding:70px 0 54px}
+.f-brand{display:flex;align-items:center;gap:10px;font-family:'Source Serif 4',Georgia,serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:16px}
+.f-brand span{color:var(--gold)}
+.footer p{max-width:360px}
+.footer h4{color:#fff;font-family:'Source Sans 3',sans-serif;font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:18px;font-weight:700}
+.footer h4:after{content:"";display:block;width:28px;height:2px;background:var(--gold);margin-top:8px}
+.f-links a{display:block;padding:4px 0;transition:color .15s}
+.f-links a:hover{color:var(--gold)}
+.f-contact div{padding:4px 0}
+.f-contact b{color:#d5dcea;font-weight:600}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding:22px 0;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:13px;color:#7a889f}
+.footer-bottom a{color:var(--gold)}
+
+@media (max-width:960px){
+  .hero h1{font-size:42px}
+  .prog-grid{grid-template-columns:repeat(2,1fr)}
+  .steps,.quotes{grid-template-columns:1fr 1fr}
+  .statbar-in{grid-template-columns:repeat(2,1fr);gap:26px 0}
+  .stat:nth-child(2){border-right:0}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .util-in{justify-content:center;text-align:center}
+  .util-in .tag{display:none}
+  .nav-in{justify-content:center}
+  .nav-links{justify-content:center;gap:16px}
+  .hero{padding:80px 0 90px}
+  .hero h1{font-size:34px}
+  .hero p{font-size:17px}
+  .prog-grid,.steps,.quotes{grid-template-columns:1fr}
+  .statbar-in{grid-template-columns:1fr 1fr;padding:26px 0}
+  .stat b{font-size:24px}
+  .section{padding:64px 0}
+  .section-head h2{font-size:29px}
+  .cta-band h2{font-size:28px}
+  .footer-grid{grid-template-columns:1fr;gap:36px;padding:54px 0 40px}
+  .footer-bottom{justify-content:center;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<div class="util">
+  <div class="wrap util-in">
+    <span class="tag">Lending you can bank on.</span>
+    <span><strong>(000) 000-0000</strong> &nbsp;·&nbsp; NMLS #345678</span>
+  </div>
+</div>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="index.html">
+      <svg width="22" height="26" viewBox="0 0 22 26" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11 1 21 4.8v7.1c0 6.2-4.2 10.9-10 13.1C5.2 22.8 1 18.1 1 11.9V4.8L11 1Z" fill="#c9a227"/><path d="M11 5.6 16.4 7.7v4.1c0 3.7-2.3 6.5-5.4 8-3.1-1.5-5.4-4.3-5.4-8V7.7L11 5.6Z" fill="#0d2247"/><path d="M11 9.4l3 1.2v2.1c0 2-1.3 3.5-3 4.4-1.7-.9-3-2.4-3-4.4v-2.1l3-1.2Z" fill="#c9a227"/></svg>
+      TrustPoint&nbsp;<span>Lending</span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="apply.html" class="nav-cta">Apply now</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-in">
+      <span class="eyebrow">Established Mortgage Lending · Est. 1996</span>
+      <h1>Lending you can bank on.</h1>
+      <p>Three decades of disciplined lending. Your rate, documented in writing. Your closing date, treated like a commitment — because it is one.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-gold" href="apply.html">Apply now</a>
+        <a class="btn btn-outline-light" href="calculator.html">Estimate your payment</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="statbar">
+  <div class="wrap statbar-in">
+    <div class="stat"><b>$1.2B</b><span>Loans funded</span></div>
+    <div class="stat"><b>30 yrs</b><span>Of disciplined lending</span></div>
+    <div class="stat"><b>4.9★</b><span>733 verified reviews</span></div>
+    <div class="stat"><b>A+</b><span>Underwriting standards</span></div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head center">
+      <span class="eyebrow">Loan Programs</span>
+      <h2>Financing built on fundamentals</h2>
+      <hr class="gold-rule center">
+      <p>Every program we offer has been underwritten through multiple market cycles. We lend on what holds up — not on what happens to be fashionable.</p>
+    </div>
+    <div class="prog-grid">
+      <a class="prog-card" href="programs.html">
+        <div class="glyph"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9.5 21v-6h5v6"/></svg></div>
+        <h3>Conventional</h3>
+        <p>The standard by which every mortgage is measured. Competitive fixed rates, flexible terms, and a process that runs on schedule.</p>
+        <span class="more">Learn more <b>→</b></span>
+      </a>
+      <a class="prog-card" href="programs.html">
+        <div class="glyph"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 8c0-2 2-3.5 7-3.5S19 6 19 8s-2 3-7 3-7 1-7 3 2 3.5 7 3.5 7-1.5 7-3.5"/></svg></div>
+        <h3>Jumbo</h3>
+        <p>Our specialty. Substantial financing for substantial properties, underwritten in-house with the judgment large loans deserve.</p>
+        <span class="more">Learn more <b>→</b></span>
+      </a>
+      <a class="prog-card" href="programs.html">
+        <div class="glyph"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 20 5.5V11c0 5.2-3.4 9.2-8 11-4.6-1.8-8-5.8-8-11V5.5L12 2Z"/><path d="m8.5 11.5 2.5 2.5 4.5-4.5"/></svg></div>
+        <h3>VA &amp; FHA</h3>
+        <p>Government-backed programs administered with private-bank care. Lower down payments without lowered standards of service.</p>
+        <span class="more">Learn more <b>→</b></span>
+      </a>
+      <a class="prog-card" href="programs.html">
+        <div class="glyph"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.3"/><path d="M21 3v6h-6"/></svg></div>
+        <h3>Refinance</h3>
+        <p>A refinance should be a calculation, not a gamble. We model your break-even point in writing before you commit to anything.</p>
+        <span class="more">Learn more <b>→</b></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section band">
+  <div class="wrap">
+    <div class="section-head center">
+      <span class="eyebrow">How It Works</span>
+      <h2>A process you can plan around</h2>
+      <hr class="gold-rule center">
+      <p>No surprises at the closing table. Three stages, each with clear deliverables, each documented.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="num">1</div>
+        <h3>Consultation</h3>
+        <p>A senior loan officer — not a call center — reviews your finances, goals, and timeline. You leave the first conversation knowing exactly what you qualify for and why.</p>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <h3>Documented rate &amp; underwriting</h3>
+        <p>Your rate is locked and documented in writing. Underwriting begins immediately, with a named underwriter and a published list of every document we will need. No drip requests.</p>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <h3>A close you can plan around</h3>
+        <p>We issue your clear-to-close ahead of schedule as a matter of policy. Movers, notaries, and family plans can be booked with confidence.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head center">
+      <span class="eyebrow">Client Testimonials</span>
+      <h2>On the record</h2>
+      <hr class="gold-rule center">
+    </div>
+    <div class="quotes">
+      <div class="quote">
+        <div class="stars">★★★★★</div>
+        <p>&ldquo;They quoted a rate, put it in writing, and honored it when the market moved against them. That told me everything I needed to know about this firm.&rdquo;</p>
+        <div class="who">Richard M. <em>Jumbo purchase · Charlotte, NC</em></div>
+      </div>
+      <div class="quote">
+        <div class="stars">★★★★★</div>
+        <p>&ldquo;We closed four days early. In fifteen years of buying and selling homes, that has never happened to us with any other lender.&rdquo;</p>
+        <div class="who">Eleanor &amp; James T. <em>Purchase · Alexandria, VA</em></div>
+      </div>
+      <div class="quote">
+        <div class="stars">★★★★★</div>
+        <p>&ldquo;The underwriting was rigorous — they asked for everything up front, once. Then it was quiet until clear-to-close. Exactly how it should work.&rdquo;</p>
+        <div class="who">Priya S. <em>Refinance · Columbus, OH</em></div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:44px">
+      <a class="btn btn-outline-navy" href="reviews.html">Read all 733 reviews</a>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap">
+    <span class="eyebrow">Begin The Process</span>
+    <h2>Serious about your next home?<br>So are we.</h2>
+    <p>Start your application today. A senior loan officer will respond within one business day — in writing.</p>
+    <a class="btn btn-gold" href="apply.html">Apply now</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div>
+      <div class="f-brand">
+        <svg width="20" height="24" viewBox="0 0 22 26" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11 1 21 4.8v7.1c0 6.2-4.2 10.9-10 13.1C5.2 22.8 1 18.1 1 11.9V4.8L11 1Z" fill="#c9a227"/><path d="M11 5.6 16.4 7.7v4.1c0 3.7-2.3 6.5-5.4 8-3.1-1.5-5.4-4.3-5.4-8V7.7L11 5.6Z" fill="#091a38"/></svg>
+        TrustPoint&nbsp;<span>Lending</span>
+      </div>
+      <p>Three decades of disciplined mortgage lending. Documented rates, in-house underwriting, and closings that arrive on schedule. Lending you can bank on.</p>
+    </div>
+    <div>
+      <h4>Navigate</h4>
+      <div class="f-links">
+        <a href="index.html">Home</a>
+        <a href="programs.html">Loan Programs</a>
+        <a href="calculator.html">Payment Calculator</a>
+        <a href="about.html">About Us</a>
+        <a href="reviews.html">Client Reviews</a>
+        <a href="apply.html">Apply Now</a>
+      </div>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <div class="f-contact">
+        <div><b>(000) 000-0000</b></div>
+        <div><b>hello@example.com</b></div>
+        <div>Mon–Fri · 8:30a – 6:00p</div>
+        <div style="margin-top:12px">NMLS #345678</div>
+        <div>⌂ &nbsp;TrustPoint Lending is a demo brand. Equal Housing Lender.</div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© 2026 TrustPoint Lending · NMLS #345678 · All rights reserved.</span>
+    <span>Template by <a href="#">Pilk.ai</a></span>
+  </div>
+</footer>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mortgage Calculator — HomeFirst Lending</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#faf6f0; --tint:#f3e9dc; --tint2:#efe5d6;
+  --terra:#c2571b; --terra-dark:#a54812; --green:#2e5339; --green-dark:#24422d;
+  --ink:#2e2a24; --ink-soft:#5c554b; --white:#ffffff;
+  --radius:20px; --radius-sm:16px;
+  --shadow:0 10px 30px rgba(46,42,36,.08); --shadow-lg:0 18px 44px rgba(46,42,36,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito Sans',system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.65;font-size:16px}
+h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif;font-weight:600;line-height:1.2;color:var(--ink)}
+a{color:var(--terra)}
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+
+.nav{position:sticky;top:0;z-index:1000;background:rgba(250,246,240,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(46,42,36,.08)}
+.nav-inner{max-width:1140px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:1.25rem}
+.nav-links{display:flex;align-items:center;gap:6px;margin-left:auto;flex-wrap:wrap}
+.nav-links a{text-decoration:none;color:var(--ink-soft);font-weight:600;font-size:.95rem;padding:8px 14px;border-radius:999px;transition:background .2s,color .2s}
+.nav-links a:hover{background:var(--tint);color:var(--ink)}
+.nav-links a.active{background:var(--tint2);color:var(--terra)}
+.nav-cta{background:var(--terra)!important;color:#fff!important;padding:10px 22px!important;border-radius:999px;box-shadow:0 4px 14px rgba(194,87,27,.3)}
+.nav-cta:hover{background:var(--terra-dark)!important}
+
+.page-head{text-align:center;padding:70px 24px 44px}
+.page-kicker{display:inline-block;background:var(--tint2);color:var(--terra);border-radius:999px;padding:7px 18px;font-weight:700;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px}
+.page-head h1{font-size:clamp(2.1rem,4.4vw,3rem);font-weight:700;margin-bottom:12px}
+.page-head p{max-width:540px;margin:0 auto;font-size:1.1rem;color:var(--ink-soft)}
+
+.calc-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:start;padding-bottom:80px}
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:36px 32px;border:1px solid rgba(46,42,36,.05)}
+.card h2{font-size:1.35rem;margin-bottom:22px}
+.field{margin-bottom:20px}
+.field label{display:block;font-weight:700;font-size:.88rem;margin-bottom:8px;color:var(--ink)}
+.field input,.field select{width:100%;padding:13px 16px;border:1.5px solid #e3dccf;border-radius:14px;font-family:'Nunito Sans',sans-serif;font-size:1rem;background:var(--cream);color:var(--ink);transition:border-color .2s,box-shadow .2s;-webkit-appearance:none;appearance:none}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235c554b' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:16px}
+.field input:focus,.field select:focus{outline:none;border-color:var(--terra);box-shadow:0 0 0 4px rgba(194,87,27,.14);background:#fff}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.hint{font-size:.8rem;color:var(--ink-soft);margin-top:6px}
+
+.result-card{background:linear-gradient(155deg,#fdf9f2,var(--tint));position:sticky;top:96px}
+.total-lbl{font-weight:700;font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+.total{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:3rem;color:var(--terra);line-height:1.1;margin:6px 0 2px}
+.total small{font-size:1.15rem;color:var(--ink-soft);font-family:'Nunito Sans',sans-serif;font-weight:600}
+.split-bar{display:flex;height:18px;border-radius:999px;overflow:hidden;margin:24px 0 14px;box-shadow:inset 0 1px 3px rgba(46,42,36,.15)}
+.seg-pi{background:var(--terra)}
+.seg-tax{background:var(--green)}
+.seg-ins{background:#dcb98a}
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:24px;font-size:.82rem;font-weight:700;color:var(--ink-soft)}
+.legend span{display:flex;align-items:center;gap:7px}
+.dot{width:12px;height:12px;border-radius:50%;display:inline-block}
+.rows{border-top:1.5px solid rgba(46,42,36,.1)}
+.row{display:flex;justify-content:space-between;padding:13px 0;border-bottom:1.5px solid rgba(46,42,36,.1);font-size:.98rem}
+.row .k{color:var(--ink-soft);font-weight:600}
+.row .v{font-weight:700}
+.row.total-row .k,.row.total-row .v{font-weight:700;color:var(--green);font-size:1.05rem}
+.note{margin-top:20px;background:rgba(46,83,57,.09);border-radius:14px;padding:14px 18px;font-size:.88rem;color:var(--green);font-weight:600}
+.btn{display:inline-block;text-decoration:none;font-weight:700;font-size:1rem;padding:14px 30px;border-radius:999px;transition:transform .2s,background .2s;background:var(--terra);color:#fff;box-shadow:0 8px 24px rgba(194,87,27,.35);margin-top:22px;text-align:center;width:100%}
+.btn:hover{background:var(--terra-dark);transform:translateY(-2px)}
+
+footer{background:var(--green);color:rgba(255,255,255,.85);padding:64px 0 90px}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1.4fr;gap:44px}
+.foot-brand{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:1.3rem;color:#fff;display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.foot-grid p{font-size:.92rem}
+.foot-grid h4{color:#fff;font-size:1rem;margin-bottom:14px}
+.foot-links{list-style:none}
+.foot-links li{margin-bottom:9px}
+.foot-links a{color:rgba(255,255,255,.8);text-decoration:none;font-size:.92rem}
+.foot-links a:hover{color:#fff;text-decoration:underline}
+.foot-meta{font-size:.88rem;line-height:1.9}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.18);margin-top:44px;padding-top:22px;font-size:.82rem;color:rgba(255,255,255,.6);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.foot-bottom a{color:rgba(255,255,255,.75)}
+
+@media (max-width:900px){
+  .calc-grid{grid-template-columns:1fr}
+  .result-card{position:static}
+  .foot-grid{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .nav-inner{gap:10px;justify-content:center}
+  .nav-links{margin-left:0;justify-content:center}
+  .two-col{grid-template-columns:1fr}
+  .card{padding:28px 22px}
+  .total{font-size:2.4rem}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M3 11.5 12 4l9 7.5" stroke="#c2571b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 10.5V20h13v-9.5" stroke="#c2571b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 20v-5h4v5" stroke="#c2571b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      HomeFirst Lending
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html" class="active">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="apply.html" class="nav-cta">Apply now</a>
+    </div>
+  </div>
+</nav>
+
+<header class="page-head">
+  <span class="page-kicker">Mortgage calculator</span>
+  <h1>Let's play with the numbers</h1>
+  <p>Slide the figures around and watch your monthly payment update live. No email required, no strings attached.</p>
+</header>
+
+<div class="wrap">
+  <div class="calc-grid">
+
+    <div class="card">
+      <h2>Your numbers</h2>
+      <div class="field">
+        <label for="price">Home price ($)</label>
+        <input type="number" id="price" value="400000" min="0" step="1000">
+      </div>
+      <div class="two-col">
+        <div class="field">
+          <label for="downDollar">Down payment ($)</label>
+          <input type="number" id="downDollar" value="80000" min="0" step="1000">
+        </div>
+        <div class="field">
+          <label for="downPct">Down payment (%)</label>
+          <input type="number" id="downPct" value="20" min="0" max="100" step="0.5">
+        </div>
+      </div>
+      <p class="hint" style="margin-top:-10px;margin-bottom:20px">These two stay in sync — change either one.</p>
+      <div class="two-col">
+        <div class="field">
+          <label for="rate">Interest rate (%)</label>
+          <input type="number" id="rate" value="6.5" min="0" max="20" step="0.125">
+        </div>
+        <div class="field">
+          <label for="term">Loan term</label>
+          <select id="term">
+            <option value="15">15 years</option>
+            <option value="20">20 years</option>
+            <option value="30" selected>30 years</option>
+          </select>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="field">
+          <label for="taxRate">Property tax rate (%/yr)</label>
+          <input type="number" id="taxRate" value="1.1" min="0" max="10" step="0.05">
+        </div>
+        <div class="field">
+          <label for="insurance">Home insurance ($/yr)</label>
+          <input type="number" id="insurance" value="1500" min="0" step="50">
+        </div>
+      </div>
+    </div>
+
+    <div class="card result-card">
+      <div class="total-lbl">Estimated monthly payment</div>
+      <div class="total"><span id="outTotal">$0</span><small>/mo</small></div>
+
+      <div class="split-bar" id="splitBar">
+        <div class="seg-pi" id="segPi" style="width:70%"></div>
+        <div class="seg-tax" id="segTax" style="width:20%"></div>
+        <div class="seg-ins" id="segIns" style="width:10%"></div>
+      </div>
+      <div class="legend">
+        <span><i class="dot" style="background:var(--terra)"></i>Principal &amp; interest</span>
+        <span><i class="dot" style="background:var(--green)"></i>Property tax</span>
+        <span><i class="dot" style="background:#dcb98a"></i>Insurance</span>
+      </div>
+
+      <div class="rows">
+        <div class="row"><span class="k">Loan amount</span><span class="v" id="outLoan">$0</span></div>
+        <div class="row"><span class="k">Principal &amp; interest</span><span class="v" id="outPI">$0</span></div>
+        <div class="row"><span class="k">Monthly property tax</span><span class="v" id="outTax">$0</span></div>
+        <div class="row"><span class="k">Monthly insurance</span><span class="v" id="outIns">$0</span></div>
+        <div class="row total-row"><span class="k">Total per month</span><span class="v" id="outTotal2">$0</span></div>
+      </div>
+
+      <div class="note">Estimates only — your real numbers come with a real conversation. We'd love to have one.</div>
+      <a href="apply.html" class="btn">Get my real numbers</a>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 11.5 12 4l9 7.5" stroke="#f3e9dc" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 10.5V20h13v-9.5" stroke="#f3e9dc" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 20v-5h4v5" stroke="#f3e9dc" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          HomeFirst Lending
+        </div>
+        <p>The friendly path home. We're a family-first lender that believes big milestones deserve honest guidance, warm coffee, and real people who answer the phone.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul class="foot-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="programs.html">Programs</a></li>
+          <li><a href="calculator.html">Calculator</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="reviews.html">Reviews</a></li>
+          <li><a href="apply.html">Apply now</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>The fine print</h4>
+        <div class="foot-meta">
+          NMLS #234567<br>
+          HomeFirst Lending is a demo brand. Equal Housing Lender.<br>
+          (000) 000-0000 &middot; hello@example.com
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; 2026 HomeFirst Lending. All rights reserved.</span>
+      <span>Template by <a href="https://pilk.ai">Pilk.ai</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var price = $('price'), downDollar = $('downDollar'), downPct = $('downPct'),
+      rate = $('rate'), term = $('term'), taxRate = $('taxRate'), insurance = $('insurance');
+
+  function num(el){ var v = parseFloat(el.value); return isNaN(v) ? 0 : v; }
+  function money(v){ return '$' + Math.round(v).toLocaleString('en-US'); }
+  function money2(v){ return '$' + v.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2}); }
+
+  function syncFromDollar(){
+    var p = num(price);
+    downPct.value = p > 0 ? +(num(downDollar) / p * 100).toFixed(2) : 0;
+    calc();
+  }
+  function syncFromPct(){
+    downDollar.value = Math.round(num(price) * num(downPct) / 100);
+    calc();
+  }
+
+  function calc(){
+    var p = num(price);
+    var down = Math.min(num(downDollar), p);
+    var P = Math.max(p - down, 0);
+    var r = num(rate) / 100 / 12;
+    var n = parseInt(term.value, 10) * 12;
+
+    var pi;
+    if (P <= 0 || n <= 0) { pi = 0; }
+    else if (r === 0) { pi = P / n; }
+    else {
+      var f = Math.pow(1 + r, n);
+      pi = P * (r * f) / (f - 1);
+    }
+
+    var tax = p * (num(taxRate) / 100) / 12;
+    var ins = num(insurance) / 12;
+    var total = pi + tax + ins;
+
+    $('outLoan').textContent = money(P);
+    $('outPI').textContent = money2(pi);
+    $('outTax').textContent = money2(tax);
+    $('outIns').textContent = money2(ins);
+    $('outTotal').textContent = money(total);
+    $('outTotal2').textContent = money2(total);
+
+    if (total > 0) {
+      $('segPi').style.width = (pi / total * 100) + '%';
+      $('segTax').style.width = (tax / total * 100) + '%';
+      $('segIns').style.width = (ins / total * 100) + '%';
+    } else {
+      $('segPi').style.width = '100%';
+      $('segTax').style.width = '0%';
+      $('segIns').style.width = '0%';
+    }
+  }
+
+  price.addEventListener('input', function(){ syncFromPct(); });
+  downDollar.addEventListener('input', syncFromDollar);
+  downPct.addEventListener('input', syncFromPct);
+  [rate, term, taxRate, insurance].forEach(function(el){
+    el.addEventListener('input', calc);
+    el.addEventListener('change', calc);
+  });
+
+  calc();
+})();
+</script>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

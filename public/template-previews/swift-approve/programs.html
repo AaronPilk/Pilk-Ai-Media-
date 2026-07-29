@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loan Programs — SwiftApprove</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbfaf8;
+  --ink:#2b2723;
+  --muted:#6f675e;
+  --coral:#f97362;
+  --coral-dark:#e85d4c;
+  --coral-soft:#ffe6e1;
+  --amber:#f5a623;
+  --amber-soft:#fdeecd;
+  --card:#ffffff;
+  --line:#f0e9e2;
+  --shadow:0 12px 32px rgba(249,115,98,.14);
+  --shadow-lift:0 18px 44px rgba(249,115,98,.22);
+  --radius:24px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Nunito',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;}
+a{text-decoration:none;color:inherit;}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px;}
+
+/* Nav */
+.nav-wrap{position:sticky;top:0;z-index:50;background:rgba(251,250,248,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+.nav{max-width:1160px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:22px;letter-spacing:-.02em;}
+.logo-mark{width:30px;height:30px;border-radius:11px;background:linear-gradient(135deg,var(--coral),var(--amber));display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(249,115,98,.35);}
+.logo-mark svg{width:16px;height:16px;}
+.logo span.dot{color:var(--coral);}
+.nav-links{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.nav-links a{padding:9px 16px;border-radius:999px;font-weight:700;font-size:15px;color:var(--muted);transition:.2s;}
+.nav-links a:hover{color:var(--ink);background:var(--coral-soft);}
+.nav-links a.active{color:var(--coral-dark);background:var(--coral-soft);}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;font-family:'Nunito',sans-serif;font-weight:800;cursor:pointer;border:none;transition:.2s;}
+.btn-primary{background:var(--coral);color:#fff;padding:13px 28px;font-size:16px;box-shadow:0 8px 20px rgba(249,115,98,.35);}
+.btn-primary:hover{background:var(--coral-dark);transform:translateY(-2px);box-shadow:var(--shadow-lift);}
+.nav-links .btn-primary{padding:10px 22px;font-size:15px;color:#fff;}
+.nav-links .btn-primary:hover{color:#fff;}
+
+/* Page header */
+.page-head{padding:64px 0 20px;text-align:center;}
+.pill-label{display:inline-block;background:var(--coral-soft);color:var(--coral-dark);font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding:7px 16px;border-radius:999px;margin-bottom:16px;}
+.page-head h1{font-size:44px;font-weight:900;letter-spacing:-.025em;margin-bottom:14px;}
+.page-head p{font-size:18px;color:var(--muted);max-width:560px;margin:0 auto;}
+
+/* Program cards */
+.programs{padding:44px 0 0;}
+.prog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.prog-card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:32px 28px;box-shadow:0 6px 18px rgba(249,115,98,.08);display:flex;flex-direction:column;transition:.25s;position:relative;}
+.prog-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lift);border-color:#ffd3cb;}
+.prog-card.lead{border:2px solid var(--coral);box-shadow:var(--shadow);}
+.lead-tag{position:absolute;top:-13px;left:26px;background:var(--coral);color:#fff;font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:5px 14px;border-radius:999px;box-shadow:0 6px 14px rgba(249,115,98,.35);}
+.prog-ic{width:54px;height:54px;border-radius:18px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;}
+.prog-ic svg{width:27px;height:27px;}
+.ic-coral{background:var(--coral-soft);}
+.ic-amber{background:var(--amber-soft);}
+.prog-card h2{font-size:21px;font-weight:800;margin-bottom:8px;letter-spacing:-.01em;}
+.prog-card .intro{font-size:15px;color:var(--muted);margin-bottom:18px;}
+.prog-card ul{list-style:none;margin-bottom:22px;flex:1;}
+.prog-card li{display:flex;align-items:flex-start;gap:10px;font-size:14.5px;font-weight:700;padding:6px 0;}
+.prog-card li svg{width:17px;height:17px;flex-shrink:0;margin-top:4px;}
+.prog-cta{align-self:flex-start;background:var(--coral-soft);color:var(--coral-dark);padding:11px 24px;font-size:15px;}
+.prog-cta:hover{background:var(--coral);color:#fff;transform:translateY(-2px);box-shadow:0 8px 20px rgba(249,115,98,.35);}
+.prog-card.lead .prog-cta{background:var(--coral);color:#fff;box-shadow:0 8px 20px rgba(249,115,98,.35);}
+.prog-card.lead .prog-cta:hover{background:var(--coral-dark);}
+
+/* Helper banner */
+.helper{margin:64px 0 0;background:linear-gradient(120deg,#fff4e2,var(--coral-soft));border:1px solid #ffe0d8;border-radius:28px;padding:44px 40px;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;box-shadow:var(--shadow);}
+.helper-ic{width:64px;height:64px;border-radius:22px;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(249,115,98,.18);flex-shrink:0;}
+.helper-ic svg{width:32px;height:32px;}
+.helper-txt{flex:1;min-width:240px;}
+.helper-txt h3{font-size:23px;font-weight:900;letter-spacing:-.01em;margin-bottom:6px;}
+.helper-txt p{font-size:15.5px;color:var(--muted);}
+.helper .btn-primary{white-space:nowrap;}
+
+/* Footer */
+footer{margin-top:96px;background:#fff;border-top:1px solid var(--line);padding:56px 0 96px;}
+.foot-grid{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;margin-bottom:36px;}
+.foot-brand{max-width:300px;}
+.foot-brand .logo{margin-bottom:12px;}
+.foot-brand p{font-size:14.5px;color:var(--muted);}
+.foot-links{display:flex;flex-direction:column;gap:10px;}
+.foot-links h4{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.foot-links a{font-size:14.5px;font-weight:700;color:var(--ink);transition:.2s;}
+.foot-links a:hover{color:var(--coral-dark);}
+.foot-legal{border-top:1px solid var(--line);padding-top:26px;font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:6px;}
+
+@media(max-width:960px){
+  .prog-grid{grid-template-columns:repeat(2,1fr);}
+  .page-head h1{font-size:36px;}
+}
+@media(max-width:560px){
+  .nav{flex-direction:column;align-items:center;padding:14px 16px 16px;}
+  .nav-links{justify-content:center;}
+  .page-head{padding:44px 0 12px;}
+  .page-head h1{font-size:30px;}
+  .prog-grid{grid-template-columns:1fr;}
+  .helper{padding:32px 24px;}
+}
+</style>
+</head>
+<body>
+
+<header class="nav-wrap">
+  <nav class="nav">
+    <a class="logo" href="index.html">
+      <span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></span>
+      SwiftApprove<span class="dot">.</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html" class="active">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="apply.html" class="btn btn-primary">Apply now</a>
+    </div>
+  </nav>
+</header>
+
+<section class="page-head">
+  <div class="wrap">
+    <span class="pill-label">Loan programs</span>
+    <h1>Find the loan that fits your life</h1>
+    <p>We lead with first-time buyer and FHA options because that's who we serve best — but whatever your situation, there's a plain-English path here for you.</p>
+  </div>
+</section>
+
+<section class="programs">
+  <div class="wrap">
+    <div class="prog-grid">
+
+      <div class="prog-card lead">
+        <span class="lead-tag">Our specialty</span>
+        <span class="prog-ic ic-coral"><svg viewBox="0 0 24 24" fill="none" stroke="#e85d4c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg></span>
+        <h2>First-Time Buyer Advantage</h2>
+        <p class="intro">Never bought a home before? Perfect — that's exactly who this is for. We pair low-down-payment options with a guide who explains every step.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#f97362" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>As little as 3% down</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#f97362" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Dedicated loan guide who texts back fast</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#f97362" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Free homebuyer prep session included</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#f97362" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Soft credit check to start — no score hit</li>
+        </ul>
+        <a href="apply.html" class="btn prog-cta">Apply for this loan</a>
+      </div>
+
+      <div class="prog-card lead">
+        <span class="lead-tag">Great for flexible credit</span>
+        <span class="prog-ic ic-amber"><svg viewBox="0 0 24 24" fill="none" stroke="#c98410" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/><path d="M9 12l2 2 4-4"/></svg></span>
+        <h2>FHA Loan</h2>
+        <p class="intro">Backed by the Federal Housing Administration, FHA loans are the friendly workhorse of first-time buying — forgiving on credit, easy on the down payment.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#f97362" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>As little as 3.5% down</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#f97362" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Flexible credit from 580</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#f97362" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Down payment can be gifted by family</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#f97362" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Competitive rates even with thinner credit</li>
+        </ul>
+        <a href="apply.html" class="btn prog-cta">Apply for this loan</a>
+      </div>
+
+      <div class="prog-card">
+        <span class="prog-ic ic-coral"><svg viewBox="0 0 24 24" fill="none" stroke="#e85d4c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5.5H9.5a3 3 0 000 6h5a3 3 0 010 6H6.5"/></svg></span>
+        <h2>Conventional Loan</h2>
+        <p class="intro">The classic. If your credit is in good shape, a conventional loan often means lower monthly costs and more flexibility down the road.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#f97362" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Down payments from 3% for first-timers</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#f97362" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Mortgage insurance drops off over time</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#f97362" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Works for primary homes, condos, and more</li>
+        </ul>
+        <a href="apply.html" class="btn prog-cta">Apply for this loan</a>
+      </div>
+
+      <div class="prog-card">
+        <span class="prog-ic ic-amber"><svg viewBox="0 0 24 24" fill="none" stroke="#c98410" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 5.3 5.6.6-4.2 3.9 1.2 5.6-5-2.9-5 2.9 1.2-5.6L4 7.9l5.6-.6L12 2z"/></svg></span>
+        <h2>VA Loan</h2>
+        <p class="intro">For those who served — and their families. VA loans are one of the best deals in home financing, and we make sure you get every benefit you've earned.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#f97362" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>$0 down payment for eligible buyers</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#f97362" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>No monthly mortgage insurance</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#f97362" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Rates typically below conventional</li>
+        </ul>
+        <a href="apply.html" class="btn prog-cta">Apply for this loan</a>
+      </div>
+
+      <div class="prog-card">
+        <span class="prog-ic ic-coral"><svg viewBox="0 0 24 24" fill="none" stroke="#e85d4c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 10-8 8"/><path d="M12 8v4l2.5 2.5"/><path d="M16 19h6M19 16v6"/></svg></span>
+        <h2>Down-Payment Assistance</h2>
+        <p class="intro">The down payment is the biggest wall for most first-timers. We help you find grants and low-down programs in your state that can knock it down.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#f97362" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>State and local grant matching</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#f97362" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Programs with as little as 0-3% down</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#f97362" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>We check your eligibility for free</li>
+        </ul>
+        <a href="apply.html" class="btn prog-cta">Apply for this loan</a>
+      </div>
+
+      <div class="prog-card">
+        <span class="prog-ic ic-amber"><svg viewBox="0 0 24 24" fill="none" stroke="#c98410" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 11-2.6-6.4"/><path d="M21 3v6h-6"/></svg></span>
+        <h2>Refinance</h2>
+        <p class="intro">Already own your place? We'll run the honest math on lowering your rate, shortening your term, or tapping equity — and tell you if it's not worth it.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#f97362" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Rate-and-term or cash-out options</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#f97362" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Clear break-even math, upfront</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="#f97362" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>No pressure if the numbers don't work</li>
+        </ul>
+        <a href="apply.html" class="btn prog-cta">Apply for this loan</a>
+      </div>
+
+    </div>
+
+    <div class="helper">
+      <span class="helper-ic"><svg viewBox="0 0 24 24" fill="none" stroke="#f97362" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 01-8.5 8.5c-1.3 0-2.6-.3-3.7-.8L3 21l1.8-5.8A8.5 8.5 0 1121 11.5z"/><path d="M9.5 9.5a2.5 2.5 0 014.9.8c0 1.7-2.4 2.2-2.4 3.2"/><circle cx="12" cy="16.5" r=".5" fill="#f97362"/></svg></span>
+      <div class="helper-txt">
+        <h3>Not sure which one fits?</h3>
+        <p>Totally normal — most people aren't. Answer a few quick questions and a loan guide will point you to the right program, usually the same day.</p>
+      </div>
+      <a href="apply.html" class="btn btn-primary">Help me choose</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="logo" href="index.html">
+          <span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></span>
+          SwiftApprove<span class="dot">.</span>
+        </a>
+        <p>Friendly mortgages for first-time buyers. Plain English, fast answers, and a loan guide who actually texts back.</p>
+      </div>
+      <div class="foot-links">
+        <h4>Explore</h4>
+        <a href="index.html">Home</a>
+        <a href="programs.html">Programs</a>
+        <a href="calculator.html">Calculator</a>
+      </div>
+      <div class="foot-links">
+        <h4>Company</h4>
+        <a href="about.html">About us</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="apply.html">Apply now</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>NMLS #000000 · Equal Housing Lender</span>
+      <span>(000) 000-0000 · hello@example.com</span>
+      <span>Template by Pilk.ai</span>
+      <span>This is a demo website. All names, numbers, rates, and reviews are fictional sample content for design preview purposes only.</span>
+    </div>
+  </div>
+</footer>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

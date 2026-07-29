@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apply Now — Harbor Home Loans</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#fdfdfb;
+  --seaglass:#e8f1ef;
+  --teal:#0e7490;
+  --teal-dark:#0c5f78;
+  --deep:#164e63;
+  --deeper:#0f3a4a;
+  --sand:#d6b98c;
+  --sand-light:#e7d3ae;
+  --ink:#22333b;
+  --ink-soft:#4c6270;
+  --radius:20px;
+  --shadow:0 10px 30px rgba(22,78,99,0.10);
+  --shadow-lift:0 18px 44px rgba(22,78,99,0.16);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Nunito Sans',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif;color:var(--deep);line-height:1.18;font-weight:600;}
+a{color:var(--teal);text-decoration:none;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+
+.nav{position:sticky;top:0;z-index:50;background:rgba(253,253,251,0.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(22,78,99,0.08);}
+.nav-inner{max-width:1180px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Fraunces',Georgia,serif;font-size:1.25rem;font-weight:700;color:var(--deep);}
+.nav-links{display:flex;align-items:center;gap:4px;flex-wrap:wrap;}
+.nav-links a{padding:8px 14px;border-radius:999px;color:var(--ink-soft);font-weight:700;font-size:0.92rem;transition:background .2s,color .2s;}
+.nav-links a:hover{background:var(--seaglass);color:var(--deep);}
+.nav-links a.active{background:var(--seaglass);color:var(--teal);}
+.nav-cta{padding:10px 22px;border-radius:999px;background:var(--teal);color:#fff !important;font-weight:800;font-size:0.92rem;box-shadow:0 6px 18px rgba(14,116,144,0.32);transition:transform .2s,background .2s;}
+.nav-cta:hover{background:var(--teal-dark);transform:translateY(-2px);}
+.nav-links a.nav-cta.active{background:var(--teal-dark);color:#fff;}
+
+.btn{display:inline-block;padding:16px 38px;border-radius:999px;font-weight:800;font-size:1.02rem;transition:transform .2s,background .2s,box-shadow .2s;cursor:pointer;border:none;font-family:'Nunito Sans',sans-serif;}
+.btn-primary{background:var(--teal);color:#fff;box-shadow:0 8px 22px rgba(14,116,144,0.35);}
+.btn-primary:hover{background:var(--teal-dark);transform:translateY(-2px);box-shadow:0 12px 30px rgba(14,116,144,0.45);}
+
+/* Page hero */
+.page-hero{
+  position:relative;color:#fff;text-align:center;
+  background:linear-gradient(160deg,#0f3a4a 0%,#164e63 55%,#0e7490 100%);
+  background-image:linear-gradient(rgba(15,58,74,0.7),rgba(15,58,74,0.55)),url('/template-previews/_assets/kitchen.jpg');
+  background-size:cover;background-position:center;
+  padding:clamp(60px,9vw,100px) 0 clamp(96px,12vw,140px);
+}
+.page-hero h1{font-size:clamp(2.1rem,5vw,3.3rem);color:#fff;margin-bottom:14px;}
+.page-hero p{max-width:600px;margin:0 auto;font-size:clamp(1rem,2vw,1.15rem);color:rgba(255,255,255,0.92);}
+.hero-eyebrow{display:inline-block;padding:8px 20px;border-radius:999px;background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.3);font-size:0.82rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:22px;backdrop-filter:blur(6px);}
+.wave{display:block;width:100%;height:auto;}
+.page-hero .wave-bottom{position:absolute;left:0;right:0;bottom:-1px;line-height:0;}
+
+.section{padding:0 0 clamp(64px,8vw,96px);}
+
+/* Form card */
+.form-card{
+  max-width:820px;margin:-60px auto 0;position:relative;z-index:2;
+  background:#fff;border-radius:24px;padding:clamp(28px,5vw,52px);
+  box-shadow:var(--shadow-lift);border:1px solid rgba(22,78,99,0.06);
+}
+.form-section{margin-bottom:36px;}
+.form-section:last-of-type{margin-bottom:28px;}
+.form-section-head{display:flex;align-items:center;gap:14px;margin-bottom:22px;}
+.form-section-head .step-dot{
+  width:38px;height:38px;border-radius:50%;flex:none;
+  background:var(--sand-light);color:var(--deeper);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:1.05rem;
+}
+.form-section-head h2{font-size:1.35rem;}
+.form-section-head p{color:var(--ink-soft);font-size:0.88rem;margin-top:2px;}
+
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.field{margin-bottom:18px;}
+.field label{display:block;font-weight:800;font-size:0.86rem;color:var(--deep);margin-bottom:8px;}
+.field label .req{color:var(--teal);}
+.field input,.field select,.field textarea{
+  width:100%;padding:14px 18px;border-radius:16px;border:1.5px solid #d3e0dd;
+  background:#fbfdfc;font-family:'Nunito Sans',sans-serif;font-size:1rem;font-weight:600;color:var(--ink);
+  transition:border-color .2s,box-shadow .2s;appearance:none;
+}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230e7490' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;background-size:16px;}
+.field textarea{resize:vertical;min-height:110px;}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 4px rgba(14,116,144,0.15);}
+.field input.invalid,.field select.invalid{border-color:#c2564b;box-shadow:0 0 0 4px rgba(194,86,75,0.12);}
+.form-error{display:none;background:#fdf0ee;border:1.5px solid #ecc8c3;color:#a4483e;border-radius:16px;padding:14px 20px;font-weight:700;font-size:0.92rem;margin-bottom:20px;}
+.form-error.show{display:block;}
+.form-foot{display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.form-foot .note{font-size:0.8rem;color:var(--ink-soft);max-width:340px;}
+
+/* Success panel */
+.success{
+  display:none;text-align:center;padding:clamp(30px,5vw,50px) clamp(16px,3vw,30px);
+}
+.success.show{display:block;}
+.success .mark{
+  width:78px;height:78px;border-radius:50%;margin:0 auto 24px;
+  background:var(--seaglass);display:flex;align-items:center;justify-content:center;
+}
+.success h2{font-size:clamp(1.6rem,3.5vw,2.2rem);margin-bottom:14px;}
+.success p{color:var(--ink-soft);max-width:480px;margin:0 auto 12px;}
+.success .demo-note{font-size:0.82rem;color:var(--ink-soft);opacity:0.85;margin-top:20px;}
+.success .btn{margin-top:22px;}
+
+/* Reassure strip */
+.reassure{max-width:820px;margin:34px auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.reassure div{
+  background:var(--seaglass);border-radius:var(--radius);padding:18px 20px;text-align:center;
+  font-size:0.86rem;font-weight:700;color:var(--deep);
+}
+
+/* Footer */
+.footer{background:var(--deeper);color:rgba(255,255,255,0.82);padding:64px 0 36px;}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1.2fr;gap:44px;margin-bottom:44px;}
+.footer .brand{color:#fff;margin-bottom:14px;}
+.footer p{font-size:0.92rem;}
+.footer h4{color:#fff;font-family:'Nunito Sans',sans-serif;font-size:0.82rem;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:16px;font-weight:800;}
+.footer ul{list-style:none;}
+.footer ul li{margin-bottom:10px;}
+.footer ul a{color:rgba(255,255,255,0.82);font-size:0.94rem;}
+.footer ul a:hover{color:var(--sand-light);}
+.footer-legal{border-top:1px solid rgba(255,255,255,0.14);padding-top:26px;font-size:0.82rem;color:rgba(255,255,255,0.62);}
+.footer-legal p{margin-bottom:8px;font-size:0.82rem;}
+
+@media (max-width:960px){
+  .footer-grid{grid-template-columns:1fr;gap:32px;}
+}
+@media (max-width:640px){
+  .grid-2{grid-template-columns:1fr;}
+  .reassure{grid-template-columns:1fr;}
+  .nav-inner{justify-content:center;}
+  .nav-links{justify-content:center;}
+  .form-card{margin-top:-46px;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0e7490" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2.4"/><path d="M12 7.4V21"/><path d="M8 9.5h8"/><path d="M4.5 14c0 4.2 3.4 7 7.5 7s7.5-2.8 7.5-7"/><path d="M4.5 14l-2 -1.5M4.5 14l2 -1.5M19.5 14l2 -1.5M19.5 14l-2 -1.5"/></svg>
+      Harbor Home Loans
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="apply.html" class="nav-cta active">Apply now</a>
+    </div>
+  </div>
+</nav>
+
+<header class="page-hero">
+  <div class="wrap">
+    <span class="hero-eyebrow">Get started</span>
+    <h1>Three minutes to set sail</h1>
+    <p>Tell us a little about you and the home you're chasing. No credit pull, no commitment — just the start of a good conversation.</p>
+  </div>
+  <div class="wave-bottom">
+    <svg class="wave" viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M0,48 C240,88 480,8 720,38 C960,68 1200,20 1440,52 L1440,90 L0,90 Z" fill="#fdfdfb"/></svg>
+  </div>
+</header>
+
+<section class="section">
+  <div class="wrap">
+    <div class="form-card">
+
+      <form id="applyForm" novalidate>
+        <div class="form-error" id="formError">Please fill in the highlighted fields so we know how to reach you.</div>
+
+        <div class="form-section">
+          <div class="form-section-head">
+            <div class="step-dot">1</div>
+            <div>
+              <h2>About you</h2>
+              <p>Just enough to say hello properly.</p>
+            </div>
+          </div>
+          <div class="grid-2">
+            <div class="field">
+              <label for="firstName">First name <span class="req">*</span></label>
+              <input type="text" id="firstName" name="firstName" autocomplete="given-name" required>
+            </div>
+            <div class="field">
+              <label for="lastName">Last name <span class="req">*</span></label>
+              <input type="text" id="lastName" name="lastName" autocomplete="family-name" required>
+            </div>
+            <div class="field">
+              <label for="email">Email <span class="req">*</span></label>
+              <input type="email" id="email" name="email" autocomplete="email" required>
+            </div>
+            <div class="field">
+              <label for="phone">Phone <span class="req">*</span></label>
+              <input type="tel" id="phone" name="phone" autocomplete="tel" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="form-section-head">
+            <div class="step-dot">2</div>
+            <div>
+              <h2>The loan</h2>
+              <p>Rough answers are fine — we'll refine together.</p>
+            </div>
+          </div>
+          <div class="grid-2">
+            <div class="field">
+              <label for="purpose">Loan purpose <span class="req">*</span></label>
+              <select id="purpose" name="purpose" required>
+                <option value="">Select one…</option>
+                <option>Purchase</option>
+                <option>Refinance</option>
+                <option>Second home</option>
+                <option>Cash-out</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="state">Property state <span class="req">*</span></label>
+              <select id="state" name="state" required>
+                <option value="">Select a state…</option>
+                <option>California</option>
+                <option>Florida</option>
+                <option>North Carolina</option>
+                <option>South Carolina</option>
+                <option>Texas</option>
+                <option>Virginia</option>
+                <option>Maine</option>
+                <option>Washington</option>
+                <option>Oregon</option>
+                <option>Alabama</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="priceRange">Estimated price range</label>
+              <select id="priceRange" name="priceRange">
+                <option value="">Select a range…</option>
+                <option>Under $300,000</option>
+                <option>$300,000 – $500,000</option>
+                <option>$500,000 – $750,000</option>
+                <option>$750,000 – $1,000,000</option>
+                <option>$1,000,000 – $1,500,000</option>
+                <option>Over $1,500,000</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="propertyType">Property will be a…</label>
+              <select id="propertyType" name="propertyType">
+                <option value="">Select one…</option>
+                <option>Primary residence</option>
+                <option>Second home</option>
+                <option>Investment property</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="form-section-head">
+            <div class="step-dot">3</div>
+            <div>
+              <h2>Timeline</h2>
+              <p>So we can match your pace, not push it.</p>
+            </div>
+          </div>
+          <div class="field">
+            <label for="timeline">When are you hoping to move?</label>
+            <select id="timeline" name="timeline">
+              <option value="">Select a timeline…</option>
+              <option>As soon as possible</option>
+              <option>Within 3 months</option>
+              <option>3–6 months</option>
+              <option>6–12 months</option>
+              <option>Just exploring for now</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="message">Anything else we should know?</label>
+            <textarea id="message" name="message" placeholder="The town you're looking in, the porch you're picturing, questions about rates — anything at all."></textarea>
+          </div>
+        </div>
+
+        <div class="form-foot">
+          <button type="submit" class="btn btn-primary">Submit application</button>
+          <p class="note">Submitting won't affect your credit. A Harbor advisor will reach out within one business day.</p>
+        </div>
+      </form>
+
+      <div class="success" id="successPanel">
+        <div class="mark">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#0e7490" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M7.5 12.5l3 3 6-6.5"/></svg>
+        </div>
+        <h2>Welcome aboard — we'll reach out within 1 business day.</h2>
+        <p>Your application is in. One of our advisors will review it and give you a call to chart the next steps. In the meantime, feel free to run a few scenarios on the calculator or browse the programs.</p>
+        <p class="demo-note">This is a demo template — no data was sent or stored anywhere.</p>
+        <a href="index.html" class="btn btn-primary">Back to home</a>
+      </div>
+
+    </div>
+
+    <div class="reassure">
+      <div>No credit pull to apply</div>
+      <div>One advisor, start to finish</div>
+      <div>Reply within 1 business day</div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="brand">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e7d3ae" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2.4"/><path d="M12 7.4V21"/><path d="M8 9.5h8"/><path d="M4.5 14c0 4.2 3.4 7 7.5 7s7.5-2.8 7.5-7"/><path d="M4.5 14l-2 -1.5M4.5 14l2 -1.5M19.5 14l2 -1.5M19.5 14l-2 -1.5"/></svg>
+          Harbor Home Loans
+        </div>
+        <p>Mortgage lending for beach houses, vacation escapes, and everyday coastal living. Calm process, clear waters, honest guidance from first call to closing.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="programs.html">Programs</a></li>
+          <li><a href="calculator.html">Calculator</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="reviews.html">Reviews</a></li>
+          <li><a href="apply.html">Apply now</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get in touch</h4>
+        <ul>
+          <li><a href="tel:0000000000">(000) 000-0000</a></li>
+          <li><a href="mailto:hello@example.com">hello@example.com</a></li>
+          <li><a href="apply.html">Start an application</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <p>NMLS #000000 &middot; Equal Housing Lender</p>
+      <p>We are committed to the letter and spirit of U.S. fair housing law and do not discriminate on the basis of race, color, religion, national origin, sex, disability, or familial status.</p>
+      <p>This is a demo template. All rates, names and reviews are sample content.</p>
+      <p>Template by Pilk.ai</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var form = document.getElementById('applyForm');
+  var success = document.getElementById('successPanel');
+  var errorBox = document.getElementById('formError');
+  var requiredIds = ['firstName','lastName','email','phone','purpose','state'];
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var valid = true;
+
+    requiredIds.forEach(function(id){
+      var el = document.getElementById(id);
+      var val = (el.value || '').trim();
+      var ok = val !== '';
+      if (id === 'email' && ok) {
+        ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+      }
+      el.classList.toggle('invalid', !ok);
+      if (!ok) valid = false;
+    });
+
+    if (!valid) {
+      errorBox.classList.add('show');
+      errorBox.scrollIntoView({behavior:'smooth', block:'center'});
+      return;
+    }
+
+    errorBox.classList.remove('show');
+    form.style.display = 'none';
+    success.classList.add('show');
+    success.scrollIntoView({behavior:'smooth', block:'center'});
+  });
+
+  requiredIds.forEach(function(id){
+    var el = document.getElementById(id);
+    el.addEventListener('input', function(){ el.classList.remove('invalid'); });
+    el.addEventListener('change', function(){ el.classList.remove('invalid'); });
+  });
+})();
+</script>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reviews — Summit Loans</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--bg:#0f172a;--ink:#e2e8f0;--muted:#94a3b8;--grad:linear-gradient(135deg,#4f46e5,#9333ea);--glass:rgba(255,255,255,0.05);--glass-b:rgba(255,255,255,0.1)}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+  h1,h2,h3,.logo{font-family:'Space Grotesk',sans-serif}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+  a{color:inherit;text-decoration:none}
+  .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  header{position:sticky;top:0;background:rgba(15,23,42,0.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.08);z-index:100}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:72px;gap:16px}
+  .logo{font-weight:700;font-size:20px;letter-spacing:-0.02em;display:flex;align-items:center;gap:9px}
+  .logo .mark{width:26px;height:26px;border-radius:7px;background:var(--grad);display:inline-flex;align-items:center;justify-content:center;font-size:14px;color:#fff}
+  .nav-links{display:flex;align-items:center;gap:28px;font-size:14px;color:var(--muted)}
+  .nav-links a:hover{color:#fff}
+  .nav-links a.active{color:#fff;font-weight:600}
+  .btn{display:inline-block;padding:13px 26px;font-size:14px;font-weight:600;border-radius:10px;cursor:pointer;border:none;transition:transform .15s ease;font-family:'Inter',sans-serif}
+  .btn-grad{background:var(--grad);color:#fff;box-shadow:0 8px 24px rgba(99,73,233,0.35)}
+  .btn-grad:hover{transform:translateY(-2px)}
+  .nav .btn{padding:10px 20px}
+  .page-head{padding:90px 0 56px;position:relative;overflow:hidden}
+  .page-head::before{content:"";position:absolute;top:-250px;right:-100px;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(147,51,234,0.22),transparent 65%);pointer-events:none}
+  .kicker{font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:16px}
+  h1{font-size:48px;line-height:1.08;letter-spacing:-0.03em;font-weight:700;color:#fff;position:relative}
+  .agg{display:flex;align-items:center;gap:28px;margin-top:32px;flex-wrap:wrap;position:relative}
+  .agg .big{font-family:'Space Grotesk',sans-serif;font-size:60px;font-weight:700;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .agg .stars{color:#a78bfa;font-size:22px;letter-spacing:3px}
+  .agg .meta{font-size:14px;color:var(--muted)}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding:64px 0}
+  .review{background:var(--glass);border:1px solid var(--glass-b);border-radius:16px;padding:30px 28px;display:flex;flex-direction:column;transition:border-color .2s ease,transform .2s ease}
+  .review:hover{border-color:rgba(167,139,250,0.5);transform:translateY(-3px)}
+  .review .stars{color:#a78bfa;font-size:14px;letter-spacing:2px}
+  .review h3{font-size:16px;font-weight:600;margin-top:14px;color:#fff}
+  .review p{margin-top:10px;font-size:14px;color:var(--muted);flex:1}
+  .review .who{margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.08);font-size:13px;color:#64748b}
+  .review .who b{color:#fff;font-weight:600;display:block}
+  .band{border-radius:24px;padding:70px 56px;text-align:center;background:var(--grad);margin-bottom:96px;position:relative;overflow:hidden}
+  .band::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,rgba(255,255,255,0.18),transparent 55%)}
+  .band h2{position:relative;font-size:34px;letter-spacing:-0.02em;color:#fff}
+  .band p{position:relative;color:rgba(255,255,255,0.85);margin:14px auto 0;max-width:46ch}
+  .band .btn{position:relative;margin-top:28px;background:#fff;color:#4f46e5}
+  footer{border-top:1px solid rgba(255,255,255,0.08);padding:56px 0 40px}
+  .foot-grid{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap}
+  .foot-brand{max-width:320px}
+  .foot-brand p{margin-top:14px;font-size:13px;color:var(--muted)}
+  .foot-links{display:flex;gap:56px;flex-wrap:wrap}
+  .foot-links h4{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#64748b;margin-bottom:14px;font-family:'Inter',sans-serif}
+  .foot-links a{display:block;font-size:14px;color:var(--muted);margin-bottom:9px}
+  .foot-links a:hover{color:#fff}
+  .legal{margin-top:48px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.08);font-size:12px;color:#64748b;line-height:1.8}
+  @media(max-width:900px){
+    h1{font-size:34px}
+    .page-head{padding:52px 0 36px}
+    .grid{grid-template-columns:1fr;gap:16px;padding:44px 0}
+    .band{padding:48px 28px;margin-bottom:56px}
+    .agg .big{font-size:44px}
+    .nav{height:auto;flex-wrap:wrap;padding:14px 0}
+    .nav-links{gap:16px;flex-wrap:wrap;font-size:13px;order:3;width:100%;padding-bottom:4px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="index.html" class="logo"><span class="mark">▲</span>Summit Loans</a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html" class="active">Reviews</a>
+    </nav>
+    <a href="apply.html" class="btn btn-grad">Apply now</a>
+  </div>
+</header>
+
+<div class="page-head">
+  <div class="wrap">
+    <div class="kicker">Client reviews</div>
+    <h1>Summit stories, straight from the <span class="grad-text">source</span>.</h1>
+    <div class="agg">
+      <div class="big">4.8</div>
+      <div>
+        <div class="stars">★★★★★</div>
+        <div class="meta">From 1,340 verified borrower reviews</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap grid">
+  <div class="review">
+    <div class="stars">★★★★★</div>
+    <h3>"Closed in 19 days flat."</h3>
+    <p>Pre-approved Sunday night from my couch, offer accepted Tuesday, keys in hand less than three weeks later. The milestone tracker meant I never had to chase anyone for updates.</p>
+    <div class="who"><b>Tyler Morrison</b>Denver, CO · First-time buyer</div>
+  </div>
+  <div class="review">
+    <div class="stars">★★★★★</div>
+    <h3>"$340/month back in our pocket."</h3>
+    <p>The refi break-even chart they sent showed our exact payoff point: month 14. No pressure, no sales script — just math we could verify ourselves. We pulled the trigger the same week.</p>
+    <div class="who"><b>Alicia Gutierrez</b>Austin, TX · Refinance</div>
+  </div>
+  <div class="review">
+    <div class="stars">★★★★★</div>
+    <h3>"Self-employed and still fast."</h3>
+    <p>Two LLCs, K-1 income, and I still had an underwritten approval in 48 hours. Devin knew exactly which lender would get my file and priced it three ways before I asked.</p>
+    <div class="who"><b>Jordan Park</b>Seattle, WA · Jumbo purchase</div>
+  </div>
+  <div class="review">
+    <div class="stars">★★★★★</div>
+    <h3>"The app is actually good."</h3>
+    <p>I could see underwriting status in real time, upload documents from my phone, and message my advisor in one thread. Compare that to my last lender's fax machine. Not kidding. Fax.</p>
+    <div class="who"><b>Nina Kowalski</b>Chicago, IL · Conventional purchase</div>
+  </div>
+  <div class="review">
+    <div class="stars">★★★★☆</div>
+    <h3>"Fast, with one bump."</h3>
+    <p>An automated document request came through twice, which was confusing for a day. Support cleared it fast and the rest was seamless. Still the best lending experience I've had.</p>
+    <div class="who"><b>Omar Haddad</b>Phoenix, AZ · Refinance</div>
+  </div>
+  <div class="review">
+    <div class="stars">★★★★★</div>
+    <h3>"VA loan, zero runaround."</h3>
+    <p>They pulled my COE before our first call was even over. Zero down, seller credits negotiated, and my advisor explained the funding fee options in plain language. Squared away.</p>
+    <div class="who"><b>Staff Sgt. Chris Delaney</b>Colorado Springs, CO · VA purchase</div>
+  </div>
+  <div class="review">
+    <div class="stars">★★★★★</div>
+    <h3>"Beat my bank by a half point."</h3>
+    <p>My bank of 15 years quoted me a rate. Summit beat it by .5% with lower fees, and showed me the lender comparison to prove it. Loyalty is nice; a lower payment is nicer.</p>
+    <div class="who"><b>Rebecca Stone</b>Nashville, TN · Conventional purchase</div>
+  </div>
+  <div class="review">
+    <div class="stars">★★★★★</div>
+    <h3>"They made FHA make sense."</h3>
+    <p>Credit score of 612 and I thought ownership was years away. Rachel walked me through FHA plus a state assistance grant that covered most of my down payment. Moved in eight weeks later.</p>
+    <div class="who"><b>Darius Whitley</b>Atlanta, GA · FHA purchase</div>
+  </div>
+  <div class="review">
+    <div class="stars">★★★★★</div>
+    <h3>"Midnight questions, morning answers."</h3>
+    <p>I sent embarrassingly detailed questions at 1am. Every single one had a thoughtful answer by 8am — from a human, with my actual numbers in the reply. That's the standard now.</p>
+    <div class="who"><b>Maya &amp; Josh Fielding</b>Portland, OR · Move-up buyers</div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="band">
+    <h2>Your story starts with a rate quote.</h2>
+    <p>Join 4,700+ borrowers who found a faster way up. No hard pull, no obligation.</p>
+    <a href="apply.html" class="btn">Get pre-approved →</a>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="index.html" class="logo"><span class="mark">▲</span>Summit Loans</a>
+        <p>Digital-first mortgage lending with human loan experts. Faster approvals, transparent pricing, zero mystery.</p>
+      </div>
+      <div class="foot-links">
+        <div>
+          <h4>Company</h4>
+          <a href="about.html">About us</a>
+          <a href="reviews.html">Reviews</a>
+          <a href="apply.html">Apply now</a>
+        </div>
+        <div>
+          <h4>Loans</h4>
+          <a href="programs.html">All programs</a>
+          <a href="calculator.html">Payment calculator</a>
+          <a href="programs.html">Refinance</a>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <a href="apply.html">(000) 000-0000</a>
+          <a href="apply.html">hello@example.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="legal">
+      Summit Loans · NMLS #000000 · Equal Housing Opportunity. This is a demo website; all rates, statistics, and testimonials are sample content for illustration only and do not constitute an offer to lend.<br>
+      (000) 000-0000 · hello@example.com · Template by Pilk.ai
+    </div>
+  </div>
+</footer>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

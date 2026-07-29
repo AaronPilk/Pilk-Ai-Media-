@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apply Now — TrustPoint Lending</title>
+<meta name="description" content="Begin your mortgage application with TrustPoint Lending. A senior loan officer will respond within one business day.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0d2247;
+  --navy-dark:#091a38;
+  --gold:#c9a227;
+  --gold-hover:#b8931f;
+  --ink:#1d2637;
+  --muted:#5b6577;
+  --band:#f4f6f9;
+  --line:#e2e7ef;
+  --r:5px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Source Sans 3',system-ui,-apple-system,sans-serif;color:var(--ink);background:#fff;line-height:1.65;font-size:16.5px;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:'Source Serif 4',Georgia,'Times New Roman',serif;color:var(--navy);line-height:1.2;font-weight:600}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+.eyebrow{display:block;font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.btn{display:inline-block;padding:15px 34px;border-radius:4px;font-weight:700;font-size:16px;transition:background .18s,color .18s;cursor:pointer;border:1px solid transparent;text-align:center;font-family:'Source Sans 3',sans-serif}
+.btn-gold{background:var(--gold);color:var(--navy-dark)}
+.btn-gold:hover{background:var(--gold-hover)}
+.util{background:var(--navy-dark);color:#aab6cc;font-size:12.5px;letter-spacing:.04em}
+.util-in{display:flex;justify-content:space-between;align-items:center;padding:8px 0;gap:12px}
+.util-in .tag{color:#8d9cb8;font-style:italic;font-family:'Source Serif 4',Georgia,serif}
+.util-in strong{color:#d5dcea;font-weight:600}
+.nav{background:var(--navy);border-bottom:1px solid rgba(201,162,39,.35);position:sticky;top:0;z-index:1000}
+.nav-in{display:flex;align-items:center;justify-content:space-between;padding:16px 0;gap:18px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Source Serif 4',Georgia,serif;font-size:21px;font-weight:700;color:#fff}
+.brand span{color:var(--gold)}
+.nav-links{display:flex;align-items:center;gap:26px;flex-wrap:wrap}
+.nav-links a{color:rgba(255,255,255,.85);font-size:15px;font-weight:600;padding:6px 0;border-bottom:2px solid transparent;transition:color .15s,border-color .15s}
+.nav-links a:hover{color:#fff}
+.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-cta{background:var(--gold);color:var(--navy-dark);padding:11px 22px;border-radius:4px;font-weight:700;font-size:14.5px;transition:background .18s}
+.nav-cta:hover{background:var(--gold-hover)}
+
+.page-head{background-image:linear-gradient(rgba(13,34,71,.78),rgba(9,26,56,.88)),url('/template-previews/_assets/home-ext-c.jpg');background-size:cover;background-position:center;color:#fff;padding:78px 0;text-align:center}
+.page-head h1{color:#fff;font-size:42px;margin-bottom:12px}
+.page-head p{color:rgba(255,255,255,.84);max-width:580px;margin:0 auto;font-size:17.5px}
+
+.section{padding:76px 0 92px;background:var(--band)}
+.layout{display:grid;grid-template-columns:1fr 340px;gap:34px;align-items:start}
+
+/* form card */
+.form-card{background:#fff;border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:var(--r);padding:44px 42px}
+fieldset{border:0;margin:0 0 36px;padding:0}
+legend{font-family:'Source Serif 4',Georgia,serif;font-size:21px;font-weight:600;color:var(--navy);padding:0;margin-bottom:4px;width:100%}
+.legend-sub{font-size:14px;color:var(--muted);margin-bottom:22px}
+.legend-rule{width:44px;height:2px;background:var(--gold);border:0;margin:10px 0 20px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.field{margin-bottom:18px}
+.field label{display:block;font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--navy);margin-bottom:7px}
+.field label .req{color:var(--gold-hover)}
+input[type=text],input[type=email],input[type=tel],select,textarea{width:100%;padding:13px 14px;border:1px solid #cbd3e0;border-radius:4px;font:400 16px 'Source Sans 3',sans-serif;color:var(--ink);background:#fff;transition:border-color .15s,box-shadow .15s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,162,39,.22)}
+select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%230d2247' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:38px}
+textarea{min-height:120px;resize:vertical}
+input.invalid,select.invalid{border-color:#b23b3b;box-shadow:0 0 0 3px rgba(178,59,59,.14)}
+.err-msg{display:none;background:#fdf1f1;border:1px solid #e3b8b8;border-left:3px solid #b23b3b;color:#7c2d2d;font-size:14.5px;border-radius:0 4px 4px 0;padding:12px 16px;margin-bottom:22px}
+.err-msg.show{display:block}
+.consent{font-size:13px;color:var(--muted);margin:6px 0 26px;line-height:1.6}
+
+/* success */
+.success{display:none;background:#fff;border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:var(--r);padding:70px 46px;text-align:center}
+.success.show{display:block}
+.success .mark{width:74px;height:74px;border-radius:50%;background:var(--navy);margin:0 auto 26px;display:flex;align-items:center;justify-content:center}
+.success h2{font-size:30px;margin-bottom:14px}
+.success p{color:var(--muted);max-width:460px;margin:0 auto 10px;font-size:16.5px}
+.success .ref{display:inline-block;margin-top:18px;background:var(--band);border:1px solid var(--line);border-radius:4px;padding:10px 20px;font-size:14px;color:var(--navy);font-weight:700;letter-spacing:.06em}
+
+/* side panel */
+.side{background:var(--navy);border-radius:var(--r);border-top:3px solid var(--gold);padding:34px 30px;color:#dfe5f0;position:sticky;top:96px}
+.side h3{color:#fff;font-size:20px;margin-bottom:6px}
+.side .side-sub{font-size:13.5px;color:#9db0d0;margin-bottom:22px}
+.side ol{list-style:none;counter-reset:s}
+.side li{counter-increment:s;position:relative;padding:0 0 22px 46px;font-size:14.5px;color:#c3cddd}
+.side li:before{content:counter(s);position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50%;background:var(--gold);color:var(--navy-dark);font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
+.side li:after{content:"";position:absolute;left:14.5px;top:34px;bottom:6px;width:1px;background:rgba(201,162,39,.35)}
+.side li:last-child{padding-bottom:0}
+.side li:last-child:after{display:none}
+.side li b{display:block;color:#fff;font-size:15.5px;margin-bottom:2px}
+.side .side-note{margin-top:26px;padding-top:20px;border-top:1px solid rgba(255,255,255,.12);font-size:13.5px;color:#9db0d0}
+.side .side-note b{color:var(--gold)}
+
+/* footer */
+.footer{background:var(--navy-dark);color:#9aa7bf;font-size:14.5px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1.2fr;gap:48px;padding:70px 0 54px}
+.f-brand{display:flex;align-items:center;gap:10px;font-family:'Source Serif 4',Georgia,serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:16px}
+.f-brand span{color:var(--gold)}
+.footer p{max-width:360px}
+.footer h4{color:#fff;font-family:'Source Sans 3',sans-serif;font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:18px;font-weight:700}
+.footer h4:after{content:"";display:block;width:28px;height:2px;background:var(--gold);margin-top:8px}
+.f-links a{display:block;padding:4px 0;transition:color .15s}
+.f-links a:hover{color:var(--gold)}
+.f-contact div{padding:4px 0}
+.f-contact b{color:#d5dcea;font-weight:600}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding:22px 0;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:13px;color:#7a889f}
+.footer-bottom a{color:var(--gold)}
+
+@media (max-width:960px){
+  .layout{grid-template-columns:1fr}
+  .side{position:static}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  body{font-size:16px}
+  .util-in{justify-content:center;text-align:center}
+  .util-in .tag{display:none}
+  .nav-in{justify-content:center}
+  .nav-links{justify-content:center;gap:16px}
+  .page-head{padding:56px 0}
+  .page-head h1{font-size:30px}
+  .section{padding:52px 0 64px}
+  .form-card{padding:30px 22px}
+  .row{grid-template-columns:1fr}
+  .success{padding:54px 24px}
+  .footer-grid{grid-template-columns:1fr;gap:36px;padding:54px 0 40px}
+  .footer-bottom{justify-content:center;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<div class="util">
+  <div class="wrap util-in">
+    <span class="tag">Lending you can bank on.</span>
+    <span><strong>(000) 000-0000</strong> &nbsp;·&nbsp; NMLS #345678</span>
+  </div>
+</div>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="index.html">
+      <svg width="22" height="26" viewBox="0 0 22 26" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11 1 21 4.8v7.1c0 6.2-4.2 10.9-10 13.1C5.2 22.8 1 18.1 1 11.9V4.8L11 1Z" fill="#c9a227"/><path d="M11 5.6 16.4 7.7v4.1c0 3.7-2.3 6.5-5.4 8-3.1-1.5-5.4-4.3-5.4-8V7.7L11 5.6Z" fill="#0d2247"/><path d="M11 9.4l3 1.2v2.1c0 2-1.3 3.5-3 4.4-1.7-.9-3-2.4-3-4.4v-2.1l3-1.2Z" fill="#c9a227"/></svg>
+      TrustPoint&nbsp;<span>Lending</span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="apply.html" class="nav-cta active" style="border-bottom:0">Apply now</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-head">
+  <div class="wrap">
+    <span class="eyebrow">Begin Your Application</span>
+    <h1>Ten minutes now.<br>A documented answer tomorrow.</h1>
+    <p>No credit pull at this stage. No obligation. A senior loan officer reviews every application personally and responds within one business day.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap layout">
+
+    <div>
+      <form class="form-card" id="applyForm" novalidate>
+        <div class="err-msg" id="errMsg">Please complete the highlighted required fields before submitting.</div>
+
+        <fieldset>
+          <legend>Applicant information</legend>
+          <hr class="legend-rule">
+          <div class="row">
+            <div class="field">
+              <label for="firstName">First name <span class="req">*</span></label>
+              <input type="text" id="firstName" name="firstName" autocomplete="given-name" required>
+            </div>
+            <div class="field">
+              <label for="lastName">Last name <span class="req">*</span></label>
+              <input type="text" id="lastName" name="lastName" autocomplete="family-name" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label for="email">Email address <span class="req">*</span></label>
+              <input type="email" id="email" name="email" autocomplete="email" required>
+            </div>
+            <div class="field">
+              <label for="phone">Phone number <span class="req">*</span></label>
+              <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="(000) 000-0000" required>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Loan details</legend>
+          <hr class="legend-rule">
+          <div class="row">
+            <div class="field">
+              <label for="purpose">Loan purpose <span class="req">*</span></label>
+              <select id="purpose" name="purpose" required>
+                <option value="">Select a purpose…</option>
+                <option>Purchase</option>
+                <option>Refinance</option>
+                <option>Cash-out refinance</option>
+                <option>Investment property</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="state">Property state <span class="req">*</span></label>
+              <select id="state" name="state" required>
+                <option value="">Select a state…</option>
+                <option>North Carolina</option>
+                <option>South Carolina</option>
+                <option>Virginia</option>
+                <option>Georgia</option>
+                <option>Tennessee</option>
+                <option>Florida</option>
+                <option>Ohio</option>
+                <option>Texas</option>
+                <option>Arizona</option>
+                <option>Colorado</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label for="range">Price range <span class="req">*</span></label>
+              <select id="range" name="range" required>
+                <option value="">Select a range…</option>
+                <option>Under $250,000</option>
+                <option>$250,000 – $500,000</option>
+                <option>$500,000 – $750,000</option>
+                <option>$750,000 – $1,000,000</option>
+                <option>$1,000,000 – $2,000,000</option>
+                <option>Over $2,000,000</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="timeline">Timeline <span class="req">*</span></label>
+              <select id="timeline" name="timeline" required>
+                <option value="">Select a timeline…</option>
+                <option>I'm under contract now</option>
+                <option>Within 30 days</option>
+                <option>1 – 3 months</option>
+                <option>3 – 6 months</option>
+                <option>Just researching</option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset style="margin-bottom:8px">
+          <legend>Additional notes</legend>
+          <hr class="legend-rule">
+          <div class="field">
+            <label for="notes">Anything we should know? <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted)">(optional)</span></label>
+            <textarea id="notes" name="notes" placeholder="Self-employment, relocation timing, a property you have your eye on — anything that helps us prepare."></textarea>
+          </div>
+        </fieldset>
+
+        <p class="consent">By submitting, you agree to be contacted about your inquiry. No credit check is performed at this stage, and submitting this form is not an application for credit. This is a demo template — no information is stored or transmitted.</p>
+
+        <button type="submit" class="btn btn-gold">Submit application</button>
+      </form>
+
+      <div class="success" id="successPanel" role="status">
+        <div class="mark">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#c9a227" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m4 12.5 5.5 5.5L20 6.5"/></svg>
+        </div>
+        <h2>Thank you — your application is in.</h2>
+        <p>A loan officer will contact you within one business day.</p>
+        <p>Your file will be reviewed by a senior officer — not a call queue — and you will receive a written summary of your options.</p>
+        <span class="ref">Reference · TPL-2026-0000</span>
+      </div>
+    </div>
+
+    <aside class="side">
+      <h3>What happens next</h3>
+      <div class="side-sub">The same process, every time. Documented at every step.</div>
+      <ol>
+        <li><b>Personal review</b>A senior loan officer reads your application — today or tomorrow morning.</li>
+        <li><b>Consultation call</b>A scheduled call at your convenience to confirm goals and numbers.</li>
+        <li><b>Written options</b>Your programs, rates, and payments — documented in writing.</li>
+      </ol>
+      <div class="side-note"><b>Prefer to talk first?</b><br>Call (000) 000-0000, Mon–Fri, 8:30a–6:00p. You will reach a loan officer, not a phone tree.</div>
+    </aside>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div>
+      <div class="f-brand">
+        <svg width="20" height="24" viewBox="0 0 22 26" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M11 1 21 4.8v7.1c0 6.2-4.2 10.9-10 13.1C5.2 22.8 1 18.1 1 11.9V4.8L11 1Z" fill="#c9a227"/><path d="M11 5.6 16.4 7.7v4.1c0 3.7-2.3 6.5-5.4 8-3.1-1.5-5.4-4.3-5.4-8V7.7L11 5.6Z" fill="#091a38"/></svg>
+        TrustPoint&nbsp;<span>Lending</span>
+      </div>
+      <p>Three decades of disciplined mortgage lending. Documented rates, in-house underwriting, and closings that arrive on schedule. Lending you can bank on.</p>
+    </div>
+    <div>
+      <h4>Navigate</h4>
+      <div class="f-links">
+        <a href="index.html">Home</a>
+        <a href="programs.html">Loan Programs</a>
+        <a href="calculator.html">Payment Calculator</a>
+        <a href="about.html">About Us</a>
+        <a href="reviews.html">Client Reviews</a>
+        <a href="apply.html">Apply Now</a>
+      </div>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <div class="f-contact">
+        <div><b>(000) 000-0000</b></div>
+        <div><b>hello@example.com</b></div>
+        <div>Mon–Fri · 8:30a – 6:00p</div>
+        <div style="margin-top:12px">NMLS #345678</div>
+        <div>⌂ &nbsp;TrustPoint Lending is a demo brand. Equal Housing Lender.</div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>© 2026 TrustPoint Lending · NMLS #345678 · All rights reserved.</span>
+    <span>Template by <a href="#">Pilk.ai</a></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var form = document.getElementById('applyForm');
+  var success = document.getElementById('successPanel');
+  var errMsg = document.getElementById('errMsg');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    var required = form.querySelectorAll('[required]');
+    var valid = true;
+
+    required.forEach(function(el){
+      var empty = !el.value || !el.value.trim();
+      var badEmail = el.type === 'email' && el.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim());
+      if (empty || badEmail) {
+        el.classList.add('invalid');
+        valid = false;
+      } else {
+        el.classList.remove('invalid');
+      }
+    });
+
+    if (!valid) {
+      errMsg.classList.add('show');
+      var first = form.querySelector('.invalid');
+      if (first) first.focus();
+      return;
+    }
+
+    errMsg.classList.remove('show');
+    form.style.display = 'none';
+    success.classList.add('show');
+    success.scrollIntoView({behavior:'smooth', block:'center'});
+  });
+
+  // clear error state as the user types
+  form.addEventListener('input', function(e){
+    if (e.target.classList && e.target.classList.contains('invalid') && e.target.value.trim()) {
+      e.target.classList.remove('invalid');
+    }
+  });
+})();
+</script>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

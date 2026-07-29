@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mortgage Calculator — Metro Lending Group</title>
+<meta name="description" content="Estimate your monthly mortgage payment — principal &amp; interest, taxes, and insurance. Metro Lending Group.">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Archivo',Helvetica,Arial,sans-serif;background:#ffffff;color:#0a0a0a;-webkit-font-smoothing:antialiased;line-height:1.5}
+a{color:inherit;text-decoration:none}
+.label{font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:#525252}
+.wrap{max-width:1280px;margin:0 auto;padding:0 24px}
+.btn{display:inline-block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;padding:17px 30px;transition:background .15s,color .15s}
+.btn-red{background:#dc2626;color:#ffffff}
+.btn-red:hover{background:#0a0a0a;color:#ffffff}
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:#ffffff;border-bottom:1px solid #e5e5e5}
+.nav-in{max-width:1280px;margin:0 auto;padding:0 24px;height:66px;display:flex;align-items:center;justify-content:space-between;position:relative}
+.logo{font-weight:900;font-size:19px;letter-spacing:-.02em;text-transform:uppercase}
+.logo em{font-style:normal;color:#dc2626}
+.menu-t{display:none}
+.menu-btn{display:none}
+.links{display:flex;align-items:center;gap:26px}
+.links a{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:#525252;padding:6px 0;border-bottom:2px solid transparent;transition:color .15s}
+.links a:hover{color:#0a0a0a}
+.links a.active{color:#0a0a0a;border-bottom-color:#dc2626}
+.links a.cta{background:#dc2626;color:#ffffff;padding:13px 22px;border-bottom:none}
+.links a.cta:hover{background:#0a0a0a;color:#ffffff}
+@media(max-width:860px){
+  .menu-btn{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:10px 0}
+  .menu-btn span{display:block;width:24px;height:2px;background:#0a0a0a}
+  .links{display:none;position:absolute;top:66px;left:0;right:0;background:#ffffff;border-bottom:1px solid #e5e5e5;flex-direction:column;align-items:stretch;gap:0}
+  .links a{padding:16px 24px;border-bottom:1px solid #e5e5e5}
+  .links a.active{border-left:3px solid #dc2626;border-bottom:1px solid #e5e5e5}
+  .links a.cta{margin:16px 24px;text-align:center}
+  .menu-t:checked ~ .links{display:flex}
+}
+/* PAGE HEADER */
+.phead{border-bottom:1px solid #e5e5e5;padding:80px 0 56px}
+.phead .label{display:block;margin-bottom:16px}
+.phead h1{font-size:clamp(38px,6vw,80px);font-weight:900;letter-spacing:-.03em;text-transform:uppercase;line-height:.96}
+.phead h1 em{font-style:normal;color:#dc2626}
+.phead p{margin-top:22px;font-size:16px;color:#525252;max-width:56ch}
+/* CALCULATOR */
+.calc-sec{padding:64px 0 96px}
+.calc{display:grid;grid-template-columns:1.15fr 1fr;gap:1px;background:#e5e5e5;border:1px solid #e5e5e5}
+.calc-form{background:#ffffff;padding:0}
+.f-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#e5e5e5}
+.f-cell{background:#ffffff;padding:22px 24px}
+.f-cell.full{grid-column:1/-1}
+.f-cell label{display:block;font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:#525252;margin-bottom:10px}
+.f-cell .in{position:relative;display:flex;align-items:center}
+.f-cell .in span{font-size:15px;font-weight:700;color:#a3a3a3;margin-right:8px}
+.f-cell .in span.suf{margin:0 0 0 8px}
+.f-cell input,.f-cell select{width:100%;border:none;border-bottom:2px solid #0a0a0a;background:transparent;font-family:'Archivo',Helvetica,Arial,sans-serif;font-size:22px;font-weight:800;color:#0a0a0a;padding:4px 0 8px;border-radius:0;outline:none;-moz-appearance:textfield}
+.f-cell input::-webkit-outer-spin-button,.f-cell input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.f-cell input:focus,.f-cell select:focus{border-bottom-color:#dc2626}
+.f-cell select{appearance:none;-webkit-appearance:none;cursor:pointer;background-image:linear-gradient(45deg,transparent 50%,#0a0a0a 50%),linear-gradient(135deg,#0a0a0a 50%,transparent 50%);background-position:calc(100% - 14px) 55%,calc(100% - 8px) 55%;background-size:6px 6px,6px 6px;background-repeat:no-repeat}
+.hoa-note{background:#f5f5f5;padding:16px 24px;font-size:12px;color:#525252;border-top:1px solid #e5e5e5}
+.hoa-note b{color:#0a0a0a}
+/* RESULTS */
+.calc-out{background:#0a0a0a;color:#ffffff;padding:44px 40px;display:flex;flex-direction:column}
+.calc-out .label{color:#a3a3a3}
+.total{margin:14px 0 6px;font-size:clamp(46px,4.6vw,68px);font-weight:900;letter-spacing:-.03em;line-height:1;color:#ffffff}
+.total em{font-style:normal;color:#dc2626}
+.per{font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:#737373;margin-bottom:34px}
+.bar{display:flex;height:18px;width:100%;background:#262626;overflow:hidden;margin-bottom:22px}
+.bar i{display:block;height:100%;transition:width .25s}
+.bar .b-pi{background:#ffffff}
+.bar .b-tax{background:#737373}
+.bar .b-ins{background:#dc2626}
+.legend{list-style:none;border-top:1px solid #262626}
+.legend li{display:flex;align-items:center;justify-content:space-between;padding:15px 0;border-bottom:1px solid #262626;font-size:13px}
+.legend .k{display:flex;align-items:center;gap:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;font-size:11px;color:#a3a3a3}
+.legend .sw{width:12px;height:12px;display:inline-block}
+.legend .sw.pi{background:#ffffff}
+.legend .sw.tax{background:#737373}
+.legend .sw.ins{background:#dc2626}
+.legend .v{font-weight:800;font-size:16px;color:#ffffff}
+.calc-out .cta-line{margin-top:auto;padding-top:32px}
+.calc-out .cta-line p{font-size:12px;color:#737373;margin-bottom:14px}
+.disc{margin-top:28px;font-size:12px;color:#737373;max-width:70ch}
+@media(max-width:900px){
+  .calc{grid-template-columns:1fr}
+  .f-grid{grid-template-columns:1fr}
+  .calc-out{padding:36px 24px}
+  .phead{padding:60px 0 44px}
+}
+/* FOOTER */
+.foot{background:#0a0a0a;color:#ffffff}
+.foot-grid{max-width:1280px;margin:0 auto;padding:64px 24px;display:grid;grid-template-columns:1.4fr 1fr;gap:48px}
+.foot-brand .logo{font-size:22px}
+.foot-brand p{margin-top:14px;font-size:14px;color:#a3a3a3;max-width:36ch}
+.foot-links{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#262626;border:1px solid #262626;align-self:start}
+.foot-links a{background:#0a0a0a;padding:16px 18px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:#a3a3a3}
+.foot-links a:hover{color:#ffffff;background:#171717}
+.foot-legal{border-top:1px solid #262626}
+.foot-legal-in{max-width:1280px;margin:0 auto;padding:22px 24px 48px;display:flex;flex-wrap:wrap;gap:10px 28px;font-size:11px;letter-spacing:.08em;color:#737373}
+@media(max-width:860px){.foot-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="logo" href="index.html">Metro<em>/</em>LG</a>
+    <input type="checkbox" id="menu-t" class="menu-t">
+    <label for="menu-t" class="menu-btn" aria-label="Menu"><span></span><span></span><span></span></label>
+    <nav class="links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html" class="active">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="apply.html" class="cta">Apply now</a>
+    </nav>
+  </div>
+</header>
+
+<section class="phead">
+  <div class="wrap">
+    <span class="label">Tools / Payment estimator</span>
+    <h1>Run your <em>numbers.</em></h1>
+    <p>Principal, interest, taxes, insurance — live as you type. City defaults are loaded; change anything.</p>
+  </div>
+</section>
+
+<section class="calc-sec">
+  <div class="wrap">
+    <div class="calc">
+
+      <div class="calc-form">
+        <div class="f-grid">
+          <div class="f-cell full">
+            <label for="price">Home price</label>
+            <div class="in"><span>$</span><input type="number" id="price" value="550000" min="0" step="1000" inputmode="numeric"></div>
+          </div>
+          <div class="f-cell">
+            <label for="dpd">Down payment ($)</label>
+            <div class="in"><span>$</span><input type="number" id="dpd" value="82500" min="0" step="500" inputmode="numeric"></div>
+          </div>
+          <div class="f-cell">
+            <label for="dpp">Down payment (%)</label>
+            <div class="in"><input type="number" id="dpp" value="15" min="0" max="100" step="0.5" inputmode="decimal"><span class="suf">%</span></div>
+          </div>
+          <div class="f-cell">
+            <label for="rate">Interest rate</label>
+            <div class="in"><input type="number" id="rate" value="6.6" min="0" max="25" step="0.05" inputmode="decimal"><span class="suf">%</span></div>
+          </div>
+          <div class="f-cell">
+            <label for="term">Loan term</label>
+            <select id="term">
+              <option value="15">15 years</option>
+              <option value="20">20 years</option>
+              <option value="30" selected>30 years</option>
+            </select>
+          </div>
+          <div class="f-cell">
+            <label for="tax">Property tax rate (%/yr)</label>
+            <div class="in"><input type="number" id="tax" value="1.2" min="0" max="10" step="0.05" inputmode="decimal"><span class="suf">%</span></div>
+          </div>
+          <div class="f-cell">
+            <label for="ins">Annual insurance</label>
+            <div class="in"><span>$</span><input type="number" id="ins" value="1800" min="0" step="50" inputmode="numeric"></div>
+          </div>
+        </div>
+        <div class="hoa-note"><b>Note:</b> HOA / condo dues are not included in this estimate. In most buildings, budget $300–$900/mo on top of the figure shown.</div>
+      </div>
+
+      <div class="calc-out">
+        <span class="label">Estimated total monthly</span>
+        <div class="total"><em>$</em><span id="o-total">0</span></div>
+        <div class="per">Per month · principal, interest, tax &amp; insurance</div>
+        <div class="bar" aria-hidden="true">
+          <i class="b-pi" id="bar-pi" style="width:70%"></i><i class="b-tax" id="bar-tax" style="width:20%"></i><i class="b-ins" id="bar-ins" style="width:10%"></i>
+        </div>
+        <ul class="legend">
+          <li><span class="k"><span class="sw pi"></span>Principal &amp; interest</span><span class="v" id="o-pi">$0</span></li>
+          <li><span class="k"><span class="sw tax"></span>Property tax</span><span class="v" id="o-tax">$0</span></li>
+          <li><span class="k"><span class="sw ins"></span>Insurance</span><span class="v" id="o-ins">$0</span></li>
+        </ul>
+        <div class="cta-line">
+          <p>Loan amount: <span id="o-loan" style="color:#ffffff;font-weight:700">$0</span></p>
+          <a class="btn btn-red" href="apply.html">Get a real quote</a>
+        </div>
+      </div>
+
+    </div>
+    <p class="disc">Estimates only. This calculator is for illustration and is not a loan offer, rate quote, or pre-approval. Actual payments vary with credit, program, PMI, and HOA dues.</p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <a class="logo" href="index.html">Metro<em>/</em>LG</a>
+      <p>Big-city lending, zero big-city runaround. Condo-smart mortgages for urban buyers.</p>
+    </div>
+    <nav class="foot-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="apply.html">Apply now</a>
+    </nav>
+  </div>
+  <div class="foot-legal">
+    <div class="foot-legal-in">
+      <span>NMLS #000000 · Equal Housing Lender</span>
+      <span>(000) 000-0000 · hello@example.com</span>
+      <span>Template by Pilk.ai</span>
+      <span>Demo website — all names, numbers, rates, and reviews are sample content for design preview only.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+  var price = $('price'), dpd = $('dpd'), dpp = $('dpp'),
+      rate = $('rate'), term = $('term'), tax = $('tax'), ins = $('ins');
+
+  function num(el){ var v = parseFloat(el.value); return isFinite(v) && v >= 0 ? v : 0; }
+  function fmt(n){ return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+  function fmt0(n){ return Math.round(n).toLocaleString('en-US'); }
+
+  function calc(){
+    var P0 = num(price), down = Math.min(num(dpd), P0);
+    var P = P0 - down;
+    var r = num(rate) / 100 / 12;
+    var n = parseInt(term.value,10) * 12;
+    var pi;
+    if (r === 0) { pi = n > 0 ? P / n : 0; }
+    else { var f = Math.pow(1 + r, n); pi = P * (r * f) / (f - 1); }
+    if (!isFinite(pi)) pi = 0;
+    var mTax = P0 * num(tax) / 100 / 12;
+    var mIns = num(ins) / 12;
+    var total = pi + mTax + mIns;
+
+    $('o-pi').textContent = '$' + fmt(pi);
+    $('o-tax').textContent = '$' + fmt(mTax);
+    $('o-ins').textContent = '$' + fmt(mIns);
+    $('o-total').textContent = fmt0(total);
+    $('o-loan').textContent = '$' + fmt0(P);
+
+    var wPi = total > 0 ? pi/total*100 : 0,
+        wTax = total > 0 ? mTax/total*100 : 0,
+        wIns = total > 0 ? mIns/total*100 : 0;
+    $('bar-pi').style.width = wPi + '%';
+    $('bar-tax').style.width = wTax + '%';
+    $('bar-ins').style.width = wIns + '%';
+  }
+
+  // Linked down payment fields: $ <-> %
+  function syncFromPct(){
+    var p = num(price), pct = num(dpp);
+    dpd.value = Math.round(p * pct / 100);
+  }
+  function syncFromDollar(){
+    var p = num(price), d = num(dpd);
+    dpp.value = p > 0 ? +(d / p * 100).toFixed(2) : 0;
+  }
+
+  price.addEventListener('input', function(){ syncFromPct(); calc(); });
+  dpp.addEventListener('input', function(){ syncFromPct(); calc(); });
+  dpd.addEventListener('input', function(){ syncFromDollar(); calc(); });
+  [rate, term, tax, ins].forEach(function(el){
+    el.addEventListener('input', calc);
+    el.addEventListener('change', calc);
+  });
+
+  calc();
+})();
+</script>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

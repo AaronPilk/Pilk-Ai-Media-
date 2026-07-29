@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apply — Metro Lending Group</title>
+<meta name="description" content="Start your mortgage application with Metro Lending Group. Five minutes, no hard credit pull, same-day callback.">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Archivo',Helvetica,Arial,sans-serif;background:#ffffff;color:#0a0a0a;-webkit-font-smoothing:antialiased;line-height:1.5}
+a{color:inherit;text-decoration:none}
+.label{font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:#525252}
+.idx{font-size:13px;letter-spacing:.15em;font-weight:700;color:#dc2626}
+.wrap{max-width:1280px;margin:0 auto;padding:0 24px}
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:#ffffff;border-bottom:1px solid #e5e5e5}
+.nav-in{max-width:1280px;margin:0 auto;padding:0 24px;height:66px;display:flex;align-items:center;justify-content:space-between;position:relative}
+.logo{font-weight:900;font-size:19px;letter-spacing:-.02em;text-transform:uppercase}
+.logo em{font-style:normal;color:#dc2626}
+.menu-t{display:none}
+.menu-btn{display:none}
+.links{display:flex;align-items:center;gap:26px}
+.links a{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:#525252;padding:6px 0;border-bottom:2px solid transparent;transition:color .15s}
+.links a:hover{color:#0a0a0a}
+.links a.active{color:#0a0a0a;border-bottom-color:#dc2626}
+.links a.cta{background:#dc2626;color:#ffffff;padding:13px 22px;border-bottom:none}
+.links a.cta:hover{background:#0a0a0a;color:#ffffff}
+@media(max-width:860px){
+  .menu-btn{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:10px 0}
+  .menu-btn span{display:block;width:24px;height:2px;background:#0a0a0a}
+  .links{display:none;position:absolute;top:66px;left:0;right:0;background:#ffffff;border-bottom:1px solid #e5e5e5;flex-direction:column;align-items:stretch;gap:0}
+  .links a{padding:16px 24px;border-bottom:1px solid #e5e5e5}
+  .links a.active{border-left:3px solid #dc2626;border-bottom:1px solid #e5e5e5}
+  .links a.cta{margin:16px 24px;text-align:center}
+  .menu-t:checked ~ .links{display:flex}
+}
+/* PAGE HEADER */
+.phead{border-bottom:1px solid #e5e5e5;padding:80px 0 56px}
+.phead .label{display:block;margin-bottom:16px}
+.phead h1{font-size:clamp(38px,6vw,80px);font-weight:900;letter-spacing:-.03em;text-transform:uppercase;line-height:.96}
+.phead h1 em{font-style:normal;color:#dc2626}
+.phead p{margin-top:22px;font-size:16px;color:#525252;max-width:54ch}
+.phead .facts{display:flex;flex-wrap:wrap;gap:1px;background:#e5e5e5;border:1px solid #e5e5e5;margin-top:32px;max-width:640px}
+.phead .facts span{background:#ffffff;padding:12px 18px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;flex:1;white-space:nowrap;text-align:center}
+/* FORM */
+.apply-sec{padding:64px 0 96px}
+.apply-grid{display:grid;grid-template-columns:1fr 340px;gap:1px;background:#e5e5e5;border:1px solid #e5e5e5;align-items:stretch}
+.form-col{background:#ffffff}
+.fs{border-bottom:1px solid #e5e5e5}
+.fs:last-of-type{border-bottom:none}
+.fs-head{display:flex;align-items:baseline;gap:16px;padding:28px 32px 6px}
+.fs-head h2{font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:.02em}
+.fs-body{display:grid;grid-template-columns:1fr 1fr;gap:22px 28px;padding:22px 32px 34px}
+.field{display:flex;flex-direction:column}
+.field.full{grid-column:1/-1}
+.field label{font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:#0a0a0a;margin-bottom:9px}
+.field label i{font-style:normal;color:#dc2626}
+.field input,.field select,.field textarea{border:none;border-bottom:2px solid #0a0a0a;background:transparent;border-radius:0;font-family:'Archivo',Helvetica,Arial,sans-serif;font-size:16px;font-weight:600;color:#0a0a0a;padding:8px 0 10px;outline:none;transition:border-color .15s}
+.field input:focus,.field select:focus,.field textarea:focus{border-bottom-color:#dc2626}
+.field input::placeholder,.field textarea::placeholder{color:#a3a3a3;font-weight:500}
+.field select{appearance:none;-webkit-appearance:none;cursor:pointer;background-image:linear-gradient(45deg,transparent 50%,#0a0a0a 50%),linear-gradient(135deg,#0a0a0a 50%,transparent 50%);background-position:calc(100% - 14px) 55%,calc(100% - 8px) 55%;background-size:6px 6px,6px 6px;background-repeat:no-repeat}
+.field textarea{resize:vertical;min-height:110px;border:1px solid #0a0a0a;padding:12px 14px}
+.field textarea:focus{border-color:#dc2626}
+.submit-row{padding:28px 32px 36px;border-top:1px solid #e5e5e5;display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.submit-btn{font-family:'Archivo',Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;padding:18px 36px;background:#dc2626;color:#ffffff;border:none;border-radius:0;cursor:pointer;transition:background .15s}
+.submit-btn:hover{background:#0a0a0a}
+.submit-row p{font-size:11px;color:#737373;max-width:40ch}
+.err{display:none;background:#0a0a0a;color:#ffffff;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;padding:14px 32px}
+.err b{color:#dc2626}
+/* SIDE PANEL */
+.side{background:#0a0a0a;color:#ffffff;padding:44px 36px;display:flex;flex-direction:column}
+.side .label{color:#a3a3a3;display:block;margin-bottom:20px}
+.side h3{font-size:26px;font-weight:900;text-transform:uppercase;letter-spacing:-.01em;line-height:1.1}
+.side h3 em{font-style:normal;color:#dc2626}
+.side ul{list-style:none;margin-top:28px;border-top:1px solid #262626}
+.side li{padding:16px 0;border-bottom:1px solid #262626;font-size:13px;color:#a3a3a3;display:flex;gap:12px}
+.side li b{color:#dc2626;font-weight:800}
+.side .fine{margin-top:auto;padding-top:32px;font-size:11px;color:#737373}
+/* SUCCESS */
+.success{display:none;background:#0a0a0a;color:#ffffff;padding:72px 48px;text-align:left}
+.success .idx{font-size:13px}
+.success h2{margin:24px 0 16px;font-size:clamp(28px,3.6vw,44px);font-weight:900;text-transform:uppercase;letter-spacing:-.02em;line-height:1}
+.success h2 em{font-style:normal;color:#dc2626}
+.success p{font-size:15px;color:#a3a3a3;max-width:52ch;margin-bottom:12px}
+.success .note{margin-top:24px;padding-top:20px;border-top:1px solid #262626;font-size:11px;letter-spacing:.08em;color:#737373}
+/* FOOTER */
+.foot{background:#0a0a0a;color:#ffffff}
+.foot-grid{max-width:1280px;margin:0 auto;padding:64px 24px;display:grid;grid-template-columns:1.4fr 1fr;gap:48px}
+.foot-brand .logo{font-size:22px}
+.foot-brand p{margin-top:14px;font-size:14px;color:#a3a3a3;max-width:36ch}
+.foot-links{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#262626;border:1px solid #262626;align-self:start}
+.foot-links a{background:#0a0a0a;padding:16px 18px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:#a3a3a3}
+.foot-links a:hover{color:#ffffff;background:#171717}
+.foot-legal{border-top:1px solid #262626}
+.foot-legal-in{max-width:1280px;margin:0 auto;padding:22px 24px 48px;display:flex;flex-wrap:wrap;gap:10px 28px;font-size:11px;letter-spacing:.08em;color:#737373}
+@media(max-width:960px){
+  .apply-grid{grid-template-columns:1fr}
+  .side{order:-1}
+  .foot-grid{grid-template-columns:1fr}
+  .phead{padding:60px 0 44px}
+}
+@media(max-width:600px){
+  .fs-body{grid-template-columns:1fr;padding:22px 24px 30px}
+  .fs-head{padding:26px 24px 4px}
+  .submit-row{padding:26px 24px 32px}
+  .err{padding:14px 24px}
+  .side{padding:36px 24px}
+  .success{padding:56px 24px}
+  .phead .facts span{flex-basis:100%}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="logo" href="index.html">Metro<em>/</em>LG</a>
+    <input type="checkbox" id="menu-t" class="menu-t">
+    <label for="menu-t" class="menu-btn" aria-label="Menu"><span></span><span></span><span></span></label>
+    <nav class="links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="apply.html" class="cta active">Apply now</a>
+    </nav>
+  </div>
+</header>
+
+<section class="phead">
+  <div class="wrap">
+    <span class="label">Application / Step 1 of 1</span>
+    <h1>Start <em>here.</em></h1>
+    <p>Three short sections. No hard credit pull. A loan officer calls you within one business day with real numbers.</p>
+    <div class="facts">
+      <span>5 min</span>
+      <span>No hard pull</span>
+      <span>Same-day callback</span>
+    </div>
+  </div>
+</section>
+
+<section class="apply-sec">
+  <div class="wrap">
+    <div class="apply-grid" id="apply-wrap">
+
+      <div class="form-col" id="form-col">
+        <form id="apply-form" novalidate>
+
+          <div class="fs">
+            <div class="fs-head"><span class="idx">01</span><h2>Contact</h2></div>
+            <div class="fs-body">
+              <div class="field">
+                <label for="fname">First name <i>*</i></label>
+                <input type="text" id="fname" name="fname" placeholder="Jordan" required>
+              </div>
+              <div class="field">
+                <label for="lname">Last name <i>*</i></label>
+                <input type="text" id="lname" name="lname" placeholder="Avery" required>
+              </div>
+              <div class="field">
+                <label for="email">Email <i>*</i></label>
+                <input type="email" id="email" name="email" placeholder="you@email.com" required>
+              </div>
+              <div class="field">
+                <label for="phone">Phone <i>*</i></label>
+                <input type="tel" id="phone" name="phone" placeholder="(000) 000-0000" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="fs">
+            <div class="fs-head"><span class="idx">02</span><h2>Loan</h2></div>
+            <div class="fs-body">
+              <div class="field">
+                <label for="purpose">Purpose <i>*</i></label>
+                <select id="purpose" name="purpose" required>
+                  <option value="">Select…</option>
+                  <option>Purchase</option>
+                  <option>Refinance</option>
+                  <option>Cash-out</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="state">Property state <i>*</i></label>
+                <select id="state" name="state" required>
+                  <option value="">Select…</option>
+                  <option>New York</option>
+                  <option>New Jersey</option>
+                  <option>Illinois</option>
+                  <option>Washington</option>
+                  <option>Massachusetts</option>
+                  <option>Pennsylvania</option>
+                  <option>California</option>
+                  <option>Texas</option>
+                  <option>Georgia</option>
+                  <option>Colorado</option>
+                  <option>Florida</option>
+                  <option>Minnesota</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="range">Price range <i>*</i></label>
+                <select id="range" name="range" required>
+                  <option value="">Select…</option>
+                  <option>Under $300K</option>
+                  <option>$300K – $500K</option>
+                  <option>$500K – $750K</option>
+                  <option>$750K – $1M</option>
+                  <option>$1M – $2M</option>
+                  <option>Over $2M</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="timeline">Timeline <i>*</i></label>
+                <select id="timeline" name="timeline" required>
+                  <option value="">Select…</option>
+                  <option>Under contract now</option>
+                  <option>0–3 months</option>
+                  <option>3–6 months</option>
+                  <option>6+ months / researching</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="fs">
+            <div class="fs-head"><span class="idx">03</span><h2>Notes</h2></div>
+            <div class="fs-body">
+              <div class="field full">
+                <label for="notes">Anything we should know?</label>
+                <textarea id="notes" name="notes" placeholder="Building name, HOA situation, co-op board timing, self-employment — the more we know, the faster we move."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="err" id="form-err"><b>Hold on —</b> fill in the required fields marked *</div>
+          <div class="submit-row">
+            <button type="submit" class="submit-btn">Submit application</button>
+            <p>Submitting does not affect your credit score. No spam, no shared data.</p>
+          </div>
+        </form>
+
+        <div class="success" id="success">
+          <span class="idx">Received</span>
+          <h2>Application <em>received.</em></h2>
+          <p>A loan officer will call within one business day. Watch for a call from a local number — we don't hide behind toll-free lines.</p>
+          <p>Under contract already? Call (000) 000-0000 and say so. Deadlines move us.</p>
+          <div class="note">Demo form — no data was sent or stored. This is a design template by Pilk.ai.</div>
+        </div>
+      </div>
+
+      <aside class="side">
+        <span class="label">What happens next</span>
+        <h3>Fast is the <em>whole point.</em></h3>
+        <ul>
+          <li><b>01</b>Same-business-day callback from a licensed loan officer</li>
+          <li><b>02</b>Soft credit check and real rate options — in writing</li>
+          <li><b>03</b>Underwritten pre-approval that holds up at the offer table</li>
+          <li><b>04</b>Average clear-to-close: 12 days</li>
+        </ul>
+        <div class="fine">Questions first? (000) 000-0000 · hello@example.com<br>Licensed in 12 states · NMLS #000000</div>
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <a class="logo" href="index.html">Metro<em>/</em>LG</a>
+      <p>Big-city lending, zero big-city runaround. Condo-smart mortgages for urban buyers.</p>
+    </div>
+    <nav class="foot-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="apply.html">Apply now</a>
+    </nav>
+  </div>
+  <div class="foot-legal">
+    <div class="foot-legal-in">
+      <span>NMLS #000000 · Equal Housing Lender</span>
+      <span>(000) 000-0000 · hello@example.com</span>
+      <span>Template by Pilk.ai</span>
+      <span>Demo website — all names, numbers, rates, and reviews are sample content for design preview only.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var form = document.getElementById('apply-form');
+  var err = document.getElementById('form-err');
+  var success = document.getElementById('success');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var required = form.querySelectorAll('[required]');
+    var ok = true, firstBad = null;
+    required.forEach(function(el){
+      var valid = el.value.trim() !== '';
+      if (el.type === 'email' && valid) {
+        valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim());
+      }
+      if (!valid) {
+        ok = false;
+        el.style.borderBottomColor = '#dc2626';
+        if (!firstBad) firstBad = el;
+      } else {
+        el.style.borderBottomColor = '#0a0a0a';
+      }
+    });
+    if (!ok) {
+      err.style.display = 'block';
+      if (firstBad) firstBad.focus();
+      return;
+    }
+    err.style.display = 'none';
+    form.style.display = 'none';
+    success.style.display = 'block';
+    success.scrollIntoView({behavior:'smooth', block:'center'});
+  });
+})();
+</script>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

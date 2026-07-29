@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apply — NorthStar Mortgage</title>
+<meta name="description" content="Start your NorthStar Mortgage application. Ten minutes, no credit impact, and a loan advisor will reach out within one business day.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#1e3a8a;
+  --deep:#16295f;
+  --tint:#eef2fb;
+  --slate:#475569;
+  --ink:#0f172a;
+  --line:#e2e8f0;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Manrope',system-ui,sans-serif;color:var(--slate);background:#ffffff;line-height:1.6;font-size:16px;}
+h1,h2,h3,h4{color:var(--ink);letter-spacing:-0.02em;line-height:1.15;}
+a{text-decoration:none;color:inherit;}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px;}
+
+.nav{position:sticky;top:0;z-index:1000;background:#ffffff;border-bottom:1px solid var(--line);}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px;}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;color:var(--ink);letter-spacing:-0.02em;white-space:nowrap;}
+.brand .star{color:var(--blue);display:inline-flex;}
+.brand span.co{color:var(--blue);}
+.nav-links{display:flex;gap:28px;font-weight:600;font-size:14.5px;color:var(--slate);}
+.nav-links a{padding:6px 2px;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;}
+.nav-links a:hover{color:var(--blue);}
+.nav-links a.active{color:var(--blue);border-bottom-color:var(--blue);}
+.btn{display:inline-block;font-weight:700;font-size:15px;padding:14px 28px;border:1px solid transparent;letter-spacing:0.01em;transition:background .15s,color .15s;cursor:pointer;font-family:'Manrope',sans-serif;}
+.btn-blue{background:var(--blue);color:#fff;}
+.btn-blue:hover{background:var(--deep);}
+.btn-nav{padding:11px 22px;font-size:14px;}
+
+.page-head{background:var(--blue);color:#fff;padding:64px 0;}
+.page-head .eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#a8bdf0;margin-bottom:16px;}
+.page-head h1{color:#fff;font-size:42px;font-weight:800;letter-spacing:-0.03em;margin-bottom:12px;max-width:640px;}
+.page-head p{color:#c7d4f5;font-size:17px;max-width:560px;}
+
+/* LAYOUT */
+.apply-section{padding:64px 0 96px;}
+.apply-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:40px;align-items:start;}
+
+/* FORM */
+.form-card{border:1px solid var(--line);background:#fff;}
+.form-sec{padding:36px 36px 8px;border-bottom:1px solid var(--line);}
+.form-sec:last-of-type{border-bottom:none;}
+.form-sec h2{font-size:19px;font-weight:800;margin-bottom:22px;display:flex;align-items:center;gap:10px;}
+.form-sec h2 .num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:var(--blue);color:#fff;font-size:13px;font-weight:800;}
+.field{margin-bottom:22px;}
+.field label{display:block;font-size:12.5px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink);margin-bottom:8px;}
+.field input,.field select{width:100%;padding:13px 14px;border:1px solid #cbd5e1;font-family:'Manrope',sans-serif;font-size:15.5px;font-weight:600;color:var(--ink);background:#fff;border-radius:0;}
+.field input:focus,.field select:focus{outline:2px solid var(--blue);outline-offset:-1px;border-color:var(--blue);}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.pills{display:flex;gap:0;border:1px solid var(--blue);width:max-content;}
+.pills label{margin:0;cursor:pointer;}
+.pills input{position:absolute;opacity:0;width:0;height:0;}
+.pills span{display:inline-block;padding:12px 28px;font-size:14.5px;font-weight:700;color:var(--blue);transition:background .15s,color .15s;}
+.pills input:checked + span{background:var(--blue);color:#fff;}
+.pills input:focus-visible + span{outline:2px solid var(--deep);outline-offset:2px;}
+.consent{display:flex;gap:12px;align-items:flex-start;padding:24px 36px;background:var(--tint);font-size:13.5px;border-top:1px solid var(--line);}
+.consent input{margin-top:4px;width:16px;height:16px;accent-color:var(--blue);flex-shrink:0;}
+.submit-row{padding:28px 36px 36px;}
+.submit-row .btn{width:100%;text-align:center;font-size:16px;}
+.submit-row .note{text-align:center;font-size:12.5px;color:#94a3b8;margin-top:12px;}
+
+/* SUCCESS */
+.success{display:none;border:1px solid var(--line);border-top:4px solid var(--blue);background:#fff;padding:56px 44px;text-align:center;}
+.success.show{display:block;}
+.success .check{width:72px;height:72px;margin:0 auto 24px;background:var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.success h2{font-size:29px;font-weight:800;margin-bottom:12px;}
+.success p{max-width:460px;margin:0 auto 8px;font-size:15.5px;}
+.next-steps{max-width:440px;margin:28px auto 0;text-align:left;border-top:1px solid var(--line);}
+.next-steps li{list-style:none;padding:14px 0 14px 30px;position:relative;border-bottom:1px solid var(--line);font-size:14.5px;font-weight:600;color:var(--ink);}
+.next-steps li:before{content:"✦";position:absolute;left:2px;top:15px;color:var(--blue);font-size:12px;}
+
+/* SIDEBAR */
+.sidebar{position:sticky;top:96px;}
+.side-card{background:var(--blue);color:#fff;padding:34px 30px;}
+.side-card h3{color:#fff;font-size:18px;font-weight:800;margin-bottom:20px;display:flex;align-items:center;gap:8px;}
+.side-card h3 .star{color:#a8bdf0;}
+.side-steps{list-style:none;counter-reset:s;}
+.side-steps li{counter-increment:s;padding:0 0 20px 44px;position:relative;font-size:14px;color:#c7d4f5;}
+.side-steps li b{display:block;color:#fff;font-size:14.5px;margin-bottom:2px;}
+.side-steps li:before{content:"0" counter(s);position:absolute;left:0;top:1px;font-size:12px;font-weight:800;color:#a8bdf0;border:1px solid rgba(255,255,255,0.35);width:30px;height:30px;display:flex;align-items:center;justify-content:center;}
+.side-note{background:var(--tint);border:1px solid var(--line);padding:20px 24px;font-size:13px;margin-top:18px;color:var(--slate);}
+.side-note b{color:var(--ink);}
+.side-img{margin-top:18px;height:200px;background-image:url('/template-previews/_assets/home-ext-b.jpg'),linear-gradient(135deg,#1e3a8a,#16295f);background-size:cover;background-position:center;border:1px solid var(--line);}
+
+footer{background:var(--deep);color:#c7d4f5;font-size:14px;}
+.foot-inner{max-width:1200px;margin:0 auto;padding:64px 24px 90px;display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;}
+.foot-brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;color:#fff;margin-bottom:14px;}
+.foot-brand .star{color:#a8bdf0;display:inline-flex;}
+footer h4{color:#fff;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:16px;}
+.foot-links a{display:block;padding:5px 0;color:#c7d4f5;}
+.foot-links a:hover{color:#fff;}
+.foot-legal{grid-column:1/-1;border-top:1px solid rgba(255,255,255,0.15);padding-top:24px;font-size:12.5px;color:#8fa3d9;line-height:1.7;}
+
+@media (max-width:960px){
+  .apply-grid{grid-template-columns:1fr;}
+  .sidebar{position:static;}
+  .page-head h1{font-size:32px;}
+  .foot-inner{grid-template-columns:1fr;gap:36px;}
+}
+@media (max-width:760px){
+  .nav-links{display:none;}
+  .two-col{grid-template-columns:1fr;}
+  .form-sec{padding:28px 20px 4px;}
+  .consent{padding:20px;}
+  .submit-row{padding:24px 20px 28px;}
+  .success{padding:44px 22px;}
+  .pills span{padding:12px 20px;}
+  .apply-section{padding:44px 0 72px;}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <span class="star"><svg viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 0l2.7 9.3L24 12l-9.3 2.7L12 24l-2.7-9.3L0 12l9.3-2.7z" fill="currentColor"/></svg></span>
+      NorthStar&nbsp;<span class="co">Mortgage</span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="apply.html" class="active">Apply</a>
+    </nav>
+    <a class="btn btn-blue btn-nav" href="apply.html">Apply now</a>
+  </div>
+</header>
+
+<section class="page-head">
+  <div class="wrap">
+    <span class="eyebrow">✦ Start your application</span>
+    <h1>Ten minutes now. Keys later.</h1>
+    <p>No credit impact, no obligation, no spam. Tell us where you're headed and a licensed loan advisor will chart the route.</p>
+  </div>
+</section>
+
+<section class="apply-section">
+  <div class="wrap">
+    <div class="apply-grid">
+
+      <div>
+        <form id="applyForm" class="form-card" novalidate="false">
+
+          <!-- SECTION 1 -->
+          <div class="form-sec">
+            <h2><span class="num">1</span> Loan basics</h2>
+
+            <div class="field">
+              <label>I'm looking to</label>
+              <div class="pills">
+                <label><input type="radio" name="loanType" value="purchase" checked><span>Purchase</span></label>
+                <label><input type="radio" name="loanType" value="refinance"><span>Refinance</span></label>
+              </div>
+            </div>
+
+            <div class="two-col">
+              <div class="field">
+                <label for="propType">Property type</label>
+                <select id="propType" name="propType" required>
+                  <option value="">Select one…</option>
+                  <option>Single-family home</option>
+                  <option>Townhouse</option>
+                  <option>Condo</option>
+                  <option>Multi-family (2–4 units)</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="priceRange">Price range</label>
+                <select id="priceRange" name="priceRange" required>
+                  <option value="">Select one…</option>
+                  <option>Under $250,000</option>
+                  <option>$250,000 – $400,000</option>
+                  <option>$400,000 – $600,000</option>
+                  <option>$600,000 – $800,000</option>
+                  <option>$800,000 – $1.5M</option>
+                  <option>Over $1.5M</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="downPay">Down payment saved</label>
+              <select id="downPay" name="downPay" required>
+                <option value="">Select one…</option>
+                <option>0% — exploring zero-down options</option>
+                <option>3% – 5%</option>
+                <option>5% – 10%</option>
+                <option>10% – 20%</option>
+                <option>20% or more</option>
+                <option>N/A — refinancing</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- SECTION 2 -->
+          <div class="form-sec">
+            <h2><span class="num">2</span> About you</h2>
+            <div class="two-col">
+              <div class="field">
+                <label for="firstName">First name</label>
+                <input type="text" id="firstName" name="firstName" autocomplete="given-name" placeholder="Jordan" required>
+              </div>
+              <div class="field">
+                <label for="lastName">Last name</label>
+                <input type="text" id="lastName" name="lastName" autocomplete="family-name" placeholder="Avery" required>
+              </div>
+            </div>
+            <div class="two-col">
+              <div class="field">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" autocomplete="email" placeholder="you@email.com" required>
+              </div>
+              <div class="field">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="(555) 000-0000" required>
+              </div>
+            </div>
+            <div class="field">
+              <label for="credit">Estimated credit range</label>
+              <select id="credit" name="credit" required>
+                <option value="">Select one…</option>
+                <option>740+ — Excellent</option>
+                <option>700 – 739 — Very good</option>
+                <option>660 – 699 — Good</option>
+                <option>620 – 659 — Fair</option>
+                <option>580 – 619 — Building</option>
+                <option>Below 580 / not sure</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- SECTION 3 -->
+          <div class="form-sec">
+            <h2><span class="num">3</span> Location &amp; timeline</h2>
+            <div class="two-col">
+              <div class="field">
+                <label for="state">State</label>
+                <select id="state" name="state" required>
+                  <option value="">Select one…</option>
+                  <option>North Carolina</option>
+                  <option>South Carolina</option>
+                  <option>Virginia</option>
+                  <option>Georgia</option>
+                  <option>Tennessee</option>
+                  <option>Florida</option>
+                  <option>Other licensed state</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="city">City</label>
+                <input type="text" id="city" name="city" placeholder="Charlotte" required>
+              </div>
+            </div>
+            <div class="field">
+              <label for="timeline">Buying timeline</label>
+              <select id="timeline" name="timeline" required>
+                <option value="">Select one…</option>
+                <option>I'm under contract now</option>
+                <option>Actively shopping — next 30 days</option>
+                <option>1 – 3 months out</option>
+                <option>3 – 6 months out</option>
+                <option>Just researching</option>
+              </select>
+            </div>
+          </div>
+
+          <label class="consent">
+            <input type="checkbox" id="consent" required>
+            <span>I agree to be contacted by a NorthStar Mortgage loan advisor by phone, email, or text about my inquiry. This is not a loan application of record and does not affect my credit score.</span>
+          </label>
+
+          <div class="submit-row">
+            <button type="submit" class="btn btn-blue">Submit my application ✦</button>
+            <p class="note">Takes about one business day to hear back. No hard credit pull.</p>
+          </div>
+        </form>
+
+        <!-- SUCCESS STATE -->
+        <div class="success" id="successBox" role="status" aria-live="polite">
+          <div class="check">
+            <svg viewBox="0 0 24 24" width="34" height="34" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20 6L9 17l-5-5" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h2>You're on course.</h2>
+          <p>A loan advisor will reach out within one business day to review your details and map the strongest program for your situation.</p>
+          <ul class="next-steps">
+            <li>Watch for an email from your assigned loan advisor</li>
+            <li>Gather recent pay stubs and last year's W-2 (we'll send a checklist)</li>
+            <li>Try the <a href="calculator.html" style="color:var(--blue);text-decoration:underline;">payment calculator</a> while you wait</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="side-card">
+          <h3><span class="star">✦</span> What happens next</h3>
+          <ol class="side-steps">
+            <li><b>We review your details</b>A licensed advisor reads every application personally — no auto-rejections.</li>
+            <li><b>A real person calls</b>Within one business day, you'll talk through programs, rates, and next steps.</li>
+            <li><b>You get pre-approved</b>A documented pre-approval letter sellers actually trust, usually same-day.</li>
+            <li><b>You go shopping</b>Armed with a real number and a team on call whenever an offer gets serious.</li>
+          </ol>
+        </div>
+        <div class="side-note">
+          <b>Heads up:</b> This is a demo template — no data is collected, stored, or sent anywhere when you hit submit.
+        </div>
+        <div class="side-img" role="img" aria-label="Craftsman-style home exterior"></div>
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <div>
+      <div class="foot-brand">
+        <span class="star"><svg viewBox="0 0 24 24" width="16" height="16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 0l2.7 9.3L24 12l-9.3 2.7L12 24l-2.7-9.3L0 12l9.3-2.7z" fill="currentColor"/></svg></span>
+        NorthStar Mortgage
+      </div>
+      <p>Your true north to homeownership. Straightforward lending, sharp rates, and guidance every step of the way.</p>
+      <p style="margin-top:14px;font-weight:700;color:#fff;">(000) 000-0000 · hello@example.com</p>
+    </div>
+    <div class="foot-links">
+      <h4>Navigate</h4>
+      <a href="index.html">Home</a>
+      <a href="programs.html">Loan programs</a>
+      <a href="calculator.html">Payment calculator</a>
+    </div>
+    <div class="foot-links">
+      <h4>Company</h4>
+      <a href="about.html">About us</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="apply.html">Apply now</a>
+    </div>
+    <div class="foot-legal">
+      NMLS #654321 · ⌂ Equal Housing Lender. NorthStar Mortgage is a fictional company created for demonstration purposes. This form is non-functional sample content — no data is collected or transmitted. Nothing here constitutes a loan offer or financial advice. All loans subject to credit approval.<br>
+      Template by Pilk.ai
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var form = document.getElementById('applyForm');
+  var success = document.getElementById('successBox');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+    form.style.display = 'none';
+    success.classList.add('show');
+    success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+})();
+</script>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

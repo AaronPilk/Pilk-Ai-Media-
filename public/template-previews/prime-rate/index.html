@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PrimeRate Financial — Obsessed with your rate.</title>
+<meta name="description" content="PrimeRate Financial publishes its mortgage rates every day. Compare, calculate, and lock with confidence.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#15803d;
+  --green-dark:#166534;
+  --forest:#14532d;
+  --forest-deep:#0f3d21;
+  --tint:#f0fdf4;
+  --tint-line:#bbf7d0;
+  --ink:#0f172a;
+  --muted:#5b6472;
+  --line:#e5e7eb;
+  --white:#ffffff;
+  --r-sm:8px;
+  --r-md:10px;
+  --r-lg:12px;
+  --shadow:0 1px 2px rgba(15,23,42,.05),0 8px 24px rgba(15,23,42,.06);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;color:var(--ink);background:var(--white);line-height:1.6;font-size:16px;-webkit-font-smoothing:antialiased;}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+.container{max-width:1160px;margin:0 auto;padding:0 24px;}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;}
+.micro{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green);}
+.micro.on-dark{color:#86efac;}
+h1,h2,h3{line-height:1.15;letter-spacing:-0.02em;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:15px;padding:13px 26px;border-radius:var(--r-md);border:1px solid transparent;cursor:pointer;transition:background .18s,color .18s,border-color .18s,transform .18s;}
+.btn-solid{background:var(--green);color:#fff;}
+.btn-solid:hover{background:var(--green-dark);transform:translateY(-1px);}
+.btn-outline{background:transparent;color:var(--green);border-color:var(--green);}
+.btn-outline:hover{background:var(--tint);}
+.btn-white{background:#fff;color:var(--forest);}
+.btn-white:hover{background:var(--tint);}
+.btn-ghost-white{background:transparent;color:#fff;border-color:rgba(255,255,255,.5);}
+.btn-ghost-white:hover{border-color:#fff;background:rgba(255,255,255,.08);}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+.nav-inner{max-width:1160px;margin:0 auto;padding:0 24px;height:68px;display:flex;align-items:center;justify-content:space-between;gap:24px;}
+.brand{display:flex;align-items:center;gap:10px;font-size:19px;letter-spacing:-0.02em;white-space:nowrap;}
+.brand-mark{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,var(--green),var(--forest));display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:13px;flex:0 0 auto;}
+.brand strong{font-weight:800;color:var(--ink);}
+.brand span.lite{font-weight:400;color:var(--muted);}
+.nav-links{display:flex;align-items:center;gap:28px;}
+.nav-links a{font-size:14.5px;font-weight:600;color:var(--muted);padding:6px 2px;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;}
+.nav-links a:hover{color:var(--ink);}
+.nav-links a.active{color:var(--green);border-bottom-color:var(--green);}
+.nav-cta{padding:10px 20px;font-size:14px;}
+.menu-btn{display:none;background:none;border:1px solid var(--line);border-radius:var(--r-sm);width:42px;height:42px;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;}
+.menu-btn span{display:block;width:18px;height:2px;background:var(--ink);transition:transform .2s;}
+.mobile-menu{display:none;background:#fff;border-bottom:1px solid var(--line);padding:8px 24px 18px;}
+.mobile-menu a{display:block;padding:12px 4px;font-weight:600;font-size:15.5px;color:var(--ink);border-bottom:1px solid var(--line);}
+.mobile-menu a.active{color:var(--green);}
+.mobile-menu a:last-child{border-bottom:none;}
+.mobile-menu.open{display:block;}
+
+/* HERO */
+.hero{position:relative;min-height:640px;display:flex;align-items:center;background:linear-gradient(120deg,#0f3d21,#14532d);}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(100deg,rgba(10,36,20,.92) 0%,rgba(15,61,33,.78) 45%,rgba(15,61,33,.35) 100%),url('/template-previews/_assets/hero-warm-home.jpg') center/cover no-repeat;}
+.hero-inner{position:relative;z-index:2;width:100%;padding:96px 0;}
+.hero h1{font-size:clamp(38px,5.6vw,64px);font-weight:800;color:#fff;max-width:640px;margin:18px 0 20px;}
+.hero h1 em{font-style:normal;color:#86efac;}
+.hero p.sub{font-size:18px;color:rgba(255,255,255,.85);max-width:540px;margin-bottom:34px;}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;}
+.hero-note{margin-top:26px;font-size:13px;color:rgba(255,255,255,.6);}
+
+/* TRUST STATS */
+.stats-band{background:var(--forest);border-top:1px solid rgba(255,255,255,.08);}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;}
+.stat{padding:30px 20px;text-align:center;border-left:1px solid rgba(255,255,255,.08);}
+.stat:first-child{border-left:none;}
+.stat .val{font-size:30px;font-weight:800;color:#fff;letter-spacing:-0.02em;}
+.stat .val .star{color:#86efac;}
+.stat .lbl{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:4px;}
+
+/* SECTIONS */
+section{padding:88px 0;}
+.section-head{max-width:640px;margin-bottom:48px;}
+.section-head h2{font-size:clamp(28px,3.6vw,40px);font-weight:800;margin:14px 0 14px;}
+.section-head p{color:var(--muted);font-size:16.5px;}
+.section-head.center{margin-left:auto;margin-right:auto;text-align:center;}
+
+/* RATE TABLE */
+.rates-section{background:var(--tint);border-top:1px solid var(--tint-line);border-bottom:1px solid var(--tint-line);}
+.rates-wrap{display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:start;}
+.table-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r-lg);background:#fff;box-shadow:var(--shadow);}
+table.rates{width:100%;border-collapse:collapse;min-width:520px;}
+table.rates th{background:var(--forest);color:#fff;font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-align:left;padding:14px 18px;}
+table.rates th.n,table.rates td.n{text-align:right;}
+table.rates td{padding:15px 18px;border-top:1px solid var(--line);font-size:15px;}
+table.rates td.prog{font-weight:700;}
+table.rates td.n{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;font-weight:600;}
+table.rates td .apr-sub{color:var(--muted);font-weight:500;}
+table.rates tbody tr:hover{background:var(--tint);}
+.rate-foot{padding:12px 18px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted);background:#fafafa;border-radius:0 0 var(--r-lg) var(--r-lg);}
+.rates-copy h2{font-size:clamp(28px,3.4vw,38px);font-weight:800;margin:14px 0 16px;}
+.rates-copy p{color:var(--muted);margin-bottom:16px;}
+.check-list{list-style:none;margin:22px 0 30px;}
+.check-list li{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px;font-size:15.5px;font-weight:500;}
+.check-list li::before{content:"✓";flex:0 0 22px;height:22px;border-radius:6px;background:var(--green);color:#fff;font-size:13px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;margin-top:2px;}
+
+/* PROGRAM CARDS */
+.cards-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.p-card{border:1px solid var(--line);border-radius:var(--r-lg);padding:28px 24px;background:#fff;display:flex;flex-direction:column;transition:border-color .18s,box-shadow .18s,transform .18s;}
+.p-card:hover{border-color:var(--green);box-shadow:var(--shadow);transform:translateY(-3px);}
+.p-card .stat-line{font-size:26px;font-weight:800;color:var(--green);font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1;letter-spacing:-0.02em;}
+.p-card .stat-sub{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:2px 0 16px;}
+.p-card h3{font-size:18px;font-weight:700;margin-bottom:8px;}
+.p-card p{font-size:14.5px;color:var(--muted);flex:1;}
+.p-card a{margin-top:18px;font-size:14px;font-weight:700;color:var(--green);}
+.p-card a:hover{text-decoration:underline;}
+
+/* STEPS */
+.steps-section{background:var(--tint);border-top:1px solid var(--tint-line);border-bottom:1px solid var(--tint-line);}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;counter-reset:step;}
+.step{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:30px 26px;position:relative;}
+.step .num-badge{width:40px;height:40px;border-radius:var(--r-sm);background:var(--forest);color:#fff;font-weight:800;font-size:17px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;font-variant-numeric:tabular-nums;}
+.step h3{font-size:18px;margin-bottom:8px;}
+.step p{font-size:14.5px;color:var(--muted);}
+
+/* TESTIMONIALS */
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.quote{border:1px solid var(--line);border-radius:var(--r-lg);padding:28px 26px;background:#fff;box-shadow:var(--shadow);}
+.quote .stars{color:var(--green);font-size:14px;letter-spacing:2px;margin-bottom:14px;}
+.quote p{font-size:15px;color:var(--ink);margin-bottom:16px;}
+.quote .who{font-size:13.5px;font-weight:700;}
+.quote .where{font-size:12.5px;color:var(--muted);font-weight:500;}
+
+/* CTA BAND */
+.cta-band{background:linear-gradient(120deg,var(--forest-deep),var(--forest));text-align:center;padding:80px 0;}
+.cta-band h2{color:#fff;font-size:clamp(28px,3.6vw,40px);font-weight:800;margin:14px 0 14px;}
+.cta-band p{color:rgba(255,255,255,.75);max-width:520px;margin:0 auto 32px;}
+.cta-band .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+
+/* FOOTER */
+footer{background:var(--forest-deep);color:rgba(255,255,255,.72);padding:64px 0 110px;font-size:14px;}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.4fr;gap:44px;margin-bottom:44px;}
+.foot-brand{display:flex;align-items:center;gap:10px;font-size:18px;margin-bottom:14px;color:#fff;}
+.foot-brand strong{font-weight:800;}
+.foot-brand span.lite{font-weight:400;color:rgba(255,255,255,.6);}
+.foot-col h4{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#86efac;margin-bottom:16px;}
+.foot-col a{display:block;padding:5px 0;color:rgba(255,255,255,.72);transition:color .15s;}
+.foot-col a:hover{color:#fff;}
+.foot-legal{border-top:1px solid rgba(255,255,255,.12);padding-top:28px;font-size:12.5px;color:rgba(255,255,255,.5);line-height:1.7;}
+.foot-legal strong{color:rgba(255,255,255,.75);}
+.eh-mark{display:inline-flex;align-items:center;gap:8px;margin-bottom:10px;color:rgba(255,255,255,.75);font-weight:700;font-size:12.5px;letter-spacing:.06em;}
+
+@media (max-width:900px){
+  .nav-links,.nav-cta{display:none;}
+  .menu-btn{display:flex;}
+  .stats-grid{grid-template-columns:repeat(2,1fr);}
+  .stat{border-left:none;border-top:1px solid rgba(255,255,255,.08);}
+  .stat:nth-child(-n+2){border-top:none;}
+  .rates-wrap{grid-template-columns:1fr;gap:36px;}
+  .cards-grid{grid-template-columns:repeat(2,1fr);}
+  .steps{grid-template-columns:1fr;}
+  .quotes{grid-template-columns:1fr;}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:32px;}
+}
+@media (max-width:520px){
+  section{padding:64px 0;}
+  .hero{min-height:560px;}
+  .cards-grid{grid-template-columns:1fr;}
+  .foot-grid{grid-template-columns:1fr;}
+  .stat .val{font-size:24px;}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">%</span><strong>PrimeRate</strong><span class="lite">Financial</span></a>
+    <nav class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+    </nav>
+    <a class="btn btn-solid nav-cta" href="apply.html">Apply now</a>
+    <button class="menu-btn" aria-label="Open menu" onclick="document.getElementById('mm').classList.toggle('open')"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-menu" id="mm">
+    <a href="index.html" class="active">Home</a>
+    <a href="programs.html">Programs</a>
+    <a href="calculator.html">Calculator</a>
+    <a href="about.html">About</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="apply.html" style="color:var(--green);font-weight:700;">Apply now →</a>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-bg" role="img" aria-label="Warm evening light on a family home"></div>
+  <div class="container hero-inner">
+    <div class="micro on-dark">Rates published daily · No markups · No games</div>
+    <h1>Obsessed with <em>your rate.</em></h1>
+    <p class="sub">We publish our rates. Every day. Ask your bank to do that. PrimeRate borrowers saved an average of 0.31% against their next-best quote last year.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-solid" href="apply.html">Apply now</a>
+      <a class="btn btn-ghost-white" href="#rates">Today's rates ↓</a>
+    </div>
+    <div class="hero-note num">Pre-approval decisions typically issued in under 24 hours.</div>
+  </div>
+</div>
+
+<div class="stats-band">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat"><div class="val num">$2.4B</div><div class="lbl">Loans funded</div></div>
+      <div class="stat"><div class="val num">0.31%</div><div class="lbl">Avg. rate savings</div></div>
+      <div class="stat"><div class="val num">4.8<span class="star">★</span></div><div class="lbl">Borrower rating</div></div>
+      <div class="stat"><div class="val num">12,000+</div><div class="lbl">Loans closed</div></div>
+    </div>
+  </div>
+</div>
+
+<section class="rates-section" id="rates">
+  <div class="container">
+    <div class="rates-wrap">
+      <div class="rates-copy">
+        <div class="micro">Today's sample rates</div>
+        <h2>The numbers, in the open.</h2>
+        <p>Most lenders hide their pricing behind a phone call. We put ours on the homepage. Every rate below reflects a 740+ FICO, 20% down, owner-occupied purchase — the same baseline, every day, so you can actually compare.</p>
+        <ul class="check-list">
+          <li>Rates refreshed every business morning at 9:00 AM ET</li>
+          <li>APR shown next to every rate — no asterisk hunting</li>
+          <li>Lock your rate for 45 days, free</li>
+        </ul>
+        <a class="btn btn-outline" href="calculator.html">Run your payment →</a>
+      </div>
+      <div>
+        <div class="table-scroll">
+          <table class="rates">
+            <thead>
+              <tr><th>Program</th><th class="n">Rate</th><th class="n">APR</th><th class="n">Points</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="prog">30-yr fixed</td><td class="n">6.375%</td><td class="n">6.512%</td><td class="n">0.8</td></tr>
+              <tr><td class="prog">15-yr fixed</td><td class="n">5.625%</td><td class="n">5.798%</td><td class="n">0.7</td></tr>
+              <tr><td class="prog">FHA 30-yr</td><td class="n">6.125%</td><td class="n">6.401%</td><td class="n">0.9</td></tr>
+              <tr><td class="prog">VA 30-yr</td><td class="n">5.990%</td><td class="n">6.210%</td><td class="n">0.5</td></tr>
+              <tr><td class="prog">Jumbo 30-yr</td><td class="n">6.500%</td><td class="n">6.588%</td><td class="n">1.0</td></tr>
+            </tbody>
+          </table>
+          <div class="rate-foot num">Sample rates as of July 29, 2026 — for demo purposes. Assumes 740+ FICO, 20% down, owner-occupied.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-head">
+      <div class="micro">Loan programs</div>
+      <h2>Priced for how you actually buy.</h2>
+      <p>Six programs, one pricing engine, zero branch overhead baked into your rate.</p>
+    </div>
+    <div class="cards-grid">
+      <div class="p-card">
+        <div class="stat-line">3% min</div>
+        <div class="stat-sub">Down payment</div>
+        <h3>Conventional</h3>
+        <p>The workhorse. Strong credit gets rewarded with our sharpest pricing and fastest underwrites.</p>
+        <a href="programs.html">See conventional →</a>
+      </div>
+      <div class="p-card">
+        <div class="stat-line">580 FICO</div>
+        <div class="stat-sub">Minimum score</div>
+        <h3>FHA</h3>
+        <p>Flexible credit requirements and 3.5% down. A precise path in, not a compromise.</p>
+        <a href="programs.html">See FHA →</a>
+      </div>
+      <div class="p-card">
+        <div class="stat-line">$0 down</div>
+        <div class="stat-sub">For eligible veterans</div>
+        <h3>VA</h3>
+        <p>No down payment, no monthly mortgage insurance. If you served, this is the math to beat.</p>
+        <a href="programs.html">See VA →</a>
+      </div>
+      <div class="p-card">
+        <div class="stat-line">$3M+</div>
+        <div class="stat-sub">Loan amounts</div>
+        <h3>Jumbo</h3>
+        <p>High-balance lending without high-balance attitude. Competitive pricing to $3M and beyond.</p>
+        <a href="programs.html">See jumbo →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="steps-section">
+  <div class="container">
+    <div class="section-head center">
+      <div class="micro">How it works</div>
+      <h2>Three steps. No mystery.</h2>
+      <p>The average PrimeRate purchase loan closes in 21 days. Here's the whole process.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="num-badge">1</div>
+        <h3>Lock your rate</h3>
+        <p>Apply online in about 8 minutes. See your actual rate — not a teaser — and lock it for 45 days at no cost.</p>
+      </div>
+      <div class="step">
+        <div class="num-badge">2</div>
+        <h3>Verified underwriting</h3>
+        <p>We underwrite your file up front, not at the finish line. Your approval means something to sellers and agents.</p>
+      </div>
+      <div class="step">
+        <div class="num-badge">3</div>
+        <h3>Close on schedule</h3>
+        <p>Clear-to-close on time, with a final number that matches your estimate. 98.6% of our loans close on the contract date.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-head center">
+      <div class="micro">Borrower reviews</div>
+      <h2>The spreadsheet people came through.</h2>
+    </div>
+    <div class="quotes">
+      <div class="quote">
+        <div class="stars">★★★★★</div>
+        <p>"I brought them a quote from my credit union. They beat it by 0.375% and showed me the pricing sheet to prove it. Nobody does that."</p>
+        <div class="who">Daniel R.</div>
+        <div class="where">Charlotte, NC</div>
+      </div>
+      <div class="quote">
+        <div class="stars">★★★★★</div>
+        <p>"Locked on a Tuesday, cleared to close in 16 days. Every number on my closing disclosure matched the estimate to the dollar."</p>
+        <div class="who">Priya S.</div>
+        <div class="where">Austin, TX</div>
+      </div>
+      <div class="quote">
+        <div class="stars">★★★★★</div>
+        <p>"First-time buyer, expected to be talked down to. Instead I got a rate table, a clear plan, and a payment $214 lower than my other quote."</p>
+        <div class="who">Marcus T.</div>
+        <div class="where">Columbus, OH</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:40px;">
+      <a class="btn btn-outline" href="reviews.html">Read all reviews</a>
+    </div>
+  </div>
+</section>
+
+<div class="cta-band">
+  <div class="container">
+    <div class="micro on-dark">Free · No credit impact to estimate</div>
+    <h2>Know your payment in 30 seconds.</h2>
+    <p>Run the numbers yourself with our calculator, or apply and get a real rate from a licensed loan officer.</p>
+    <div class="btns">
+      <a class="btn btn-white" href="calculator.html">Open the calculator</a>
+      <a class="btn btn-ghost-white" href="apply.html">Apply now</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand"><span class="brand-mark">%</span><strong>PrimeRate</strong><span class="lite">Financial</span></div>
+        <p>A direct mortgage lender built by rate analysts. We publish our pricing daily, underwrite up front, and close on schedule. Obsessed with your rate — because nobody else is.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Explore</h4>
+        <a href="index.html">Home</a>
+        <a href="programs.html">Programs</a>
+        <a href="calculator.html">Calculator</a>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <a href="about.html">About</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="apply.html">Apply now</a>
+      </div>
+      <div class="foot-col">
+        <h4>Contact</h4>
+        <a href="tel:0000000000" class="num">(000) 000-0000</a>
+        <a href="mailto:hello@example.com">hello@example.com</a>
+        <a href="#">Mon–Fri, 8am–7pm ET</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <div class="eh-mark">⌂ EQUAL HOUSING LENDER</div>
+      <p><strong>NMLS #000000 · Equal Housing Lender.</strong> PrimeRate Financial is committed to the letter and spirit of U.S. policy for the achievement of equal housing opportunity, and we encourage and support an affirmative program in which there are no barriers to obtaining housing because of race, color, religion, sex, handicap, familial status, or national origin.</p>
+      <p style="margin-top:10px;">Sample rates for demonstration only — not an offer of credit. This is a demo website template; all names, numbers, rates, and reviews are fictional sample content and do not represent a real lender.</p>
+      <p style="margin-top:10px;">© 2026 PrimeRate Financial (Demo) · Template by Pilk.ai</p>
+    </div>
+  </div>
+</footer>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

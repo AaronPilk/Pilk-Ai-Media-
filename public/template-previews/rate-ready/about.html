@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us — RateReady</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#2563eb; --blue-dark:#1d4ed8; --blue-50:#eff6ff; --blue-100:#dbeafe;
+  --slate:#0f172a; --slate-2:#1e293b; --muted:#475569; --muted-2:#64748b;
+  --soft:#f8fafc; --line:#e2e8f0; --white:#ffffff;
+  --r:10px; --r-lg:14px;
+  --shadow:0 1px 3px rgba(15,23,42,.06),0 6px 20px rgba(15,23,42,.06);
+  --shadow-lg:0 4px 6px rgba(15,23,42,.05),0 16px 40px rgba(15,23,42,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;color:var(--slate);background:var(--white);line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+.nav{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1180px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;min-height:68px}
+.brand{font-size:1.35rem;font-weight:800;letter-spacing:-.03em;padding:12px 0}
+.brand .b{color:var(--blue)}
+.nav-links{display:flex;align-items:center;flex-wrap:wrap;gap:4px}
+.nav-links a{font-size:.92rem;font-weight:500;color:var(--muted);padding:8px 13px;border-radius:8px;transition:color .15s,background .15s}
+.nav-links a:hover{color:var(--slate);background:var(--blue-50)}
+.nav-links a.active{color:var(--blue);background:var(--blue-50);font-weight:600}
+.nav-links .btn-nav{margin-left:8px;background:var(--blue);color:#fff;font-weight:600;padding:10px 20px;border-radius:8px;box-shadow:0 2px 8px rgba(37,99,235,.3);transition:background .15s,transform .15s}
+.nav-links .btn-nav:hover{background:var(--blue-dark);color:#fff;transform:translateY(-1px)}
+
+.btn{display:inline-block;font-weight:600;font-size:1rem;padding:14px 28px;border-radius:10px;transition:all .18s;cursor:pointer;border:none;font-family:inherit}
+.btn-primary{background:var(--blue);color:#fff;box-shadow:0 4px 14px rgba(37,99,235,.35)}
+.btn-primary:hover{background:var(--blue-dark);transform:translateY(-2px);box-shadow:0 8px 22px rgba(37,99,235,.4)}
+.btn-light{background:#fff;color:var(--blue);box-shadow:0 4px 14px rgba(15,23,42,.2)}
+.btn-light:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(15,23,42,.3)}
+
+.page-head{background-image:linear-gradient(rgba(15,23,42,.6),rgba(15,23,42,.72)),url('/template-previews/_assets/int-living-bright.jpg');background-size:cover;background-position:center;color:#fff;padding:88px 0;text-align:center}
+.page-head .kicker{display:inline-block;background:rgba(37,99,235,.25);border:1px solid rgba(147,197,253,.45);color:#bfdbfe;font-size:.8rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;padding:7px 16px;border-radius:999px;margin-bottom:20px}
+.page-head h1{font-size:clamp(2rem,4.5vw,3.1rem);font-weight:800;letter-spacing:-.03em;line-height:1.1}
+.page-head p{color:#cbd5e1;font-size:1.1rem;max-width:560px;margin:16px auto 0}
+
+.section{padding:88px 0}
+.section.soft{background:var(--soft)}
+.section.tint{background:var(--blue-50)}
+.sec-head{max-width:640px;margin:0 auto 52px;text-align:center}
+.sec-head .eyebrow{display:inline-block;color:var(--blue);font-size:.8rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase;margin-bottom:14px}
+.sec-head h2{font-size:clamp(1.7rem,3.4vw,2.4rem);font-weight:800;letter-spacing:-.03em;line-height:1.15}
+.sec-head p{color:var(--muted);margin-top:14px;font-size:1.05rem}
+
+/* STORY */
+.story{display:grid;grid-template-columns:1.1fr 1fr;gap:64px;align-items:center}
+.story-img{border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-lg);min-height:440px;background-image:linear-gradient(rgba(15,23,42,.06),rgba(15,23,42,.12)),url('/template-previews/_assets/home-ext-a.jpg');background-size:cover;background-position:center}
+.story .eyebrow{display:inline-block;color:var(--blue);font-size:.8rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase;margin-bottom:14px}
+.story h2{font-size:clamp(1.6rem,3vw,2.3rem);font-weight:800;letter-spacing:-.03em;line-height:1.18;margin-bottom:20px}
+.story p{color:var(--muted);margin-bottom:16px;font-size:1.01rem}
+.story p b{color:var(--slate)}
+
+/* VALUES */
+.val-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.val-card{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:30px 26px;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s}
+.val-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}
+.val-icon{width:48px;height:48px;border-radius:11px;background:linear-gradient(135deg,var(--blue-50),var(--blue-100));display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.val-icon svg{width:24px;height:24px;stroke:var(--blue)}
+.val-card h3{font-size:1.05rem;font-weight:700;margin-bottom:8px}
+.val-card p{font-size:.9rem;color:var(--muted)}
+
+/* STATS */
+.statrow{background:var(--slate);border-radius:var(--r-lg);color:#fff;padding:44px 40px;display:grid;grid-template-columns:repeat(4,1fr);gap:28px;text-align:center;box-shadow:var(--shadow-lg)}
+.statrow b{display:block;font-size:1.9rem;font-weight:800;letter-spacing:-.02em;color:#93c5fd}
+.statrow span{font-size:.88rem;color:#94a3b8;font-weight:500}
+
+/* TEAM */
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.tm-card{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s;text-align:center}
+.tm-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg)}
+.tm-photo{aspect-ratio:1/1.05;background-size:cover;background-position:center top}
+.tm-body{padding:22px 18px 26px}
+.tm-body h3{font-size:1.05rem;font-weight:700;letter-spacing:-.01em}
+.tm-body .role{color:var(--blue);font-size:.85rem;font-weight:600;margin:4px 0 6px}
+.tm-body .nmls{color:var(--muted-2);font-size:.78rem;font-weight:500}
+
+/* CTA */
+.cta-band{background-image:linear-gradient(rgba(15,23,42,.72),rgba(29,78,216,.68)),url('/template-previews/_assets/city-skyline.jpg');background-size:cover;background-position:center;color:#fff;padding:96px 0;text-align:center}
+.cta-band h2{font-size:clamp(1.9rem,4vw,2.7rem);font-weight:800;letter-spacing:-.03em;max-width:640px;margin:0 auto 16px;line-height:1.15}
+.cta-band p{color:#cbd5e1;font-size:1.08rem;max-width:500px;margin:0 auto 34px}
+
+footer{background:var(--slate);color:#94a3b8;padding:72px 0 0;font-size:.92rem}
+.f-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:48px;padding-bottom:52px}
+.f-brand .brand{color:#fff;padding:0;display:inline-block;margin-bottom:16px}
+.f-brand p{max-width:320px;line-height:1.7}
+.f-col h4{color:#fff;font-size:.85rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:18px}
+.f-col ul{list-style:none;display:grid;gap:10px}
+.f-col a{transition:color .15s}
+.f-col a:hover{color:#fff}
+.f-bottom{border-top:1px solid #1e293b;padding:24px 0 60px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.82rem;color:#64748b}
+.f-bottom a{color:#93c5fd}
+.f-bottom a:hover{text-decoration:underline}
+
+@media (max-width:960px){
+  .story{grid-template-columns:1fr;gap:36px}
+  .story-img{min-height:300px}
+  .val-grid,.team-grid{grid-template-columns:repeat(2,1fr)}
+  .statrow{grid-template-columns:repeat(2,1fr)}
+  .f-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  .section{padding:60px 0}
+  .page-head{padding:64px 0}
+  .val-grid,.team-grid{grid-template-columns:1fr}
+  .statrow{grid-template-columns:1fr 1fr;padding:32px 24px}
+  .f-grid{grid-template-columns:1fr;gap:36px}
+  .nav-inner{justify-content:center;padding:10px 16px}
+  .nav-links{justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html"><span class="b">Rate</span>Ready</a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html" class="active">About</a>
+      <a href="reviews.html">Reviews</a>
+      <a class="btn-nav" href="apply.html">Apply now</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-head">
+  <div class="wrap">
+    <span class="kicker">About RateReady</span>
+    <h1>We made mortgages move.</h1>
+    <p>A lending platform built by people who got tired of watching the industry waste everyone's time.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="story">
+      <div class="story-img" role="img" aria-label="Modern home exterior"></div>
+      <div>
+        <span class="eyebrow">Our story</span>
+        <h2>Getting a mortgage felt stuck in 1995. So we rebuilt it.</h2>
+        <p>We started RateReady because our founders went through the mortgage process themselves and couldn't believe it: fax machines, week-long silences, mystery fees that appeared at the closing table, and "rates" that required three phone calls to actually see.</p>
+        <p>Meanwhile, every other financial product had gone digital. You could open a brokerage account in three minutes — but borrowing money for the biggest purchase of your life still meant a paper mountain and a month of waiting.</p>
+        <p><b>So we rebuilt the whole thing from the application up.</b> One online application. Real rates in minutes, not teaser rates in email chains. Digital documents. Proactive status updates. And a human loan expert on your side the entire way — because software should speed people up, not replace them.</p>
+        <p>Today we've funded over $450 million for more than 1,900 families, with an average close of 21 days. We're just getting started.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section soft">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">What we stand for</span>
+      <h2>Four rules we don't break</h2>
+    </div>
+    <div class="val-grid">
+      <div class="val-card">
+        <div class="val-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg></div>
+        <h3>Speed is respect</h3>
+        <p>Your time matters. Every day we shave off the process is a day you're not living in limbo.</p>
+      </div>
+      <div class="val-card">
+        <div class="val-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3>Radical transparency</h3>
+        <p>Rates, fees, and timelines in writing, upfront. If a loan doesn't make sense for you, we say so.</p>
+      </div>
+      <div class="val-card">
+        <div class="val-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M21 21v-2a4 4 0 0 0-3-3.87"/></svg></div>
+        <h3>Humans plus software</h3>
+        <p>Technology handles the paperwork. A dedicated loan expert handles the judgment calls, with you.</p>
+      </div>
+      <div class="val-card">
+        <div class="val-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+        <h3>No junk fees</h3>
+        <p>No application fees, no gotchas, no line items you've never heard of. The quote is the deal.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="statrow">
+      <div><b>$450M+</b><span>Loans funded</span></div>
+      <div><b>1,900+</b><span>Families served</span></div>
+      <div><b>21 days</b><span>Average close</span></div>
+      <div><b>4.9&#9733;</b><span>Across 612 reviews</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section tint">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">The team</span>
+      <h2>Loan experts who pick up the phone</h2>
+      <p>Licensed pros who've closed thousands of loans — and still explain everything in plain English.</p>
+    </div>
+    <div class="team-grid">
+      <div class="tm-card">
+        <div class="tm-photo" style="background-image:linear-gradient(rgba(15,23,42,0),rgba(15,23,42,.04)),url('/template-previews/_assets/agent-f1.jpg')" role="img" aria-label="Sarah Linden headshot"></div>
+        <div class="tm-body">
+          <h3>Sarah Linden</h3>
+          <div class="role">Senior Loan Officer</div>
+          <div class="nmls">NMLS #245810</div>
+        </div>
+      </div>
+      <div class="tm-card">
+        <div class="tm-photo" style="background-image:linear-gradient(rgba(15,23,42,0),rgba(15,23,42,.04)),url('/template-previews/_assets/agent-m1.jpg')" role="img" aria-label="Marcus Cole headshot"></div>
+        <div class="tm-body">
+          <h3>Marcus Cole</h3>
+          <div class="role">VA &amp; FHA Specialist</div>
+          <div class="nmls">NMLS #318742</div>
+        </div>
+      </div>
+      <div class="tm-card">
+        <div class="tm-photo" style="background-image:linear-gradient(rgba(15,23,42,0),rgba(15,23,42,.04)),url('/template-previews/_assets/agent-f2.jpg')" role="img" aria-label="Priya Nair headshot"></div>
+        <div class="tm-body">
+          <h3>Priya Nair</h3>
+          <div class="role">Head of Refinance</div>
+          <div class="nmls">NMLS #402196</div>
+        </div>
+      </div>
+      <div class="tm-card">
+        <div class="tm-photo" style="background-image:linear-gradient(rgba(15,23,42,0),rgba(15,23,42,.04)),url('/template-previews/_assets/agent-m2.jpg')" role="img" aria-label="Daniel Reyes headshot"></div>
+        <div class="tm-body">
+          <h3>Daniel Reyes</h3>
+          <div class="role">Senior Loan Officer &middot; Jumbo</div>
+          <div class="nmls">NMLS #527903</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Work with a lender that actually moves.</h2>
+    <p>Five minutes to apply. Same-day rates. Real people when you need them.</p>
+    <a class="btn btn-light" href="apply.html">Apply now</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div class="f-brand">
+        <a class="brand" href="index.html"><span class="b">Rate</span>Ready</a>
+        <p>The mortgage platform built for speed. Apply online, see your real rate in minutes, and close in as few as 21 days.</p>
+        <p style="margin-top:16px">(000) 000-0000 &middot; hello@example.com</p>
+      </div>
+      <div class="f-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="programs.html">Programs</a></li>
+          <li><a href="calculator.html">Calculator</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="reviews.html">Reviews</a></li>
+          <li><a href="apply.html">Apply now</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <span>NMLS #123456 &middot; RateReady is a demo brand. Equal Housing Lender.</span>
+      <span>Template by <a href="https://pilk.ai">Pilk.ai</a></span>
+    </div>
+  </div>
+</footer>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

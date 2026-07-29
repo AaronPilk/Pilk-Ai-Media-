@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HomeFirst Lending — The friendly path home</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#faf6f0; --tint:#f3e9dc; --tint2:#efe5d6;
+  --terra:#c2571b; --terra-dark:#a54812; --green:#2e5339; --green-dark:#24422d;
+  --ink:#2e2a24; --ink-soft:#5c554b; --white:#ffffff;
+  --radius:20px; --radius-sm:16px;
+  --shadow:0 10px 30px rgba(46,42,36,.08); --shadow-lg:0 18px 44px rgba(46,42,36,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito Sans',system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.65;font-size:16px}
+h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif;font-weight:600;line-height:1.2;color:var(--ink)}
+img{max-width:100%;display:block}
+a{color:var(--terra)}
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:1000;background:rgba(250,246,240,.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(46,42,36,.08)}
+.nav-inner{max-width:1140px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:1.25rem}
+.brand svg{flex-shrink:0}
+.nav-links{display:flex;align-items:center;gap:6px;margin-left:auto;flex-wrap:wrap}
+.nav-links a{text-decoration:none;color:var(--ink-soft);font-weight:600;font-size:.95rem;padding:8px 14px;border-radius:999px;transition:background .2s,color .2s}
+.nav-links a:hover{background:var(--tint);color:var(--ink)}
+.nav-links a.active{background:var(--tint2);color:var(--terra)}
+.nav-cta{background:var(--terra)!important;color:#fff!important;padding:10px 22px!important;border-radius:999px;box-shadow:0 4px 14px rgba(194,87,27,.3)}
+.nav-cta:hover{background:var(--terra-dark)!important}
+
+/* HERO */
+.hero{background-image:linear-gradient(rgba(46,42,36,.45),rgba(46,42,36,.6)),url('/template-previews/_assets/hero-warm-home.jpg');background-size:cover;background-position:center;border-radius:0 0 32px 32px;color:#fff}
+.hero-inner{max-width:1140px;margin:0 auto;padding:110px 24px 130px;text-align:center}
+.hero-kicker{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:7px 18px;font-weight:700;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:22px}
+.hero h1{color:#fff;font-size:clamp(2.4rem,5.5vw,4rem);font-weight:700;margin-bottom:18px}
+.hero p{max-width:560px;margin:0 auto 34px;font-size:1.15rem;color:rgba(255,255,255,.92)}
+.hero-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-block;text-decoration:none;font-weight:700;font-size:1rem;padding:15px 32px;border-radius:999px;transition:transform .2s,box-shadow .2s,background .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--terra);color:#fff;box-shadow:0 8px 24px rgba(194,87,27,.4)}
+.btn-primary:hover{background:var(--terra-dark)}
+.btn-ghost{background:rgba(255,255,255,.14);color:#fff;border:1.5px solid rgba(255,255,255,.55)}
+.btn-ghost:hover{background:rgba(255,255,255,.24)}
+.btn-green{background:var(--green);color:#fff;box-shadow:0 8px 24px rgba(46,83,57,.35)}
+.btn-green:hover{background:var(--green-dark)}
+
+/* TRUST BAR */
+.trust{max-width:1040px;margin:-56px auto 0;padding:0 24px;position:relative;z-index:5}
+.trust-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow-lg);display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:30px 22px;text-align:center}
+.trust-num{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:1.7rem;color:var(--terra)}
+.trust-lbl{font-size:.85rem;color:var(--ink-soft);font-weight:600}
+
+/* SECTIONS */
+section{padding:84px 0}
+.section-tint{background:var(--tint)}
+.section-tint2{background:var(--tint2)}
+.section-white{background:var(--white)}
+.eyebrow{color:var(--terra);font-weight:700;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px}
+.sec-head{text-align:center;max-width:620px;margin:0 auto 52px}
+.sec-head h2{font-size:clamp(1.8rem,3.6vw,2.5rem);margin-bottom:14px}
+.sec-head p{color:var(--ink-soft);font-size:1.05rem}
+
+/* PROGRAM CARDS */
+.prog-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.prog-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:30px 26px;display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s;border:1px solid rgba(46,42,36,.05)}
+.prog-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.prog-icon{width:52px;height:52px;border-radius:16px;background:var(--tint);display:flex;align-items:center;justify-content:center;margin-bottom:18px;font-size:1.4rem}
+.prog-card h3{font-size:1.2rem;margin-bottom:10px}
+.prog-card p{color:var(--ink-soft);font-size:.95rem;flex:1;margin-bottom:16px}
+.prog-link{font-weight:700;text-decoration:none;color:var(--terra);font-size:.95rem}
+.prog-link:hover{text-decoration:underline}
+
+/* STEPS */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.step{background:var(--cream);border-radius:var(--radius);padding:36px 30px;text-align:center;box-shadow:var(--shadow)}
+.step-num{width:56px;height:56px;border-radius:50%;background:var(--green);color:#fff;font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:1.4rem;display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
+.step h3{font-size:1.25rem;margin-bottom:10px}
+.step p{color:var(--ink-soft);font-size:.95rem}
+
+/* TESTIMONIALS */
+.quote-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.quote-card{background:var(--white);border-radius:var(--radius);padding:32px 28px;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.stars{color:var(--terra);font-size:1rem;letter-spacing:2px;margin-bottom:14px}
+.quote-card blockquote{font-size:1rem;color:var(--ink);flex:1;margin-bottom:18px}
+.quote-who{display:flex;align-items:center;gap:12px}
+.quote-ava{width:44px;height:44px;border-radius:50%;object-fit:cover}
+.quote-name{font-weight:700;font-size:.95rem}
+.quote-loc{color:var(--ink-soft);font-size:.82rem}
+
+/* CTA BAND */
+.cta-band{background-image:linear-gradient(rgba(36,66,45,.72),rgba(36,66,45,.82)),url('/template-previews/_assets/home-ext-a.jpg');background-size:cover;background-position:center;border-radius:28px;max-width:1092px;margin:0 auto;padding:80px 40px;text-align:center;color:#fff}
+.cta-band h2{color:#fff;font-size:clamp(1.9rem,3.8vw,2.6rem);margin-bottom:14px}
+.cta-band p{color:rgba(255,255,255,.9);max-width:520px;margin:0 auto 30px;font-size:1.08rem}
+
+/* FOOTER */
+footer{background:var(--green);color:rgba(255,255,255,.85);padding:64px 0 90px;margin-top:84px}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1.4fr;gap:44px}
+.foot-brand{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:1.3rem;color:#fff;display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.foot-grid p{font-size:.92rem}
+.foot-grid h4{color:#fff;font-size:1rem;margin-bottom:14px}
+.foot-links{list-style:none}
+.foot-links li{margin-bottom:9px}
+.foot-links a{color:rgba(255,255,255,.8);text-decoration:none;font-size:.92rem}
+.foot-links a:hover{color:#fff;text-decoration:underline}
+.foot-meta{font-size:.88rem;line-height:1.9}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.18);margin-top:44px;padding-top:22px;font-size:.82rem;color:rgba(255,255,255,.6);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.foot-bottom a{color:rgba(255,255,255,.75)}
+
+@media (max-width:900px){
+  .trust-card{grid-template-columns:repeat(2,1fr);gap:22px}
+  .prog-grid{grid-template-columns:repeat(2,1fr)}
+  .steps,.quote-grid{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .nav-inner{gap:10px;justify-content:center}
+  .nav-links{margin-left:0;justify-content:center}
+  .hero-inner{padding:80px 24px 110px}
+  .prog-grid{grid-template-columns:1fr}
+  .trust-card{grid-template-columns:1fr 1fr;padding:24px 14px}
+  section{padding:64px 0}
+  .cta-band{padding:60px 24px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M3 11.5 12 4l9 7.5" stroke="#c2571b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 10.5V20h13v-9.5" stroke="#c2571b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 20v-5h4v5" stroke="#c2571b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      HomeFirst Lending
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="apply.html" class="nav-cta">Apply now</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <span class="hero-kicker">Local lending, done kindly</span>
+    <h1>The friendly path home.</h1>
+    <p>Buying a home is a big deal. We'll walk it with you — plain answers, honest numbers, and real people who pick up the phone.</p>
+    <div class="hero-ctas">
+      <a href="apply.html" class="btn btn-primary">Start your application</a>
+      <a href="calculator.html" class="btn btn-ghost">Try our calculator</a>
+    </div>
+  </div>
+</header>
+
+<div class="trust">
+  <div class="trust-card">
+    <div><div class="trust-num">$450M</div><div class="trust-lbl">funded for families</div></div>
+    <div><div class="trust-num">1,900+</div><div class="trust-lbl">families home</div></div>
+    <div><div class="trust-num">4.9&#9733;</div><div class="trust-lbl">from local families</div></div>
+    <div><div class="trust-num">25 yrs</div><div class="trust-lbl">combined experience</div></div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Loan programs</div>
+      <h2>A loan that fits your life, not the other way around</h2>
+      <p>First house or fifth, tiny down payment or big one — there's a path here for you. We'll help you find it.</p>
+    </div>
+    <div class="prog-grid">
+      <div class="prog-card">
+        <div class="prog-icon">&#127793;</div>
+        <h3>First-Time Buyer</h3>
+        <p>Never done this before? Perfect. We love firsts. Low down payments and extra hand-holding included.</p>
+        <a href="programs.html" class="prog-link">Learn more &rarr;</a>
+      </div>
+      <div class="prog-card">
+        <div class="prog-icon">&#127968;</div>
+        <h3>Conventional</h3>
+        <p>The classic, flexible option for buyers with steady footing. Competitive rates, straightforward terms.</p>
+        <a href="programs.html" class="prog-link">Learn more &rarr;</a>
+      </div>
+      <div class="prog-card">
+        <div class="prog-icon">&#128737;&#65039;</div>
+        <h3>FHA &amp; VA</h3>
+        <p>Government-backed loans with friendlier credit requirements — and a heartfelt thank-you for those who served.</p>
+        <a href="programs.html" class="prog-link">Learn more &rarr;</a>
+      </div>
+      <div class="prog-card">
+        <div class="prog-icon">&#128257;</div>
+        <h3>Refinance</h3>
+        <p>Already home? Let's see if a better rate or a shorter term could free up room in your budget.</p>
+        <a href="programs.html" class="prog-link">Learn more &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-tint">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">How it works</div>
+      <h2>Three steps. No mystery.</h2>
+      <p>We keep the process human from hello to housewarming.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Say hello</h3>
+        <p>Tell us a little about you and your goals. Five minutes, no credit pull, no pressure — just a conversation.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Get your game plan</h3>
+        <p>We'll map out your budget, your options, and your pre-approval in plain English. You'll know exactly where you stand.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Get the keys</h3>
+        <p>We handle the paperwork and keep you posted at every milestone, right up to the best part: moving day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-white">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Kind words</div>
+      <h2>Families we've walked home</h2>
+      <p>Real people answer our phones — and real families tell the story better than we can.</p>
+    </div>
+    <div class="quote-grid">
+      <div class="quote-card">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>"We were so nervous buying our first place. Our loan officer explained everything twice without ever making us feel silly. Closing day felt like a celebration."</blockquote>
+        <div class="quote-who">
+          <img class="quote-ava" src="/template-previews/_assets/agent-f1.jpg" alt="Maya R.">
+          <div><div class="quote-name">Maya R.</div><div class="quote-loc">First-time buyer &middot; Ohio</div></div>
+        </div>
+      </div>
+      <div class="quote-card">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>"Three kids, one dog, and a tight timeline — they got us moved before the school year started. Every call was answered by an actual human."</blockquote>
+        <div class="quote-who">
+          <img class="quote-ava" src="/template-previews/_assets/agent-m1.jpg" alt="Daniel K.">
+          <div><div class="quote-name">Daniel K.</div><div class="quote-loc">Growing family &middot; Texas</div></div>
+        </div>
+      </div>
+      <div class="quote-card">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>"Refinancing felt intimidating until HomeFirst laid out the math side by side. We're saving $310 a month and it took less effort than renewing my license."</blockquote>
+        <div class="quote-who">
+          <img class="quote-ava" src="/template-previews/_assets/agent-f2.jpg" alt="Priya S.">
+          <div><div class="quote-name">Priya S.</div><div class="quote-loc">Refinance &middot; Colorado</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-tint2">
+  <div class="wrap">
+    <div class="cta-band">
+      <h2>Ready when you are.</h2>
+      <p>No pressure, no jargon, no surprises. Just a friendly conversation about getting you home.</p>
+      <a href="apply.html" class="btn btn-primary">Start your application</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3 11.5 12 4l9 7.5" stroke="#f3e9dc" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.5 10.5V20h13v-9.5" stroke="#f3e9dc" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 20v-5h4v5" stroke="#f3e9dc" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          HomeFirst Lending
+        </div>
+        <p>The friendly path home. We're a family-first lender that believes big milestones deserve honest guidance, warm coffee, and real people who answer the phone.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul class="foot-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="programs.html">Programs</a></li>
+          <li><a href="calculator.html">Calculator</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="reviews.html">Reviews</a></li>
+          <li><a href="apply.html">Apply now</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>The fine print</h4>
+        <div class="foot-meta">
+          NMLS #234567<br>
+          HomeFirst Lending is a demo brand. Equal Housing Lender.<br>
+          (000) 000-0000 &middot; hello@example.com
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; 2026 HomeFirst Lending. All rights reserved.</span>
+      <span>Template by <a href="https://pilk.ai">Pilk.ai</a></span>
+    </div>
+  </div>
+</footer>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

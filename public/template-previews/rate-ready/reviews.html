@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reviews — RateReady</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#2563eb; --blue-dark:#1d4ed8; --blue-50:#eff6ff; --blue-100:#dbeafe;
+  --slate:#0f172a; --slate-2:#1e293b; --muted:#475569; --muted-2:#64748b;
+  --soft:#f8fafc; --line:#e2e8f0; --white:#ffffff; --star:#f59e0b;
+  --r:10px; --r-lg:14px;
+  --shadow:0 1px 3px rgba(15,23,42,.06),0 6px 20px rgba(15,23,42,.06);
+  --shadow-lg:0 4px 6px rgba(15,23,42,.05),0 16px 40px rgba(15,23,42,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;color:var(--slate);background:var(--white);line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+.nav{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1180px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;min-height:68px}
+.brand{font-size:1.35rem;font-weight:800;letter-spacing:-.03em;padding:12px 0}
+.brand .b{color:var(--blue)}
+.nav-links{display:flex;align-items:center;flex-wrap:wrap;gap:4px}
+.nav-links a{font-size:.92rem;font-weight:500;color:var(--muted);padding:8px 13px;border-radius:8px;transition:color .15s,background .15s}
+.nav-links a:hover{color:var(--slate);background:var(--blue-50)}
+.nav-links a.active{color:var(--blue);background:var(--blue-50);font-weight:600}
+.nav-links .btn-nav{margin-left:8px;background:var(--blue);color:#fff;font-weight:600;padding:10px 20px;border-radius:8px;box-shadow:0 2px 8px rgba(37,99,235,.3);transition:background .15s,transform .15s}
+.nav-links .btn-nav:hover{background:var(--blue-dark);color:#fff;transform:translateY(-1px)}
+
+.btn{display:inline-block;font-weight:600;font-size:1rem;padding:14px 28px;border-radius:10px;transition:all .18s;cursor:pointer;border:none;font-family:inherit}
+.btn-light{background:#fff;color:var(--blue);box-shadow:0 4px 14px rgba(15,23,42,.2)}
+.btn-light:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(15,23,42,.3)}
+
+/* AGGREGATE HEADER */
+.agg{background:linear-gradient(135deg,var(--blue-50) 0%,#fff 55%,var(--blue-50) 100%);border-bottom:1px solid var(--line);padding:72px 0 64px;text-align:center}
+.agg .kicker{display:inline-block;background:var(--blue-100);color:var(--blue-dark);font-size:.8rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:7px 16px;border-radius:999px;margin-bottom:20px}
+.agg h1{font-size:clamp(2rem,4.2vw,2.9rem);font-weight:800;letter-spacing:-.03em;line-height:1.1;margin-bottom:20px}
+.agg .big-stars{color:var(--star);font-size:1.8rem;letter-spacing:6px;margin-bottom:10px}
+.agg .score{font-size:1.15rem;font-weight:700}
+.agg .score span{color:var(--muted);font-weight:500}
+.agg .chips{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:26px}
+.agg .chip{background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 18px;font-size:.85rem;font-weight:600;color:var(--muted);box-shadow:var(--shadow)}
+.agg .chip b{color:var(--blue)}
+
+.section{padding:80px 0}
+.section.soft{background:var(--soft)}
+
+/* REVIEW CARDS */
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.rev-card{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:30px 28px;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s,border-color .2s}
+.rev-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);border-color:var(--blue-100)}
+.rev-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.stars{color:var(--star);letter-spacing:2px;font-size:.95rem}
+.stars .half{position:relative;display:inline-block;color:var(--line)}
+.stars .half::before{content:"\2605";position:absolute;left:0;top:0;width:50%;overflow:hidden;color:var(--star)}
+.rev-date{font-size:.76rem;font-weight:600;color:var(--muted-2);background:var(--soft);border:1px solid var(--line);padding:4px 10px;border-radius:999px}
+.rev-card blockquote{font-size:.94rem;color:var(--slate-2);line-height:1.65;flex:1}
+.rev-who{margin-top:20px;display:flex;align-items:center;gap:12px;padding-top:16px;border-top:1px solid var(--soft)}
+.rev-avatar{flex:none;width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--blue-dark));color:#fff;font-weight:700;font-size:.82rem;display:flex;align-items:center;justify-content:center}
+.rev-who b{display:block;font-size:.9rem;font-weight:700}
+.rev-who span{font-size:.78rem;color:var(--muted-2)}
+.rev-tag{display:inline-block;margin-top:3px;background:var(--blue-50);color:var(--blue);font-size:.7rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 9px;border-radius:999px}
+
+/* CTA */
+.cta-band{background-image:linear-gradient(rgba(15,23,42,.72),rgba(29,78,216,.68)),url('/template-previews/_assets/city-skyline.jpg');background-size:cover;background-position:center;color:#fff;padding:96px 0;text-align:center}
+.cta-band h2{font-size:clamp(1.9rem,4vw,2.7rem);font-weight:800;letter-spacing:-.03em;max-width:640px;margin:0 auto 16px;line-height:1.15}
+.cta-band p{color:#cbd5e1;font-size:1.08rem;max-width:520px;margin:0 auto 34px}
+
+footer{background:var(--slate);color:#94a3b8;padding:72px 0 0;font-size:.92rem}
+.f-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:48px;padding-bottom:52px}
+.f-brand .brand{color:#fff;padding:0;display:inline-block;margin-bottom:16px}
+.f-brand p{max-width:320px;line-height:1.7}
+.f-col h4{color:#fff;font-size:.85rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:18px}
+.f-col ul{list-style:none;display:grid;gap:10px}
+.f-col a{transition:color .15s}
+.f-col a:hover{color:#fff}
+.f-bottom{border-top:1px solid #1e293b;padding:24px 0 60px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.82rem;color:#64748b}
+.f-bottom a{color:#93c5fd}
+.f-bottom a:hover{text-decoration:underline}
+
+@media (max-width:960px){
+  .rev-grid{grid-template-columns:1fr 1fr}
+  .f-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  .section{padding:56px 0}
+  .agg{padding:56px 0}
+  .rev-grid{grid-template-columns:1fr}
+  .f-grid{grid-template-columns:1fr;gap:36px}
+  .nav-inner{justify-content:center;padding:10px 16px}
+  .nav-links{justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html"><span class="b">Rate</span>Ready</a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html" class="active">Reviews</a>
+      <a class="btn-nav" href="apply.html">Apply now</a>
+    </nav>
+  </div>
+</header>
+
+<section class="agg">
+  <div class="wrap">
+    <span class="kicker">Verified reviews</span>
+    <h1>The receipts speak for themselves.</h1>
+    <div class="big-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+    <div class="score">4.9 out of 5 <span>&middot; based on 612 reviews</span></div>
+    <div class="chips">
+      <span class="chip"><b>98%</b> would recommend</span>
+      <span class="chip"><b>21-day</b> average close</span>
+      <span class="chip"><b>612</b> verified borrowers</span>
+    </div>
+  </div>
+</section>
+
+<section class="section soft">
+  <div class="wrap">
+    <div class="rev-grid">
+
+      <div class="rev-card">
+        <div class="rev-top"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="rev-date">2 weeks ago</span></div>
+        <blockquote>"First house, zero clue what I was doing. The application really did take about five minutes and my pre-approval letter showed up the same afternoon. We closed in 19 days and beat two cash offers because our letter was already fully underwritten."</blockquote>
+        <div class="rev-who">
+          <div class="rev-avatar">MK</div>
+          <div><b>Maya K.</b><span>Austin, TX</span><br><span class="rev-tag">First-time buyer</span></div>
+        </div>
+      </div>
+
+      <div class="rev-card">
+        <div class="rev-top"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="rev-date">1 month ago</span></div>
+        <blockquote>"Refinanced from 7.4% down to 6.1% and dropped PMI in the same move — $410 less per month. They showed me the break-even math before I paid a dime, which no other lender bothered to do."</blockquote>
+        <div class="rev-who">
+          <div class="rev-avatar">DR</div>
+          <div><b>Devon R.</b><span>Charlotte, NC</span><br><span class="rev-tag">Refinance</span></div>
+        </div>
+      </div>
+
+      <div class="rev-card">
+        <div class="rev-top"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="rev-date">1 month ago</span></div>
+        <blockquote>"Three lenders told me my VA benefit 'wasn't worth using' and pushed conventional. Marcus at RateReady knew the program cold, got me zero down with no monthly mortgage insurance, and closed in 24 days. Vets, start here."</blockquote>
+        <div class="rev-who">
+          <div class="rev-avatar">JT</div>
+          <div><b>James T.</b><span>San Diego, CA</span><br><span class="rev-tag">VA loan</span></div>
+        </div>
+      </div>
+
+      <div class="rev-card">
+        <div class="rev-top"><span class="stars">&#9733;&#9733;&#9733;&#9733;<span class="half">&#9733;</span></span><span class="rev-date">2 months ago</span></div>
+        <blockquote>"Rates jumped the week we went under contract and I was panicking. My loan officer locked us that morning and the lock held through a seller-side delay at no extra cost. Docking half a star only because the appraisal scheduling took a few extra days."</blockquote>
+        <div class="rev-who">
+          <div class="rev-avatar">AP</div>
+          <div><b>Alicia P.</b><span>Denver, CO</span><br><span class="rev-tag">Rate lock</span></div>
+        </div>
+      </div>
+
+      <div class="rev-card">
+        <div class="rev-top"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="rev-date">2 months ago</span></div>
+        <blockquote>"Self-employed, so I braced for a nightmare. Uploaded two years of returns through the portal, answered a handful of questions, done. No fax machines, no 'can you resend that,' no drama. Closed in 26 days."</blockquote>
+        <div class="rev-who">
+          <div class="rev-avatar">SB</div>
+          <div><b>Sam B.</b><span>Nashville, TN</span><br><span class="rev-tag">Self-employed</span></div>
+        </div>
+      </div>
+
+      <div class="rev-card">
+        <div class="rev-top"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="rev-date">3 months ago</span></div>
+        <blockquote>"We used the cash-out refi to fund a kitchen renovation. Clear numbers upfront, funded in three weeks, and the status tracker meant I never once had to call and ask 'where are we?' That alone is worth five stars."</blockquote>
+        <div class="rev-who">
+          <div class="rev-avatar">LH</div>
+          <div><b>Lauren H.</b><span>Phoenix, AZ</span><br><span class="rev-tag">Cash-out refi</span></div>
+        </div>
+      </div>
+
+      <div class="rev-card">
+        <div class="rev-top"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="rev-date">3 months ago</span></div>
+        <blockquote>"FHA with a 597 score and a short credit history — other lenders wouldn't return my calls. RateReady walked me through exactly what I needed, and four months later I had keys. They treat you like you're ready now, not 'someday.'"</blockquote>
+        <div class="rev-who">
+          <div class="rev-avatar">CG</div>
+          <div><b>Carlos G.</b><span>Orlando, FL</span><br><span class="rev-tag">FHA</span></div>
+        </div>
+      </div>
+
+      <div class="rev-card">
+        <div class="rev-top"><span class="stars">&#9733;&#9733;&#9733;&#9733;<span class="half">&#9733;</span></span><span class="rev-date">4 months ago</span></div>
+        <blockquote>"Jumbo loan on a new build. Pricing beat our private bank by an eighth, and everything was digital except the closing itself. Would've been five stars if the final walkthrough docs had come a day earlier, but honestly — smoothest big loan I've done."</blockquote>
+        <div class="rev-who">
+          <div class="rev-avatar">NW</div>
+          <div><b>Nadia W.</b><span>Seattle, WA</span><br><span class="rev-tag">Jumbo</span></div>
+        </div>
+      </div>
+
+      <div class="rev-card">
+        <div class="rev-top"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="rev-date">4 months ago</span></div>
+        <blockquote>"Relocated for work with a 30-day deadline to close. They hit day 20. My agent said she'd never seen underwriting move that fast, and asked who my lender was so she could send other clients."</blockquote>
+        <div class="rev-who">
+          <div class="rev-avatar">EM</div>
+          <div><b>Evan M.</b><span>Columbus, OH</span><br><span class="rev-tag">Fast close</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Join 1,900 families who closed the fast way.</h2>
+    <p>Five minutes online. Real rates. A team people apparently write nice things about.</p>
+    <a class="btn btn-light" href="apply.html">Apply now</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div class="f-brand">
+        <a class="brand" href="index.html"><span class="b">Rate</span>Ready</a>
+        <p>The mortgage platform built for speed. Apply online, see your real rate in minutes, and close in as few as 21 days.</p>
+        <p style="margin-top:16px">(000) 000-0000 &middot; hello@example.com</p>
+      </div>
+      <div class="f-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="programs.html">Programs</a></li>
+          <li><a href="calculator.html">Calculator</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="reviews.html">Reviews</a></li>
+          <li><a href="apply.html">Apply now</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <span>NMLS #123456 &middot; RateReady is a demo brand. Equal Housing Lender.</span>
+      <span>Template by <a href="https://pilk.ai">Pilk.ai</a></span>
+    </div>
+  </div>
+</footer>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

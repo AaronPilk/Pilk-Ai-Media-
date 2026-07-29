@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Firm — Keystone Capital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--ivory:#f7f4ee;--char:#2b2825;--burg:#7a1f2b;--brass:#b08d3e;--muted:#6f6a62;--line:#e4ddd0}
+  body{font-family:'Source Sans 3',Georgia,serif;background:var(--ivory);color:var(--char);line-height:1.7;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:'Playfair Display',Georgia,serif}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+  a{color:inherit;text-decoration:none}
+  .topbar{background:var(--char);color:#cfc8bc;font-size:12px;letter-spacing:.08em;text-align:center;padding:8px 16px}
+  .topbar b{color:var(--brass);font-weight:600}
+  header{position:sticky;top:0;background:rgba(247,244,238,0.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:100}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:76px;gap:16px}
+  .logo{font-family:'Playfair Display',serif;font-weight:700;font-size:21px;letter-spacing:.02em}
+  .logo .est{display:block;font-family:'Source Sans 3',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:var(--brass);margin-top:-2px}
+  .nav-links{display:flex;align-items:center;gap:30px;font-size:13.5px;letter-spacing:.04em;color:var(--muted)}
+  .nav-links a:hover{color:var(--burg)}
+  .nav-links a.active{color:var(--burg);font-weight:600}
+  .btn{display:inline-block;padding:13px 30px;font-size:13.5px;font-weight:600;letter-spacing:.06em;cursor:pointer;border:none;transition:background .2s ease,color .2s ease;font-family:'Source Sans 3',sans-serif}
+  .btn-burg{background:var(--burg);color:#f7f4ee}
+  .btn-burg:hover{background:#621822}
+  .nav .btn{padding:11px 22px}
+  .page-head{padding:92px 0 64px;text-align:center;border-bottom:1px solid var(--line)}
+  .kicker{font-size:12px;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:var(--brass);margin-bottom:18px}
+  h1{font-size:48px;font-weight:600;line-height:1.16;max-width:24ch;margin:0 auto}
+  section{padding:96px 0}
+  h2{font-size:36px;font-weight:600;line-height:1.2}
+  .story{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+  .story p{color:var(--muted);font-size:15.5px;margin-bottom:18px}
+  .story p b{color:var(--char)}
+  .story .drop::first-letter{font-family:'Playfair Display',serif;font-size:52px;float:left;line-height:.9;padding-right:10px;color:var(--burg)}
+  .story-img{aspect-ratio:4/3.4;background:linear-gradient(160deg,#d8d0c0,#c4baa6);background-image:url('/template-previews/_assets/hero-luxury-exterior.jpg');background-size:cover;background-position:center;border:8px solid #fffdf9;box-shadow:0 16px 48px rgba(43,40,37,0.14)}
+  .values-band{background:#fffdf9;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .values{display:grid;grid-template-columns:repeat(3,1fr);gap:52px;margin-top:56px}
+  .value{text-align:center}
+  .value .rn{font-family:'Playfair Display',serif;font-size:17px;color:var(--brass);letter-spacing:.2em}
+  .value h3{font-size:21px;margin-top:12px}
+  .value .sep{width:36px;height:1px;background:var(--brass);margin:16px auto}
+  .value p{font-size:14.5px;color:var(--muted)}
+  .sec-head{text-align:center;max-width:600px;margin:0 auto}
+  .sec-head p{margin-top:16px;color:var(--muted)}
+  .team{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:60px}
+  .member{text-align:center}
+  .member .photo{aspect-ratio:3/3.5;background:linear-gradient(160deg,#d8d0c0,#c4baa6);background-size:cover;background-position:center top;border:6px solid #fffdf9;box-shadow:0 10px 30px rgba(43,40,37,0.12)}
+  .member h3{margin-top:20px;font-size:19px}
+  .member .role{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--burg);margin-top:4px}
+  .member .nmls{font-size:12px;color:var(--muted);margin-top:2px;letter-spacing:.06em}
+  .member p{font-size:13.5px;color:var(--muted);margin-top:12px}
+  .band{background:var(--burg);color:#f3ede4;text-align:center;padding:84px 24px}
+  .band .kicker{color:var(--brass)}
+  .band h2{color:#fbf7ef}
+  .band p{margin:18px auto 0;max-width:50ch;color:#e0d3cd}
+  .band .btn{margin-top:32px;background:var(--ivory);color:var(--burg)}
+  footer{padding:64px 0 44px;background:var(--char);color:#a8a095}
+  .foot-grid{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap}
+  .foot-brand{max-width:320px}
+  .foot-brand .logo{color:#f3efe7}
+  .foot-brand p{margin-top:14px;font-size:13.5px}
+  .foot-links{display:flex;gap:60px;flex-wrap:wrap}
+  .foot-links h4{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--brass);margin-bottom:16px}
+  .foot-links a{display:block;font-size:14px;margin-bottom:10px;color:#a8a095}
+  .foot-links a:hover{color:#f3efe7}
+  .legal{margin-top:48px;padding-top:26px;border-top:1px solid rgba(176,141,62,0.25);font-size:12px;color:#7d766c;line-height:1.9}
+  @media(max-width:900px){
+    h1{font-size:32px}
+    h2{font-size:27px}
+    .page-head{padding:52px 0 40px}
+    section{padding:60px 0}
+    .story{grid-template-columns:1fr;gap:36px}
+    .values{grid-template-columns:1fr;gap:36px}
+    .team{grid-template-columns:repeat(2,1fr);gap:28px}
+    .nav{height:auto;flex-wrap:wrap;padding:14px 0}
+    .nav-links{gap:16px;flex-wrap:wrap;font-size:13px;order:3;width:100%;padding-bottom:4px}
+  }
+  @media(max-width:480px){.team{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="topbar">Serving discerning homeowners since <b>1987</b> · Private lending, personally delivered</div>
+
+<header>
+  <div class="wrap nav">
+    <a href="index.html" class="logo">Keystone Capital<span class="est">Est. 1987</span></a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Lending</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html" class="active">Our Firm</a>
+      <a href="reviews.html">Testimonials</a>
+    </nav>
+    <a href="apply.html" class="btn btn-burg">Apply now</a>
+  </div>
+</header>
+
+<div class="page-head">
+  <div class="wrap">
+    <div class="kicker">Our Firm</div>
+    <h1>Some firms chase the market. We have outlasted it — four times.</h1>
+  </div>
+</div>
+
+<section>
+  <div class="wrap story">
+    <div>
+      <h2>A history of keeping our word.</h2>
+      <p class="drop" style="margin-top:22px">Keystone Capital was founded in 1987 on a conviction that has not required revision since: a mortgage is the largest financial commitment most families ever make, and it deserves the same care a private bank extends to its wealthiest clients.</p>
+      <p>Through the savings-and-loan crisis, the dot-com winter, 2008, and the rate shocks that followed, our practice has not changed. <b>We lend on sound principles, we put our counsel in writing, and we tell clients the truth</b> — including when the truth is that they should wait.</p>
+      <p>Today the second generation of Keystone bankers serves the second generation of Keystone families. We consider that symmetry our finest credential.</p>
+    </div>
+    <div class="story-img" role="img" aria-label="Stately residence with manicured grounds"></div>
+  </div>
+</section>
+
+<div class="values-band">
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="kicker">Guiding Principles</div>
+        <h2>Three commitments, kept since 1987.</h2>
+      </div>
+      <div class="values">
+        <div class="value">
+          <div class="rn">I</div>
+          <h3>Candor</h3>
+          <div class="sep"></div>
+          <p>Our recommendation is delivered in writing, with the reasoning attached. If a loan does not serve you, we will say so — and we frequently have.</p>
+        </div>
+        <div class="value">
+          <div class="rn">II</div>
+          <h3>Discretion</h3>
+          <div class="sep"></div>
+          <p>Your finances are discussed with you, your banker, and no one else. No lead lists, no marketing calls, no exceptions.</p>
+        </div>
+        <div class="value">
+          <div class="rn">III</div>
+          <h3>Continuity</h3>
+          <div class="sep"></div>
+          <p>The banker who opens your file closes it — and answers the phone when you call back in five years. Relationships here are measured in decades.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="kicker">The Bankers</div>
+      <h2>The people who will know your name.</h2>
+    </div>
+    <div class="team">
+      <div class="member">
+        <div class="photo" style="background-image:url('/template-previews/_assets/agent-m2.jpg')" role="img" aria-label="Portrait of Edmund Carroway"></div>
+        <h3>Edmund Carroway</h3>
+        <div class="role">Managing Principal</div>
+        <div class="nmls">NMLS #000000</div>
+        <p>Thirty-one years with the firm. Oversees the estate lending practice and still reviews every jumbo memorandum before it leaves the office.</p>
+      </div>
+      <div class="member">
+        <div class="photo" style="background-image:url('/template-previews/_assets/agent-f2.jpg')" role="img" aria-label="Portrait of Margaret Ellsworth"></div>
+        <h3>Margaret Ellsworth</h3>
+        <div class="role">Senior Private Banker</div>
+        <div class="nmls">NMLS #000000</div>
+        <p>Counsel to three generations of client families. Regarded as the firm's conscience on refinance questions — and its most frequent author of "not yet."</p>
+      </div>
+      <div class="member">
+        <div class="photo" style="background-image:url('/template-previews/_assets/agent-m1.jpg')" role="img" aria-label="Portrait of Thomas Beaumont"></div>
+        <h3>Thomas Beaumont</h3>
+        <div class="role">Private Banker, VA &amp; FHA</div>
+        <div class="nmls">NMLS #000000</div>
+        <p>A veteran himself, he administers the firm's VA practice with particular pride. Handles every Certificate of Eligibility personally.</p>
+      </div>
+      <div class="member">
+        <div class="photo" style="background-image:url('/template-previews/_assets/agent-f1.jpg')" role="img" aria-label="Portrait of Charlotte Hale"></div>
+        <h3>Charlotte Hale</h3>
+        <div class="role">Private Banker, First Homes</div>
+        <div class="nmls">NMLS #000000</div>
+        <p>Leads the first-home counsel practice. Believes a client's first mortgage should be an education, and conducts it accordingly.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="band">
+  <div class="kicker">An Invitation</div>
+  <h2>Begin a relationship, not a transaction.</h2>
+  <p>Request a consultation and one of our senior bankers will respond within a business day — personally.</p>
+  <a href="apply.html" class="btn">Request a consultation</a>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo">Keystone Capital<span class="est">Est. 1987</span></div>
+        <p>Private mortgage counsel for families who measure wealth in generations, not quarters.</p>
+      </div>
+      <div class="foot-links">
+        <div>
+          <h4>The Firm</h4>
+          <a href="about.html">Our history</a>
+          <a href="reviews.html">Testimonials</a>
+          <a href="apply.html">Consultations</a>
+        </div>
+        <div>
+          <h4>Lending</h4>
+          <a href="programs.html">All programs</a>
+          <a href="calculator.html">Payment calculator</a>
+          <a href="programs.html">Refinance counsel</a>
+        </div>
+        <div>
+          <h4>Correspondence</h4>
+          <a href="apply.html">(000) 000-0000</a>
+          <a href="apply.html">hello@example.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="legal">
+      Keystone Capital · NMLS #000000 · Equal Housing Opportunity. This is a demo website; all rates, statistics, and testimonials are sample content for illustration only and do not constitute an offer to lend.<br>
+      (000) 000-0000 · hello@example.com · Template by Pilk.ai
+    </div>
+  </div>
+</footer>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

@@ -72,6 +72,14 @@
   .consent{display:flex;gap:11px;align-items:flex-start;margin:6px 0 18px;font-size:.85rem;color:var(--slate);line-height:1.5}
   .consent input{margin-top:3px;width:16px;height:16px;accent-color:var(--teal);flex-shrink:0}
   .submit{width:100%;padding:15px;font-size:1.05rem}
+  .success-card{display:none;background:#fff;border:1px solid var(--line);border-radius:18px;padding:48px 36px;text-align:center;box-shadow:var(--shadow-sm)}
+  .success-card.show{display:block}
+  .success-card .check{width:64px;height:64px;border-radius:50%;background:var(--teal-soft);color:var(--teal);font-size:1.9rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
+  .success-card h2{font-size:1.6rem;margin-bottom:10px;color:var(--ink)}
+  .success-card p{color:var(--slate);max-width:440px;margin:0 auto 22px}
+  .success-card ul{list-style:none;text-align:left;max-width:400px;margin:0 auto;display:grid;gap:10px}
+  .success-card ul li{color:var(--slate);padding-left:26px;position:relative}
+  .success-card ul li::before{content:"✓";position:absolute;left:0;color:var(--teal);font-weight:800}
   .fineprint{margin-top:14px;font-size:.78rem;color:var(--slate);text-align:center;line-height:1.5}
 
   .aside{display:flex;flex-direction:column;gap:20px;position:sticky;top:96px}
@@ -136,7 +144,7 @@
 <section class="apply-sec">
   <div class="wrap apply-grid">
 
-    <form class="form-card" action="#" method="post">
+    <form class="form-card" id="apply-form" action="#" method="post">
 
       <!-- 1: PURPOSE -->
       <div class="fset">
@@ -303,6 +311,18 @@
       <p class="fineprint">Submitting does not guarantee loan approval. A loan officer will follow up to confirm details and discuss your options. This is a demo template — no data is collected.</p>
     </form>
 
+    <div class="success-card" id="apply-success">
+      <div class="check">✓</div>
+      <h2>Application received</h2>
+      <p>Thanks — you're in the queue. A Beacon Lending loan officer will review your info and reach out within one business day with real numbers and next steps.</p>
+      <ul>
+        <li>We match you to the right loan program</li>
+        <li>You get a call or email — usually same business day</li>
+        <li>Pre-approval letter issued, often within 24 hours</li>
+        <li>Checking your options never affects your credit score</li>
+      </ul>
+    </div>
+
     <!-- ASIDE -->
     <div class="aside">
       <div class="aside-card">
@@ -359,6 +379,20 @@
   </div>
 </footer>
 
+<script>
+(function(){
+  var form = document.getElementById('apply-form');
+  var success = document.getElementById('apply-success');
+  if (form && success) {
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      form.style.display = 'none';
+      success.classList.add('show');
+      success.scrollIntoView({behavior:'smooth', block:'center'});
+    });
+  }
+})();
+</script>
 <div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
 </body>
 </html>

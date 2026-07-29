@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Metro Lending Group — Big-City Lending, Zero Runaround</title>
+<meta name="description" content="Metro Lending Group. Condo-smart mortgage lending for urban buyers. Apply in minutes, close in days.">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Archivo',Helvetica,Arial,sans-serif;background:#ffffff;color:#0a0a0a;-webkit-font-smoothing:antialiased;line-height:1.5}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.label{font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:#525252}
+.idx{font-size:12px;letter-spacing:.15em;font-weight:700;color:#dc2626}
+.wrap{max-width:1280px;margin:0 auto;padding:0 24px}
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:#ffffff;border-bottom:1px solid #e5e5e5}
+.nav-in{max-width:1280px;margin:0 auto;padding:0 24px;height:66px;display:flex;align-items:center;justify-content:space-between;position:relative}
+.logo{font-weight:900;font-size:19px;letter-spacing:-.02em;text-transform:uppercase}
+.logo em{font-style:normal;color:#dc2626}
+.menu-t{display:none}
+.menu-btn{display:none}
+.links{display:flex;align-items:center;gap:26px}
+.links a{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:#525252;padding:6px 0;border-bottom:2px solid transparent;transition:color .15s}
+.links a:hover{color:#0a0a0a}
+.links a.active{color:#0a0a0a;border-bottom-color:#dc2626}
+.links a.cta{background:#dc2626;color:#ffffff;padding:13px 22px;border-bottom:none}
+.links a.cta:hover{background:#0a0a0a;color:#ffffff}
+@media(max-width:860px){
+  .menu-btn{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:10px 0}
+  .menu-btn span{display:block;width:24px;height:2px;background:#0a0a0a}
+  .links{display:none;position:absolute;top:66px;left:0;right:0;background:#ffffff;border-bottom:1px solid #e5e5e5;flex-direction:column;align-items:stretch;gap:0}
+  .links a{padding:16px 24px;border-bottom:1px solid #e5e5e5}
+  .links a.active{border-left:3px solid #dc2626;border-bottom:1px solid #e5e5e5}
+  .links a.cta{margin:16px 24px;text-align:center}
+  .menu-t:checked ~ .links{display:flex}
+}
+/* HERO */
+.hero{position:relative;min-height:84vh;display:flex;align-items:flex-end;overflow:hidden;background:#0a0a0a}
+.hero::before{content:"";position:absolute;inset:0;background-image:url('/template-previews/_assets/hero-loft.jpg'),linear-gradient(135deg,#1a1a1a,#333333);background-size:cover;background-position:center;filter:grayscale(1)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,.35) 0%,rgba(10,10,10,.82) 100%)}
+.hero-in{position:relative;z-index:2;width:100%;max-width:1280px;margin:0 auto;padding:120px 24px 72px;color:#ffffff}
+.hero .label{color:#a3a3a3;margin-bottom:18px}
+.hero h1{font-size:clamp(44px,7.2vw,104px);font-weight:900;line-height:.95;letter-spacing:-.03em;text-transform:uppercase;max-width:16ch}
+.hero h1 .u{border-bottom:6px solid #dc2626;display:inline-block;line-height:1.05}
+.hero p{margin:26px 0 34px;font-size:17px;color:#d4d4d4;max-width:52ch}
+.btn-row{display:flex;gap:14px;flex-wrap:wrap}
+.btn{display:inline-block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;padding:17px 30px;transition:background .15s,color .15s}
+.btn-red{background:#dc2626;color:#ffffff}
+.btn-red:hover{background:#ffffff;color:#0a0a0a}
+.btn-ghost{border:1px solid #ffffff;color:#ffffff}
+.btn-ghost:hover{background:#ffffff;color:#0a0a0a}
+.btn-black{background:#0a0a0a;color:#ffffff}
+.btn-black:hover{background:#dc2626}
+/* STATS */
+.stats{border-bottom:1px solid #e5e5e5}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#e5e5e5;border-left:1px solid #e5e5e5;border-right:1px solid #e5e5e5}
+.stat{background:#ffffff;padding:36px 28px}
+.stat b{display:block;font-size:clamp(30px,3.4vw,46px);font-weight:900;letter-spacing:-.03em;color:#dc2626;line-height:1}
+.stat span{display:block;margin-top:10px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;color:#525252}
+/* SECTIONS */
+.sec{padding:88px 0}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:44px;flex-wrap:wrap}
+.sec-head h2{font-size:clamp(30px,4.4vw,58px);font-weight:900;letter-spacing:-.03em;text-transform:uppercase;line-height:1}
+.sec-head .label{margin-bottom:12px;display:block}
+/* PROGRAM CARDS */
+.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#e5e5e5;border:1px solid #e5e5e5}
+.pcard{background:#ffffff;padding:32px 26px 28px;display:flex;flex-direction:column;min-height:280px;transition:background .15s}
+.pcard:hover{background:#f5f5f5}
+.pcard h3{margin:44px 0 10px;font-size:21px;font-weight:800;text-transform:uppercase;letter-spacing:-.01em}
+.pcard p{font-size:14px;color:#525252;flex:1}
+.pcard a{margin-top:22px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:#0a0a0a;border-bottom:2px solid #dc2626;align-self:flex-start;padding-bottom:4px}
+.pcard a:hover{color:#dc2626}
+/* STEPS */
+.steps-sec{background:#0a0a0a;color:#ffffff}
+.steps-sec .sec-head h2{color:#ffffff}
+.steps-sec .label{color:#a3a3a3}
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#262626;border:1px solid #262626}
+.scell{background:#0a0a0a;padding:38px 30px}
+.scell .idx{font-size:13px}
+.scell h3{margin:40px 0 12px;font-size:26px;font-weight:900;text-transform:uppercase;letter-spacing:-.01em}
+.scell p{font-size:14px;color:#a3a3a3}
+/* SPLIT */
+.split{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid #e5e5e5;border-bottom:1px solid #e5e5e5}
+.split-img{position:relative;min-height:420px;background-image:url('/template-previews/_assets/int-living-bright.jpg'),linear-gradient(135deg,#1a1a1a,#333333);background-size:cover;background-position:center;filter:grayscale(1);transition:filter .3s}
+.split:hover .split-img{filter:grayscale(0)}
+.split-copy{padding:72px 56px;border-left:1px solid #e5e5e5;display:flex;flex-direction:column;justify-content:center}
+.split-copy h2{font-size:clamp(28px,3.6vw,44px);font-weight:900;letter-spacing:-.03em;text-transform:uppercase;line-height:1.02;margin:14px 0 18px}
+.split-copy p{font-size:15px;color:#525252;max-width:48ch;margin-bottom:14px}
+.split-copy .btn{align-self:flex-start;margin-top:14px}
+/* TESTIMONIALS */
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#e5e5e5;border:1px solid #e5e5e5}
+.tcell{background:#ffffff;padding:34px 30px}
+.tcell .stars{color:#0a0a0a;letter-spacing:3px;font-size:14px;margin-bottom:16px}
+.tcell blockquote{font-size:16px;font-weight:600;line-height:1.45}
+.tcell footer{margin-top:20px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:700}
+.tcell footer span{display:block;color:#737373;font-weight:600;margin-top:4px}
+/* CTA BAND */
+.band{position:relative;overflow:hidden;background:#0a0a0a}
+.band::before{content:"";position:absolute;inset:0;background-image:url('/template-previews/_assets/city-skyline.jpg'),linear-gradient(135deg,#1a1a1a,#333333);background-size:cover;background-position:center;filter:grayscale(1)}
+.band::after{content:"";position:absolute;inset:0;background:rgba(10,10,10,.78)}
+.band-in{position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:110px 24px;text-align:center;color:#ffffff}
+.band-in .label{color:#a3a3a3;display:block;margin-bottom:16px}
+.band-in h2{font-size:clamp(32px,5.4vw,68px);font-weight:900;letter-spacing:-.03em;text-transform:uppercase;line-height:1;margin-bottom:30px}
+.band-in h2 em{font-style:normal;color:#dc2626}
+/* FOOTER */
+.foot{background:#0a0a0a;color:#ffffff}
+.foot-grid{max-width:1280px;margin:0 auto;padding:64px 24px;display:grid;grid-template-columns:1.4fr 1fr;gap:48px}
+.foot-brand .logo{font-size:22px}
+.foot-brand p{margin-top:14px;font-size:14px;color:#a3a3a3;max-width:36ch}
+.foot-links{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#262626;border:1px solid #262626;align-self:start}
+.foot-links a{background:#0a0a0a;padding:16px 18px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:#a3a3a3}
+.foot-links a:hover{color:#ffffff;background:#171717}
+.foot-legal{border-top:1px solid #262626}
+.foot-legal-in{max-width:1280px;margin:0 auto;padding:22px 24px 48px;display:flex;flex-wrap:wrap;gap:10px 28px;font-size:11px;letter-spacing:.08em;color:#737373}
+@media(max-width:860px){
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .pgrid{grid-template-columns:1fr 1fr}
+  .sgrid,.tgrid{grid-template-columns:1fr}
+  .split{grid-template-columns:1fr}
+  .split-copy{border-left:none;border-top:1px solid #e5e5e5;padding:56px 24px}
+  .foot-grid{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .stats-grid,.pgrid{grid-template-columns:1fr}
+  .hero-in{padding:96px 24px 56px}
+  .sec{padding:64px 0}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="logo" href="index.html">Metro<em>/</em>LG</a>
+    <input type="checkbox" id="menu-t" class="menu-t">
+    <label for="menu-t" class="menu-btn" aria-label="Menu"><span></span><span></span><span></span></label>
+    <nav class="links">
+      <a href="index.html" class="active">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="apply.html" class="cta">Apply now</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-in">
+    <span class="label">Metro Lending Group — Urban Mortgage Lending</span>
+    <h1>Big-city lending. <span class="u">Zero runaround.</span></h1>
+    <p>Condos, co-ops, lofts, walk-ups. We underwrite the buildings other lenders won't touch, and we close on the timelines your market demands.</p>
+    <div class="btn-row">
+      <a class="btn btn-red" href="apply.html">Apply now</a>
+      <a class="btn btn-ghost" href="programs.html">See programs</a>
+    </div>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="wrap" style="padding:0">
+    <div class="stats-grid">
+      <div class="stat"><b>3,400+</b><span>Closings funded</span></div>
+      <div class="stat"><b>12-day</b><span>Average clear-to-close</span></div>
+      <div class="stat"><b>4.8</b><span>Rating — 640 reviews</span></div>
+      <div class="stat"><b>50+</b><span>Buildings pre-approved</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="label">What we do</span><h2>Loan programs</h2></div>
+      <a class="btn btn-black" href="programs.html">All programs</a>
+    </div>
+    <div class="pgrid">
+      <div class="pcard">
+        <span class="idx">01</span>
+        <h3>Condo loans</h3>
+        <p>Warrantable or not, we underwrite the building — HOA docs, budgets, litigation review — in-house.</p>
+        <a href="programs.html">Details</a>
+      </div>
+      <div class="pcard">
+        <span class="idx">02</span>
+        <h3>Conventional</h3>
+        <p>Sharp fixed rates from 3% down. The workhorse loan for city buyers who move fast.</p>
+        <a href="programs.html">Details</a>
+      </div>
+      <div class="pcard">
+        <span class="idx">03</span>
+        <h3>Jumbo</h3>
+        <p>High-balance financing for high-cost markets. Up to $3.5M with competitive terms.</p>
+        <a href="programs.html">Details</a>
+      </div>
+      <div class="pcard">
+        <span class="idx">04</span>
+        <h3>Refinance</h3>
+        <p>Lower the rate, drop PMI, or pull equity. We run the math first — no pressure after.</p>
+        <a href="programs.html">Details</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec steps-sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="label">The process</span><h2>Three steps. That's it.</h2></div>
+    </div>
+    <div class="sgrid">
+      <div class="scell">
+        <span class="idx">01</span>
+        <h3>Apply</h3>
+        <p>Five minutes online. No hard credit pull to see your numbers. A loan officer calls you the same business day.</p>
+      </div>
+      <div class="scell">
+        <span class="idx">02</span>
+        <h3>Clear</h3>
+        <p>We verify income, order the appraisal, and clear the building — HOA review handled by our own condo desk.</p>
+      </div>
+      <div class="scell">
+        <span class="idx">03</span>
+        <h3>Close</h3>
+        <p>Average clear-to-close in 12 days. You sign, you get keys, we stay reachable after funding.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="split">
+  <div class="split-img" role="img" aria-label="Bright urban living room"></div>
+  <div class="split-copy">
+    <span class="label">Why Metro</span>
+    <h2>We speak fluent HOA.</h2>
+    <p>Most lenders treat a condo like a house with an elevator. It isn't. Budgets, reserves, owner-occupancy ratios, board deadlines — the building can kill a deal faster than your credit score.</p>
+    <p>Our underwriters review condo docs on day one, not week three. That's the difference between closing and losing the unit.</p>
+    <a class="btn btn-red" href="about.html">Meet the team</a>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="label">Client words</span><h2>No-nonsense reviews</h2></div>
+      <a class="btn btn-black" href="reviews.html">Read all 640</a>
+    </div>
+    <div class="tgrid">
+      <div class="tcell">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Two lenders bailed on my non-warrantable building. Metro closed it in 16 days."</blockquote>
+        <footer>Dana K.<span>Lincoln Park, Chicago</span></footer>
+      </div>
+      <div class="tcell">
+        <div class="stars">★★★★★</div>
+        <blockquote>"They hit a co-op board deadline everyone said was impossible. Zero drama."</blockquote>
+        <footer>Marcus T.<span>Park Slope, Brooklyn</span></footer>
+      </div>
+      <div class="tcell">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Rate was better than my bank's and the updates came before I asked for them."</blockquote>
+        <footer>Priya S.<span>Capitol Hill, Seattle</span></footer>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="band-in">
+    <span class="label">No obligation · No hard pull</span>
+    <h2>Get a rate quote <em>in minutes.</em></h2>
+    <a class="btn btn-red" href="apply.html">Start your application</a>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <a class="logo" href="index.html">Metro<em>/</em>LG</a>
+      <p>Big-city lending, zero big-city runaround. Condo-smart mortgages for urban buyers.</p>
+    </div>
+    <nav class="foot-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="apply.html">Apply now</a>
+    </nav>
+  </div>
+  <div class="foot-legal">
+    <div class="foot-legal-in">
+      <span>NMLS #000000 · Equal Housing Lender</span>
+      <span>(000) 000-0000 · hello@example.com</span>
+      <span>Template by Pilk.ai</span>
+      <span>Demo website — all names, numbers, rates, and reviews are sample content for design preview only.</span>
+    </div>
+  </div>
+</footer>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Reviews — ClearPath Mortgage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;color:#111;background:#fff;line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  a{color:inherit;text-decoration:none}
+  header{position:sticky;top:0;background:rgba(255,255,255,0.94);backdrop-filter:blur(10px);border-bottom:1px solid #ececec;z-index:100}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+  .logo{font-weight:700;font-size:17px;letter-spacing:-0.02em}
+  .logo span{color:#16a34a}
+  .nav-links{display:flex;align-items:center;gap:28px;font-size:14px;color:#555}
+  .nav-links a:hover{color:#111}
+  .nav-links a.active{color:#111;font-weight:600}
+  .btn{display:inline-block;padding:12px 24px;font-size:14px;font-weight:600;border-radius:4px;transition:opacity .15s ease;cursor:pointer;border:none}
+  .btn-dark{background:#111;color:#fff}
+  .btn-dark:hover{opacity:.85}
+  .nav .btn{padding:10px 20px}
+  .page-head{padding:88px 0 56px;border-bottom:1px solid #ececec}
+  .eyebrow{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#16a34a;margin-bottom:18px}
+  h1{font-size:48px;line-height:1.1;letter-spacing:-0.03em;font-weight:700}
+  .agg{display:flex;align-items:center;gap:32px;margin-top:32px;flex-wrap:wrap}
+  .agg .big{font-size:56px;font-weight:700;letter-spacing:-0.03em}
+  .agg .stars{color:#16a34a;font-size:22px;letter-spacing:3px}
+  .agg .meta{font-size:14px;color:#777}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;padding:72px 0}
+  .review{border:1px solid #ececec;border-radius:6px;padding:30px 28px;display:flex;flex-direction:column}
+  .review .stars{color:#16a34a;font-size:14px;letter-spacing:2px}
+  .review h3{font-size:16px;font-weight:600;margin-top:14px}
+  .review p{margin-top:10px;font-size:14.5px;color:#444;flex:1}
+  .review .who{margin-top:20px;padding-top:16px;border-top:1px solid #f1f1f1;font-size:13px;color:#888}
+  .review .who b{color:#111;font-weight:600;display:block}
+  .band{background:#111;color:#fff;border-radius:8px;padding:64px;display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap;margin-bottom:88px}
+  .band h2{font-size:32px;letter-spacing:-0.02em;max-width:20ch}
+  .band p{color:#a3a3a3;margin-top:10px;font-size:15px}
+  .btn-green{background:#16a34a;color:#fff}
+  footer{border-top:1px solid #ececec;padding:56px 0 40px}
+  .foot-grid{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap}
+  .foot-brand{max-width:320px}
+  .foot-brand p{margin-top:12px;font-size:13px;color:#888}
+  .foot-links{display:flex;gap:56px;flex-wrap:wrap}
+  .foot-links div h4{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#aaa;margin-bottom:14px}
+  .foot-links a{display:block;font-size:14px;color:#555;margin-bottom:9px}
+  .legal{margin-top:48px;padding-top:24px;border-top:1px solid #ececec;font-size:12px;color:#999;line-height:1.8}
+  @media(max-width:900px){
+    h1{font-size:34px}
+    .page-head{padding:48px 0 40px}
+    .grid{grid-template-columns:1fr;gap:20px;padding:48px 0}
+    .band{padding:44px 28px;margin-bottom:56px}
+    .agg .big{font-size:42px}
+    .nav{height:auto;flex-wrap:wrap;padding:14px 0}
+    .nav-links{gap:16px;flex-wrap:wrap;font-size:13px;order:3;width:100%;padding-bottom:4px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="index.html" class="logo">ClearPath<span>.</span></a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html" class="active">Reviews</a>
+    </nav>
+    <a href="apply.html" class="btn btn-dark">Apply now</a>
+  </div>
+</header>
+
+<div class="page-head">
+  <div class="wrap">
+    <div class="eyebrow">Client reviews</div>
+    <h1>In their words, not ours.</h1>
+    <div class="agg">
+      <div class="big">4.9</div>
+      <div>
+        <div class="stars">★★★★★</div>
+        <div class="meta">Based on 214 verified client reviews</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap grid">
+  <div class="review">
+    <div class="stars">★★★★★</div>
+    <h3>"They found what two banks missed."</h3>
+    <p>After being declined twice because of a short self-employment history, ClearPath placed us with a lender who actually understood business income. Closed in 16 days. I'm still recommending them to everyone.</p>
+    <div class="who"><b>Danielle Reyes</b>Austin, TX · First-time buyer</div>
+  </div>
+  <div class="review">
+    <div class="stars">★★★★★</div>
+    <h3>"The estimate matched the final numbers."</h3>
+    <p>I've bought three houses and this was the first time the closing disclosure matched the initial estimate to the dollar. No surprise fees, no last-minute 'adjustments.' Refreshing.</p>
+    <div class="who"><b>Marcus Tolliver</b>Nashville, TN · Refinance</div>
+  </div>
+  <div class="review">
+    <div class="stars">★★★★★</div>
+    <h3>"8pm texts, answered."</h3>
+    <p>Our advisor David responded to a panicked question the night before closing within ten minutes. Turns out it was nothing — but he treated it like it mattered. That's the difference.</p>
+    <div class="who"><b>Priya &amp; Sam Kapoor</b>Denver, CO · Move-up buyers</div>
+  </div>
+  <div class="review">
+    <div class="stars">★★★★★</div>
+    <h3>"Talked me OUT of refinancing."</h3>
+    <p>Maya ran my break-even analysis and told me straight: the numbers didn't work yet, come back if rates drop another half point. Who does that? When the time comes, they have my business for life.</p>
+    <div class="who"><b>Robert Ashford</b>Phoenix, AZ · Refinance inquiry</div>
+  </div>
+  <div class="review">
+    <div class="stars">★★★★★</div>
+    <h3>"First home, zero panic."</h3>
+    <p>I knew nothing about mortgages going in. They explained PMI, escrow, points — everything — without ever making me feel dumb. The weekly update emails alone were worth it.</p>
+    <div class="who"><b>Jasmine Okoro</b>Charlotte, NC · First-time buyer</div>
+  </div>
+  <div class="review">
+    <div class="stars">★★★★★</div>
+    <h3>"VA loan handled perfectly."</h3>
+    <p>They pulled my Certificate of Eligibility, explained the funding fee options, and got the seller to cover closing costs. Twenty years of service, and this was the smoothest paperwork I've ever done.</p>
+    <div class="who"><b>Carl Jennings</b>San Antonio, TX · VA purchase</div>
+  </div>
+  <div class="review">
+    <div class="stars">★★★★☆</div>
+    <h3>"Great process, one small hiccup."</h3>
+    <p>An appraisal delay pushed us back four days — not their fault, but I wish I'd known a day sooner. Everything else was flawless, and they credited a fee for the trouble without being asked.</p>
+    <div class="who"><b>Elena Vasquez</b>Boise, ID · Conventional purchase</div>
+  </div>
+  <div class="review">
+    <div class="stars">★★★★★</div>
+    <h3>"Jumbo loan, no drama."</h3>
+    <p>Equity comp, RSUs, two K-1s — my income file was a mess and they handled it like they'd seen it a hundred times. Rate came in better than my private bank's offer.</p>
+    <div class="who"><b>Andrew Lim</b>Seattle, WA · Jumbo purchase</div>
+  </div>
+  <div class="review">
+    <div class="stars">★★★★★</div>
+    <h3>"The comparison document sold me."</h3>
+    <p>Three loan options, side by side, with total cost over 5 and 30 years. I'd never seen a lender put it in writing like that. Made the decision obvious — and it wasn't even the one with the lowest rate.</p>
+    <div class="who"><b>Grace &amp; Tom Whitaker</b>Raleigh, NC · Conventional purchase</div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="band">
+    <div>
+      <h2>Ready to write your own review?</h2>
+      <p>Start with a free quote. If we can't beat what you have, we'll tell you.</p>
+    </div>
+    <a href="apply.html" class="btn btn-green">Apply now</a>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo">ClearPath<span style="color:#16a34a">.</span></div>
+        <p>A modern mortgage brokerage built on one idea: if you can't explain a loan clearly, you shouldn't be selling it.</p>
+      </div>
+      <div class="foot-links">
+        <div>
+          <h4>Company</h4>
+          <a href="about.html">About us</a>
+          <a href="reviews.html">Reviews</a>
+          <a href="apply.html">Apply now</a>
+        </div>
+        <div>
+          <h4>Loans</h4>
+          <a href="programs.html">All programs</a>
+          <a href="calculator.html">Payment calculator</a>
+          <a href="programs.html">Refinance</a>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <a href="apply.html">(000) 000-0000</a>
+          <a href="apply.html">hello@example.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="legal">
+      ClearPath Mortgage · NMLS #000000 · Equal Housing Opportunity. This is a demo website; all rates, statistics, and testimonials are sample content for illustration only and do not constitute an offer to lend.<br>
+      (000) 000-0000 · hello@example.com · Template by Pilk.ai
+    </div>
+  </div>
+</footer>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

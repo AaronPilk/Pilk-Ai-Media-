@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loan Programs — Summit Loans</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--bg:#0f172a;--ink:#e2e8f0;--muted:#94a3b8;--grad:linear-gradient(135deg,#4f46e5,#9333ea);--glass:rgba(255,255,255,0.05);--glass-b:rgba(255,255,255,0.1)}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+  h1,h2,h3,.logo{font-family:'Space Grotesk',sans-serif}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+  a{color:inherit;text-decoration:none}
+  .grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  header{position:sticky;top:0;background:rgba(15,23,42,0.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.08);z-index:100}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:72px;gap:16px}
+  .logo{font-weight:700;font-size:20px;letter-spacing:-0.02em;display:flex;align-items:center;gap:9px}
+  .logo .mark{width:26px;height:26px;border-radius:7px;background:var(--grad);display:inline-flex;align-items:center;justify-content:center;font-size:14px;color:#fff}
+  .nav-links{display:flex;align-items:center;gap:28px;font-size:14px;color:var(--muted)}
+  .nav-links a:hover{color:#fff}
+  .nav-links a.active{color:#fff;font-weight:600}
+  .btn{display:inline-block;padding:13px 26px;font-size:14px;font-weight:600;border-radius:10px;cursor:pointer;border:none;transition:transform .15s ease;font-family:'Inter',sans-serif}
+  .btn-grad{background:var(--grad);color:#fff;box-shadow:0 8px 24px rgba(99,73,233,0.35)}
+  .btn-grad:hover{transform:translateY(-2px)}
+  .btn-glass{background:var(--glass);border:1px solid var(--glass-b);color:#fff}
+  .nav .btn{padding:10px 20px}
+  .page-head{padding:90px 0 64px;position:relative;overflow:hidden}
+  .page-head::before{content:"";position:absolute;top:-250px;right:-100px;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(147,51,234,0.22),transparent 65%);pointer-events:none}
+  .kicker{font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:16px}
+  h1{font-size:50px;line-height:1.08;letter-spacing:-0.03em;font-weight:700;color:#fff;position:relative}
+  .page-head p{margin-top:20px;font-size:17px;color:var(--muted);max-width:56ch;position:relative}
+  .prog-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;padding-bottom:40px}
+  .prog{background:var(--glass);border:1px solid var(--glass-b);border-radius:18px;padding:38px 34px;display:flex;flex-direction:column;transition:border-color .2s ease,transform .2s ease}
+  .prog:hover{border-color:rgba(167,139,250,0.5);transform:translateY(-3px)}
+  .prog .top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .prog h2{font-size:24px;letter-spacing:-0.01em;color:#fff}
+  .prog .badge{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:5px 12px;border-radius:999px;background:rgba(167,139,250,0.15);color:#c4b5fd;border:1px solid rgba(167,139,250,0.3);white-space:nowrap}
+  .prog>p{margin-top:14px;font-size:14.5px;color:var(--muted)}
+  .prog ul{margin-top:18px;list-style:none;flex:1}
+  .prog li{font-size:14px;color:var(--ink);padding-left:26px;position:relative;margin-bottom:9px}
+  .prog li::before{content:"▲";position:absolute;left:0;font-size:9px;top:5px;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .prog .btn{margin-top:24px;align-self:flex-start}
+  .band{border-radius:24px;padding:70px 56px;text-align:center;background:var(--grad);margin:48px 0 96px;position:relative;overflow:hidden}
+  .band::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,rgba(255,255,255,0.18),transparent 55%)}
+  .band h2{position:relative;font-size:34px;color:#fff;letter-spacing:-0.02em}
+  .band p{position:relative;color:rgba(255,255,255,0.85);margin:14px auto 0;max-width:48ch}
+  .band .btn{position:relative;margin-top:28px;background:#fff;color:#4f46e5}
+  footer{border-top:1px solid rgba(255,255,255,0.08);padding:56px 0 40px}
+  .foot-grid{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap}
+  .foot-brand{max-width:320px}
+  .foot-brand p{margin-top:14px;font-size:13px;color:var(--muted)}
+  .foot-links{display:flex;gap:56px;flex-wrap:wrap}
+  .foot-links h4{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#64748b;margin-bottom:14px;font-family:'Inter',sans-serif}
+  .foot-links a{display:block;font-size:14px;color:var(--muted);margin-bottom:9px}
+  .foot-links a:hover{color:#fff}
+  .legal{margin-top:48px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.08);font-size:12px;color:#64748b;line-height:1.8}
+  @media(max-width:860px){
+    h1{font-size:34px}
+    .page-head{padding:52px 0 40px}
+    .prog-grid{grid-template-columns:1fr}
+    .band{padding:48px 28px;margin-bottom:56px}
+    .nav{height:auto;flex-wrap:wrap;padding:14px 0}
+    .nav-links{gap:16px;flex-wrap:wrap;font-size:13px;order:3;width:100%;padding-bottom:4px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="index.html" class="logo"><span class="mark">▲</span>Summit Loans</a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html" class="active">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+    </nav>
+    <a href="apply.html" class="btn btn-grad">Apply now</a>
+  </div>
+</header>
+
+<div class="page-head">
+  <div class="wrap">
+    <div class="kicker">Loan programs</div>
+    <h1>Pick your <span class="grad-text">route</span> up the mountain.</h1>
+    <p>Six programs, priced across dozens of lenders in real time. Apply once and we'll show you exactly how each option stacks up for your file — rate, payment, and total cost side by side.</p>
+  </div>
+</div>
+
+<div class="wrap prog-grid">
+
+  <div class="prog">
+    <div class="top"><h2>Conventional</h2><span class="badge">Most popular</span></div>
+    <p>The go-to for borrowers with solid credit. Flexible terms, competitive pricing, and mortgage insurance that actually goes away.</p>
+    <ul>
+      <li>As little as 3% down for first-time buyers</li>
+      <li>PMI removable at 20% equity</li>
+      <li>15, 20, and 30-year fixed terms</li>
+      <li>Single-family, condo, and 2-4 unit properties</li>
+    </ul>
+    <a href="apply.html" class="btn btn-grad">Start with Conventional</a>
+  </div>
+
+  <div class="prog">
+    <div class="top"><h2>FHA</h2><span class="badge">Low down payment</span></div>
+    <p>Government-backed flexibility for buyers still building credit or savings. One of the most forgiving paths to a first home.</p>
+    <ul>
+      <li>3.5% down with 580+ credit score</li>
+      <li>Higher debt-to-income allowances</li>
+      <li>Entire down payment can be gifted</li>
+      <li>Streamline refi available down the road</li>
+    </ul>
+    <a href="apply.html" class="btn btn-grad">Start with FHA</a>
+  </div>
+
+  <div class="prog">
+    <div class="top"><h2>VA</h2><span class="badge">For those who served</span></div>
+    <p>The strongest benefit in American lending, earned through service. Zero down, no monthly mortgage insurance, great rates.</p>
+    <ul>
+      <li>$0 down payment required</li>
+      <li>No monthly mortgage insurance</li>
+      <li>We pull your Certificate of Eligibility</li>
+      <li>Reusable benefit — not one-and-done</li>
+    </ul>
+    <a href="apply.html" class="btn btn-grad">Start with VA</a>
+  </div>
+
+  <div class="prog">
+    <div class="top"><h2>Jumbo</h2><span class="badge">High balance</span></div>
+    <p>Financing beyond conforming limits, built for complex income. Tech equity, business ownership, K-1s — we've seen it all.</p>
+    <ul>
+      <li>Loan amounts into the millions</li>
+      <li>10% down options for strong files</li>
+      <li>ARM and interest-only structures</li>
+      <li>Bank-statement qualification available</li>
+    </ul>
+    <a href="apply.html" class="btn btn-grad">Start with Jumbo</a>
+  </div>
+
+  <div class="prog">
+    <div class="top"><h2>Refinance</h2><span class="badge">Lower your cost</span></div>
+    <p>Rate-and-term or cash-out — every refi quote includes a break-even analysis so you know exactly when the savings start.</p>
+    <ul>
+      <li>Lower your rate or shorten your term</li>
+      <li>Cash out equity for renovations or debt payoff</li>
+      <li>Break-even math included with every quote</li>
+      <li>FHA &amp; VA streamline options with minimal docs</li>
+    </ul>
+    <a href="apply.html" class="btn btn-grad">Start a Refinance</a>
+  </div>
+
+  <div class="prog">
+    <div class="top"><h2>First-time buyer</h2><span class="badge">Guided path</span></div>
+    <p>A guided program pairing you with down payment assistance, the right loan type, and a team that explains everything twice if needed.</p>
+    <ul>
+      <li>Down payment assistance matching</li>
+      <li>Free 24-hour pre-approval</li>
+      <li>Dedicated advisor from app to keys</li>
+      <li>Homebuyer education resources included</li>
+    </ul>
+    <a href="apply.html" class="btn btn-grad">Start your first climb</a>
+  </div>
+
+</div>
+
+<div class="wrap">
+  <div class="band">
+    <h2>Can't decide? Let the numbers decide.</h2>
+    <p>One application prices your file across every program above. You get a side-by-side comparison in 24 hours.</p>
+    <a href="apply.html" class="btn">Get my comparison →</a>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="index.html" class="logo"><span class="mark">▲</span>Summit Loans</a>
+        <p>Digital-first mortgage lending with human loan experts. Faster approvals, transparent pricing, zero mystery.</p>
+      </div>
+      <div class="foot-links">
+        <div>
+          <h4>Company</h4>
+          <a href="about.html">About us</a>
+          <a href="reviews.html">Reviews</a>
+          <a href="apply.html">Apply now</a>
+        </div>
+        <div>
+          <h4>Loans</h4>
+          <a href="programs.html">All programs</a>
+          <a href="calculator.html">Payment calculator</a>
+          <a href="programs.html">Refinance</a>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <a href="apply.html">(000) 000-0000</a>
+          <a href="apply.html">hello@example.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="legal">
+      Summit Loans · NMLS #000000 · Equal Housing Opportunity. This is a demo website; all rates, statistics, and testimonials are sample content for illustration only and do not constitute an offer to lend.<br>
+      (000) 000-0000 · hello@example.com · Template by Pilk.ai
+    </div>
+  </div>
+</footer>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

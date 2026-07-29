@@ -22,7 +22,7 @@ export const metadata: Metadata = buildMetadata({
 });
 
 const individualCats = ["agent", "luxury-agent"];
-const firmCats = ["brokerage", "mortgage", "local-business"];
+const firmCats = ["brokerage", "local-business"];
 const individualTemplates = templates.filter((t) => individualCats.includes(t.category));
 const firmTemplates = templates.filter((t) => firmCats.includes(t.category));
 
@@ -104,11 +104,14 @@ export default function RealEstatePage() {
         <Container>
           <SectionLabel index="03">For firms &amp; brokerages</SectionLabel>
           <h2 className="mt-6 max-w-[20ch] text-balance" style={{ fontSize: "var(--text-2xl)" }}>
-            Sites for real estate firms &amp; mortgage brokerages.
+            Sites for real estate firms &amp; brokerages.
           </h2>
           <p className="mt-4 max-w-2xl text-muted">
-            Multiple agents, team rosters, loan programs, recruiting, and lead routing — built for
-            brokerages and mortgage firms that run a team.
+            Multiple agents, team rosters, recruiting, and lead routing — built for brokerages that
+            run a team. Looking for a mortgage site?{" "}
+            <Link href="/mortgage" className="text-accent hover:underline">
+              See our 15 mortgage templates →
+            </Link>
           </p>
           <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {firmTemplates.map((t) => (

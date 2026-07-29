@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Begin an Application — Legacy Mortgage Co.</title>
+<meta name="description" content="Begin a private mortgage application. A senior loan principal responds within one business day.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#191714;--bg-2:#211e19;--bg-3:#2a251f;
+  --ink:#f2ede4;--ink-soft:#cfc6b6;--muted:#9b917f;
+  --bronze:#b08d57;--bronze-soft:#c9a76e;
+  --line:rgba(176,141,87,.30);--line-soft:rgba(242,237,228,.10);
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Jost','Inter',system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--bronze);color:#191714}
+
+.nav{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:28px 48px;flex-wrap:wrap;background:var(--bg);border-bottom:1px solid var(--line-soft)}
+.logo{font-family:var(--serif);font-size:21px;letter-spacing:.22em;font-weight:500;text-transform:uppercase;white-space:nowrap}
+.logo em{font-style:italic;color:var(--bronze);font-weight:400}
+.nav-links{display:flex;align-items:center;gap:34px;flex-wrap:wrap}
+.nav-links a{font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-soft);position:relative;padding-bottom:4px;transition:color .3s}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:var(--bronze);transition:width .35s ease}
+.nav-links a:hover::after{width:100%}
+.nav-links a.active{color:var(--bronze)}
+.nav-links a.active::after{width:100%}
+.btn{display:inline-block;font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;padding:14px 30px;border:1px solid var(--bronze);color:var(--bronze-soft);transition:background .35s,color .35s;text-align:center;background:transparent;cursor:pointer;font-family:var(--sans)}
+.btn:hover{background:var(--bronze);color:#191714}
+.btn.fill{background:var(--bronze);color:#191714}
+.btn.fill:hover{background:var(--bronze-soft);border-color:var(--bronze-soft)}
+.nav-links a.btn::after{display:none}
+
+.eyebrow{font-size:11px;letter-spacing:.42em;text-transform:uppercase;color:var(--bronze-soft);display:flex;align-items:center;gap:18px;margin-bottom:26px}
+.eyebrow::before{content:"";width:56px;height:1px;background:var(--bronze)}
+
+.layout{max-width:1240px;margin:0 auto;padding:96px 48px 120px;display:grid;grid-template-columns:5fr 7fr;gap:88px;align-items:start}
+.intro h1{font-family:var(--serif);font-weight:300;font-size:clamp(42px,5.4vw,72px);line-height:1.06}
+.intro h1 em{font-style:italic;color:var(--bronze-soft)}
+.intro p{margin-top:22px;color:var(--ink-soft);max-width:44ch}
+.intro .points{margin-top:38px;border-top:1px solid var(--line);list-style:none}
+.intro .points li{padding:18px 0;border-bottom:1px solid var(--line-soft);display:flex;gap:20px;align-items:baseline}
+.intro .points .rn{font-family:var(--serif);font-style:italic;color:var(--bronze);font-size:17px;flex:none;width:28px}
+.intro .points p{margin:0;font-size:14.5px;color:var(--muted);max-width:none}
+.intro .imgbox{margin-top:44px;overflow:hidden;background:linear-gradient(135deg,#2a251f,#191714)}
+.intro .imgbox img{width:100%;object-fit:cover;aspect-ratio:4/3;transition:transform .9s cubic-bezier(.2,.6,.2,1);filter:saturate(.85)}
+.intro .imgbox:hover img{transform:scale(1.04)}
+
+.formcard{background:var(--bg-2);border:1px solid var(--line);padding:56px 52px}
+.fsection{margin-bottom:44px}
+.fsection-head{display:flex;align-items:baseline;gap:18px;margin-bottom:26px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.fsection-head .no{font-family:var(--serif);font-style:italic;font-weight:300;font-size:34px;color:var(--bronze);line-height:1}
+.fsection-head h2{font-family:var(--serif);font-weight:400;font-size:24px;letter-spacing:.02em}
+.field{margin-bottom:22px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+label{display:block;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+label .req{color:var(--bronze)}
+input,select,textarea{width:100%;background:var(--bg);border:1px solid var(--line-soft);color:var(--ink);font-family:var(--sans);font-weight:300;font-size:16px;padding:14px 16px;outline:none;transition:border-color .3s,box-shadow .3s;border-radius:0;-webkit-appearance:none;appearance:none}
+select{background-image:linear-gradient(45deg,transparent 50%,var(--bronze) 50%),linear-gradient(135deg,var(--bronze) 50%,transparent 50%);background-position:calc(100% - 20px) 50%,calc(100% - 15px) 50%;background-size:5px 5px;background-repeat:no-repeat;cursor:pointer}
+textarea{min-height:130px;resize:vertical;line-height:1.6}
+input:focus,select:focus,textarea:focus{border-color:var(--bronze);box-shadow:0 0 0 1px var(--bronze)}
+input.err,select.err,textarea.err{border-color:#a2543f;box-shadow:0 0 0 1px #a2543f}
+.errmsg{display:none;margin-top:8px;font-size:13px;color:#c97b62;font-style:italic}
+.errmsg.show{display:block}
+.form-foot{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:32px}
+.form-foot .fine{font-size:12.5px;color:var(--muted);font-style:italic;max-width:38ch}
+.btn.submit{padding:17px 42px}
+
+.success{display:none;text-align:center;padding:48px 12px}
+.success.show{display:block}
+.success .seal{width:74px;height:74px;margin:0 auto;border:1px solid var(--bronze);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:32px;color:var(--bronze)}
+.success h2{font-family:var(--serif);font-weight:300;font-size:clamp(32px,4vw,46px);line-height:1.15;margin-top:32px}
+.success h2 em{font-style:italic;color:var(--bronze-soft)}
+.success p{margin-top:18px;color:var(--ink-soft);max-width:44ch;margin-left:auto;margin-right:auto}
+.success .demo-note{margin-top:26px;font-size:12.5px;color:var(--muted);font-style:italic}
+.success .btn{margin-top:34px}
+
+footer{border-top:1px solid var(--line);background:var(--bg)}
+.foot{max-width:1240px;margin:0 auto;padding:72px 48px 110px;display:grid;grid-template-columns:2fr 1fr 1.4fr;gap:56px}
+.foot .flogo{font-family:var(--serif);font-size:19px;letter-spacing:.22em;text-transform:uppercase;font-weight:500}
+.foot .flogo em{font-style:italic;color:var(--bronze)}
+.foot p{margin-top:16px;color:var(--muted);font-size:14px;max-width:34ch}
+.foot h4{font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--bronze-soft);margin-bottom:18px;font-weight:500}
+.foot ul{list-style:none}
+.foot ul li{margin-bottom:10px}
+.foot ul a{font-size:14px;color:var(--ink-soft);transition:color .3s}
+.foot ul a:hover{color:var(--bronze-soft)}
+.foot .legal{font-size:13px;color:var(--muted);line-height:2}
+.foot .legal .eh{color:var(--ink-soft)}
+.foot .note{margin-top:18px;font-size:12px;color:#6f6656;font-style:italic}
+
+@media(max-width:960px){
+  .layout{grid-template-columns:1fr;gap:56px}
+  .foot{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  .nav{padding:22px 24px;flex-direction:column;align-items:flex-start;gap:18px}
+  .nav-links{gap:18px 22px}
+  .layout{padding:64px 24px 80px}
+  .formcard{padding:38px 26px}
+  .grid2{grid-template-columns:1fr}
+  .foot{padding:56px 24px 120px;grid-template-columns:1fr;gap:40px}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="logo" href="index.html">Legacy <em>Mortgage</em> Co.</a>
+  <nav class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="programs.html">Programs</a>
+    <a href="calculator.html">Calculator</a>
+    <a href="about.html">About</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="apply.html" class="btn">Begin an Application</a>
+  </nav>
+</header>
+
+<section class="layout">
+  <div class="intro">
+    <div class="eyebrow">The Application</div>
+    <h1>Begin the <em>conversation.</em></h1>
+    <p>Three short sections, five minutes at most. No credit pull, no obligation — simply enough for a senior loan principal to respond with substance.</p>
+    <ul class="points">
+      <li><span class="rn">I.</span><p>Reviewed by a senior principal, not an intake queue.</p></li>
+      <li><span class="rn">II.</span><p>A considered response within one business day.</p></li>
+      <li><span class="rn">III.</span><p>Held in strict confidence, as all client matters are.</p></li>
+    </ul>
+    <div class="imgbox"><img src="/template-previews/_assets/living-room.jpg" alt="A quiet, well-appointed living room" loading="lazy"></div>
+  </div>
+
+  <div class="formcard">
+    <form id="applyForm" novalidate>
+      <div class="fsection">
+        <div class="fsection-head"><span class="no">1</span><h2>Yourself</h2></div>
+        <div class="grid2">
+          <div class="field">
+            <label for="firstName">First Name <span class="req">*</span></label>
+            <input type="text" id="firstName" name="firstName" autocomplete="given-name" required>
+          </div>
+          <div class="field">
+            <label for="lastName">Last Name <span class="req">*</span></label>
+            <input type="text" id="lastName" name="lastName" autocomplete="family-name" required>
+          </div>
+        </div>
+        <div class="grid2">
+          <div class="field">
+            <label for="email">Email <span class="req">*</span></label>
+            <input type="email" id="email" name="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="phone">Phone <span class="req">*</span></label>
+            <input type="tel" id="phone" name="phone" autocomplete="tel" required>
+          </div>
+        </div>
+      </div>
+
+      <div class="fsection">
+        <div class="fsection-head"><span class="no">2</span><h2>The Loan</h2></div>
+        <div class="grid2">
+          <div class="field">
+            <label for="purpose">Loan Purpose <span class="req">*</span></label>
+            <select id="purpose" name="purpose" required>
+              <option value="">Select a purpose…</option>
+              <option value="purchase">Purchase</option>
+              <option value="refinance">Refinance</option>
+              <option value="construction">Construction</option>
+              <option value="cashout">Cash-Out</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="state">Property State <span class="req">*</span></label>
+            <select id="state" name="state" required>
+              <option value="">Select a state…</option>
+              <option value="CA">California</option>
+              <option value="CO">Colorado</option>
+              <option value="CT">Connecticut</option>
+              <option value="FL">Florida</option>
+              <option value="IL">Illinois</option>
+              <option value="MA">Massachusetts</option>
+              <option value="MT">Montana</option>
+              <option value="NY">New York</option>
+              <option value="NC">North Carolina</option>
+              <option value="TX">Texas</option>
+              <option value="WA">Washington</option>
+              <option value="WY">Wyoming</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid2">
+          <div class="field">
+            <label for="priceRange">Approximate Price <span class="req">*</span></label>
+            <select id="priceRange" name="priceRange" required>
+              <option value="">Select a range…</option>
+              <option value="u750">Under $750,000</option>
+              <option value="750-1.5">$750,000 – $1.5M</option>
+              <option value="1.5-3">$1.5M – $3M</option>
+              <option value="3-5">$3M – $5M</option>
+              <option value="5plus">Above $5M</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="timeline">Timeline <span class="req">*</span></label>
+            <select id="timeline" name="timeline" required>
+              <option value="">Select a timeline…</option>
+              <option value="asap">Under contract now</option>
+              <option value="30">Within 30 days</option>
+              <option value="90">One to three months</option>
+              <option value="explore">Exploring, unhurried</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="fsection">
+        <div class="fsection-head"><span class="no">3</span><h2>In Your Words</h2></div>
+        <div class="field">
+          <label for="message">Anything we should know</label>
+          <textarea id="message" name="message" placeholder="The property, the plan, any complexity worth mentioning — trusts, entities, unusual income. The more context, the sharper our first response."></textarea>
+        </div>
+      </div>
+
+      <div class="errmsg" id="formError">Kindly complete the required fields marked above.</div>
+
+      <div class="form-foot">
+        <p class="fine">Submitting begins a conversation, not a credit inquiry. No obligation attaches to either party.</p>
+        <button type="submit" class="btn fill submit">Submit Application</button>
+      </div>
+    </form>
+
+    <div class="success" id="successPanel" role="status" aria-live="polite">
+      <div class="seal">✓</div>
+      <h2>Application <em>received.</em></h2>
+      <p>A senior loan principal will contact you within one business day. In the meantime, the file stays exactly where it should — in confidence.</p>
+      <p class="demo-note">This is a demo template — no information was sent or stored.</p>
+      <a href="index.html" class="btn">Return Home</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot">
+    <div>
+      <div class="flogo">Legacy <em>Mortgage</em> Co.</div>
+      <p>Private mortgage banking for luxury and jumbo borrowers. Financing for remarkable homes.</p>
+    </div>
+    <div>
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="programs.html">Programs</a></li>
+        <li><a href="calculator.html">Calculator</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+        <li><a href="apply.html">Begin an Application</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Particulars</h4>
+      <div class="legal">
+        <div class="eh">NMLS #000000 · Equal Housing Lender</div>
+        <div>(000) 000-0000 · hello@example.com</div>
+        <div>Template by Pilk.ai</div>
+      </div>
+      <div class="note">Legacy Mortgage Co. is a demo brand. All loan scenarios are illustrative.</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var form = document.getElementById('applyForm');
+  var success = document.getElementById('successPanel');
+  var formError = document.getElementById('formError');
+  var requiredIds = ['firstName','lastName','email','phone','purpose','state','priceRange','timeline'];
+
+  function validEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var firstBad = null;
+
+    requiredIds.forEach(function(id){
+      var el = document.getElementById(id);
+      var v = el.value.trim();
+      var bad = !v || (id === 'email' && !validEmail(v));
+      el.classList.toggle('err', bad);
+      if (bad && !firstBad) firstBad = el;
+    });
+
+    if (firstBad) {
+      formError.classList.add('show');
+      firstBad.focus();
+      return;
+    }
+
+    formError.classList.remove('show');
+    form.style.display = 'none';
+    success.classList.add('show');
+    success.scrollIntoView({behavior:'smooth', block:'center'});
+  });
+
+  // Clear the error state as fields are corrected.
+  requiredIds.forEach(function(id){
+    var el = document.getElementById(id);
+    el.addEventListener('input', function(){ el.classList.remove('err'); });
+    el.addEventListener('change', function(){ el.classList.remove('err'); });
+  });
+})();
+</script>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

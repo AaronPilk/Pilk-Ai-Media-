@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NorthStar Mortgage — Your True North to Homeownership</title>
+<meta name="description" content="NorthStar Mortgage guides buyers and homeowners with straightforward rates, fast closings, and loan officers who answer the phone. Chart your course home.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#1e3a8a;
+  --deep:#16295f;
+  --tint:#eef2fb;
+  --slate:#475569;
+  --ink:#0f172a;
+  --line:#e2e8f0;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Manrope',system-ui,sans-serif;color:var(--slate);background:#ffffff;line-height:1.6;font-size:16px;}
+h1,h2,h3,h4{color:var(--ink);letter-spacing:-0.02em;line-height:1.15;}
+a{text-decoration:none;color:inherit;}
+img{display:block;max-width:100%;}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px;}
+
+/* ---------- NAV ---------- */
+.nav{position:sticky;top:0;z-index:1000;background:#ffffff;border-bottom:1px solid var(--line);}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;height:72px;display:flex;align-items:center;justify-content:space-between;gap:24px;}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;color:var(--ink);letter-spacing:-0.02em;white-space:nowrap;}
+.brand .star{color:var(--blue);display:inline-flex;}
+.brand span.co{color:var(--blue);}
+.nav-links{display:flex;gap:28px;font-weight:600;font-size:14.5px;color:var(--slate);}
+.nav-links a{padding:6px 2px;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;}
+.nav-links a:hover{color:var(--blue);}
+.nav-links a.active{color:var(--blue);border-bottom-color:var(--blue);}
+.btn{display:inline-block;font-weight:700;font-size:15px;padding:13px 26px;border:1px solid transparent;letter-spacing:0.01em;transition:background .15s,color .15s,border-color .15s;cursor:pointer;}
+.btn-blue{background:var(--blue);color:#fff;}
+.btn-blue:hover{background:var(--deep);}
+.btn-nav{padding:11px 22px;font-size:14px;}
+.btn-white{background:#fff;color:var(--blue);}
+.btn-white:hover{background:var(--tint);}
+.btn-ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.5);}
+.btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,0.08);}
+.btn-outline{background:transparent;color:var(--blue);border:1px solid var(--blue);}
+.btn-outline:hover{background:var(--blue);color:#fff;}
+
+/* ---------- SPLIT HERO ---------- */
+.hero{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 72px);}
+.hero-left{background:var(--blue);color:#fff;display:flex;align-items:center;padding:80px 64px;}
+.hero-left-inner{max-width:520px;margin-left:auto;}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#a8bdf0;margin-bottom:22px;}
+.eyebrow .star{color:#fff;}
+.hero h1{color:#fff;font-size:52px;font-weight:800;letter-spacing:-0.03em;margin-bottom:18px;}
+.hero .tagline{font-size:19px;color:#c7d4f5;font-weight:500;margin-bottom:36px;max-width:420px;}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;}
+.hero-meta{margin-top:44px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.18);display:flex;gap:28px;font-size:13px;color:#a8bdf0;font-weight:600;}
+.hero-right{background-image:url('/template-previews/_assets/ext-glass-home.jpg'),linear-gradient(135deg,#1e3a8a,#16295f);background-size:cover;background-position:center;min-height:420px;}
+
+/* ---------- STAT BAR ---------- */
+.stats{background:var(--deep);color:#fff;}
+.stats-inner{max-width:1200px;margin:0 auto;padding:36px 24px;display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center;}
+.stat{border-left:1px solid rgba(255,255,255,0.15);}
+.stat:first-child{border-left:none;}
+.stat .num{font-size:30px;font-weight:800;color:#fff;letter-spacing:-0.02em;}
+.stat .lbl{font-size:12.5px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#a8bdf0;margin-top:4px;}
+
+/* ---------- SECTION HEADERS ---------- */
+.section{padding:96px 0;}
+.section.alt{background:var(--tint);}
+.sec-head{max-width:640px;margin-bottom:56px;}
+.sec-head.center{margin-left:auto;margin-right:auto;text-align:center;}
+.sec-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--blue);margin-bottom:14px;}
+.sec-head h2{font-size:38px;font-weight:800;margin-bottom:14px;}
+.sec-head p{font-size:17px;}
+
+/* ---------- PROGRAM CARDS ---------- */
+.prog-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+.prog-card{background:#fff;padding:36px 28px;display:flex;flex-direction:column;gap:12px;transition:background .15s;}
+.prog-card:hover{background:var(--tint);}
+.prog-card .star{color:var(--blue);}
+.prog-card h3{font-size:19px;font-weight:800;}
+.prog-card p{font-size:14.5px;flex-grow:1;}
+.prog-card .link{font-weight:700;font-size:14px;color:var(--blue);}
+.prog-card .link:after{content:" →";}
+
+/* ---------- SPLIT SECTION ---------- */
+.split{display:grid;grid-template-columns:1fr 1fr;align-items:stretch;}
+.split-img{background-size:cover;background-position:center;min-height:440px;}
+.split-txt{display:flex;align-items:center;padding:80px 64px;}
+.split-txt-inner{max-width:520px;}
+.split-txt.on-left .split-txt-inner{margin-left:auto;}
+.split-txt h2{font-size:34px;font-weight:800;margin-bottom:16px;}
+.split-txt p{margin-bottom:16px;}
+.check-list{list-style:none;margin:8px 0 28px;}
+.check-list li{padding:9px 0 9px 30px;position:relative;font-weight:600;color:var(--ink);font-size:15.5px;border-bottom:1px solid var(--line);}
+.check-list li:before{content:"✦";position:absolute;left:0;color:var(--blue);font-size:13px;top:11px;}
+
+/* ---------- STEPS ---------- */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;counter-reset:step;}
+.step{background:#fff;border:1px solid var(--line);border-top:3px solid var(--blue);padding:36px 30px;}
+.step .n{font-size:13px;font-weight:800;letter-spacing:0.14em;color:var(--blue);text-transform:uppercase;margin-bottom:14px;display:block;}
+.step h3{font-size:21px;font-weight:800;margin-bottom:10px;}
+.step p{font-size:15px;}
+
+/* ---------- TESTIMONIALS ---------- */
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.quote{background:#fff;border:1px solid var(--line);padding:32px 28px;display:flex;flex-direction:column;gap:14px;}
+.quote .stars{color:#eab308;font-size:15px;letter-spacing:2px;}
+.quote p{font-size:15px;font-style:italic;color:var(--ink);flex-grow:1;}
+.quote .who{font-size:13.5px;font-weight:700;color:var(--slate);}
+.quote .who b{color:var(--ink);display:block;font-size:14.5px;}
+
+/* ---------- CTA BAND ---------- */
+.cta-band{background-image:url('/template-previews/_assets/city-skyline.jpg'),linear-gradient(135deg,#1e3a8a,#16295f);background-size:cover;background-position:center;position:relative;}
+.cta-band:before{content:"";position:absolute;inset:0;background:rgba(22,41,95,0.88);}
+.cta-band-inner{position:relative;max-width:820px;margin:0 auto;padding:100px 24px;text-align:center;color:#fff;}
+.cta-band h2{color:#fff;font-size:38px;font-weight:800;margin-bottom:16px;}
+.cta-band p{color:#c7d4f5;font-size:17px;margin-bottom:32px;}
+
+/* ---------- FOOTER ---------- */
+footer{background:var(--deep);color:#c7d4f5;font-size:14px;}
+.foot-inner{max-width:1200px;margin:0 auto;padding:64px 24px 90px;display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;}
+.foot-brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px;color:#fff;margin-bottom:14px;}
+.foot-brand .star{color:#a8bdf0;display:inline-flex;}
+.foot h4{color:#fff;font-size:13px;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:16px;}
+.foot-links a{display:block;padding:5px 0;color:#c7d4f5;}
+.foot-links a:hover{color:#fff;}
+.foot-legal{grid-column:1/-1;border-top:1px solid rgba(255,255,255,0.15);padding-top:24px;font-size:12.5px;color:#8fa3d9;line-height:1.7;}
+@media (max-width:960px){
+  .hero{grid-template-columns:1fr;min-height:0;}
+  .hero-left{padding:72px 24px;}
+  .hero-left-inner{margin-left:0;}
+  .hero h1{font-size:38px;}
+  .hero-right{min-height:320px;order:-1;}
+  .stats-inner{grid-template-columns:repeat(2,1fr);gap:32px 16px;}
+  .stat{border-left:none;}
+  .prog-grid{grid-template-columns:repeat(2,1fr);}
+  .split{grid-template-columns:1fr;}
+  .split-txt{padding:64px 24px;}
+  .split-txt.on-left .split-txt-inner{margin-left:0;}
+  .split-img{min-height:300px;order:-1;}
+  .steps,.quotes{grid-template-columns:1fr;}
+  .foot-inner{grid-template-columns:1fr;gap:36px;}
+}
+@media (max-width:760px){
+  .nav-links{display:none;}
+  .sec-head h2,.cta-band h2{font-size:29px;}
+  .prog-grid{grid-template-columns:1fr;}
+  .section{padding:64px 0;}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <span class="star"><svg viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 0l2.7 9.3L24 12l-9.3 2.7L12 24l-2.7-9.3L0 12l9.3-2.7z" fill="currentColor"/></svg></span>
+      NorthStar&nbsp;<span class="co">Mortgage</span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="apply.html">Apply</a>
+    </nav>
+    <a class="btn btn-blue btn-nav" href="apply.html">Apply now</a>
+  </div>
+</header>
+
+<!-- SPLIT HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-left-inner">
+      <span class="eyebrow"><span class="star">✦</span> Licensed in 28 states · NMLS #654321</span>
+      <h1>Your true north to homeownership.</h1>
+      <p class="tagline">Straight answers, sharp rates, and a loan officer who actually picks up the phone. We chart the course — you just move in.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-white" href="apply.html">Apply now</a>
+        <a class="btn btn-ghost" href="calculator.html">Calculate payment</a>
+      </div>
+      <div class="hero-meta">
+        <span>Free rate quote in minutes</span>
+        <span>No impact to your credit</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right" role="img" aria-label="Modern glass home at dusk"></div>
+</section>
+
+<!-- STAT BAR -->
+<section class="stats">
+  <div class="stats-inner">
+    <div class="stat"><div class="num">$650M</div><div class="lbl">Funded to date</div></div>
+    <div class="stat"><div class="num">2,400+</div><div class="lbl">Homeowners guided</div></div>
+    <div class="stat"><div class="num">4.9★</div><div class="lbl">Average rating</div></div>
+    <div class="stat"><div class="num">15 days</div><div class="lbl">Avg. clear-to-close</div></div>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-eyebrow">✦ Loan programs</span>
+      <h2>Every route home, mapped.</h2>
+      <p>Whether it's your first key or your fifth, there's a loan built for where you're headed. These are the four we get asked about most.</p>
+    </div>
+    <div class="prog-grid">
+      <a class="prog-card" href="programs.html">
+        <span class="star">✦</span>
+        <h3>Conventional</h3>
+        <p>The workhorse. As little as 3% down with solid credit, and no upfront mortgage insurance premium.</p>
+        <span class="link">Explore conventional</span>
+      </a>
+      <a class="prog-card" href="programs.html">
+        <span class="star">✦</span>
+        <h3>FHA</h3>
+        <p>Flexible credit guidelines and 3.5% down make this the go-to for buyers still building their file.</p>
+        <span class="link">Explore FHA</span>
+      </a>
+      <a class="prog-card" href="programs.html">
+        <span class="star">✦</span>
+        <h3>VA</h3>
+        <p>Zero down, no monthly mortgage insurance, and competitive rates for those who've served.</p>
+        <span class="link">Explore VA</span>
+      </a>
+      <a class="prog-card" href="programs.html">
+        <span class="star">✦</span>
+        <h3>Refinance</h3>
+        <p>Lower your rate, drop PMI, or pull cash from your equity — we'll run the numbers both ways.</p>
+        <span class="link">Explore refinancing</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- SPLIT SECTION: image left / text right -->
+<section class="split">
+  <div class="split-img" style="background-image:url('/template-previews/_assets/hero-open-living.jpg'),linear-gradient(135deg,#1e3a8a,#16295f);background-size:cover;background-position:center;" role="img" aria-label="Bright open-concept living room"></div>
+  <div class="split-txt">
+    <div class="split-txt-inner">
+      <span class="sec-eyebrow">✦ Why NorthStar</span>
+      <h2>A lender that navigates, not just lends.</h2>
+      <p>Most lenders hand you a rate sheet and disappear until closing. We stay on the bridge with you — same loan officer from first call to final signature, weekly updates without you asking, and honest math even when it means telling you to wait.</p>
+      <ul class="check-list">
+        <li>One dedicated loan officer, start to finish</li>
+        <li>Underwriting in-house — no black-box delays</li>
+        <li>Rate-lock protection with a free float-down</li>
+        <li>Real pre-approvals, fully documented</li>
+      </ul>
+      <a class="btn btn-blue" href="about.html">Meet the team</a>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section alt">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="sec-eyebrow">✦ How it works</span>
+      <h2>Three steps. One heading: home.</h2>
+      <p>No jargon maze, no mystery fees. Here's the whole voyage.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="n">Step 01 ✦ Chart your course</span>
+        <h3>Get pre-approved</h3>
+        <p>A 10-minute application and a soft credit check give you a real number to shop with — and a letter sellers take seriously.</p>
+      </div>
+      <div class="step">
+        <span class="n">Step 02 ✦ Lock your route</span>
+        <h3>Lock your rate</h3>
+        <p>Found the one? We lock your rate the same day, order the appraisal, and our in-house underwriters get to work immediately.</p>
+      </div>
+      <div class="step">
+        <span class="n">Step 03 ✦ Arrive home</span>
+        <h3>Close &amp; get the keys</h3>
+        <p>Clear-to-close in 15 days on average. We review every closing figure with you before signing day — zero surprises at the table.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPLIT SECTION: text left / image right -->
+<section class="split">
+  <div class="split-txt on-left">
+    <div class="split-txt-inner">
+      <span class="sec-eyebrow">✦ First-time buyers</span>
+      <h2>Buying your first home shouldn't feel like guesswork.</h2>
+      <p>Our first-time buyer track pairs you with an advisor who explains every line item in plain English — down payment assistance options, what your credit score actually needs to be, and how much house the math truly supports.</p>
+      <p>Start with the calculator, then apply when the numbers feel right. No pressure, no spam calls.</p>
+      <div class="hero-ctas" style="margin-top:24px;">
+        <a class="btn btn-blue" href="programs.html">First-time buyer program</a>
+        <a class="btn btn-outline" href="calculator.html">Run the numbers</a>
+      </div>
+    </div>
+  </div>
+  <div class="split-img" style="background-image:url('/template-previews/_assets/home-ext-a.jpg'),linear-gradient(135deg,#1e3a8a,#16295f);background-size:cover;background-position:center;" role="img" aria-label="Charming single-family home exterior"></div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="sec-eyebrow">✦ Client stories</span>
+      <h2>Guided every step. Their words, not ours.</h2>
+    </div>
+    <div class="quotes">
+      <div class="quote">
+        <div class="stars">★★★★★</div>
+        <p>"We were pre-approved on a Tuesday and under contract that weekend. Marcus walked us through every document like we were his only clients."</p>
+        <div class="who"><b>Danielle R.</b>First-time buyer · Charlotte, NC</div>
+      </div>
+      <div class="quote">
+        <div class="stars">★★★★★</div>
+        <p>"Refinanced from 7.1% to 5.9% and dropped PMI in the same move. The break-even math they showed me was honest to the dollar."</p>
+        <div class="who"><b>James &amp; Priya T.</b>Refinance · Raleigh, NC</div>
+      </div>
+      <div class="quote">
+        <div class="stars">★★★★★</div>
+        <p>"As a veteran I'd been told 'no' twice elsewhere. NorthStar closed my VA loan in 17 days with zero down. Can't recommend them enough."</p>
+        <div class="who"><b>Luis M.</b>VA purchase · Fayetteville, NC</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="cta-band">
+  <div class="cta-band-inner">
+    <span class="eyebrow"><span class="star">✦</span> Today's rates are moving</span>
+    <h2>See what your monthly payment looks like.</h2>
+    <p>Sixty seconds with our calculator beats sixty minutes of guessing. Principal, interest, taxes, insurance — the whole picture.</p>
+    <a class="btn btn-white" href="calculator.html">Calculate my payment</a>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <div>
+      <div class="foot-brand">
+        <span class="star"><svg viewBox="0 0 24 24" width="16" height="16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 0l2.7 9.3L24 12l-9.3 2.7L12 24l-2.7-9.3L0 12l9.3-2.7z" fill="currentColor"/></svg></span>
+        NorthStar Mortgage
+      </div>
+      <p>Your true north to homeownership. Straightforward lending, sharp rates, and guidance every step of the way.</p>
+      <p style="margin-top:14px;font-weight:700;color:#fff;">(000) 000-0000 · hello@example.com</p>
+    </div>
+    <div class="foot-links">
+      <h4>Navigate</h4>
+      <a href="index.html">Home</a>
+      <a href="programs.html">Loan programs</a>
+      <a href="calculator.html">Payment calculator</a>
+    </div>
+    <div class="foot-links">
+      <h4>Company</h4>
+      <a href="about.html">About us</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="apply.html">Apply now</a>
+    </div>
+    <div class="foot-legal">
+      NMLS #654321 · ⌂ Equal Housing Lender. NorthStar Mortgage is a fictional company created for demonstration purposes. Rates, figures, and testimonials shown are sample content and do not constitute a loan offer or financial advice. All loans subject to credit approval.<br>
+      Template by Pilk.ai
+    </div>
+  </div>
+</footer>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

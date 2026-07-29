@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mortgage Calculator — ClearPath Mortgage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;color:#111;background:#fff;line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  a{color:inherit;text-decoration:none}
+  header{position:sticky;top:0;background:rgba(255,255,255,0.94);backdrop-filter:blur(10px);border-bottom:1px solid #ececec;z-index:100}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+  .logo{font-weight:700;font-size:17px;letter-spacing:-0.02em}
+  .logo span{color:#16a34a}
+  .nav-links{display:flex;align-items:center;gap:28px;font-size:14px;color:#555}
+  .nav-links a:hover{color:#111}
+  .nav-links a.active{color:#111;font-weight:600}
+  .btn{display:inline-block;padding:12px 24px;font-size:14px;font-weight:600;border-radius:4px;transition:opacity .15s ease;cursor:pointer;border:none}
+  .btn-dark{background:#111;color:#fff}
+  .btn-dark:hover{opacity:.85}
+  .nav .btn{padding:10px 20px}
+  .page-head{padding:72px 0 48px}
+  .eyebrow{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#16a34a;margin-bottom:18px}
+  h1{font-size:44px;line-height:1.1;letter-spacing:-0.03em;font-weight:700}
+  .page-head p{margin-top:18px;font-size:16px;color:#555;max-width:56ch}
+  .calc-grid{display:grid;grid-template-columns:1fr 420px;gap:56px;align-items:start;padding-bottom:96px}
+  .field{margin-bottom:26px}
+  .field label{display:block;font-size:13px;font-weight:600;margin-bottom:8px;color:#333}
+  .field input,.field select{width:100%;padding:13px 14px;font-size:15px;font-family:inherit;border:1px solid #d4d4d4;border-radius:4px;background:#fff;color:#111}
+  .field input:focus,.field select:focus{outline:none;border-color:#111}
+  .field .hint{font-size:12px;color:#999;margin-top:6px}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .result{border:1px solid #ececec;border-radius:8px;padding:36px;position:sticky;top:96px}
+  .result .lbl{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#888}
+  .result .total{font-size:52px;font-weight:700;letter-spacing:-0.03em;margin-top:6px}
+  .result .total small{font-size:18px;color:#888;font-weight:500}
+  .bar{display:flex;height:14px;border-radius:99px;overflow:hidden;margin:28px 0 20px;background:#f2f2f2}
+  .bar .b-pi{background:#111}
+  .bar .b-tax{background:#16a34a}
+  .bar .b-ins{background:#a7d9b9}
+  .row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #f1f1f1;font-size:14.5px}
+  .row:last-of-type{border-bottom:none}
+  .row .k{display:flex;align-items:center;gap:9px;color:#555}
+  .dot{width:10px;height:10px;border-radius:99px;display:inline-block}
+  .row .v{font-weight:600}
+  .result .loanamt{margin-top:18px;font-size:13px;color:#888;border-top:1px solid #ececec;padding-top:16px}
+  .result .btn{width:100%;text-align:center;margin-top:22px}
+  .disclaimer{font-size:11.5px;color:#aaa;margin-top:16px;line-height:1.6}
+  footer{border-top:1px solid #ececec;padding:56px 0 40px}
+  .foot-grid{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap}
+  .foot-brand{max-width:320px}
+  .foot-brand p{margin-top:12px;font-size:13px;color:#888}
+  .foot-links{display:flex;gap:56px;flex-wrap:wrap}
+  .foot-links div h4{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#aaa;margin-bottom:14px}
+  .foot-links a{display:block;font-size:14px;color:#555;margin-bottom:9px}
+  .legal{margin-top:48px;padding-top:24px;border-top:1px solid #ececec;font-size:12px;color:#999;line-height:1.8}
+  @media(max-width:900px){
+    h1{font-size:32px}
+    .calc-grid{grid-template-columns:1fr;gap:40px;padding-bottom:64px}
+    .result{position:static}
+    .nav{height:auto;flex-wrap:wrap;padding:14px 0}
+    .nav-links{gap:16px;flex-wrap:wrap;font-size:13px;order:3;width:100%;padding-bottom:4px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="index.html" class="logo">ClearPath<span>.</span></a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html" class="active">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+    </nav>
+    <a href="apply.html" class="btn btn-dark">Apply now</a>
+  </div>
+</header>
+
+<div class="page-head">
+  <div class="wrap">
+    <div class="eyebrow">Payment calculator</div>
+    <h1>Run your own numbers.</h1>
+    <p>Adjust the inputs and watch the payment update live. Principal &amp; interest, property tax, and insurance — nothing hidden, because that's the point.</p>
+  </div>
+</div>
+
+<div class="wrap calc-grid">
+  <div>
+    <div class="field">
+      <label for="price">Home price</label>
+      <input type="number" id="price" value="400000" min="0" step="5000">
+    </div>
+    <div class="split">
+      <div class="field">
+        <label for="down">Down payment ($)</label>
+        <input type="number" id="down" value="80000" min="0" step="1000">
+      </div>
+      <div class="field">
+        <label for="downPct">Down payment (%)</label>
+        <input type="number" id="downPct" value="20" min="0" max="100" step="0.5">
+      </div>
+    </div>
+    <div class="split">
+      <div class="field">
+        <label for="rate">Interest rate (%)</label>
+        <input type="number" id="rate" value="6.5" min="0" max="20" step="0.125">
+      </div>
+      <div class="field">
+        <label for="term">Loan term</label>
+        <select id="term">
+          <option value="15">15 years</option>
+          <option value="20">20 years</option>
+          <option value="30" selected>30 years</option>
+        </select>
+      </div>
+    </div>
+    <div class="split">
+      <div class="field">
+        <label for="tax">Property tax rate (% / yr)</label>
+        <input type="number" id="tax" value="1.1" min="0" max="10" step="0.05">
+      </div>
+      <div class="field">
+        <label for="ins">Home insurance ($ / yr)</label>
+        <input type="number" id="ins" value="1500" min="0" step="100">
+      </div>
+    </div>
+    <p class="field hint" style="color:#999;font-size:13px">Tip: change the down payment in dollars or percent — the other field keeps in sync automatically.</p>
+  </div>
+
+  <div class="result">
+    <div class="lbl">Estimated monthly payment</div>
+    <div class="total"><span id="outTotal">$0</span><small>/mo</small></div>
+    <div class="bar" aria-hidden="true">
+      <div class="b-pi" id="barPI" style="width:70%"></div>
+      <div class="b-tax" id="barTax" style="width:20%"></div>
+      <div class="b-ins" id="barIns" style="width:10%"></div>
+    </div>
+    <div class="row"><span class="k"><span class="dot" style="background:#111"></span>Principal &amp; interest</span><span class="v" id="outPI">$0</span></div>
+    <div class="row"><span class="k"><span class="dot" style="background:#16a34a"></span>Property tax</span><span class="v" id="outTax">$0</span></div>
+    <div class="row"><span class="k"><span class="dot" style="background:#a7d9b9"></span>Home insurance</span><span class="v" id="outIns">$0</span></div>
+    <div class="loanamt">Loan amount: <b id="outLoan" style="color:#111">$0</b></div>
+    <a href="apply.html" class="btn btn-dark">Get a real quote</a>
+    <p class="disclaimer">Estimates only. Excludes PMI, HOA dues, and other possible costs. Your actual rate and payment depend on your credit profile, loan program, and market conditions.</p>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo">ClearPath<span style="color:#16a34a">.</span></div>
+        <p>A modern mortgage brokerage built on one idea: if you can't explain a loan clearly, you shouldn't be selling it.</p>
+      </div>
+      <div class="foot-links">
+        <div>
+          <h4>Company</h4>
+          <a href="about.html">About us</a>
+          <a href="reviews.html">Reviews</a>
+          <a href="apply.html">Apply now</a>
+        </div>
+        <div>
+          <h4>Loans</h4>
+          <a href="programs.html">All programs</a>
+          <a href="calculator.html">Payment calculator</a>
+          <a href="programs.html">Refinance</a>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <a href="apply.html">(000) 000-0000</a>
+          <a href="apply.html">hello@example.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="legal">
+      ClearPath Mortgage · NMLS #000000 · Equal Housing Opportunity. This is a demo website; all rates, statistics, and testimonials are sample content for illustration only and do not constitute an offer to lend.<br>
+      (000) 000-0000 · hello@example.com · Template by Pilk.ai
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var price=document.getElementById('price'),
+      down=document.getElementById('down'),
+      downPct=document.getElementById('downPct'),
+      rate=document.getElementById('rate'),
+      term=document.getElementById('term'),
+      tax=document.getElementById('tax'),
+      ins=document.getElementById('ins');
+
+  function fmt(n){
+    return '$'+Math.round(n).toLocaleString('en-US');
+  }
+
+  function calc(){
+    var P0=parseFloat(price.value)||0,
+        D=parseFloat(down.value)||0,
+        loan=Math.max(P0-D,0),
+        annualRate=parseFloat(rate.value)||0,
+        n=(parseInt(term.value,10)||30)*12,
+        r=annualRate/100/12,
+        pi;
+    if(r>0){
+      var f=Math.pow(1+r,n);
+      pi=loan*(r*f)/(f-1);
+    }else{
+      pi=n>0?loan/n:0;
+    }
+    var mTax=(P0*((parseFloat(tax.value)||0)/100))/12,
+        mIns=(parseFloat(ins.value)||0)/12,
+        total=pi+mTax+mIns;
+
+    document.getElementById('outPI').textContent=fmt(pi);
+    document.getElementById('outTax').textContent=fmt(mTax);
+    document.getElementById('outIns').textContent=fmt(mIns);
+    document.getElementById('outTotal').textContent=fmt(total);
+    document.getElementById('outLoan').textContent=fmt(loan);
+
+    var t=total>0?total:1;
+    document.getElementById('barPI').style.width=(pi/t*100)+'%';
+    document.getElementById('barTax').style.width=(mTax/t*100)+'%';
+    document.getElementById('barIns').style.width=(mIns/t*100)+'%';
+  }
+
+  function syncFromDollar(){
+    var P0=parseFloat(price.value)||0;
+    if(P0>0){downPct.value=(Math.round((parseFloat(down.value)||0)/P0*1000)/10);}
+    calc();
+  }
+  function syncFromPct(){
+    var P0=parseFloat(price.value)||0;
+    down.value=Math.round(P0*((parseFloat(downPct.value)||0)/100));
+    calc();
+  }
+  function syncFromPrice(){
+    var P0=parseFloat(price.value)||0;
+    down.value=Math.round(P0*((parseFloat(downPct.value)||0)/100));
+    calc();
+  }
+
+  price.addEventListener('input',syncFromPrice);
+  down.addEventListener('input',syncFromDollar);
+  downPct.addEventListener('input',syncFromPct);
+  [rate,term,tax,ins].forEach(function(el){el.addEventListener('input',calc);el.addEventListener('change',calc);});
+  calc();
+})();
+</script>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

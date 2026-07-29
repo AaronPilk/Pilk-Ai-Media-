@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RateReady — Mortgages at the speed of now</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#2563eb; --blue-dark:#1d4ed8; --blue-50:#eff6ff; --blue-100:#dbeafe;
+  --slate:#0f172a; --slate-2:#1e293b; --muted:#475569; --muted-2:#64748b;
+  --soft:#f8fafc; --line:#e2e8f0; --white:#ffffff;
+  --r:10px; --r-lg:14px;
+  --shadow:0 1px 3px rgba(15,23,42,.06),0 6px 20px rgba(15,23,42,.06);
+  --shadow-lg:0 4px 6px rgba(15,23,42,.05),0 16px 40px rgba(15,23,42,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;color:var(--slate);background:var(--white);line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+/* ===== NAV ===== */
+.nav{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1180px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;min-height:68px}
+.brand{font-size:1.35rem;font-weight:800;letter-spacing:-.03em;padding:12px 0}
+.brand .b{color:var(--blue)}
+.nav-links{display:flex;align-items:center;flex-wrap:wrap;gap:4px}
+.nav-links a{font-size:.92rem;font-weight:500;color:var(--muted);padding:8px 13px;border-radius:8px;transition:color .15s,background .15s}
+.nav-links a:hover{color:var(--slate);background:var(--blue-50)}
+.nav-links a.active{color:var(--blue);background:var(--blue-50);font-weight:600}
+.nav-links .btn-nav{margin-left:8px;background:var(--blue);color:#fff;font-weight:600;padding:10px 20px;border-radius:8px;box-shadow:0 2px 8px rgba(37,99,235,.3);transition:background .15s,transform .15s}
+.nav-links .btn-nav:hover{background:var(--blue-dark);color:#fff;transform:translateY(-1px)}
+
+/* ===== BUTTONS ===== */
+.btn{display:inline-block;font-weight:600;font-size:1rem;padding:14px 28px;border-radius:10px;transition:all .18s;cursor:pointer;border:none;font-family:inherit}
+.btn-primary{background:var(--blue);color:#fff;box-shadow:0 4px 14px rgba(37,99,235,.35)}
+.btn-primary:hover{background:var(--blue-dark);transform:translateY(-2px);box-shadow:0 8px 22px rgba(37,99,235,.4)}
+.btn-ghost{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(4px)}
+.btn-ghost:hover{background:rgba(255,255,255,.22);transform:translateY(-2px)}
+.btn-light{background:#fff;color:var(--blue);box-shadow:0 4px 14px rgba(15,23,42,.2)}
+.btn-light:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(15,23,42,.3)}
+
+/* ===== HERO ===== */
+.hero{background-image:linear-gradient(rgba(15,23,42,.55),rgba(15,23,42,.68)),url('/template-previews/_assets/hero-open-living.jpg');background-size:cover;background-position:center;color:#fff;padding:120px 0 130px}
+.hero-inner{max-width:1180px;margin:0 auto;padding:0 24px}
+.hero .kicker{display:inline-block;background:rgba(37,99,235,.25);border:1px solid rgba(147,197,253,.45);color:#bfdbfe;font-size:.8rem;font-weight:600;letter-spacing:.09em;text-transform:uppercase;padding:7px 16px;border-radius:999px;margin-bottom:26px}
+.hero h1{font-size:clamp(2.3rem,5.2vw,3.9rem);font-weight:800;letter-spacing:-.03em;line-height:1.08;max-width:760px}
+.hero h1 .hl{color:#93c5fd}
+.hero p{font-size:1.18rem;color:#cbd5e1;max-width:560px;margin:22px 0 36px;line-height:1.65}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+
+/* ===== STAT BAR ===== */
+.statbar{background:var(--slate);color:#fff;padding:34px 0}
+.statbar .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center}
+.stat b{display:block;font-size:1.7rem;font-weight:800;letter-spacing:-.02em;color:#93c5fd}
+.stat span{font-size:.88rem;color:#94a3b8;font-weight:500}
+
+/* ===== SECTIONS ===== */
+.section{padding:96px 0}
+.section.soft{background:var(--soft)}
+.section.tint{background:var(--blue-50)}
+.sec-head{max-width:640px;margin:0 auto 56px;text-align:center}
+.sec-head .eyebrow{display:inline-block;color:var(--blue);font-size:.8rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase;margin-bottom:14px}
+.sec-head h2{font-size:clamp(1.7rem,3.4vw,2.5rem);font-weight:800;letter-spacing:-.03em;line-height:1.15}
+.sec-head p{color:var(--muted);margin-top:14px;font-size:1.05rem}
+
+/* ===== PROGRAM CARDS ===== */
+.prog-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.prog-card{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:30px 26px;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s,border-color .2s;display:flex;flex-direction:column}
+.prog-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lg);border-color:var(--blue-100)}
+.prog-icon{width:48px;height:48px;border-radius:11px;background:linear-gradient(135deg,var(--blue-50),var(--blue-100));display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.prog-icon svg{width:24px;height:24px;stroke:var(--blue)}
+.prog-card h3{font-size:1.12rem;font-weight:700;letter-spacing:-.01em;margin-bottom:8px}
+.prog-card p{font-size:.93rem;color:var(--muted);flex:1}
+.prog-card .link{margin-top:18px;color:var(--blue);font-weight:600;font-size:.93rem;display:inline-flex;align-items:center;gap:6px;transition:gap .15s}
+.prog-card .link:hover{gap:10px;color:var(--blue-dark)}
+
+/* ===== HOW IT WORKS ===== */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;counter-reset:step}
+.step{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:36px 30px;box-shadow:var(--shadow);position:relative;transition:transform .2s,box-shadow .2s}
+.step:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.step .num{width:44px;height:44px;border-radius:50%;background:var(--blue);color:#fff;font-weight:800;font-size:1.1rem;display:flex;align-items:center;justify-content:center;margin-bottom:20px;box-shadow:0 4px 12px rgba(37,99,235,.35)}
+.step h3{font-size:1.15rem;font-weight:700;margin-bottom:10px;letter-spacing:-.01em}
+.step p{font-size:.95rem;color:var(--muted)}
+.step .tag{display:inline-block;margin-top:16px;background:var(--blue-50);color:var(--blue);font-size:.78rem;font-weight:600;padding:5px 12px;border-radius:999px}
+
+/* ===== SPLIT FEATURE ===== */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.split-img{border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-lg);min-height:420px;background-image:linear-gradient(rgba(15,23,42,.08),rgba(15,23,42,.12)),url('/template-previews/_assets/int-living-bright.jpg');background-size:cover;background-position:center}
+.split h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;letter-spacing:-.03em;line-height:1.18;margin-bottom:18px}
+.split>div>p{color:var(--muted);margin-bottom:26px}
+.check-list{list-style:none;display:grid;gap:14px}
+.check-list li{display:flex;gap:12px;align-items:flex-start;font-size:.98rem;color:var(--slate-2)}
+.check-list .ck{flex:none;width:22px;height:22px;border-radius:50%;background:var(--blue-100);color:var(--blue);font-size:.8rem;font-weight:800;display:flex;align-items:center;justify-content:center;margin-top:2px}
+
+/* ===== TESTIMONIALS ===== */
+.t-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.t-card{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:30px 28px;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s}
+.t-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.t-card .stars{color:#f59e0b;letter-spacing:2px;font-size:.95rem;margin-bottom:14px}
+.t-card blockquote{font-size:.96rem;color:var(--slate-2);line-height:1.65}
+.t-card .who{margin-top:18px;display:flex;align-items:center;gap:12px}
+.t-card .avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--blue-dark));color:#fff;font-weight:700;font-size:.85rem;display:flex;align-items:center;justify-content:center}
+.t-card .who b{display:block;font-size:.9rem;font-weight:700}
+.t-card .who span{font-size:.8rem;color:var(--muted-2)}
+
+/* ===== CTA BAND ===== */
+.cta-band{background-image:linear-gradient(rgba(15,23,42,.72),rgba(29,78,216,.68)),url('/template-previews/_assets/city-skyline.jpg');background-size:cover;background-position:center;color:#fff;padding:104px 0;text-align:center}
+.cta-band h2{font-size:clamp(1.9rem,4vw,2.9rem);font-weight:800;letter-spacing:-.03em;line-height:1.12;max-width:680px;margin:0 auto 18px}
+.cta-band p{color:#cbd5e1;font-size:1.1rem;max-width:520px;margin:0 auto 36px}
+.cta-band .hero-ctas{justify-content:center}
+
+/* ===== FOOTER ===== */
+footer{background:var(--slate);color:#94a3b8;padding:72px 0 0;font-size:.92rem}
+.f-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:48px;padding-bottom:52px}
+.f-brand .brand{color:#fff;padding:0;display:inline-block;margin-bottom:16px}
+.f-brand p{max-width:320px;line-height:1.7}
+.f-col h4{color:#fff;font-size:.85rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:18px}
+.f-col ul{list-style:none;display:grid;gap:10px}
+.f-col a{transition:color .15s}
+.f-col a:hover{color:#fff}
+.f-bottom{border-top:1px solid #1e293b;padding:24px 0 60px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.82rem;color:#64748b}
+.f-bottom a{color:#93c5fd}
+.f-bottom a:hover{text-decoration:underline}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width:960px){
+  .prog-grid{grid-template-columns:repeat(2,1fr)}
+  .statbar .wrap{grid-template-columns:repeat(2,1fr)}
+  .split{grid-template-columns:1fr;gap:36px}
+  .split-img{min-height:300px}
+  .steps,.t-grid{grid-template-columns:1fr}
+  .f-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  .section{padding:64px 0}
+  .hero{padding:84px 0 92px}
+  .prog-grid{grid-template-columns:1fr}
+  .f-grid{grid-template-columns:1fr;gap:36px}
+  .nav-inner{justify-content:center;padding:10px 16px}
+  .nav-links{justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html"><span class="b">Rate</span>Ready</a>
+    <nav class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+      <a class="btn-nav" href="apply.html">Apply now</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <span class="kicker">Mortgages at the speed of now</span>
+    <h1>Get approved in minutes.<br><span class="hl">Not weeks.</span></h1>
+    <p>Apply online in five minutes, see your real rate instantly, and close in as few as 21 days. No surprise fees. No paper mountains. Just a mortgage that moves as fast as you do.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="apply.html">Apply now</a>
+      <a class="btn btn-ghost" href="calculator.html">Run the numbers</a>
+    </div>
+  </div>
+</section>
+
+<section class="statbar">
+  <div class="wrap">
+    <div class="stat"><b>$450M+</b><span>Loans funded</span></div>
+    <div class="stat"><b>1,900+</b><span>Families in new homes</span></div>
+    <div class="stat"><b>4.9&#9733;</b><span>Average review score</span></div>
+    <div class="stat"><b>21 days</b><span>Average close time</span></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Loan programs</span>
+      <h2>One platform. Every kind of loan.</h2>
+      <p>Whatever your situation, there's a program built for it — and a clear path to closing.</p>
+    </div>
+    <div class="prog-grid">
+      <a class="prog-card" href="programs.html">
+        <div class="prog-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg></div>
+        <h3>Conventional</h3>
+        <p>Competitive rates with as little as 3% down. The workhorse loan for strong-credit buyers.</p>
+        <span class="link">Learn more &#8594;</span>
+      </a>
+      <a class="prog-card" href="programs.html">
+        <div class="prog-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M6 8h9a3 3 0 0 1 0 6H7a3 3 0 0 0 0 6h11"/></svg></div>
+        <h3>FHA</h3>
+        <p>Flexible credit requirements and 3.5% down. Built for buyers who are ready now, not "someday."</p>
+        <span class="link">Learn more &#8594;</span>
+      </a>
+      <a class="prog-card" href="programs.html">
+        <div class="prog-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 4v5c0 5-3.5 8-7 9-3.5-1-7-4-7-9V7z"/></svg></div>
+        <h3>VA</h3>
+        <p>Zero down and no monthly mortgage insurance for those who served. You earned this one.</p>
+        <span class="link">Learn more &#8594;</span>
+      </a>
+      <a class="prog-card" href="programs.html">
+        <div class="prog-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10m5.33 10V4m5.34 16v-8M20 20v-13"/></svg></div>
+        <h3>Refinance</h3>
+        <p>Lower your rate, drop PMI, or pull cash out. See your break-even math before you commit.</p>
+        <span class="link">Learn more &#8594;</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section soft">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">How it works</span>
+      <h2>Three steps. Zero runaround.</h2>
+      <p>We rebuilt the mortgage process from scratch so you spend minutes, not months.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="num">1</div>
+        <h3>Apply online in 5 minutes</h3>
+        <p>Answer a few plain-English questions. No branch visits, no fax machines, no "please hold."</p>
+        <span class="tag">~5 minutes</span>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <h3>Get your rate &amp; pre-approval</h3>
+        <p>See real numbers, not teaser rates. Lock when you're ready and shop with a letter sellers trust.</p>
+        <span class="tag">Same day</span>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <h3>Close fast</h3>
+        <p>Digital documents, proactive updates, and an average close of 21 days. Keys in hand, faster.</p>
+        <span class="tag">21-day average</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="split">
+      <div class="split-img" role="img" aria-label="Bright modern living room"></div>
+      <div>
+        <span class="eyebrow" style="display:inline-block;color:var(--blue);font-size:.8rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase;margin-bottom:14px">Why RateReady</span>
+        <h2>Total transparency, start to finish.</h2>
+        <p>Most lenders hide the ball. We show you the whole play: your rate, your fees, your timeline — upfront, in writing, before you commit to anything.</p>
+        <ul class="check-list">
+          <li><span class="ck">&#10003;</span>Real rates in minutes — no email-gated "quotes"</li>
+          <li><span class="ck">&#10003;</span>No application fees, no junk fees, no surprises at the table</li>
+          <li><span class="ck">&#10003;</span>A dedicated loan expert plus 24/7 status tracking</li>
+          <li><span class="ck">&#10003;</span>Rate-lock protection while you shop</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section tint">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Reviews</span>
+      <h2>People actually enjoy this part.</h2>
+      <p>4.9 out of 5 across 612 reviews. Here's a sample.</p>
+    </div>
+    <div class="t-grid">
+      <div class="t-card">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>"Pre-approved before my lunch break was over. We closed on our first house in 19 days. I still don't fully believe it happened that fast."</blockquote>
+        <div class="who"><div class="avatar">MK</div><div><b>Maya K.</b><span>Austin, TX &middot; First-time buyer</span></div></div>
+      </div>
+      <div class="t-card">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>"Refinanced and cut our payment by $410 a month. The break-even calculator told me exactly when it made sense. No pressure, just math."</blockquote>
+        <div class="who"><div class="avatar">DR</div><div><b>Devon R.</b><span>Charlotte, NC &middot; Refinance</span></div></div>
+      </div>
+      <div class="t-card">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <blockquote>"As a veteran I'd been quoted junk fees everywhere else. RateReady's VA team knew the program cold and got me to zero-down closing with no drama."</blockquote>
+        <div class="who"><div class="avatar">JT</div><div><b>James T.</b><span>San Diego, CA &middot; VA loan</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap">
+    <h2>Your rate is waiting. Go get it.</h2>
+    <p>Five minutes online. Real numbers. No obligation, no credit-score hit to see your options.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-light" href="apply.html">Apply now</a>
+      <a class="btn btn-ghost" href="calculator.html">Run the numbers</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div class="f-brand">
+        <a class="brand" href="index.html"><span class="b">Rate</span>Ready</a>
+        <p>The mortgage platform built for speed. Apply online, see your real rate in minutes, and close in as few as 21 days.</p>
+        <p style="margin-top:16px">(000) 000-0000 &middot; hello@example.com</p>
+      </div>
+      <div class="f-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="programs.html">Programs</a></li>
+          <li><a href="calculator.html">Calculator</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="reviews.html">Reviews</a></li>
+          <li><a href="apply.html">Apply now</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <span>NMLS #123456 &middot; RateReady is a demo brand. Equal Housing Lender.</span>
+      <span>Template by <a href="https://pilk.ai">Pilk.ai</a></span>
+    </div>
+  </div>
+</footer>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

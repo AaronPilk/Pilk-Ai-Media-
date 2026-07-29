@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lending Programs — Keystone Capital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--ivory:#f7f4ee;--char:#2b2825;--burg:#7a1f2b;--brass:#b08d3e;--muted:#6f6a62;--line:#e4ddd0}
+  body{font-family:'Source Sans 3',Georgia,serif;background:var(--ivory);color:var(--char);line-height:1.7;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:'Playfair Display',Georgia,serif}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+  a{color:inherit;text-decoration:none}
+  .topbar{background:var(--char);color:#cfc8bc;font-size:12px;letter-spacing:.08em;text-align:center;padding:8px 16px}
+  .topbar b{color:var(--brass);font-weight:600}
+  header{position:sticky;top:0;background:rgba(247,244,238,0.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:100}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:76px;gap:16px}
+  .logo{font-family:'Playfair Display',serif;font-weight:700;font-size:21px;letter-spacing:.02em}
+  .logo .est{display:block;font-family:'Source Sans 3',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:var(--brass);margin-top:-2px}
+  .nav-links{display:flex;align-items:center;gap:30px;font-size:13.5px;letter-spacing:.04em;color:var(--muted)}
+  .nav-links a:hover{color:var(--burg)}
+  .nav-links a.active{color:var(--burg);font-weight:600}
+  .btn{display:inline-block;padding:13px 30px;font-size:13.5px;font-weight:600;letter-spacing:.06em;cursor:pointer;border:none;transition:background .2s ease,color .2s ease;font-family:'Source Sans 3',sans-serif}
+  .btn-burg{background:var(--burg);color:#f7f4ee}
+  .btn-burg:hover{background:#621822}
+  .nav .btn{padding:11px 22px}
+  .page-head{padding:92px 0 68px;text-align:center;border-bottom:1px solid var(--line)}
+  .kicker{font-size:12px;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:var(--brass);margin-bottom:18px}
+  h1{font-size:48px;font-weight:600;line-height:1.15}
+  .page-head p{margin:22px auto 0;font-size:16.5px;color:var(--muted);max-width:58ch}
+  .program{display:grid;grid-template-columns:320px 1fr auto;gap:52px;padding:64px 0;border-bottom:1px solid var(--line);align-items:start}
+  .program .rn{font-family:'Playfair Display',serif;font-size:15px;color:var(--brass);letter-spacing:.24em}
+  .program h2{font-size:30px;font-weight:600;margin-top:10px;line-height:1.2}
+  .program .best{font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--burg);margin-top:12px}
+  .program>div>p{font-size:15px;color:var(--muted)}
+  .program ul{margin-top:20px;list-style:none}
+  .program li{font-size:14.5px;padding-left:28px;position:relative;margin-bottom:10px}
+  .program li::before{content:"—";position:absolute;left:0;color:var(--brass)}
+  .program .btn{white-space:nowrap;margin-top:8px}
+  .band{background:var(--burg);color:#f3ede4;text-align:center;padding:84px 24px;margin-top:0}
+  .band .kicker{color:var(--brass)}
+  .band h2{font-size:36px;color:#fbf7ef;line-height:1.2}
+  .band p{margin:18px auto 0;max-width:52ch;color:#e0d3cd}
+  .band .btn{margin-top:32px;background:var(--ivory);color:var(--burg)}
+  .band .btn:hover{background:#fff}
+  footer{padding:64px 0 44px;background:var(--char);color:#a8a095}
+  .foot-grid{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap}
+  .foot-brand{max-width:320px}
+  .foot-brand .logo{color:#f3efe7}
+  .foot-brand p{margin-top:14px;font-size:13.5px}
+  .foot-links{display:flex;gap:60px;flex-wrap:wrap}
+  .foot-links h4{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--brass);margin-bottom:16px}
+  .foot-links a{display:block;font-size:14px;margin-bottom:10px;color:#a8a095}
+  .foot-links a:hover{color:#f3efe7}
+  .legal{margin-top:48px;padding-top:26px;border-top:1px solid rgba(176,141,62,0.25);font-size:12px;color:#7d766c;line-height:1.9}
+  @media(max-width:860px){
+    h1{font-size:33px}
+    .page-head{padding:52px 0 44px}
+    .program{grid-template-columns:1fr;gap:22px;padding:44px 0}
+    .band h2{font-size:27px}
+    .nav{height:auto;flex-wrap:wrap;padding:14px 0}
+    .nav-links{gap:16px;flex-wrap:wrap;font-size:13px;order:3;width:100%;padding-bottom:4px}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">Serving discerning homeowners since <b>1987</b> · Private lending, personally delivered</div>
+
+<header>
+  <div class="wrap nav">
+    <a href="index.html" class="logo">Keystone Capital<span class="est">Est. 1987</span></a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html" class="active">Lending</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">Our Firm</a>
+      <a href="reviews.html">Testimonials</a>
+    </nav>
+    <a href="apply.html" class="btn btn-burg">Apply now</a>
+  </div>
+</header>
+
+<div class="page-head">
+  <div class="wrap">
+    <div class="kicker">Lending Programs</div>
+    <h1>Six instruments, chosen with care.</h1>
+    <p>Each engagement begins the same way: we listen, we compare every suitable program in writing, and we recommend only what serves your interests. The programs below form the foundation of our residential practice.</p>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="program">
+    <div>
+      <div class="rn">PROGRAM I</div>
+      <h2>Conventional Financing</h2>
+      <div class="best">The prudent standard</div>
+    </div>
+    <div>
+      <p>For borrowers of sound credit, conventional financing remains the most economical path to ownership. We attend particularly to the total cost of capital over the life of the loan — not merely the advertised rate.</p>
+      <ul>
+        <li>Down payments from 3% for qualified first-time purchasers</li>
+        <li>Private mortgage insurance retired at 20% equity</li>
+        <li>Fixed terms of 15, 20, and 30 years</li>
+        <li>Rate comparisons across our full correspondent panel</li>
+      </ul>
+    </div>
+    <a href="apply.html" class="btn btn-burg">Inquire</a>
+  </div>
+
+  <div class="program">
+    <div>
+      <div class="rn">PROGRAM II</div>
+      <h2>FHA Lending</h2>
+      <div class="best">The accessible beginning</div>
+    </div>
+    <div>
+      <p>We hold no snobbery about government-insured lending; some of our longest client relationships began with an FHA loan. It is a sensible instrument for those early in their financial lives, and we administer it with full ceremony.</p>
+      <ul>
+        <li>3.5% down with a 580 credit score or better</li>
+        <li>Accommodating debt-to-income guidelines</li>
+        <li>Family gift funds permitted for the entire down payment</li>
+        <li>A clear path to conventional refinancing as equity builds</li>
+      </ul>
+    </div>
+    <a href="apply.html" class="btn btn-burg">Inquire</a>
+  </div>
+
+  <div class="program">
+    <div>
+      <div class="rn">PROGRAM III</div>
+      <h2>VA Financing</h2>
+      <div class="best">For those who served</div>
+    </div>
+    <div>
+      <p>The VA benefit is, in our judgment, the finest lending program in the country — and it is administered too often with carelessness. Our bankers handle the Certificate of Eligibility, the appraisal particulars, and the funding fee counsel personally.</p>
+      <ul>
+        <li>No down payment required</li>
+        <li>No monthly mortgage insurance, in perpetuity</li>
+        <li>Certificate of Eligibility obtained on your behalf</li>
+        <li>A benefit that may be exercised more than once</li>
+      </ul>
+    </div>
+    <a href="apply.html" class="btn btn-burg">Inquire</a>
+  </div>
+
+  <div class="program">
+    <div>
+      <div class="rn">PROGRAM IV</div>
+      <h2>Estate &amp; Jumbo Lending</h2>
+      <div class="best">Our signature practice</div>
+    </div>
+    <div>
+      <p>Significant properties call for underwriting that comprehends trusts, partnership distributions, and income earned across jurisdictions. This is the work our firm was built for, and where our correspondent relationships prove most valuable.</p>
+      <ul>
+        <li>Financing well beyond conforming limits</li>
+        <li>Down payments from 10% for exceptional files</li>
+        <li>Trust, LLC, and entity vesting accommodated</li>
+        <li>Portfolio and interest-only structures where appropriate</li>
+      </ul>
+    </div>
+    <a href="apply.html" class="btn btn-burg">Inquire</a>
+  </div>
+
+  <div class="program">
+    <div>
+      <div class="rn">PROGRAM V</div>
+      <h2>Refinance Counsel</h2>
+      <div class="best">Dispassionate by design</div>
+    </div>
+    <div>
+      <p>A refinance is a mathematical question, and we treat it as one. Every proposal includes a break-even analysis in writing. When restructuring does not serve you, we advise against it — and have done so more times than we can count.</p>
+      <ul>
+        <li>Rate-and-term restructuring with full cost accounting</li>
+        <li>Cash-out financing for improvements or consolidation</li>
+        <li>Written break-even analysis with every proposal</li>
+        <li>Streamline programs for existing FHA and VA obligations</li>
+      </ul>
+    </div>
+    <a href="apply.html" class="btn btn-burg">Inquire</a>
+  </div>
+
+  <div class="program" style="border-bottom:none">
+    <div>
+      <div class="rn">PROGRAM VI</div>
+      <h2>First Home Counsel</h2>
+      <div class="best">The beginning of a relationship</div>
+    </div>
+    <div>
+      <p>Your first mortgage should be a tutorial, not a trial. We pair first-time purchasers with assistance programs where available, explain each document before it is signed, and remain your firm long after the closing dinner.</p>
+      <ul>
+        <li>Down payment assistance program review</li>
+        <li>Written pre-approval, typically within two business days</li>
+        <li>One senior banker from first call to settlement</li>
+        <li>An unhurried education in the instrument you are signing</li>
+      </ul>
+    </div>
+    <a href="apply.html" class="btn btn-burg">Inquire</a>
+  </div>
+
+</div>
+
+<div class="band">
+  <div class="kicker">Uncertain Where to Begin?</div>
+  <h2>Allow us to prepare a lending memorandum.</h2>
+  <p>One application, every suitable program compared in writing, and a candid recommendation. There is no fee and no obligation for this counsel.</p>
+  <a href="apply.html" class="btn">Request your memorandum</a>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo">Keystone Capital<span class="est">Est. 1987</span></div>
+        <p>Private mortgage counsel for families who measure wealth in generations, not quarters.</p>
+      </div>
+      <div class="foot-links">
+        <div>
+          <h4>The Firm</h4>
+          <a href="about.html">Our history</a>
+          <a href="reviews.html">Testimonials</a>
+          <a href="apply.html">Consultations</a>
+        </div>
+        <div>
+          <h4>Lending</h4>
+          <a href="programs.html">All programs</a>
+          <a href="calculator.html">Payment calculator</a>
+          <a href="programs.html">Refinance counsel</a>
+        </div>
+        <div>
+          <h4>Correspondence</h4>
+          <a href="apply.html">(000) 000-0000</a>
+          <a href="apply.html">hello@example.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="legal">
+      Keystone Capital · NMLS #000000 · Equal Housing Opportunity. This is a demo website; all rates, statistics, and testimonials are sample content for illustration only and do not constitute an offer to lend.<br>
+      (000) 000-0000 · hello@example.com · Template by Pilk.ai
+    </div>
+  </div>
+</footer>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

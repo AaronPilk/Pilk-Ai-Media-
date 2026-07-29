@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment Calculator — Keystone Capital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--ivory:#f7f4ee;--char:#2b2825;--burg:#7a1f2b;--brass:#b08d3e;--muted:#6f6a62;--line:#e4ddd0}
+  body{font-family:'Source Sans 3',Georgia,serif;background:var(--ivory);color:var(--char);line-height:1.7;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:'Playfair Display',Georgia,serif}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+  a{color:inherit;text-decoration:none}
+  .topbar{background:var(--char);color:#cfc8bc;font-size:12px;letter-spacing:.08em;text-align:center;padding:8px 16px}
+  .topbar b{color:var(--brass);font-weight:600}
+  header{position:sticky;top:0;background:rgba(247,244,238,0.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:100}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:76px;gap:16px}
+  .logo{font-family:'Playfair Display',serif;font-weight:700;font-size:21px;letter-spacing:.02em}
+  .logo .est{display:block;font-family:'Source Sans 3',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:var(--brass);margin-top:-2px}
+  .nav-links{display:flex;align-items:center;gap:30px;font-size:13.5px;letter-spacing:.04em;color:var(--muted)}
+  .nav-links a:hover{color:var(--burg)}
+  .nav-links a.active{color:var(--burg);font-weight:600}
+  .btn{display:inline-block;padding:13px 30px;font-size:13.5px;font-weight:600;letter-spacing:.06em;cursor:pointer;border:none;transition:background .2s ease;font-family:'Source Sans 3',sans-serif}
+  .btn-burg{background:var(--burg);color:#f7f4ee}
+  .btn-burg:hover{background:#621822}
+  .nav .btn{padding:11px 22px}
+  .page-head{padding:80px 0 52px;text-align:center}
+  .kicker{font-size:12px;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:var(--brass);margin-bottom:18px}
+  h1{font-size:44px;font-weight:600;line-height:1.15}
+  .page-head p{margin:20px auto 0;font-size:16px;color:var(--muted);max-width:54ch}
+  .gold-rule{height:1px;background:linear-gradient(90deg,transparent,var(--brass),transparent);border:none;width:220px;margin:32px auto 0}
+  .calc-grid{display:grid;grid-template-columns:1fr 430px;gap:44px;align-items:start;padding:24px 0 100px}
+  .panel{background:#fffdf9;border:1px solid var(--line);padding:40px}
+  .panel h3{font-size:20px;margin-bottom:26px;padding-bottom:16px;border-bottom:1px solid var(--line)}
+  .field{margin-bottom:24px}
+  .field label{display:block;font-size:12.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;color:var(--char)}
+  .field input,.field select{width:100%;padding:13px 14px;font-size:15px;font-family:'Source Sans 3',sans-serif;border:1px solid #d5cdbd;background:var(--ivory);color:var(--char)}
+  .field input:focus,.field select:focus{outline:none;border-color:var(--burg)}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .hint{font-size:12.5px;color:var(--muted);font-style:italic}
+  .result{background:var(--char);color:#f3efe7;padding:40px;position:sticky;top:106px}
+  .result .lbl{font-size:11px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--brass)}
+  .result .total{font-family:'Playfair Display',serif;font-size:54px;font-weight:600;margin-top:8px}
+  .result .total small{font-size:18px;color:#a8a095;font-family:'Source Sans 3',sans-serif}
+  .bar{display:flex;height:12px;overflow:hidden;margin:28px 0 20px;background:rgba(255,255,255,0.1)}
+  .bar .b-pi{background:var(--brass)}
+  .bar .b-tax{background:#8d6a2f}
+  .bar .b-ins{background:#5c4a26}
+  .row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid rgba(176,141,62,0.2);font-size:14.5px}
+  .row:last-of-type{border-bottom:none}
+  .row .k{display:flex;align-items:center;gap:10px;color:#cfc8bc}
+  .dot{width:10px;height:10px;display:inline-block}
+  .row .v{font-weight:600;color:#fff}
+  .loanamt{margin-top:16px;font-size:13px;color:#a8a095;border-top:1px solid rgba(176,141,62,0.2);padding-top:16px}
+  .loanamt b{color:#f3efe7}
+  .result .btn{width:100%;text-align:center;margin-top:24px;background:var(--brass);color:var(--char)}
+  .result .btn:hover{background:#c9a457}
+  .disclaimer{font-size:11.5px;color:#7d766c;margin-top:16px;line-height:1.7}
+  footer{padding:64px 0 44px;background:var(--char);color:#a8a095}
+  .foot-grid{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap}
+  .foot-brand{max-width:320px}
+  .foot-brand .logo{color:#f3efe7}
+  .foot-brand p{margin-top:14px;font-size:13.5px}
+  .foot-links{display:flex;gap:60px;flex-wrap:wrap}
+  .foot-links h4{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--brass);margin-bottom:16px}
+  .foot-links a{display:block;font-size:14px;margin-bottom:10px;color:#a8a095}
+  .foot-links a:hover{color:#f3efe7}
+  .legal{margin-top:48px;padding-top:26px;border-top:1px solid rgba(176,141,62,0.25);font-size:12px;color:#7d766c;line-height:1.9}
+  @media(max-width:940px){
+    h1{font-size:31px}
+    .page-head{padding:48px 0 32px}
+    .calc-grid{grid-template-columns:1fr;gap:28px;padding-bottom:64px}
+    .result{position:static}
+    .panel{padding:28px 22px}
+    .nav{height:auto;flex-wrap:wrap;padding:14px 0}
+    .nav-links{gap:16px;flex-wrap:wrap;font-size:13px;order:3;width:100%;padding-bottom:4px}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">Serving discerning homeowners since <b>1987</b> · Private lending, personally delivered</div>
+
+<header>
+  <div class="wrap nav">
+    <a href="index.html" class="logo">Keystone Capital<span class="est">Est. 1987</span></a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Lending</a>
+      <a href="calculator.html" class="active">Calculator</a>
+      <a href="about.html">Our Firm</a>
+      <a href="reviews.html">Testimonials</a>
+    </nav>
+    <a href="apply.html" class="btn btn-burg">Apply now</a>
+  </div>
+</header>
+
+<div class="page-head">
+  <div class="wrap">
+    <div class="kicker">Payment Calculator</div>
+    <h1>An honest accounting, before you commit.</h1>
+    <p>Adjust the figures below to estimate your monthly obligation — principal and interest, property tax, and insurance, itemized as they ought to be.</p>
+    <hr class="gold-rule">
+  </div>
+</div>
+
+<div class="wrap calc-grid">
+  <div class="panel">
+    <h3>The Particulars</h3>
+    <div class="field">
+      <label for="price">Purchase price</label>
+      <input type="number" id="price" value="400000" min="0" step="5000">
+    </div>
+    <div class="split">
+      <div class="field">
+        <label for="down">Down payment ($)</label>
+        <input type="number" id="down" value="80000" min="0" step="1000">
+      </div>
+      <div class="field">
+        <label for="downPct">Down payment (%)</label>
+        <input type="number" id="downPct" value="20" min="0" max="100" step="0.5">
+      </div>
+    </div>
+    <div class="split">
+      <div class="field">
+        <label for="rate">Interest rate (%)</label>
+        <input type="number" id="rate" value="6.5" min="0" max="20" step="0.125">
+      </div>
+      <div class="field">
+        <label for="term">Term</label>
+        <select id="term">
+          <option value="15">15 years</option>
+          <option value="20">20 years</option>
+          <option value="30" selected>30 years</option>
+        </select>
+      </div>
+    </div>
+    <div class="split">
+      <div class="field">
+        <label for="tax">Property tax (% / yr)</label>
+        <input type="number" id="tax" value="1.1" min="0" max="10" step="0.05">
+      </div>
+      <div class="field">
+        <label for="ins">Insurance ($ / yr)</label>
+        <input type="number" id="ins" value="1500" min="0" step="100">
+      </div>
+    </div>
+    <p class="hint">The down payment fields remain in agreement — amend whichever you prefer.</p>
+  </div>
+
+  <div class="result">
+    <div class="lbl">Estimated Monthly Obligation</div>
+    <div class="total"><span id="outTotal">$0</span><small> /month</small></div>
+    <div class="bar" aria-hidden="true">
+      <div class="b-pi" id="barPI" style="width:70%"></div>
+      <div class="b-tax" id="barTax" style="width:20%"></div>
+      <div class="b-ins" id="barIns" style="width:10%"></div>
+    </div>
+    <div class="row"><span class="k"><span class="dot" style="background:#b08d3e"></span>Principal &amp; interest</span><span class="v" id="outPI">$0</span></div>
+    <div class="row"><span class="k"><span class="dot" style="background:#8d6a2f"></span>Property tax</span><span class="v" id="outTax">$0</span></div>
+    <div class="row"><span class="k"><span class="dot" style="background:#5c4a26"></span>Insurance</span><span class="v" id="outIns">$0</span></div>
+    <div class="loanamt">Principal financed: <b id="outLoan">$0</b></div>
+    <a href="apply.html" class="btn">Request a written proposal</a>
+    <p class="disclaimer">Estimates only. Excludes mortgage insurance, association dues, and other possible costs. Actual terms depend upon your credit profile, chosen program, and prevailing market conditions.</p>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo">Keystone Capital<span class="est">Est. 1987</span></div>
+        <p>Private mortgage counsel for families who measure wealth in generations, not quarters.</p>
+      </div>
+      <div class="foot-links">
+        <div>
+          <h4>The Firm</h4>
+          <a href="about.html">Our history</a>
+          <a href="reviews.html">Testimonials</a>
+          <a href="apply.html">Consultations</a>
+        </div>
+        <div>
+          <h4>Lending</h4>
+          <a href="programs.html">All programs</a>
+          <a href="calculator.html">Payment calculator</a>
+          <a href="programs.html">Refinance counsel</a>
+        </div>
+        <div>
+          <h4>Correspondence</h4>
+          <a href="apply.html">(000) 000-0000</a>
+          <a href="apply.html">hello@example.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="legal">
+      Keystone Capital · NMLS #000000 · Equal Housing Opportunity. This is a demo website; all rates, statistics, and testimonials are sample content for illustration only and do not constitute an offer to lend.<br>
+      (000) 000-0000 · hello@example.com · Template by Pilk.ai
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var price=document.getElementById('price'),
+      down=document.getElementById('down'),
+      downPct=document.getElementById('downPct'),
+      rate=document.getElementById('rate'),
+      term=document.getElementById('term'),
+      tax=document.getElementById('tax'),
+      ins=document.getElementById('ins');
+
+  function fmt(n){return '$'+Math.round(n).toLocaleString('en-US');}
+
+  function calc(){
+    var P0=parseFloat(price.value)||0,
+        D=parseFloat(down.value)||0,
+        loan=Math.max(P0-D,0),
+        n=(parseInt(term.value,10)||30)*12,
+        r=(parseFloat(rate.value)||0)/100/12,
+        pi;
+    if(r>0){var f=Math.pow(1+r,n);pi=loan*(r*f)/(f-1);}
+    else{pi=n>0?loan/n:0;}
+    var mTax=(P0*((parseFloat(tax.value)||0)/100))/12,
+        mIns=(parseFloat(ins.value)||0)/12,
+        total=pi+mTax+mIns;
+    document.getElementById('outPI').textContent=fmt(pi);
+    document.getElementById('outTax').textContent=fmt(mTax);
+    document.getElementById('outIns').textContent=fmt(mIns);
+    document.getElementById('outTotal').textContent=fmt(total);
+    document.getElementById('outLoan').textContent=fmt(loan);
+    var t=total>0?total:1;
+    document.getElementById('barPI').style.width=(pi/t*100)+'%';
+    document.getElementById('barTax').style.width=(mTax/t*100)+'%';
+    document.getElementById('barIns').style.width=(mIns/t*100)+'%';
+  }
+  price.addEventListener('input',function(){down.value=Math.round((parseFloat(price.value)||0)*((parseFloat(downPct.value)||0)/100));calc();});
+  down.addEventListener('input',function(){var P0=parseFloat(price.value)||0;if(P0>0){downPct.value=Math.round((parseFloat(down.value)||0)/P0*1000)/10;}calc();});
+  downPct.addEventListener('input',function(){down.value=Math.round((parseFloat(price.value)||0)*((parseFloat(downPct.value)||0)/100));calc();});
+  [rate,term,tax,ins].forEach(function(el){el.addEventListener('input',calc);el.addEventListener('change',calc);});
+  calc();
+})();
+</script>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

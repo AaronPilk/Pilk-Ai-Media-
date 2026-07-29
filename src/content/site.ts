@@ -24,7 +24,8 @@ export const site = {
   ],
 
   nav: [
-    { label: "Real Estate / Mortgage", href: "/real-estate" },
+    { label: "Mortgage", href: "/mortgage" },
+    { label: "Real Estate", href: "/real-estate" },
     { label: "Rent vs Own", href: "/own-vs-rent" },
     { label: "Process", href: "/process" },
     { label: "Apps", href: "/apps" },

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us — SwiftApprove</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbfaf8;
+  --ink:#2b2723;
+  --muted:#6f675e;
+  --coral:#f97362;
+  --coral-dark:#e85d4c;
+  --coral-soft:#ffe6e1;
+  --amber:#f5a623;
+  --amber-soft:#fdeecd;
+  --card:#ffffff;
+  --line:#f0e9e2;
+  --shadow:0 12px 32px rgba(249,115,98,.14);
+  --shadow-lift:0 18px 44px rgba(249,115,98,.22);
+  --radius:24px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Nunito',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;}
+a{text-decoration:none;color:inherit;}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px;}
+
+/* Nav */
+.nav-wrap{position:sticky;top:0;z-index:50;background:rgba(251,250,248,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+.nav{max-width:1160px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+.logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:22px;letter-spacing:-.02em;}
+.logo-mark{width:30px;height:30px;border-radius:11px;background:linear-gradient(135deg,var(--coral),var(--amber));display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(249,115,98,.35);}
+.logo-mark svg{width:16px;height:16px;}
+.logo span.dot{color:var(--coral);}
+.nav-links{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.nav-links a{padding:9px 16px;border-radius:999px;font-weight:700;font-size:15px;color:var(--muted);transition:.2s;}
+.nav-links a:hover{color:var(--ink);background:var(--coral-soft);}
+.nav-links a.active{color:var(--coral-dark);background:var(--coral-soft);}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;font-family:'Nunito',sans-serif;font-weight:800;cursor:pointer;border:none;transition:.2s;}
+.btn-primary{background:var(--coral);color:#fff;padding:13px 28px;font-size:16px;box-shadow:0 8px 20px rgba(249,115,98,.35);}
+.btn-primary:hover{background:var(--coral-dark);transform:translateY(-2px);box-shadow:var(--shadow-lift);}
+.nav-links .btn-primary{padding:10px 22px;font-size:15px;color:#fff;}
+.nav-links .btn-primary:hover{color:#fff;}
+.pill-label{display:inline-block;background:var(--coral-soft);color:var(--coral-dark);font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding:7px 16px;border-radius:999px;margin-bottom:16px;}
+
+/* Story */
+.story{padding:64px 0 0;}
+.story-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;}
+.story h1{font-size:44px;font-weight:900;letter-spacing:-.025em;margin-bottom:18px;line-height:1.14;}
+.story h1 em{font-style:normal;color:var(--coral);}
+.story p{font-size:16.5px;color:var(--muted);margin-bottom:16px;}
+.story-visual{position:relative;}
+.story-img{width:100%;aspect-ratio:4/4.2;background-image:url('/template-previews/_assets/int-living-bright.jpg'),linear-gradient(135deg,#ffd9d2,#ffeccc);background-size:cover;background-position:center;border-radius:54% 46% 48% 52% / 46% 54% 46% 54%;box-shadow:var(--shadow-lift);}
+.story-chip{position:absolute;bottom:6%;left:-5%;background:#fff;border-radius:18px;padding:14px 20px;box-shadow:0 14px 34px rgba(43,39,35,.16);}
+.story-chip b{display:block;font-size:22px;font-weight:900;color:var(--coral-dark);}
+.story-chip small{font-size:12.5px;font-weight:700;color:var(--muted);}
+
+/* Values */
+.section{padding:84px 0 0;}
+.sec-head{text-align:center;max-width:600px;margin:0 auto 44px;}
+.sec-head h2{font-size:36px;font-weight:900;letter-spacing:-.02em;margin-bottom:12px;}
+.sec-head p{color:var(--muted);font-size:17px;}
+.values{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.value{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:34px 30px;box-shadow:0 6px 18px rgba(249,115,98,.08);transition:.25s;}
+.value:hover{transform:translateY(-6px);box-shadow:var(--shadow-lift);}
+.value-ic{width:54px;height:54px;border-radius:18px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;}
+.value-ic svg{width:27px;height:27px;}
+.ic-coral{background:var(--coral-soft);}
+.ic-amber{background:var(--amber-soft);}
+.value h3{font-size:20px;font-weight:800;margin-bottom:10px;}
+.value p{font-size:15px;color:var(--muted);}
+
+/* Team */
+.team{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+.member{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px 22px 26px;text-align:center;box-shadow:0 6px 18px rgba(249,115,98,.08);transition:.25s;}
+.member:hover{transform:translateY(-6px);box-shadow:var(--shadow-lift);}
+.member-photo{width:100%;aspect-ratio:1/1.05;border-radius:20px 20px 44% 44% / 20px 20px 30% 30%;background-size:cover;background-position:center top;margin-bottom:18px;}
+.member h3{font-size:18px;font-weight:800;letter-spacing:-.01em;}
+.member .role{display:inline-block;font-size:13px;font-weight:800;color:var(--coral-dark);background:var(--coral-soft);border-radius:999px;padding:4px 13px;margin:8px 0 10px;}
+.member small{display:block;font-size:12.5px;font-weight:700;color:var(--muted);}
+
+/* CTA band */
+.cta-band{margin:84px 0 0;background:linear-gradient(120deg,var(--coral),#f9895f 55%,var(--amber));border-radius:32px;padding:64px 48px;text-align:center;color:#fff;box-shadow:var(--shadow-lift);}
+.cta-band h2{font-size:34px;font-weight:900;letter-spacing:-.02em;margin-bottom:12px;}
+.cta-band p{font-size:17px;opacity:.94;margin-bottom:28px;max-width:520px;margin-left:auto;margin-right:auto;}
+.btn-white{background:#fff;color:var(--coral-dark);padding:15px 34px;font-size:17px;box-shadow:0 10px 26px rgba(0,0,0,.16);}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(0,0,0,.22);}
+
+/* Footer */
+footer{margin-top:96px;background:#fff;border-top:1px solid var(--line);padding:56px 0 96px;}
+.foot-grid{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;margin-bottom:36px;}
+.foot-brand{max-width:300px;}
+.foot-brand .logo{margin-bottom:12px;}
+.foot-brand p{font-size:14.5px;color:var(--muted);}
+.foot-links{display:flex;flex-direction:column;gap:10px;}
+.foot-links h4{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.foot-links a{font-size:14.5px;font-weight:700;color:var(--ink);transition:.2s;}
+.foot-links a:hover{color:var(--coral-dark);}
+.foot-legal{border-top:1px solid var(--line);padding-top:26px;font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:6px;}
+
+@media(max-width:960px){
+  .story-grid{grid-template-columns:1fr;gap:44px;}
+  .story-visual{max-width:440px;margin:0 auto;}
+  .story h1{font-size:36px;}
+  .values{grid-template-columns:1fr;}
+  .team{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:560px){
+  .nav{flex-direction:column;align-items:center;padding:14px 16px 16px;}
+  .nav-links{justify-content:center;}
+  .story{padding:44px 0 0;}
+  .story h1{font-size:30px;}
+  .sec-head h2{font-size:29px;}
+  .team{grid-template-columns:1fr;}
+  .cta-band{padding:48px 24px;}
+  .cta-band h2{font-size:27px;}
+}
+</style>
+</head>
+<body>
+
+<header class="nav-wrap">
+  <nav class="nav">
+    <a class="logo" href="index.html">
+      <span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></span>
+      SwiftApprove<span class="dot">.</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html" class="active">About</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="apply.html" class="btn btn-primary">Apply now</a>
+    </div>
+  </nav>
+</header>
+
+<section class="story">
+  <div class="wrap story-grid">
+    <div>
+      <span class="pill-label">Our story</span>
+      <h1>Mortgages felt broken. <em>So we fixed the part that hurts.</em></h1>
+      <p>We started SwiftApprove because getting your first mortgage felt like doing taxes in a foreign language. Forty-page documents, acronyms nobody explains, and a loan officer who calls back three days later — if at all.</p>
+      <p>So we built the lender we wished existed: real humans who text back within minutes, paperwork translated into plain English, and pre-approvals that show up in hours instead of weeks.</p>
+      <p>Fifteen thousand first homes later, we still celebrate every single closing like it's our own. Because for someone, it's the biggest day of their year — and we get to hand them the keys.</p>
+    </div>
+    <div class="story-visual">
+      <div class="story-img" role="img" aria-label="A bright, welcoming living room"></div>
+      <div class="story-chip"><b>15,000+</b><small>first homes and counting</small></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="pill-label">What we believe</span>
+      <h2>Three rules we never break</h2>
+      <p>Every loan, every buyer, every time. These aren't wall posters — they're how we actually work.</p>
+    </div>
+    <div class="values">
+      <div class="value">
+        <span class="value-ic ic-coral"><svg viewBox="0 0 24 24" fill="none" stroke="#e85d4c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 01-8.5 8.5c-1.3 0-2.6-.3-3.7-.8L3 21l1.8-5.8A8.5 8.5 0 1121 11.5z"/></svg></span>
+        <h3>Plain English, always</h3>
+        <p>If we can't explain a loan term so your best friend would get it, we haven't explained it yet. No acronym leaves our mouths without a translation.</p>
+      </div>
+      <div class="value">
+        <span class="value-ic ic-amber"><svg viewBox="0 0 24 24" fill="none" stroke="#c98410" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span>
+        <h3>Speed is respect</h3>
+        <p>Waiting on a lender while your dream house gets other offers is agony. We answer fast, pre-approve fast, and close fast — because your time matters.</p>
+      </div>
+      <div class="value">
+        <span class="value-ic ic-coral"><svg viewBox="0 0 24 24" fill="none" stroke="#e85d4c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-4.6-9.5-9A5.5 5.5 0 0112 5.6 5.5 5.5 0 0121.5 12c-2.5 4.4-9.5 9-9.5 9z"/></svg></span>
+        <h3>Honest, even when it stings</h3>
+        <p>If waiting six months would get you a better deal, we'll tell you — and help you build the plan. We'd rather lose a loan than steer you wrong.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="pill-label">The humans</span>
+      <h2>Meet your loan guides</h2>
+      <p>The people who'll actually pick up the phone. Yes, they really do text back that fast.</p>
+    </div>
+    <div class="team">
+      <div class="member">
+        <div class="member-photo" style="background-image:url('/template-previews/_assets/agent-f1.jpg'),linear-gradient(135deg,#ffd9d2,#ffeccc);"></div>
+        <h3>Jenna Okafor</h3>
+        <span class="role">Co-Founder &amp; Lead Loan Guide</span>
+        <small>NMLS #000000</small>
+      </div>
+      <div class="member">
+        <div class="member-photo" style="background-image:url('/template-previews/_assets/agent-m1.jpg'),linear-gradient(135deg,#ffd9d2,#ffeccc);"></div>
+        <h3>Marcus Delgado</h3>
+        <span class="role">Head of Happy Closings</span>
+        <small>NMLS #000000</small>
+      </div>
+      <div class="member">
+        <div class="member-photo" style="background-image:url('/template-previews/_assets/agent-f2.jpg'),linear-gradient(135deg,#ffd9d2,#ffeccc);"></div>
+        <h3>Sara Lindqvist</h3>
+        <span class="role">First-Time Buyer Specialist</span>
+        <small>NMLS #000000</small>
+      </div>
+      <div class="member">
+        <div class="member-photo" style="background-image:url('/template-previews/_assets/agent-m2.jpg'),linear-gradient(135deg,#ffd9d2,#ffeccc);"></div>
+        <h3>Theo Brandt</h3>
+        <span class="role">Senior Loan Guide, FHA &amp; VA</span>
+        <small>NMLS #000000</small>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="cta-band">
+      <h2>Come say hi. Bring your questions.</h2>
+      <p>No question is too basic — we've heard them all, and we love answering them. Start with a quick application and we'll take it from there.</p>
+      <a href="apply.html" class="btn btn-white">Start my application</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="logo" href="index.html">
+          <span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg></span>
+          SwiftApprove<span class="dot">.</span>
+        </a>
+        <p>Friendly mortgages for first-time buyers. Plain English, fast answers, and a loan guide who actually texts back.</p>
+      </div>
+      <div class="foot-links">
+        <h4>Explore</h4>
+        <a href="index.html">Home</a>
+        <a href="programs.html">Programs</a>
+        <a href="calculator.html">Calculator</a>
+      </div>
+      <div class="foot-links">
+        <h4>Company</h4>
+        <a href="about.html">About us</a>
+        <a href="reviews.html">Reviews</a>
+        <a href="apply.html">Apply now</a>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <span>NMLS #000000 · Equal Housing Lender</span>
+      <span>(000) 000-0000 · hello@example.com</span>
+      <span>Template by Pilk.ai</span>
+      <span>This is a demo website. All names, numbers, rates, and reviews are fictional sample content for design preview purposes only.</span>
+    </div>
+  </div>
+</footer>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>

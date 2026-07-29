@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reviews — Metro Lending Group</title>
+<meta name="description" content="4.8 out of 5 across 640 verified reviews. What urban buyers say about closing with Metro Lending Group.">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Archivo',Helvetica,Arial,sans-serif;background:#ffffff;color:#0a0a0a;-webkit-font-smoothing:antialiased;line-height:1.5}
+a{color:inherit;text-decoration:none}
+.label{font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:#525252}
+.wrap{max-width:1280px;margin:0 auto;padding:0 24px}
+.btn{display:inline-block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;padding:17px 30px;transition:background .15s,color .15s}
+.btn-red{background:#dc2626;color:#ffffff}
+.btn-red:hover{background:#0a0a0a;color:#ffffff}
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:#ffffff;border-bottom:1px solid #e5e5e5}
+.nav-in{max-width:1280px;margin:0 auto;padding:0 24px;height:66px;display:flex;align-items:center;justify-content:space-between;position:relative}
+.logo{font-weight:900;font-size:19px;letter-spacing:-.02em;text-transform:uppercase}
+.logo em{font-style:normal;color:#dc2626}
+.menu-t{display:none}
+.menu-btn{display:none}
+.links{display:flex;align-items:center;gap:26px}
+.links a{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:#525252;padding:6px 0;border-bottom:2px solid transparent;transition:color .15s}
+.links a:hover{color:#0a0a0a}
+.links a.active{color:#0a0a0a;border-bottom-color:#dc2626}
+.links a.cta{background:#dc2626;color:#ffffff;padding:13px 22px;border-bottom:none}
+.links a.cta:hover{background:#0a0a0a;color:#ffffff}
+@media(max-width:860px){
+  .menu-btn{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:10px 0}
+  .menu-btn span{display:block;width:24px;height:2px;background:#0a0a0a}
+  .links{display:none;position:absolute;top:66px;left:0;right:0;background:#ffffff;border-bottom:1px solid #e5e5e5;flex-direction:column;align-items:stretch;gap:0}
+  .links a{padding:16px 24px;border-bottom:1px solid #e5e5e5}
+  .links a.active{border-left:3px solid #dc2626;border-bottom:1px solid #e5e5e5}
+  .links a.cta{margin:16px 24px;text-align:center}
+  .menu-t:checked ~ .links{display:flex}
+}
+/* AGGREGATE HEADER */
+.agg{background:#0a0a0a;color:#ffffff;border-bottom:1px solid #262626}
+.agg-in{max-width:1280px;margin:0 auto;padding:88px 24px 72px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:end}
+.agg .label{color:#a3a3a3;display:block;margin-bottom:16px}
+.agg h1{font-size:clamp(38px,6vw,84px);font-weight:900;letter-spacing:-.03em;text-transform:uppercase;line-height:.94}
+.agg h1 em{font-style:normal;color:#dc2626}
+.agg-score{text-align:right}
+.agg-score .num{font-size:clamp(52px,6vw,84px);font-weight:900;letter-spacing:-.03em;line-height:1;color:#dc2626}
+.agg-score .num span{color:#ffffff;font-size:.45em;font-weight:800}
+.agg-score .stars{margin-top:10px;font-size:20px;letter-spacing:4px;color:#ffffff}
+.agg-score .count{margin-top:8px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:#a3a3a3}
+/* REVIEWS GRID */
+.rev-sec{padding:72px 0 96px}
+.rgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#e5e5e5;border:1px solid #e5e5e5}
+.rcell{background:#ffffff;padding:32px 28px;display:flex;flex-direction:column;transition:background .15s}
+.rcell:hover{background:#f5f5f5}
+.rcell .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.rcell .stars{letter-spacing:3px;font-size:14px;color:#0a0a0a}
+.rcell .tag{font-size:9px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;border:1px solid #0a0a0a;padding:5px 9px}
+.rcell blockquote{font-size:15px;font-weight:600;line-height:1.5;flex:1}
+.rcell footer{margin-top:20px;padding-top:16px;border-top:1px solid #e5e5e5;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
+.rcell footer span{display:block;color:#737373;font-weight:600;margin-top:4px}
+/* CTA BAND */
+.band{position:relative;overflow:hidden;background:#0a0a0a}
+.band::before{content:"";position:absolute;inset:0;background-image:url('/template-previews/_assets/city-skyline.jpg'),linear-gradient(135deg,#1a1a1a,#333333);background-size:cover;background-position:center;filter:grayscale(1)}
+.band::after{content:"";position:absolute;inset:0;background:rgba(10,10,10,.78)}
+.band-in{position:relative;z-index:2;max-width:1280px;margin:0 auto;padding:100px 24px;text-align:center;color:#ffffff}
+.band-in .label{color:#a3a3a3;display:block;margin-bottom:16px}
+.band-in h2{font-size:clamp(30px,4.8vw,60px);font-weight:900;letter-spacing:-.03em;text-transform:uppercase;line-height:1;margin-bottom:30px}
+.band-in h2 em{font-style:normal;color:#dc2626}
+/* FOOTER */
+.foot{background:#0a0a0a;color:#ffffff}
+.foot-grid{max-width:1280px;margin:0 auto;padding:64px 24px;display:grid;grid-template-columns:1.4fr 1fr;gap:48px}
+.foot-brand .logo{font-size:22px}
+.foot-brand p{margin-top:14px;font-size:14px;color:#a3a3a3;max-width:36ch}
+.foot-links{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#262626;border:1px solid #262626;align-self:start}
+.foot-links a{background:#0a0a0a;padding:16px 18px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:#a3a3a3}
+.foot-links a:hover{color:#ffffff;background:#171717}
+.foot-legal{border-top:1px solid #262626}
+.foot-legal-in{max-width:1280px;margin:0 auto;padding:22px 24px 48px;display:flex;flex-wrap:wrap;gap:10px 28px;font-size:11px;letter-spacing:.08em;color:#737373}
+@media(max-width:900px){
+  .agg-in{grid-template-columns:1fr;padding:64px 24px 56px}
+  .agg-score{text-align:left}
+  .rgrid{grid-template-columns:1fr 1fr}
+  .foot-grid{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .rgrid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="logo" href="index.html">Metro<em>/</em>LG</a>
+    <input type="checkbox" id="menu-t" class="menu-t">
+    <label for="menu-t" class="menu-btn" aria-label="Menu"><span></span><span></span><span></span></label>
+    <nav class="links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html" class="active">Reviews</a>
+      <a href="apply.html" class="cta">Apply now</a>
+    </nav>
+  </div>
+</header>
+
+<section class="agg">
+  <div class="agg-in">
+    <div>
+      <span class="label">Verified client reviews</span>
+      <h1>The record <em>speaks.</em></h1>
+    </div>
+    <div class="agg-score">
+      <div class="num">4.8<span> / 5</span></div>
+      <div class="stars">★★★★★</div>
+      <div class="count">640 verified reviews</div>
+    </div>
+  </div>
+</section>
+
+<section class="rev-sec">
+  <div class="wrap">
+    <div class="rgrid">
+
+      <div class="rcell">
+        <div class="top"><span class="stars">★★★★★</span><span class="tag">Condo purchase</span></div>
+        <blockquote>"My building is non-warrantable and two big banks walked. Metro had a program ready and closed in 17 days. Devon knew the building before I finished the address."</blockquote>
+        <footer>Sofia R.<span>Jersey City, NJ</span></footer>
+      </div>
+
+      <div class="rcell">
+        <div class="top"><span class="stars">★★★★★</span><span class="tag">Co-op purchase</span></div>
+        <blockquote>"Co-op board wanted a full package in 10 business days. Metro's team had it done in six. The board president asked who my lender was — that says it all."</blockquote>
+        <footer>James W.<span>Brooklyn, NY</span></footer>
+      </div>
+
+      <div class="rcell">
+        <div class="top"><span class="stars">★★★★★</span><span class="tag">Refi</span></div>
+        <blockquote>"They ran the break-even math and told me to wait three months. When the rate moved, they called me. Saved $412 a month. Who does that?"</blockquote>
+        <footer>Angela M.<span>Chicago, IL</span></footer>
+      </div>
+
+      <div class="rcell">
+        <div class="top"><span class="stars">★★★★★</span><span class="tag">First-time buyer</span></div>
+        <blockquote>"First purchase, competitive market, 21-day close in my contract. Appraisal was back in five days and we cleared with a week to spare. Zero panic."</blockquote>
+        <footer>Priya N.<span>Seattle, WA</span></footer>
+      </div>
+
+      <div class="rcell">
+        <div class="top"><span class="stars">★★★★☆</span><span class="tag">Jumbo purchase</span></div>
+        <blockquote>"Self-employed, jumbo loan, complicated income. They asked for a lot of paperwork — once — then it was smooth. Rate beat my private bank."</blockquote>
+        <footer>Daniel K.<span>Hoboken, NJ</span></footer>
+      </div>
+
+      <div class="rcell">
+        <div class="top"><span class="stars">★★★★★</span><span class="tag">Condo purchase</span></div>
+        <blockquote>"The HOA had pending litigation and I assumed the deal was dead. Metro's condo desk reviewed the case file and structured around it. We closed on schedule."</blockquote>
+        <footer>Marcus T.<span>Chicago, IL</span></footer>
+      </div>
+
+      <div class="rcell">
+        <div class="top"><span class="stars">★★★★★</span><span class="tag">Cash-out refi</span></div>
+        <blockquote>"Pulled equity from my loft to buy a rental. Clear terms, honest fee sheet, and my loan officer answered texts on a Sunday night before closing."</blockquote>
+        <footer>Elena V.<span>Williamsburg, Brooklyn</span></footer>
+      </div>
+
+      <div class="rcell">
+        <div class="top"><span class="stars">★★★★★</span><span class="tag">Condo purchase</span></div>
+        <blockquote>"Seller had backup offers and wanted proof we'd perform. Metro's underwritten pre-approval carried real weight — we won the unit without being the highest bid."</blockquote>
+        <footer>Chris B.<span>Capitol Hill, Seattle</span></footer>
+      </div>
+
+      <div class="rcell">
+        <div class="top"><span class="stars">★★★★★</span><span class="tag">Refi</span></div>
+        <blockquote>"Dropped PMI and cut my rate in one move. Whole process was two weeks and one e-sign session. Should have done it a year earlier."</blockquote>
+        <footer>Naomi F.<span>Logan Square, Chicago</span></footer>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="band-in">
+    <span class="label">Join 3,400+ closings</span>
+    <h2>Write the <em>next one.</em></h2>
+    <a class="btn btn-red" href="apply.html">Apply now</a>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="foot-grid">
+    <div class="foot-brand">
+      <a class="logo" href="index.html">Metro<em>/</em>LG</a>
+      <p>Big-city lending, zero big-city runaround. Condo-smart mortgages for urban buyers.</p>
+    </div>
+    <nav class="foot-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="calculator.html">Calculator</a>
+      <a href="about.html">About</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="apply.html">Apply now</a>
+    </nav>
+  </div>
+  <div class="foot-legal">
+    <div class="foot-legal-in">
+      <span>NMLS #000000 · Equal Housing Lender</span>
+      <span>(000) 000-0000 · hello@example.com</span>
+      <span>Template by Pilk.ai</span>
+      <span>Demo website — all names, numbers, rates, and reviews are sample content for design preview only.</span>
+    </div>
+  </div>
+</footer>
+
+<div style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:99999;padding:7px 15px;border-radius:999px;background:rgba(15,15,18,0.82);color:#fff;font:600 11px/1 Inter,system-ui,sans-serif;letter-spacing:0.08em;text-transform:uppercase;backdrop-filter:blur(8px);box-shadow:0 6px 24px rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.14);">Demo template · sample design &amp; content by Pilk.ai</div>
+</body>
+</html>
