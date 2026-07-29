@@ -93,6 +93,7 @@ export default function MortgagePage() {
                 Start a project
               </Button>
             </div>
+                <p className="mt-3 text-xs text-muted">Already picked your design? <Link href="/checkout" className="text-accent hover:underline">Go straight to checkout →</Link></p>
           </div>
         </Container>
       </header>
