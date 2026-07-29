@@ -8,6 +8,7 @@ import {
   MAX_FILE_SIZE,
   MAX_TOTAL_SIZE,
 } from "../../src/lib/project-brief-schema";
+import { sendToGhl } from "./_ghl";
 
 type Env = {
   PROJECT_UPLOADS?: R2Bucket;
@@ -17,6 +18,8 @@ type Env = {
   LEADS_FROM_EMAIL?: string;
   LEADS_NOTIFICATION_EMAIL?: string;
   CRM_WEBHOOK_URL?: string;
+  GHL_PIT_TOKEN?: string;
+  GHL_LOCATION_ID?: string;
 };
 
 const ALLOWED = new Set(ALLOWED_UPLOAD_TYPES);
@@ -233,6 +236,17 @@ export const onRequestPost = async (context: {
       tasks.push(send(lead.email, "We received your website brief — Pilk.ai Media", prospectHtml));
       await Promise.allSettled(tasks);
     }
+
+    // GoHighLevel (best effort — form leads flow into the CRM)
+    await sendToGhl(env, {
+      firstName: lead.firstName,
+      lastName: lead.lastName,
+      email: lead.email,
+      phone: lead.phone,
+      companyName: lead.company,
+      source: "pilk.ai website",
+      tags: ["pilk-website-lead", lead.projectType],
+    });
 
     // CRM webhook (no file binaries; keys only)
     if (env.CRM_WEBHOOK_URL) {

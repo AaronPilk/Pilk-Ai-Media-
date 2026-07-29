@@ -10,12 +10,15 @@ import {
   INTAKE_MAX_FILE_SIZE,
   INTAKE_MAX_TOTAL_SIZE,
 } from "../../src/lib/template-intake-schema";
+import { sendToGhl } from "./_ghl";
 
 type Env = {
   PROJECT_UPLOADS?: R2Bucket;
   RESEND_API_KEY?: string;
   LEADS_FROM_EMAIL?: string;
   LEADS_NOTIFICATION_EMAIL?: string;
+  GHL_PIT_TOKEN?: string;
+  GHL_LOCATION_ID?: string;
 };
 
 const ALLOWED = new Set(INTAKE_ALLOWED_UPLOAD_TYPES);
@@ -256,6 +259,16 @@ export const onRequestPost = async (context: {
     } else {
       console.log("[template-intake]", tplName, data.email, `${prepared.length} files`);
     }
+
+    // GoHighLevel (best effort)
+    await sendToGhl(env, {
+      name: data.businessName,
+      companyName: data.businessName,
+      email: data.email,
+      phone: data.phone,
+      source: "pilk.ai template intake",
+      tags: ["pilk-template-intake", data.templateSlug],
+    });
 
     return json({ success: true });
   } catch (err) {

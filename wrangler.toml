@@ -12,3 +12,5 @@ pages_build_output_dir = "out"
 [vars]
 LEADS_FROM_EMAIL = "Pilk.ai Media <orders@pilk.ai>"
 LEADS_NOTIFICATION_EMAIL = "Aaron@pilk.ai"
+# GoHighLevel sub-account (not secret). The PIT token is a secret set via wrangler.
+GHL_LOCATION_ID = "rg3WUxqvDHrkiyBmEiCV"
