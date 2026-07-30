@@ -5,6 +5,7 @@ import Link from "next/link";
 import { X } from "lucide-react";
 import { site } from "@/content/site";
 import { Button } from "@/components/ui/Button";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
 
 export function MobileMenu({
   open,
@@ -33,19 +34,22 @@ export function MobileMenu({
       aria-modal="true"
       aria-label="Menu"
       hidden={!open}
-      className="fixed inset-0 z-[70] flex flex-col bg-[rgba(10,10,11,0.98)] backdrop-blur-xl"
+      className="fixed inset-0 z-[70] flex flex-col bg-[var(--menu-bg)] backdrop-blur-xl"
       style={{ display: open ? "flex" : "none" }}
     >
       <div className="container-page flex items-center justify-between py-5">
         <span className="font-display text-lg">{site.shortName}</span>
-        <button
-          type="button"
-          onClick={onClose}
-          aria-label="Close menu"
-          className="rounded-full border border-line p-2.5"
-        >
-          <X size={18} aria-hidden />
-        </button>
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close menu"
+            className="rounded-full border border-line p-2.5"
+          >
+            <X size={18} aria-hidden />
+          </button>
+        </div>
       </div>
 
       <nav className="container-page flex flex-1 flex-col justify-center gap-2">

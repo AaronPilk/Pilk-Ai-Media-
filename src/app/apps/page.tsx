@@ -23,7 +23,7 @@ export default function AppsPage() {
         className="relative z-10 overflow-hidden pb-8 pt-[clamp(7rem,18vh,12rem)]"
         style={{
           backgroundImage:
-            "linear-gradient(180deg, rgba(10,10,11,0.62), rgba(10,10,11,0.94)), url('/brand/brand-app.jpg')",
+            "var(--photo-scrim), url('/brand/brand-app.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}

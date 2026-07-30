@@ -18,7 +18,7 @@ export function PageIntro({
       style={
         bgImage
           ? {
-              backgroundImage: `linear-gradient(180deg, rgba(10,10,11,0.55), rgba(10,10,11,0.93)), url('${bgImage}')`,
+              backgroundImage: `var(--photo-scrim), url('${bgImage}')`,
               backgroundSize: "cover",
               backgroundPosition: "center",
             }

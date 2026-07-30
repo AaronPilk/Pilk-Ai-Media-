@@ -6,6 +6,7 @@ import { Menu } from "lucide-react";
 import { site } from "@/content/site";
 import { Button } from "@/components/ui/Button";
 import { MobileMenu } from "@/components/layout/MobileMenu";
+import { ThemeToggle } from "@/components/layout/ThemeToggle";
 import { cn } from "@/lib/utils";
 
 export function Header() {
@@ -24,7 +25,7 @@ export function Header() {
       <header
         className={cn(
           "fixed inset-x-0 top-0 z-[65] transition-colors duration-500",
-          scrolled ? "bg-[rgba(10,10,11,0.72)] backdrop-blur-xl" : "bg-transparent"
+          scrolled ? "bg-[var(--header-bg)] backdrop-blur-xl" : "bg-transparent"
         )}
       >
         <div
@@ -64,6 +65,7 @@ export function Header() {
           </nav>
 
           <div className="hidden items-center gap-3 md:flex">
+            <ThemeToggle />
             <Button href={site.cta.inquiry.href} variant="primary" data-cursor="open">
               {site.cta.inquiry.label}
             </Button>
@@ -72,16 +74,19 @@ export function Header() {
             </Button>
           </div>
 
-          <button
-            type="button"
-            className="md:hidden rounded-full border border-line p-2.5"
-            aria-label="Open menu"
-            aria-expanded={menuOpen}
-            aria-controls="mobile-menu"
-            onClick={() => setMenuOpen(true)}
-          >
-            <Menu size={18} aria-hidden />
-          </button>
+          <div className="flex items-center gap-2 md:hidden">
+            <ThemeToggle />
+            <button
+              type="button"
+              className="rounded-full border border-line p-2.5"
+              aria-label="Open menu"
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
+              onClick={() => setMenuOpen(true)}
+            >
+              <Menu size={18} aria-hidden />
+            </button>
+          </div>
         </div>
       </header>
 

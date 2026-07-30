@@ -596,3 +596,114 @@ h4 {
 @media (prefers-reduced-motion: reduce) {
   .kenburns { animation: none; }
 }
+
+/* ========================================================================
+   LIGHT / DARK THEME
+   Dark is the default (tokens in :root above). Light theme re-scopes the same
+   tokens, so every token-based component flips automatically. An inline script
+   in <body> sets html[data-theme] before paint (from localStorage, else the OS
+   preference), so there is no flash of the wrong theme.
+   ======================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  /* Theme-aware surfaces used by the fixed chrome + photo-hero scrims */
+  --photo-scrim: linear-gradient(
+    180deg,
+    rgba(8, 8, 11, 0.55) 0%,
+    rgba(8, 8, 11, 0.42) 40%,
+    rgba(8, 8, 11, 0.93) 100%
+  );
+  --header-bg: rgba(10, 10, 11, 0.72);
+  --menu-bg: rgba(10, 10, 11, 0.98);
+  --chip-border: rgba(255, 255, 255, 0.2);
+  --chip-bg: rgba(255, 255, 255, 0.1);
+  --chip-text: rgba(255, 255, 255, 0.92);
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+
+  --bg: #faf9f7;
+  --surface: #ffffff;
+  --surface-2: #f0ece5;
+  --surface-alt: #ffffff; /* light bands read as clean white on the bone page */
+  --text: #16151a;
+  --text-muted: #5d5a66;
+
+  --accent-soft: rgba(124, 58, 237, 0.1);
+  --line: rgba(20, 18, 28, 0.12);
+
+  --photo-scrim: linear-gradient(
+    180deg,
+    rgba(250, 249, 247, 0.28) 0%,
+    rgba(250, 249, 247, 0.46) 42%,
+    rgba(250, 249, 247, 0.93) 100%
+  );
+  --header-bg: rgba(250, 249, 247, 0.72);
+  --menu-bg: rgba(250, 249, 247, 0.98);
+  --chip-border: rgba(20, 18, 28, 0.14);
+  --chip-bg: rgba(20, 18, 28, 0.05);
+  --chip-text: var(--text-on-light);
+}
+
+/* Paint the root the theme bg (prevents dark overscroll gutters) + ease the flip */
+html {
+  background: var(--bg);
+}
+body {
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* on-dark = content sitting over a photo scrim. In light theme the scrim is
+   light, so the content flips to dark text + dark controls. */
+html[data-theme="light"] .on-dark {
+  color: var(--text-on-light);
+}
+html[data-theme="light"] .on-dark .eyebrow {
+  color: var(--text-on-light-muted);
+}
+html[data-theme="light"] .on-dark .btn-ghost {
+  color: var(--text-on-light);
+  border-color: var(--line-on-light);
+}
+html[data-theme="light"] .on-dark .btn-ghost:hover {
+  border-color: var(--text-on-light);
+}
+
+/* Hero pill / eyebrow chip — sits on the photo scrim, adapts to the theme */
+.hero-chip {
+  border: 1px solid var(--chip-border);
+  background: var(--chip-bg);
+  color: var(--chip-text);
+}
+
+/* Brand logo swap by theme (footer). Default (dark theme) shows the light logo. */
+.logo-on-light {
+  display: none;
+}
+html[data-theme="light"] .logo-on-light {
+  display: block;
+}
+html[data-theme="light"] .logo-on-dark {
+  display: none;
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--text);
+  background: transparent;
+  cursor: pointer;
+  transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease;
+}
+.theme-toggle:hover {
+  border-color: var(--text);
+}

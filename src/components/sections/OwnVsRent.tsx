@@ -151,18 +151,18 @@ export function OwnVsRent({ variant = "section" }: { variant?: "section" | "page
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, rgba(8,8,11,0.55) 0%, rgba(8,8,11,0.42) 40%, rgba(8,8,11,0.93) 100%)",
+              "var(--photo-scrim)",
           }}
         />
         <Container>
           <div className="on-dark relative z-10 pb-14 pt-[clamp(8rem,20vh,13rem)]">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-white/90 backdrop-blur-sm">
+            <span className="hero-chip inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em] backdrop-blur-sm">
               For real estate agents, teams &amp; brokers
             </span>
-            <h1 className="mt-6 max-w-[16ch] text-balance text-white" style={{ fontSize: "var(--text-hero)" }}>
+            <h1 className="mt-6 max-w-[16ch] text-balance" style={{ fontSize: "var(--text-hero)" }}>
               Don&apos;t rent your real estate website. Own it.
             </h1>
-            <p className="mt-7 max-w-2xl text-lg text-white/85">
+            <p className="mt-7 max-w-2xl text-lg text-muted">
               Platforms like Placester rent agents a template site — and keep your listings, leads,
               and local search history on their servers. Pilk.ai builds you a custom real estate
               website you own outright, with everything that matters staying yours.

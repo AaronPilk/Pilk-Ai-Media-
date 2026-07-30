@@ -1,6 +1,7 @@
 // Server component — CSS-only scrolling logo marquee of tools we integrate with.
 // Brand marks are inlined (self-hosted, no runtime dependency). GoHighLevel has
-// no standard icon, so it's shown as a wordmark.
+// no standard icon, so it's shown as a wordmark. Colors are token-based so the
+// marquee reads correctly in both light and dark mode.
 const LOGOS: { name: string; path?: string; wordmark?: boolean }[] = [
   { name: "GoHighLevel", wordmark: true },
   {
@@ -28,8 +29,8 @@ const LOGOS: { name: string; path?: string; wordmark?: boolean }[] = [
 export function LogoMarquee() {
   const items = [...LOGOS, ...LOGOS];
   return (
-    <section aria-label="Integrations available" className="relative z-10 border-y border-white/10 py-10">
-      <p className="mb-7 text-center text-xs font-medium uppercase tracking-[0.22em] text-white/40">
+    <section aria-label="Integrations available" className="relative z-10 border-y border-line py-10">
+      <p className="mb-7 text-center text-xs font-medium uppercase tracking-[0.22em] text-muted">
         Plugs into the tools you already use
       </p>
       <div className="pilk-marquee-mask overflow-hidden">
@@ -37,7 +38,7 @@ export function LogoMarquee() {
           {items.map((l, i) => (
             <div
               key={l.name + i}
-              className="flex shrink-0 items-center text-white/45 transition-colors hover:text-white/80"
+              className="flex shrink-0 items-center text-muted transition-colors hover:text-ink"
             >
               {l.wordmark ? (
                 <span className="font-display text-2xl font-semibold leading-none tracking-tight">

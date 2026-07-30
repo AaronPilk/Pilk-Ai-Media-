@@ -49,21 +49,21 @@ export default function RealEstatePage() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, rgba(8,8,11,0.55) 0%, rgba(8,8,11,0.38) 38%, rgba(8,8,11,0.92) 100%)",
+              "var(--photo-scrim)",
           }}
         />
         <Container>
           <div className="on-dark relative z-10 pb-16 pt-[clamp(8rem,20vh,13rem)]">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-white/90 backdrop-blur-sm">
+            <span className="hero-chip inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em] backdrop-blur-sm">
               Real estate &amp; mortgage websites — it&apos;s all we build here
             </span>
             <h1
-              className="mt-6 max-w-[15ch] text-balance text-white"
+              className="mt-6 max-w-[15ch] text-balance"
               style={{ fontSize: "var(--text-hero)" }}
             >
               Your website is the first showing.
             </h1>
-            <p className="mt-7 max-w-2xl text-lg text-white/85">
+            <p className="mt-7 max-w-2xl text-lg text-muted">
               Pilk.ai builds websites for one industry: real estate. Whether you&apos;re an agent who
               wants a sharp personal site, or a brokerage or mortgage firm that needs the full build —
               we create a digital presence that captures qualified leads and gets you remembered.

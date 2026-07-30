@@ -9,11 +9,18 @@ export function Footer() {
     <footer className="relative z-10 border-t border-line bg-surface">
       <Container className="grid gap-12 py-16 md:grid-cols-[1.4fr_1fr_1fr]">
         <div>
+          {/* Logo swaps with the theme (light-on-dark vs dark-on-light) */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/pilk-logo-dark.svg"
             alt="Pilk.ai — One Stop Shop Brand Building"
-            className="h-24 w-auto"
+            className="logo-on-dark h-24 w-auto"
+          />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/pilk-logo-light.svg"
+            alt="Pilk.ai — One Stop Shop Brand Building"
+            className="logo-on-light h-24 w-auto"
           />
           <p className="mt-4 max-w-sm text-sm text-muted">{site.footer.blurb}</p>
           <p className="mt-6 text-xs uppercase tracking-[0.18em] text-muted">

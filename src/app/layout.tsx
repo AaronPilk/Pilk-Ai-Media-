@@ -1,18 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, Inter } from "next/font/google";
 import "./globals.css";
-import {
-  buildMetadata,
-  organizationJsonLd,
-  professionalServiceJsonLd,
-  websiteJsonLd,
-} from "@/lib/metadata";
+import { buildMetadata, organizationJsonLd, professionalServiceJsonLd } from "@/lib/metadata";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { SmoothScrollProvider } from "@/components/layout/SmoothScrollProvider";
 import { Cursor } from "@/components/layout/Cursor";
 import { Preloader } from "@/components/layout/Preloader";
-import { Analytics } from "@/components/layout/Analytics";
 import { SceneCanvas } from "@/components/canvas/SceneCanvas";
 import { DomPatch } from "@/components/layout/DomPatch";
 
@@ -37,11 +31,16 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+// Runs before first paint: applies the saved theme (or the OS preference) to
+// <html data-theme> so there is no flash of the wrong color scheme.
+const themeInit = `(function(){try{var t=localStorage.getItem('pilk-theme');if(t!=='light'&&t!=='dark'){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches)?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();`;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable}`}>
+    <html lang="en" className={`${display.variable} ${body.variable}`} suppressHydrationWarning>
       <body>
-        <Analytics />
+        <script dangerouslySetInnerHTML={{ __html: themeInit }} />
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd()) }}
@@ -49,10 +48,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalServiceJsonLd()) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd()) }}
         />
 
         <DomPatch />

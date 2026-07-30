@@ -69,20 +69,20 @@ export default function MortgagePage() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, rgba(8,8,11,0.55) 0%, rgba(8,8,11,0.4) 40%, rgba(8,8,11,0.93) 100%)",
+              "var(--photo-scrim)",
           }}
         />
         <Container>
           <div className="on-dark relative z-10 pb-16 pt-[clamp(8rem,20vh,13rem)]">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-white/90 backdrop-blur-sm">
+            <span className="hero-chip inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium uppercase tracking-[0.18em] backdrop-blur-sm">
               Mortgage websites — 15 designs, ready to launch
             </span>
-            <h1 className="mt-6 max-w-[16ch] text-balance text-white" style={{ fontSize: "var(--text-hero)" }}>
+            <h1 className="mt-6 max-w-[16ch] text-balance" style={{ fontSize: "var(--text-hero)" }}>
               Your lending site, live in 14 days.
             </h1>
-            <p className="mt-7 max-w-2xl text-lg text-white/85">
+            <p className="mt-7 max-w-2xl text-lg text-muted">
               15 fully built mortgage website designs for loan officers, brokers, and brokerages —
-              <span className="text-white font-medium"> $500 flat, plus $100/mo hosting &amp; support.</span>{" "}
+              <span className="text-ink font-medium"> $500 flat, plus $100/mo hosting &amp; support.</span>{" "}
               Pick the design you love, tell us about your business, and we build it out as yours —
               ready to plug into GoHighLevel, Google &amp; Meta whenever you add them.
             </p>
