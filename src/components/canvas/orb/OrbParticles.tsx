@@ -81,6 +81,7 @@ export function OrbParticles({
   quality?: SceneQuality;
 }) {
   const pointsRef = useRef<THREE.Points>(null);
+  const appliedTheme = useRef("");
 
   const uniforms = useMemo(
     () => ({
@@ -105,6 +106,19 @@ export function OrbParticles({
     uniforms.uBreakup.value = smoothstep(0.18, 0.78, heroProgress);
     uniforms.uExit.value = smoothstep(0.55, 1.0, heroProgress);
     pts.visible = heroProgress < 0.999;
+
+    // White node cores + additive glow vanish on the light theme; use deep
+    // purples over normal blending so the nodes stay visible on near-white.
+    const light = document.documentElement.getAttribute("data-theme") === "light";
+    const mode = light ? "light" : "dark";
+    if (mode !== appliedTheme.current) {
+      appliedTheme.current = mode;
+      uniforms.uColorA.value.set(light ? "#7c3aed" : "#ffffff");
+      uniforms.uColorB.value.set(light ? "#4c1d95" : "#8b5cf6");
+      const mat = pts.material as THREE.ShaderMaterial;
+      mat.blending = light ? THREE.NormalBlending : THREE.AdditiveBlending;
+      mat.needsUpdate = true;
+    }
   });
 
   return (

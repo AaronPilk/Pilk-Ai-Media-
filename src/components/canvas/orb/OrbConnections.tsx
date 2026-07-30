@@ -28,15 +28,17 @@ const vertexShader = /* glsl */ `
 
 const fragmentShader = /* glsl */ `
   uniform vec3 uColor;
+  uniform float uOpacity;
   varying float vAlpha;
 
   void main() {
-    gl_FragColor = vec4(uColor, vAlpha);
+    gl_FragColor = vec4(uColor, vAlpha * uOpacity);
   }
 `;
 
 export function OrbConnections({ connections }: { connections: OrbConnectionsData }) {
   const linesRef = useRef<THREE.LineSegments>(null);
+  const appliedTheme = useRef("");
 
   const uniforms = useMemo(
     () => ({
@@ -44,6 +46,7 @@ export function OrbConnections({ connections }: { connections: OrbConnectionsDat
       uBreakup: { value: 0 },
       uExit: { value: 0 },
       uColor: { value: new THREE.Color("#9d6bff") },
+      uOpacity: { value: 1 },
     }),
     []
   );
@@ -56,6 +59,19 @@ export function OrbConnections({ connections }: { connections: OrbConnectionsDat
     uniforms.uBreakup.value = smoothstep(0.18, 0.78, heroProgress);
     uniforms.uExit.value = smoothstep(0.55, 1.0, heroProgress);
     lines.visible = heroProgress < 0.6;
+
+    // Additive light-on-dark reads great on the dark theme but washes out on the
+    // near-white light theme — swap to a deep purple over normal blending there.
+    const light = document.documentElement.getAttribute("data-theme") === "light";
+    const mode = light ? "light" : "dark";
+    if (mode !== appliedTheme.current) {
+      appliedTheme.current = mode;
+      uniforms.uColor.value.set(light ? "#6d28d9" : "#9d6bff");
+      uniforms.uOpacity.value = light ? 1.6 : 1;
+      const mat = lines.material as THREE.ShaderMaterial;
+      mat.blending = light ? THREE.NormalBlending : THREE.AdditiveBlending;
+      mat.needsUpdate = true;
+    }
   });
 
   return (
