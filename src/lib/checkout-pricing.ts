@@ -11,13 +11,19 @@ export const CHECKOUT = {
   monthlyTrialDays: 30, // first monthly charge lands 30 days after the initial payment
 } as const;
 
-export type AddonKey = "ghl" | "analytics" | "meta" | "posthog";
+export type AddonKey = "rush" | "ghl" | "analytics" | "meta" | "posthog";
 
 export const ADDONS: {
   key: AddonKey;
   label: string;
   blurb: string;
 }[] = [
+  {
+    key: "rush",
+    label: "Rush delivery — done in 5 days",
+    blurb:
+      "Jump the line: we build and deliver your site in 5 days instead of the standard 14.",
+  },
   {
     key: "ghl",
     label: "GoHighLevel connection",

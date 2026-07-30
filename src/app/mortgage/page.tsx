@@ -14,7 +14,7 @@ import { ContactForm } from "@/components/contact/ContactForm";
 export const metadata: Metadata = buildMetadata({
   title: "Mortgage Website Templates — $500",
   description:
-    "15 fully built mortgage website templates for loan officers, brokers, and brokerages. $500 + $100/mo hosting, live in about a week. GoHighLevel connected. Pick your design and start a project.",
+    "15 fully built mortgage website templates for loan officers, brokers, and brokerages. $500 + $100/mo hosting, live in about 14 days. GoHighLevel connected. Pick your design and start a project.",
   path: "/mortgage",
   image: "/template-previews/_assets/hero-warm-home.jpg",
 });
@@ -77,7 +77,7 @@ export default function MortgagePage() {
               Mortgage websites — 15 designs, ready to launch
             </span>
             <h1 className="mt-6 max-w-[16ch] text-balance text-white" style={{ fontSize: "var(--text-hero)" }}>
-              Your lending site, live in a week.
+              Your lending site, live in 14 days.
             </h1>
             <p className="mt-7 max-w-2xl text-lg text-white/85">
               15 fully built mortgage website designs for loan officers, brokers, and brokerages —

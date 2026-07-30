@@ -68,7 +68,7 @@ export function CheckoutClient() {
             </div>
           </div>
 
-          <h3 className="mt-8 font-display text-lg font-semibold">Add integrations (optional)</h3>
+          <h3 className="mt-8 font-display text-lg font-semibold">Add-ons (optional)</h3>
           <p className="mt-1 text-sm text-muted">${CHECKOUT.addonPrice} each — toggle what you want.</p>
 
           <div className="mt-4 space-y-3">
