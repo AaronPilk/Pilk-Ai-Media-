@@ -28,7 +28,7 @@ const included = [
   "Application & lead-capture forms",
   "Reviews / social proof section",
   "Mobile-first, fast, and secure",
-  "Connected to your GoHighLevel account",
+  "Search-engine-ready (SEO) build",
   "Launched on your domain — DNS handled",
 ];
 
@@ -132,22 +132,21 @@ export default function MortgagePage() {
                   <span className="font-display text-2xl font-semibold">+$100</span>
                   <span className="text-muted">/mo hosting, support &amp; edits</span>
                 </div>
-                <div className="mt-6 space-y-3 border-t border-line pt-5 text-sm">
-                  <p>
-                    <span className="font-medium">GoHighLevel connection — included.</span>{" "}
-                    <span className="text-muted">Your site is wired to your GHL sub-account from launch.</span>
-                  </p>
-                  <p>
-                    <span className="font-medium">Full GHL build-out — additional cost.</span>{" "}
-                    <span className="text-muted">
-                      Complete workflows, pipelines, and automations built for your operation. Ask us.
-                    </span>
-                  </p>
-                  <p>
-                    <span className="font-medium">MLS connection — +$500.</span>{" "}
-                    <span className="text-muted">
-                      Requires your MLS API credentials and their ~$50/mo access fee.
-                    </span>
+                <div className="mt-6 space-y-4 border-t border-line pt-5 text-sm">
+                  <div>
+                    <p className="font-medium">Optional add-ons — $100 each, at checkout</p>
+                    <p className="mt-1 text-muted">
+                      GoHighLevel connection · Google tag + analytics · Meta Pixel · PostHog · 5-day rush delivery.
+                    </p>
+                  </div>
+                  <div>
+                    <p className="font-medium">Bigger builds — priced separately, ask us</p>
+                    <p className="mt-1 text-muted">
+                      Full GoHighLevel build-out (pipelines + automations) · MLS connection (+$500; needs your MLS API + ~$50/mo).
+                    </p>
+                  </div>
+                  <p className="text-xs text-muted">
+                    The $500 + $100/mo covers your website. Everything above is optional and priced on top.
                   </p>
                 </div>
                 <div className="mt-7">
@@ -181,30 +180,135 @@ export default function MortgagePage() {
         </Container>
       </section>
 
-      {/* GHL upsell */}
+      {/* Beyond the website — CRM build-out + tracking (paid add-ons) */}
       <section className="section env-light relative z-10">
         <Container>
           <SectionLabel index="03">Beyond the website</SectionLabel>
-          <h2 className="mt-6 max-w-[22ch] text-balance" style={{ fontSize: "var(--text-2xl)" }}>
-            Your website is step one. Your system is the win.
+          <h2 className="mt-6 max-w-[26ch] text-balance" style={{ fontSize: "var(--text-2xl)" }}>
+            Your website is step one. The system behind it is where you win.
           </h2>
-          <div className="mt-10 grid gap-6 md:grid-cols-2">
-            <div className="rounded-2xl border border-[color:var(--line-on-light)] bg-white p-8">
-              <span className="eyebrow text-[color:var(--text-on-light-muted)]">Included with every site</span>
-              <h3 className="mt-3 font-display text-2xl font-semibold">GoHighLevel connected</h3>
-              <p className="mt-3 text-sm text-[color:var(--text-on-light-muted)]">
-                Every lead your website captures flows straight into your GoHighLevel sub-account —
-                forms, applications, and calculator leads, all wired at launch.
+
+          <div className="mt-6 max-w-3xl rounded-xl border border-accent/40 bg-[color:var(--accent-soft)] p-4 text-sm">
+            <span className="font-semibold">To be clear on pricing:</span> the{" "}
+            <span className="font-semibold">$500 builds your website</span> and{" "}
+            <span className="font-semibold">$100/mo</span> covers hosting &amp; support. The CRM
+            build-out and tracking below are{" "}
+            <span className="font-semibold">separate, paid services</span> — added on top, never
+            rolled into the $500.
+          </div>
+
+          <div className="mt-12 grid items-center gap-8 lg:grid-cols-2">
+            <div>
+              <span className="eyebrow text-accent">GoHighLevel CRM · separate build-out</span>
+              <h3 className="mt-3 font-display text-2xl font-semibold sm:text-3xl">
+                Your CRM, fully built out — automations that work your leads for you.
+              </h3>
+              <p className="mt-4 text-[color:var(--text-on-light-muted)]">
+                We don&apos;t just connect your site to GoHighLevel — we build the whole engine: a
+                sales pipeline, automated SMS &amp; email follow-up, nurture sequences, booking
+                calendars, and reporting. Every lead gets worked the second it lands, even while
+                you sleep.
+              </p>
+              <ul className="mt-5 grid gap-2 text-sm">
+                {[
+                  "Custom pipeline + deal stages",
+                  "Automated text & email follow-up",
+                  "Nurture & re-engagement workflows",
+                  "Booking calendars + reminders",
+                  "Dashboards & reporting",
+                ].map((f) => (
+                  <li key={f} className="flex gap-2">
+                    <Check size={16} className="mt-0.5 flex-none text-accent" aria-hidden />
+                    <span>{f}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-6 inline-block rounded-full border border-[color:var(--line-on-light)] px-4 py-1.5 text-xs font-medium">
+                Separate build-out · priced by your operation · not included in the $500
               </p>
             </div>
-            <div className="rounded-2xl border border-accent/40 bg-white p-8">
-              <span className="eyebrow text-accent">Additional cost · ask us</span>
-              <h3 className="mt-3 font-display text-2xl font-semibold">Full GHL build-out</h3>
-              <p className="mt-3 text-sm text-[color:var(--text-on-light-muted)]">
-                We build your entire GoHighLevel around your operation — pipelines, automated SMS +
-                email follow-up, calendars, nurture sequences, and reporting. You close loans; the
-                system works the leads.
+            <div className="rounded-2xl bg-[#0c0c11] p-4 shadow-2xl ring-1 ring-white/10">
+              <div className="flex items-center gap-1.5 border-b border-white/10 pb-3">
+                <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
+                <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
+                <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
+                <span className="ml-2 text-[11px] text-white/40">PILK AI · pipeline</span>
+              </div>
+              <div className="mt-3 grid grid-cols-4 gap-2">
+                {[
+                  { s: "New Lead", n: "4", c: ["Maria L.", "Devon R."] },
+                  { s: "Intake", n: "2", c: ["James T."] },
+                  { s: "Paid", n: "3", c: ["Priya K."] },
+                  { s: "Active", n: "11", c: ["+ 8 more"] },
+                ].map((col) => (
+                  <div key={col.s} className="rounded-lg bg-white/[0.04] p-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[9px] uppercase tracking-wide text-white/40">{col.s}</span>
+                      <span className="text-[9px] text-accent">{col.n}</span>
+                    </div>
+                    <div className="mt-1.5 space-y-1">
+                      {col.c.map((card) => (
+                        <div key={card} className="rounded bg-white/[0.06] px-1.5 py-1 text-[9px] text-white/60">
+                          {card}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-3 rounded-lg bg-accent/10 p-2.5 ring-1 ring-accent/30">
+                <div className="text-[9px] uppercase tracking-wide text-accent">Automation · live</div>
+                <div className="mt-1.5 flex flex-wrap items-center gap-1 text-[9px] text-white/60">
+                  {["New lead", "Auto text", "Email drip", "Task for you", "Booked call"].map((step, i) => (
+                    <span key={step} className="flex items-center gap-1">
+                      <span className="rounded bg-white/10 px-1.5 py-0.5">{step}</span>
+                      {i < 4 ? <span className="text-white/30">→</span> : null}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-16 grid items-center gap-8 lg:grid-cols-2">
+            <div className="lg:order-2">
+              <span className="eyebrow text-accent">Tracking &amp; analytics · add-on</span>
+              <h3 className="mt-3 font-display text-2xl font-semibold sm:text-3xl">
+                Know exactly what&apos;s working — down to the lead.
+              </h3>
+              <p className="mt-4 text-[color:var(--text-on-light-muted)]">
+                We install Google Analytics 4 and the Google tag so every visit, form, and
+                application is tracked. See where your leads come from, what your cost-per-lead is,
+                and which ad dollars turn into closings — then retarget the rest.
               </p>
+              <p className="mt-6 inline-block rounded-full border border-[color:var(--line-on-light)] px-4 py-1.5 text-xs font-medium">
+                Add-on · $100 at checkout · not included in the $500
+              </p>
+            </div>
+            <div className="rounded-2xl bg-[#0c0c11] p-4 shadow-2xl ring-1 ring-white/10 lg:order-1">
+              <div className="flex items-center gap-1.5 border-b border-white/10 pb-3">
+                <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
+                <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
+                <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
+                <span className="ml-2 text-[11px] text-white/40">your-site · analytics</span>
+              </div>
+              <div className="mt-3 grid grid-cols-3 gap-2">
+                {[
+                  { k: "Visitors", v: "2,481" },
+                  { k: "Leads", v: "143" },
+                  { k: "Cost / lead", v: "$12" },
+                ].map((t) => (
+                  <div key={t.k} className="rounded-lg bg-white/[0.04] p-2.5">
+                    <div className="text-[9px] uppercase tracking-wide text-white/40">{t.k}</div>
+                    <div className="mt-1 text-lg font-semibold text-white">{t.v}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-3 flex h-16 items-end gap-1.5">
+                {[38, 52, 45, 68, 60, 82, 74].map((h, i) => (
+                  <div key={i} className="flex-1 rounded-t bg-accent/70" style={{ height: `${h}%` }} />
+                ))}
+              </div>
             </div>
           </div>
         </Container>
