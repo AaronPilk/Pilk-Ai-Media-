@@ -10,11 +10,12 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Reveal } from "@/components/ui/Reveal";
 import { TemplateCard } from "@/components/templates/TemplateCard";
 import { ContactForm } from "@/components/contact/ContactForm";
+import { LogoMarquee } from "@/components/sections/LogoMarquee";
 
 export const metadata: Metadata = buildMetadata({
   title: "Mortgage Website Templates — $500",
   description:
-    "15 fully built mortgage website templates for loan officers, brokers, and brokerages. $500 + $100/mo hosting, live in about 14 days. GoHighLevel connected. Pick your design and start a project.",
+    "15 fully built mortgage website templates for loan officers, brokers, and brokerages. $500 + $100/mo hosting, live in about 14 days. GoHighLevel & tracking integrations available. Pick your design and start a project.",
   path: "/mortgage",
   image: "/template-previews/_assets/hero-warm-home.jpg",
 });
@@ -83,7 +84,7 @@ export default function MortgagePage() {
               15 fully built mortgage website designs for loan officers, brokers, and brokerages —
               <span className="text-white font-medium"> $500 flat, plus $100/mo hosting &amp; support.</span>{" "}
               Pick the design you love, tell us about your business, and we build it out as yours —
-              connected to your GoHighLevel from day one.
+              ready to plug into GoHighLevel, Google &amp; Meta whenever you add them.
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
               <Button href="#designs" variant="primary" withArrow>
@@ -97,6 +98,8 @@ export default function MortgagePage() {
           </div>
         </Container>
       </header>
+
+      <LogoMarquee />
 
       {/* What's included / pricing */}
       <section className="section relative z-10 pt-14">
