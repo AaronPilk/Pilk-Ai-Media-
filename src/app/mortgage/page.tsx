@@ -15,7 +15,7 @@ import { LogoMarquee } from "@/components/sections/LogoMarquee";
 export const metadata: Metadata = buildMetadata({
   title: "Mortgage Website Templates — $500",
   description:
-    "15 fully built mortgage website templates for loan officers, brokers, and brokerages. $500 + $100/mo hosting, live in about 14 days. GoHighLevel & tracking integrations available. Pick your design and start a project.",
+    "15 fully built mortgage website templates for loan officers, brokers, and brokerages. $500 + $100/mo hosting, live in about 14 days. You own the website outright — it's yours, not rented. GoHighLevel & tracking integrations available. Pick your design and start a project.",
   path: "/mortgage",
   image: "/template-previews/_assets/hero-warm-home.jpg",
 });
@@ -86,6 +86,10 @@ export default function MortgagePage() {
               Pick the design you love, tell us about your business, and we build it out as yours —
               ready to plug into GoHighLevel, Google &amp; Meta whenever you add them.
             </p>
+            <p className="mt-4 max-w-2xl text-base font-semibold">
+              And you own it — outright. This is your website, not a rental you lose the day you
+              stop paying.
+            </p>
             <div className="mt-10 flex flex-wrap gap-4">
               <Button href="#designs" variant="primary" withArrow>
                 Browse the 15 designs
@@ -113,8 +117,17 @@ export default function MortgagePage() {
               <p className="mt-4 max-w-xl text-muted">
                 Every template is a complete, professional lending website — not a starting point.
                 You pick the design, we tailor it with your brand, your programs, your NMLS, and
-                launch it on your domain.
+                launch it on your domain — under your name, owned by you.
               </p>
+              <div className="mt-6 max-w-xl rounded-xl border border-accent/40 bg-[color:var(--accent-soft)] p-4">
+                <p className="text-sm">
+                  <span className="font-semibold">You own your website — full stop.</span> Most
+                  &ldquo;mortgage website&rdquo; companies rent you a site, and it disappears the
+                  day you stop paying them. Not here. The build is yours, on your domain, under
+                  your name. The $100/mo is hosting, support &amp; edits — not rent — and if you
+                  ever move on, you take the site with you.
+                </p>
+              </div>
               <div className="mt-8 grid gap-x-8 gap-y-3 sm:grid-cols-2">
                 {included.map((f) => (
                   <div key={f} className="flex gap-2.5 text-sm">
@@ -135,6 +148,9 @@ export default function MortgagePage() {
                   <span className="font-display text-2xl font-semibold">+$100</span>
                   <span className="text-muted">/mo hosting, support &amp; edits</span>
                 </div>
+                <p className="mt-3 text-xs text-muted">
+                  You own the website outright — the $100/mo is hosting &amp; support, not rent.
+                </p>
                 <div className="mt-6 space-y-4 border-t border-line pt-5 text-sm">
                   <div>
                     <p className="font-medium">Optional add-ons — $100 each, at checkout</p>
