@@ -1,11 +1,12 @@
 import { expect, test, type Page, type Response } from "@playwright/test";
 import { SMS_CONSENT_TEXT, SMS_CONSENT_VERSION } from "../src/lib/sms-consent";
-import { RENEWAL_CONSENT_TEXT, RENEWAL_CONSENT_VERSION } from "../src/lib/checkout-pricing";
 
 /**
  * Every lead form, submitted for real against `wrangler pages dev` (see
- * playwright.config.ts). The local preview has no RESEND_API_KEY, GHL_PIT_TOKEN
- * or STRIPE_SECRET_KEY, so the functions accept the lead and send nothing.
+ * playwright.config.ts). The local preview has no RESEND_API_KEY or
+ * GHL_PIT_TOKEN, so the functions accept the lead and send nothing. Nothing is
+ * sold online: the template request ends in a quote request, and /api/checkout
+ * is retired.
  */
 
 const leadsResponse = (page: Page) =>
@@ -159,8 +160,10 @@ test.describe("lead forms submit", () => {
     await expect(page.getByRole("heading", { name: /thanks, test/i })).toBeVisible();
   });
 
-  test("template order, then checkout disclosure and required renewal box", async ({ page }) => {
+  test("template request: a quote request with SMS consent, no payment step", async ({ page }) => {
     await page.goto("/start/mortgage-broker/");
+    await expect(page.getByRole("heading", { name: /request the beacon lending template/i })).toBeVisible();
+    await expect(page.getByText(/no payment here/i)).toBeVisible();
     await page.locator("#name").fill("Maria Lopez");
     await page.locator("#email").fill("maria@example.com");
     await page.locator("#businessName").fill("Lopez Home Loans");
@@ -169,53 +172,103 @@ test.describe("lead forms submit", () => {
     await page.getByRole("button", { name: /^continue/i }).click();
     await page.getByRole("button", { name: /skip this/i }).click();
     await page.getByRole("button", { name: /skip photos/i }).click();
-    await expect(page.getByText(/plus a 10% fees & processing charge/i)).toBeVisible();
-    await page.getByText("Yes, build my website and contact me about it").click();
-    const intake = page.waitForResponse((r) => r.url().endsWith("/api/template-intake"));
-    await page.getByRole("button", { name: /save & continue to payment/i }).click();
-    const ir = await intake;
-    expect(ir.status()).toBe(200);
-    expect(sentPayload(ir)).toMatchObject({ consent: true, smsConsent: true, smsConsentVersion: SMS_CONSENT_VERSION });
-
-    await page.waitForURL(/\/checkout\/?\?template=mortgage-broker/);
-    const disclosure = page.getByTestId("renewal-disclosure");
-    await expect(disclosure).toContainText("renews automatically");
-    await expect(disclosure).toContainText("What renews: hosting, support and edits");
-    await expect(disclosure).toContainText("$100 per month");
-    await expect(disclosure).toContainText("30 days after today");
-    await expect(disclosure).toContainText(/First charge: [A-Z][a-z]+ \d{1,2}, \d{4}/);
-    await expect(disclosure).toContainText("every month on that date until you cancel");
-    await expect(disclosure.getByRole("link", { name: "Aaron@pilk.ai" })).toHaveAttribute(
-      "href",
-      /^mailto:Aaron@pilk\.ai\?subject=Cancel%20my%20hosting%20plan/
-    );
-    await expect(page.getByTestId("fee-line")).toContainText("Fees & processing (10%)");
-    await expect(page.getByTestId("fee-line")).toContainText("$50.00");
-    await expect(page.getByTestId("renewal-consent-text")).toHaveText(RENEWAL_CONSENT_TEXT);
-
-    const box = page.getByRole("checkbox", { name: RENEWAL_CONSENT_TEXT });
-    await expect(box).not.toBeChecked();
+    await expect(page.getByText(/this template is starting at \$500/i)).toBeVisible();
+    await expect(page.getByText(/fees & processing|checkout/i)).toHaveCount(0);
+    await page.getByText("Yes, send me a quote for this website and contact me about it").click();
     let checkoutCalls = 0;
     page.on("request", (r) => {
-      if (r.url().endsWith("/api/checkout")) checkoutCalls++;
+      if (r.url().includes("/api/checkout") || r.url().includes("/checkout")) checkoutCalls++;
     });
-    await page.getByRole("button", { name: /pay \$550\.00 with stripe/i }).click();
-    await expect(page.locator("#renewal-consent-error")).toContainText("tick the box");
+    const intake = page.waitForResponse((r) => r.url().endsWith("/api/template-intake"));
+    await page.getByRole("button", { name: /send my request/i }).click();
+    const ir = await intake;
+    expect(ir.status()).toBe(200);
+    expect(sentPayload(ir)).toMatchObject({
+      templateSlug: "mortgage-broker",
+      consent: true,
+      smsConsent: true,
+      smsConsentVersion: SMS_CONSENT_VERSION,
+    });
+    await expect(page.getByText(/request received/i)).toBeVisible();
+    await expect(page.getByText(/nothing has been charged/i)).toBeVisible();
+    await expect(page).toHaveURL(/\/start\/mortgage-broker\/?$/);
     expect(checkoutCalls).toBe(0);
-
-    await box.check();
-    const checkout = page.waitForResponse((r) => r.url().endsWith("/api/checkout"));
-    await page.getByRole("button", { name: /pay \$550\.00 with stripe/i }).click();
-    const cr = await checkout;
-    expect(JSON.parse(cr.request().postData() ?? "{}")).toMatchObject({
-      renewalConsent: true,
-      renewalConsentVersion: RENEWAL_CONSENT_VERSION,
-      template: "mortgage-broker",
-    });
-    // No Stripe key in the local preview, so no payment can start.
-    expect(cr.status()).toBe(503);
-    await expect(page.getByText(/payments aren.t configured yet/i)).toBeVisible();
   });
+});
+
+test.describe("rate-limit message in the forms", () => {
+  test("quick inquiry shows the function's 429 message", async ({ page }) => {
+    await page.route("**/api/leads", (route) =>
+      route.fulfill({
+        status: 429,
+        contentType: "application/json",
+        body: JSON.stringify({ success: false, code: "rate_limited", error: "You've sent a few requests in a short time. Please wait about 10 minutes and try again, or email Aaron@pilk.ai." }),
+      })
+    );
+    await page.goto("/inquiry/");
+    await page.locator("#iq-name").fill("Ann Lee");
+    await page.locator("#iq-email").fill("ann@example.com");
+    await page.getByRole("button", { name: /submit inquiry/i }).click();
+    await expect(page.getByRole("alert").filter({ hasText: "wait about 10 minutes" })).toBeVisible();
+    await expect(page.locator("#iq-name")).toHaveValue("Ann Lee"); // nothing typed is lost
+  });
+
+  test("a 429 page from a Cloudflare rule (HTML, not JSON) still reads nicely", async ({ page }) => {
+    await page.route("**/api/leads", (route) =>
+      route.fulfill({ status: 429, contentType: "text/html", body: "<html><body>Too many requests</body></html>" })
+    );
+    await page.goto("/mortgage/");
+    const form = page.locator("form").filter({ has: page.locator("#firstName") });
+    await form.locator("#firstName").fill("Dan");
+    await form.locator("#lastName").fill("Ray");
+    await form.locator("#email").fill("dan@example.com");
+    await form.locator("#message").fill("We need a mortgage website soon.");
+    await form.getByRole("button", { name: /send inquiry/i }).click();
+    await expect(page.getByText(/wait about 10 minutes/i)).toBeVisible();
+  });
+
+  test("template request shows the 429 message and keeps the answers", async ({ page }) => {
+    await page.route("**/api/template-intake", (route) =>
+      route.fulfill({ status: 429, contentType: "text/html", body: "rate limited" })
+    );
+    await page.goto("/start/rate-ready/");
+    await page.locator("#name").fill("Maria Lopez");
+    await page.locator("#email").fill("maria@example.com");
+    await page.locator("#businessName").fill("Lopez Home Loans");
+    await page.getByRole("button", { name: /^continue/i }).click();
+    await page.getByRole("button", { name: /skip this/i }).click();
+    await page.getByRole("button", { name: /skip photos/i }).click();
+    await page.getByText("Yes, send me a quote for this website and contact me about it").click();
+    await page.getByRole("button", { name: /send my request/i }).click();
+    await expect(page.getByRole("alert").filter({ hasText: "wait about 10 minutes" })).toBeVisible();
+  });
+});
+
+test.describe("no online checkout", () => {
+  test("/checkout/ forwards to the project brief and stays out of search", async ({ page, request }) => {
+    const html = await (await request.get("/checkout/")).text();
+    expect(html).toMatch(/<meta name="robots" content="noindex/);
+    expect(html).toMatch(/<meta http-equiv="refresh" content="0;url=\/contact\/"/);
+    await page.goto("/checkout/?template=mortgage-broker");
+    await page.waitForURL(/\/contact\/?$/);
+    await expect(page.getByRole("heading", { name: /tell us about your website/i })).toBeVisible();
+  });
+
+  test("/checkout/success/ explains, links to the brief and is noindex", async ({ page }) => {
+    await page.goto("/checkout/success/");
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
+    await expect(page.locator('meta[http-equiv="refresh"]')).toHaveAttribute("content", /url=\/contact\//);
+    await expect(page.getByRole("link", { name: /start a project/i }).first()).toBeVisible();
+  });
+
+  for (const path of ["/", "/mortgage/", "/templates/", "/templates/mortgage-broker/", "/real-estate/"]) {
+    test(`${path} shows starting prices only`, async ({ page }) => {
+      await page.goto(path);
+      const text = (await page.locator("main, body").first().innerText()).replace(/\s+/g, " ");
+      expect(text).not.toMatch(/fees & processing|checkout|buy now|\bflat\b/i);
+      expect(text).toMatch(/Starting at \$/);
+    });
+  }
 });
 
 test.describe("the API still rejects junk", () => {
@@ -250,9 +303,9 @@ test.describe("the API still rejects junk", () => {
     expect(r.status()).toBe(400);
   });
 
-  test("400: checkout without the renewal agreement", async ({ request }) => {
-    const r = await request.post("/api/checkout", { data: { addons: [], template: "mortgage-broker" } });
-    expect(r.status()).toBe(400);
-    expect((await r.json()).code).toBe("renewal_consent_required");
+  test("410: checkout is retired and never starts a payment", async ({ request }) => {
+    const r = await request.post("/api/checkout", { data: {} });
+    expect(r.status()).toBe(410);
+    expect((await r.json()).code).toBe("checkout_retired");
   });
 });

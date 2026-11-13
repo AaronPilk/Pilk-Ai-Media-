@@ -13,7 +13,11 @@ export default defineConfig({
     trace: "on-first-retry",
   },
   webServer: {
-    command: "npm run build && npm run preview",
+    // The suite sends more leads from one IP than the per-IP form limit
+    // (wrangler.toml FORM_RATE_LIMIT_MAX) allows, so the preview lifts it.
+    // The limit itself is covered by scripts/test-functions.mjs, and the 429
+    // message in the forms by e2e/lead-forms.spec.ts.
+    command: "npm run build && npx wrangler pages dev out --binding FORM_RATE_LIMIT_MAX=1000",
     url: "http://localhost:8788",
     timeout: 180_000,
     reuseExistingServer: !process.env.CI,
