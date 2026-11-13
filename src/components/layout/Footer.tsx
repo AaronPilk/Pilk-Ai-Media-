@@ -1,13 +1,17 @@
 import Link from "next/link";
 import { site } from "@/content/site";
+import { serviceCatalog } from "@/content/services";
 import { Container } from "@/components/ui/Container";
 
 export function Footer() {
   const year = new Date().getFullYear();
+  const profiles = site.profiles.filter((p) =>
+    (site.footerProfiles as readonly string[]).includes(p.label)
+  );
 
   return (
     <footer className="relative z-10 border-t border-line bg-surface">
-      <Container className="grid gap-12 py-16 md:grid-cols-[1.4fr_1fr_1fr]">
+      <Container className="grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div>
           {/* Logo swaps with the theme (light-on-dark vs dark-on-light) */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -28,6 +32,20 @@ export function Footer() {
           </p>
         </div>
 
+        <nav aria-label="Services" className="flex flex-col gap-3 text-sm">
+          <Link href="/services/" className="eyebrow mb-1 hover:text-ink">
+            Services
+          </Link>
+          {serviceCatalog.map((s) => (
+            <Link key={s.href} href={s.href} className="text-muted hover:text-ink">
+              {s.name}
+            </Link>
+          ))}
+          <Link href="/st-petersburg-tampa-bay/" className="text-muted hover:text-ink">
+            St. Petersburg &amp; Tampa Bay
+          </Link>
+        </nav>
+
         <nav aria-label="Footer" className="flex flex-col gap-3 text-sm">
           <span className="eyebrow mb-1">Explore</span>
           {site.nav.map((item) => (
@@ -35,6 +53,9 @@ export function Footer() {
               {item.label}
             </Link>
           ))}
+          <Link href="/templates/" className="text-muted hover:text-ink">
+            Templates
+          </Link>
           <Link href="/contact" className="text-muted hover:text-ink">
             Contact
           </Link>
@@ -48,13 +69,25 @@ export function Footer() {
           <a href={site.contact.phoneHref} className="text-muted hover:text-ink">
             {site.contact.phone}
           </a>
-          <div className="mt-2 flex gap-4">
-            {site.social.map((s) => (
-              <a key={s.label} href={s.href} className="text-muted hover:text-ink">
-                {s.label}
-              </a>
-            ))}
-          </div>
+          {profiles.length > 0 && (
+            <>
+              <span className="eyebrow mb-1 mt-4">Find us on</span>
+              <ul className="flex flex-wrap gap-x-4 gap-y-2">
+                {profiles.map((p) => (
+                  <li key={p.href}>
+                    <a
+                      href={p.href}
+                      target="_blank"
+                      rel="noopener noreferrer me"
+                      className="text-muted hover:text-ink"
+                    >
+                      {p.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
         </div>
       </Container>
 

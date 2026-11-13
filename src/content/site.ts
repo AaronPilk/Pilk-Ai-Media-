@@ -40,7 +40,8 @@ export const site = {
     areaServed: ["St. Petersburg, Florida", "Tampa Bay, Florida"],
   },
 
-  // Real third-party profiles only.
+  // Real third-party profiles only. Instagram, LinkedIn and X are left out
+  // until real URLs exist; a dead "#" link is worse than no link.
   profiles: [
     { label: "Clutch", href: "https://clutch.co/profile/pilkai" },
     { label: "Crunchbase", href: "https://www.crunchbase.com/organization/pilk-ai" },
@@ -51,11 +52,8 @@ export const site = {
     { label: "DEV", href: "https://dev.to/pilkai" },
   ],
 
-  social: [
-    { label: "Instagram", href: "#" },
-    { label: "LinkedIn", href: "#" },
-    { label: "X", href: "#" },
-  ],
+  // Which of the profiles above the footer links to.
+  footerProfiles: ["Clutch", "Crunchbase", "Dribbble", "Medium"],
 
   nav: [
     { label: "Mortgage", href: "/mortgage" },
@@ -129,7 +127,7 @@ export const site = {
 
   footer: {
     blurb: "Premium web design and development. Start with a template or commission something completely custom.",
-    legalName: "Pilk.ai Media",
+    legalName: "Pilk Consulting LLC",
   },
 
   pricingDisclaimer:
