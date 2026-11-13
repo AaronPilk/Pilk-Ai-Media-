@@ -7,7 +7,7 @@ import { CheckoutClient } from "@/components/checkout/CheckoutClient";
 export const metadata: Metadata = buildMetadata({
   title: "Checkout — Mortgage Website",
   description:
-    "Secure Stripe checkout for your mortgage website. $500 build plus optional integrations; $100/mo hosting starts one month later.",
+    "Secure Stripe checkout for your mortgage website: $500 build, 10% fees & processing, optional add-ons. $100/mo hosting starts 30 days later.",
   path: "/checkout",
   noindex: true,
 });

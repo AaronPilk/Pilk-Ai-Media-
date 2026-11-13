@@ -11,6 +11,20 @@ export const CHECKOUT = {
   monthlyTrialDays: 30, // first monthly charge lands 30 days after the initial payment
 } as const;
 
+/**
+ * The required, unticked box at checkout (ROSCA and state auto-renewal laws).
+ * The checkout function refuses to start a payment without it, and the
+ * version travels to Stripe as Checkout Session metadata. A wording change
+ * means a new version key.
+ */
+export const RENEWAL_CONSENT_VERSION = "renewal-v1-2026-11-13";
+export const RENEWAL_CONSENT_TEXT = `I agree to the $${CHECKOUT.monthly}/month hosting plan starting ${CHECKOUT.monthlyTrialDays} days after purchase, renewing monthly until I cancel.`;
+
+/** The date of the first monthly charge for a purchase made at `from`. */
+export function firstMonthlyChargeDate(from: Date = new Date()): Date {
+  return new Date(from.getTime() + CHECKOUT.monthlyTrialDays * 24 * 60 * 60 * 1000);
+}
+
 export type AddonKey = "rush" | "ghl" | "analytics" | "meta" | "posthog";
 
 export const ADDONS: {

@@ -1,6 +1,12 @@
 /// <reference types="@cloudflare/workers-types" />
 import { stripe } from "./_stripe";
-import { CHECKOUT, ADDONS, priceCents, type AddonKey } from "../../src/lib/checkout-pricing";
+import {
+  CHECKOUT,
+  ADDONS,
+  RENEWAL_CONSENT_VERSION,
+  priceCents,
+  type AddonKey,
+} from "../../src/lib/checkout-pricing";
 
 type Env = { STRIPE_SECRET_KEY?: string };
 
@@ -19,15 +25,28 @@ export const onRequestPost = async (context: {
   env: Env;
 }): Promise<Response> => {
   const { request, env } = context;
+  const body = ((await request.json().catch(() => null)) ?? {}) as {
+    addons?: string[];
+    template?: string;
+    email?: string;
+    renewalConsent?: unknown;
+    renewalConsentVersion?: unknown;
+  };
+  // The monthly plan renews automatically, so no payment starts without the
+  // customer's ticked agreement to it (checked before anything else).
+  if (body.renewalConsent !== true || body.renewalConsentVersion !== RENEWAL_CONSENT_VERSION) {
+    return json(
+      {
+        error: `Please refresh the page and tick the box agreeing to the $${CHECKOUT.monthly}/month hosting plan to continue.`,
+        code: "renewal_consent_required",
+      },
+      400
+    );
+  }
   if (!env.STRIPE_SECRET_KEY) {
     return json({ error: "Payments aren't configured yet. Please contact us to complete your order." }, 503);
   }
   try {
-    const body = (await request.json().catch(() => ({}))) as {
-      addons?: string[];
-      template?: string;
-      email?: string;
-    };
     const selected = (Array.isArray(body.addons) ? body.addons : []).filter(
       (a): a is AddonKey => VALID.has(a as AddonKey)
     );
@@ -73,11 +92,16 @@ export const onRequestPost = async (context: {
       metadata: {
         product: "mortgage-website",
         addons: selected.join(",") || "none",
-        template: body.template || "",
+        template: typeof body.template === "string" ? body.template.slice(0, 120) : "",
         start_monthly: "true",
         monthly_amount: String(CHECKOUT.monthly),
+        // The customer's agreement to the automatic renewal, as recorded here.
+        renewal_consent: "true",
+        renewal_consent_version: RENEWAL_CONSENT_VERSION,
+        renewal_consent_at: new Date().toISOString(),
+        renewal_terms: `$${CHECKOUT.monthly}/month hosting plan, first charge ${CHECKOUT.monthlyTrialDays} days after purchase, renews monthly until cancelled`,
       },
-      ...(body.email ? { customer_email: body.email } : {}),
+      ...(typeof body.email === "string" && body.email ? { customer_email: body.email.slice(0, 200) } : {}),
     });
 
     return json({ url: session.url });

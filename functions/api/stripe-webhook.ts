@@ -3,7 +3,8 @@
 // checkout creates the $100/mo hosting subscription with a 30-day trial so the
 // first monthly charge lands one month after the initial payment.
 import { stripe } from "./_stripe";
-import { CHECKOUT } from "../../src/lib/checkout-pricing";
+import { CHECKOUT, RENEWAL_CONSENT_TEXT, RENEWAL_CONSENT_VERSION } from "../../src/lib/checkout-pricing";
+import { site } from "../../src/content/site";
 import { sendToGhl } from "./_ghl";
 
 type Env = {
@@ -18,6 +19,15 @@ type Env = {
 };
 
 const encoder = new TextEncoder();
+
+function esc(value: unknown): string {
+  return String(value ?? "").replace(/[&<>"']/g, (c) =>
+    c === "&" ? "&amp;" : c === "<" ? "&lt;" : c === ">" ? "&gt;" : c === '"' ? "&quot;" : "&#39;"
+  );
+}
+
+const longDate = (d: Date) =>
+  d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "America/New_York" });
 
 function json(data: unknown, status = 200): Response {
   return new Response(JSON.stringify(data), {
@@ -137,6 +147,9 @@ export const onRequestPost = async (context: {
                 source: "pilk-checkout",
                 checkout_session: session.id,
                 template: session.metadata?.template || "",
+                renewal_consent: session.metadata?.renewal_consent || "",
+                renewal_consent_version: session.metadata?.renewal_consent_version || "",
+                renewal_consent_at: session.metadata?.renewal_consent_at || "",
               },
             },
             { idempotencyKey: `sub_${session.id}` }
@@ -157,27 +170,57 @@ export const onRequestPost = async (context: {
           });
         }
 
-        // Notify Aaron of the new order (best-effort)
+        // Notify Aaron of the new order, and send the customer a copy of the
+        // plan terms they can keep (state auto-renewal laws ask for one).
         if (env.RESEND_API_KEY && env.LEADS_FROM_EMAIL && env.LEADS_NOTIFICATION_EMAIL) {
           const amt = ((session.amount_total ?? 0) / 100).toFixed(2);
-          await fetch("https://api.resend.com/emails", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${env.RESEND_API_KEY}`,
-            },
-            body: JSON.stringify({
-              from: env.LEADS_FROM_EMAIL,
-              to: env.LEADS_NOTIFICATION_EMAIL,
-              subject: `New website order — $${amt}`,
-              html: `<h2>New Pilk.ai website order</h2>
-                <p><strong>Amount paid:</strong> $${amt}</p>
-                <p><strong>Customer:</strong> ${session.customer_details?.email || "—"}</p>
-                <p><strong>Add-ons:</strong> ${session.metadata?.addons || "none"}</p>
-                <p><strong>Template:</strong> ${session.metadata?.template || "—"}</p>
-                <p>$${CHECKOUT.monthly}/mo hosting subscription created — first charge in ${CHECKOUT.monthlyTrialDays} days.</p>`,
-            }),
-          }).catch(() => {});
+          const paidAt = new Date((session.created ?? Math.floor(Date.now() / 1000)) * 1000);
+          const firstCharge = longDate(new Date(paidAt.getTime() + CHECKOUT.monthlyTrialDays * 86_400_000));
+          const consent = session.metadata?.renewal_consent === "true";
+          const sendEmail = (to: string, subject: string, html: string) =>
+            fetch("https://api.resend.com/emails", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${env.RESEND_API_KEY}`,
+              },
+              body: JSON.stringify({ from: env.LEADS_FROM_EMAIL, to, subject, html }),
+            }).catch(() => {});
+
+          await sendEmail(
+            env.LEADS_NOTIFICATION_EMAIL,
+            `New website order — $${amt}`,
+            `<h2>New Pilk.ai website order</h2>
+              <p><strong>Amount paid:</strong> $${esc(amt)} (includes the ${Math.round(CHECKOUT.feeRate * 100)}% fees &amp; processing line)</p>
+              <p><strong>Customer:</strong> ${esc(session.customer_details?.email) || "—"}</p>
+              <p><strong>Add-ons:</strong> ${esc(session.metadata?.addons) || "none"}</p>
+              <p><strong>Template:</strong> ${esc(session.metadata?.template) || "—"}</p>
+              <p>$${CHECKOUT.monthly}/mo hosting subscription created — first charge in ${CHECKOUT.monthlyTrialDays} days (${esc(firstCharge)}).</p>
+              <h3 style="margin:16px 0 4px">Auto-renewal consent</h3>
+              ${
+                consent
+                  ? `<p>Ticked at checkout before paying: “${esc(RENEWAL_CONSENT_TEXT)}”</p>
+                     <p style="color:#555;font-size:12px">Recorded ${esc(session.metadata?.renewal_consent_at) || "—"} · wording <code>${esc(session.metadata?.renewal_consent_version) || "—"}</code> · Checkout Session ${esc(session.id)}</p>`
+                  : `<p><strong>No renewal consent recorded on this session.</strong> Check the order before the first monthly charge.</p>`
+              }`
+          );
+
+          const customerEmail = session.customer_details?.email;
+          if (customerEmail) {
+            const cancelHref = `mailto:${site.contact.email}?subject=${encodeURIComponent("Cancel my hosting plan")}&body=${encodeURIComponent(`Please cancel the $${CHECKOUT.monthly}/month hosting plan for ${customerEmail}.`)}`;
+            await sendEmail(
+              customerEmail,
+              "Your Pilk.ai order and hosting plan",
+              `<h2>Thanks for your order</h2>
+                <p>Your payment of $${esc(amt)} went through. We'll be in touch shortly to start your website build.</p>
+                <h3 style="margin:16px 0 4px">Your hosting plan</h3>
+                <p>Your $${CHECKOUT.monthly}/month hosting, support and edits plan has started. The first $${CHECKOUT.monthly} charge is on ${esc(firstCharge)}, ${CHECKOUT.monthlyTrialDays} days after your purchase. It then renews automatically every month on that date, charged to the card you used, until you cancel.</p>
+                <p><strong>How to cancel:</strong> email <a href="${esc(cancelHref)}">${esc(site.contact.email)}</a> or call ${esc(site.contact.phone)} at any time. Cancelling takes effect at the end of the month you've already paid for, and if you cancel before ${esc(firstCharge)} you won't be charged for the plan at all. Your website stays yours either way.</p>
+                <p>Full terms: <a href="${esc(site.url)}/terms/">${esc(site.url)}/terms/</a></p>
+                <p>— Pilk.ai</p>
+                <p style="color:#888;font-size:12px">Pilk.ai is a brand of Pilk Consulting LLC.</p>`
+            );
+          }
         }
       }
     }
