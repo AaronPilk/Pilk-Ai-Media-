@@ -8,6 +8,7 @@
     "start": "next start",
     "preview": "npx wrangler pages dev out",
     "test:e2e": "playwright test",
+    "test:functions": "node scripts/test-functions.mjs",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write .",
