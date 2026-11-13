@@ -61,7 +61,7 @@ function processFile(file, slug){
 
   const seo=`${MS}
 <meta name="description" content="${esc(desc)}">
-<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="robots" content="noindex, follow">
 <meta name="author" content="${esc(brand)}">
 <link rel="canonical" href="${canonical}">
 <meta property="og:type" content="website">
@@ -88,12 +88,9 @@ ${GE}`;
   const ld=[];
   const biz={"@context":"https://schema.org","@type":type,"@id":root+"#business","name":brand,"url":root,"description":desc,"image":img,"areaServed":"United States","telephone":"+1-000-000-0000","priceRange":"$$"};
   if(type==='FinancialService') biz.serviceType='Mortgage lending';
-  // aggregateRating from visible content
-  if(base==='reviews.html'||base==='index.html'){
-    const rm2=html.match(/([0-5](?:\.[0-9])?)\s*(?:out of 5|\/\s*5|&#9733;|★)/i);
-    const cm2=html.match(/(?:across|from|based on|over)\s*([\d,]+)\s*(?:reviews|ratings|homeowners|clients|families)/i) || html.match(/([\d,]{2,})\s*(?:reviews|ratings)/i);
-    if(rm2&&cm2){ const r=parseFloat(rm2[1]),c=parseInt(cm2[1].replace(/,/g,''),10); if(r>0&&r<=5&&c>0){ biz.aggregateRating={"@type":"AggregateRating","ratingValue":String(r),"reviewCount":String(c),"bestRating":"5","worstRating":"1"}; } }
-  }
+  // No aggregateRating: these are demo businesses and their reviews are sample
+  // copy. Rating markup for reviews that don't exist breaks Google's structured
+  // data policy and can earn a manual action for all of pilk.ai.
   ld.push(biz);
   if(base==='index.html') ld.push({"@context":"https://schema.org","@type":"WebSite","name":brand,"url":root});
   if(base!=='index.html') ld.push({"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":root},{"@type":"ListItem","position":2,"name":pageName(file),"item":canonical}]});

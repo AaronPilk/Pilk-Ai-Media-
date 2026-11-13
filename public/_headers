@@ -1,0 +1,7 @@
+# Cloudflare Pages response headers. https://developers.cloudflare.com/pages/configuration/headers/
+
+# Demo template sites: fictional businesses with sample reviews and placeholder
+# licence numbers. They stay browsable from the template pages but must never be
+# indexed as if they were real companies on pilk.ai.
+/template-previews/*
+  X-Robots-Tag: noindex, follow
