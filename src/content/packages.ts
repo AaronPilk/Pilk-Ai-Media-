@@ -109,3 +109,14 @@ export const optionalUpgrades = [
   "Automation",
   "Custom software",
 ];
+
+/** Comes with every template build, on top of the template's own features. */
+export const everyBuildIncludes = [
+  "Built with your branding, copy & photos",
+  "Mobile-responsive on every device",
+  "Lead form that emails you every inquiry",
+  "Click-to-call, email & map ready",
+  "Basic on-page SEO setup",
+  "Launched on your domain",
+  "One round of revisions",
+];

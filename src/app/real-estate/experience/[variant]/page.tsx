@@ -24,6 +24,7 @@ export async function generateMetadata({
     title: cfg ? `${cfg.label} — Interactive Listing Experience` : "Interactive Experience",
     description: cfg?.blurb ?? "A scroll-driven cinematic real-estate experience by Pilk.ai.",
     path: `/real-estate/experience/${variant}`,
+    noindex: true,
   });
 }
 

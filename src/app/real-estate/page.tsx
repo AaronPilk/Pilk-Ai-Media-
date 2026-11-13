@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import { templates } from "@/content/templates";
-import { buildMetadata, faqJsonLd } from "@/lib/metadata";
+import { buildMetadata, siteFaqNode, breadcrumbNode, pageGraph } from "@/lib/metadata";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { RelatedServices } from "@/components/services/RelatedServices";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { SectionLabel } from "@/components/ui/SectionLabel";
@@ -17,7 +19,7 @@ import { ContactForm } from "@/components/contact/ContactForm";
 export const metadata: Metadata = buildMetadata({
   title: "Real Estate & Mortgage Website Design",
   description:
-    "Websites for individual real-estate agents, brokerages, and mortgage firms. Personal agent sites and full firm sites built to capture qualified leads — with IDX/MLS integration where available.",
+    "Websites for real estate agents, brokerages and mortgage firms, built to capture qualified leads, with IDX/MLS integration where available.",
   path: "/real-estate",
 });
 
@@ -29,9 +31,11 @@ const firmTemplates = templates.filter((t) => firmCats.includes(t.category));
 export default function RealEstatePage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd()) }}
+      <JsonLd
+        data={pageGraph(
+          siteFaqNode(),
+          breadcrumbNode([{ name: "Real Estate Websites", path: "/real-estate/" }])
+        )}
       />
 
       <header className="relative z-10 flex min-h-[88vh] items-end overflow-hidden">
@@ -185,6 +189,11 @@ export default function RealEstatePage() {
           </div>
         </Container>
       </section>
+      <RelatedServices
+        heading="Beyond the website"
+        slugs={["lead-funnels", "meta-ads", "ai-automation-chatbots", "social-media-automation"]}
+        className="section relative z-10"
+      />
     </>
   );
 }

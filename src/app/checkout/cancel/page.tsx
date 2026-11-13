@@ -7,6 +7,7 @@ export const metadata: Metadata = buildMetadata({
   title: "Checkout canceled",
   description: "Your checkout was canceled — no charge was made.",
   path: "/checkout/cancel",
+  noindex: true,
 });
 
 export default function CheckoutCancelPage() {

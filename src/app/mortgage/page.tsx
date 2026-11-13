@@ -3,7 +3,9 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { Check } from "lucide-react";
 import { templates } from "@/content/templates";
-import { buildMetadata, mortgageServiceJsonLd, breadcrumbJsonLd } from "@/lib/metadata";
+import { buildMetadata, mortgageServiceNode, breadcrumbNode, pageGraph } from "@/lib/metadata";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { RelatedServices } from "@/components/services/RelatedServices";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { SectionLabel } from "@/components/ui/SectionLabel";
@@ -15,7 +17,7 @@ import { LogoMarquee } from "@/components/sections/LogoMarquee";
 export const metadata: Metadata = buildMetadata({
   title: "Mortgage Website Templates — $500",
   description:
-    "15 fully built mortgage website templates for loan officers, brokers, and brokerages. $500 + $100/mo hosting, live in about 14 days. You own the website outright — it's yours, not rented. GoHighLevel & tracking integrations available. Pick your design and start a project.",
+    "15 fully built mortgage website templates for loan officers and brokers. $500 plus $100/mo hosting, live in about 14 days, and you own the site outright.",
   path: "/mortgage",
   image: "/template-previews/_assets/hero-warm-home.jpg",
 });
@@ -36,20 +38,11 @@ const included = [
 export default function MortgagePage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(mortgageServiceJsonLd()) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(
-            breadcrumbJsonLd([
-              { name: "Home", path: "/" },
-              { name: "Mortgage Websites", path: "/mortgage" },
-            ])
-          ),
-        }}
+      <JsonLd
+        data={pageGraph(
+          mortgageServiceNode(),
+          breadcrumbNode([{ name: "Mortgage Websites", path: "/mortgage/" }])
+        )}
       />
       {/* Hero */}
       <header
@@ -354,6 +347,11 @@ export default function MortgagePage() {
           </p>
         </Container>
       </section>
+      <RelatedServices
+        heading="Beyond the website"
+        slugs={["lead-funnels", "meta-ads", "ai-automation-chatbots", "social-media-automation"]}
+        className="section relative z-10"
+      />
     </>
   );
 }

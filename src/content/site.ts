@@ -11,11 +11,45 @@ export const site = {
     "Pilk.ai Media is an independent design and development studio building high-conversion websites with cinematic design, custom interaction, and the infrastructure to turn attention into business.",
   location: "St. Petersburg · Tampa Bay · Remote",
 
+  // Search-facing copy. The on-page hero keeps the brand line above.
+  seo: {
+    homeTitle: "Pilk.ai — Websites, Apps & AI Consulting in St. Petersburg",
+    description:
+      "Pilk.ai builds websites and custom apps and sets up AI automation, ads and lead funnels for businesses in St. Petersburg and Tampa Bay, Florida.",
+  },
+
   contact: {
     email: "Aaron@pilk.ai",
     phone: "(704) 877-3511",
     phoneHref: "tel:+17048773511",
+    phoneE164: "+1-704-877-3511",
   },
+
+  // Entity facts for search engines and structured data. Only verified facts
+  // belong here: no street address (it is private), no ratings, no claims a
+  // reader could not check.
+  entity: {
+    name: "Pilk.ai",
+    legalName: "Pilk Consulting LLC",
+    alternateName: "Pilk.ai Media",
+    founder: "Aaron Pilkington",
+    locality: "St. Petersburg",
+    region: "FL",
+    regionName: "Florida",
+    country: "US",
+    areaServed: ["St. Petersburg, Florida", "Tampa Bay, Florida"],
+  },
+
+  // Real third-party profiles only.
+  profiles: [
+    { label: "Clutch", href: "https://clutch.co/profile/pilkai" },
+    { label: "Crunchbase", href: "https://www.crunchbase.com/organization/pilk-ai" },
+    { label: "Sortlist", href: "https://www.sortlist.com/agency/pilk-ai" },
+    { label: "Dribbble", href: "https://dribbble.com/aaron-pilkington" },
+    { label: "Contra", href: "https://contra.com/aaron_pilkington_yesgau52" },
+    { label: "Medium", href: "https://medium.com/@pilkai" },
+    { label: "DEV", href: "https://dev.to/pilkai" },
+  ],
 
   social: [
     { label: "Instagram", href: "#" },

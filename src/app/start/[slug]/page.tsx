@@ -27,6 +27,7 @@ export async function generateMetadata({
       ? `Send us your content and assets and we'll build your ${tpl.name} site.`
       : "Order a Pilk.ai template.",
     path: `/start/${slug}`,
+    noindex: true,
   });
 }
 

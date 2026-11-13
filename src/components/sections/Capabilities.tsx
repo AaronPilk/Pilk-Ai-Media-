@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { site } from "@/content/site";
+import { serviceCatalog } from "@/content/services";
 import { Container } from "@/components/ui/Container";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Reveal } from "@/components/ui/Reveal";
@@ -25,6 +27,30 @@ export function Capabilities() {
             </Reveal>
           ))}
         </div>
+
+        <nav aria-label="Services" className="mt-16 border-t border-line pt-8">
+          <span className="eyebrow">Everything we do</span>
+          <ul className="mt-5 flex flex-wrap gap-2">
+            {serviceCatalog.map((s) => (
+              <li key={s.href}>
+                <Link
+                  href={s.href}
+                  className="inline-block rounded-full border border-line px-4 py-2 text-sm transition-colors hover:border-accent hover:text-accent"
+                >
+                  {s.name}
+                </Link>
+              </li>
+            ))}
+            <li>
+              <Link
+                href="/st-petersburg-tampa-bay/"
+                className="inline-block rounded-full border border-line px-4 py-2 text-sm transition-colors hover:border-accent hover:text-accent"
+              >
+                St. Petersburg &amp; Tampa Bay
+              </Link>
+            </li>
+          </ul>
+        </nav>
       </Container>
     </section>
   );

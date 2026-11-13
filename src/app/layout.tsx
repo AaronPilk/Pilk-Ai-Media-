@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, Inter } from "next/font/google";
 import "./globals.css";
-import { buildMetadata, organizationJsonLd, professionalServiceJsonLd } from "@/lib/metadata";
+import { buildMetadata, siteGraph } from "@/lib/metadata";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { SmoothScrollProvider } from "@/components/layout/SmoothScrollProvider";
@@ -41,14 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
 
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd()) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalServiceJsonLd()) }}
-        />
+        <JsonLd data={siteGraph()} />
 
         <DomPatch />
         <Preloader />

@@ -9,6 +9,7 @@ export const metadata: Metadata = buildMetadata({
   description:
     "Secure Stripe checkout for your mortgage website. $500 build plus optional integrations; $100/mo hosting starts one month later.",
   path: "/checkout",
+  noindex: true,
 });
 
 export default function CheckoutPage() {

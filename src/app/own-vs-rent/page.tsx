@@ -1,14 +1,24 @@
 import type { Metadata } from "next";
-import { buildMetadata } from "@/lib/metadata";
+import { buildMetadata, breadcrumbNode, pageGraph } from "@/lib/metadata";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { OwnVsRent } from "@/components/sections/OwnVsRent";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Own Your Website — Pilk.ai vs Placester",
+  absoluteTitle: "Own Your Website: Pilk.ai vs Placester",
   description:
-    "Subscription website builders like Placester rent you a shared template for $59–$599/month, forever. Pilk.ai builds you a custom real-estate website you own outright. See the comparison.",
+    "Placester rents you a shared template for $59 to $599 a month, forever. Pilk.ai builds a custom real estate website you own outright. See the comparison.",
   path: "/own-vs-rent",
 });
 
 export default function OwnVsRentPage() {
-  return <OwnVsRent variant="page" />;
+  return (
+    <>
+      <JsonLd
+        data={pageGraph(
+          breadcrumbNode([{ name: "Own vs Rent", path: "/own-vs-rent/" }])
+        )}
+      />
+      <OwnVsRent variant="page" />
+    </>
+  );
 }

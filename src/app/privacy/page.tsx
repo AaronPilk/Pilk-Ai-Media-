@@ -1,18 +1,21 @@
 import type { Metadata } from "next";
 import { site } from "@/content/site";
-import { buildMetadata } from "@/lib/metadata";
+import { buildMetadata, breadcrumbNode, pageGraph } from "@/lib/metadata";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { PageIntro } from "@/components/layout/PageIntro";
 import { Container } from "@/components/ui/Container";
 
 export const metadata: Metadata = buildMetadata({
   title: "Privacy Policy",
-  description: "How Pilk.ai Media handles your information.",
+  description:
+    "How Pilk.ai, operated by Pilk Consulting LLC, collects and uses the information you share through pilk.ai inquiry and project forms.",
   path: "/privacy",
 });
 
 export default function PrivacyPage() {
   return (
     <>
+      <JsonLd data={pageGraph(breadcrumbNode([{ name: "Privacy Policy", path: "/privacy/" }]))} />
       <PageIntro eyebrow="Legal" title="Privacy Policy" />
       <section className="section relative z-10 pt-4">
         <Container as="article" className="max-w-2xl text-sm leading-relaxed text-muted">

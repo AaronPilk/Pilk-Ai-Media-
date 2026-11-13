@@ -1,14 +1,20 @@
 import type { Metadata } from "next";
+import type { WebsiteTemplate } from "@/types/template";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import fs from "node:fs";
+import { join } from "node:path";
 import {
   templates,
+  templateCategories,
   getTemplate,
   getRelatedTemplates,
   templateProjectType,
 } from "@/content/templates";
 import { site } from "@/content/site";
-import { buildMetadata, breadcrumbJsonLd } from "@/lib/metadata";
+import { everyBuildIncludes } from "@/content/packages";
+import { buildMetadata, breadcrumbNode, pageGraph } from "@/lib/metadata";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { formatPrice } from "@/lib/utils";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
@@ -29,10 +35,29 @@ export async function generateMetadata({
   const tpl = getTemplate(slug);
   if (!tpl) return buildMetadata({ title: "Template", path: `/templates/${slug}` });
   return buildMetadata({
-    title: `${tpl.name} — ${tpl.label}`,
+    title: templateTitle(tpl),
     description: tpl.shortDescription,
     path: `/templates/${slug}`,
+    image: existingPublicFile(tpl.preview.desktop),
   });
+}
+
+// Keeps each title unique and under 50 characters before the brand suffix.
+function templateTitle(tpl: WebsiteTemplate): string {
+  if (tpl.category === "custom") return "Custom Website Build";
+  const category = templateCategories.find((c) => c.id === tpl.category)?.label ?? "";
+  if (!category || tpl.name === category) return `${tpl.name} Website Template`;
+  const long = `${tpl.name}: ${category} Website Template`;
+  if (long.length <= 50) return long;
+  const short = `${tpl.name}: ${category} Template`;
+  return short.length <= 50 ? short : `${tpl.name} Website Template`;
+}
+
+// Several templates point at screenshots that were never captured; only
+// advertise a share image that will actually load.
+function existingPublicFile(path?: string): string | undefined {
+  if (!path) return undefined;
+  return fs.existsSync(join(process.cwd(), "public", path)) ? path : undefined;
 }
 
 export default async function TemplateDetailPage({
@@ -47,16 +72,7 @@ export default async function TemplateDetailPage({
   const related = getRelatedTemplates(slug);
   const isCustom = tpl.slug === "custom-site";
 
-  // Comes with every template build (in addition to the template's own features).
-  const everyBuild = [
-    "Built with your branding, copy & photos",
-    "Mobile-responsive on every device",
-    "Lead form that emails you every inquiry",
-    "Click-to-call, email & map ready",
-    "Basic on-page SEO setup",
-    "Launched on your domain",
-    "One round of revisions",
-  ];
+  const everyBuild = everyBuildIncludes;
 
   // What we ask the client to provide (all optional — we fill the gaps).
   const weNeed = [
@@ -68,16 +84,13 @@ export default async function TemplateDetailPage({
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(
-            breadcrumbJsonLd([
-              { name: "Templates", path: "/templates" },
-              { name: tpl.name, path: `/templates/${slug}` },
-            ])
-          ),
-        }}
+      <JsonLd
+        data={pageGraph(
+          breadcrumbNode([
+            { name: "Templates", path: "/templates/" },
+            { name: tpl.name, path: `/templates/${slug}/` },
+          ])
+        )}
       />
 
       <header className="relative z-10 pt-[clamp(7rem,18vh,12rem)]">

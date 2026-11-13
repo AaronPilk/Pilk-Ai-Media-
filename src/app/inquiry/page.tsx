@@ -9,6 +9,7 @@ export const metadata: Metadata = buildMetadata({
   title: "Inquiry",
   description: "Quick inquiry — leave your details and we'll reach out.",
   path: "/inquiry",
+  noindex: true,
 });
 
 export default function InquiryPage() {

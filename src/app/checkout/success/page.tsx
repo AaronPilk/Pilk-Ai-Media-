@@ -7,6 +7,7 @@ export const metadata: Metadata = buildMetadata({
   title: "Payment received",
   description: "Your mortgage website order is confirmed.",
   path: "/checkout/success",
+  noindex: true,
 });
 
 export default function CheckoutSuccessPage() {

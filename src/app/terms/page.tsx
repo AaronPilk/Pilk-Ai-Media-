@@ -1,17 +1,20 @@
 import type { Metadata } from "next";
-import { buildMetadata } from "@/lib/metadata";
+import { buildMetadata, breadcrumbNode, pageGraph } from "@/lib/metadata";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { PageIntro } from "@/components/layout/PageIntro";
 import { Container } from "@/components/ui/Container";
 
 export const metadata: Metadata = buildMetadata({
   title: "Terms of Service",
-  description: "Terms for using the Pilk.ai Media website and services.",
+  description:
+    "Terms for using the pilk.ai website and for Pilk.ai projects. Pilk.ai is operated by Pilk Consulting LLC in St. Petersburg, Florida.",
   path: "/terms",
 });
 
 export default function TermsPage() {
   return (
     <>
+      <JsonLd data={pageGraph(breadcrumbNode([{ name: "Terms of Service", path: "/terms/" }]))} />
       <PageIntro eyebrow="Legal" title="Terms of Service" />
       <section className="section relative z-10 pt-4">
         <Container as="article" className="max-w-2xl text-sm leading-relaxed text-muted">

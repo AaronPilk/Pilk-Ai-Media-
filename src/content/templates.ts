@@ -13,7 +13,8 @@ export const templateCategories: { id: TemplateCategory | "all"; label: string }
 
 /**
  * Choosable website templates. Each real-estate template is a real, browsable
- * site at public/template-previews/<slug>/index.html — opened via `liveUrl`.
+ * site at public/template-previews/<slug>/index.html, opened via `liveUrl`
+ * (the folder URL: Cloudflare 308-redirects /index.html to it).
  *
  * AARON — to refresh card/detail thumbnails, run:
  *   node scripts/capture-templates.mjs
@@ -32,7 +33,7 @@ export const templates: WebsiteTemplate[] = [
     pages: 4,
     timeline: "7-day build available",
     featured: true,
-    liveUrl: "/template-previews/modern-agent/index.html",
+    liveUrl: "/template-previews/modern-agent/",
     preview: { desktop: "/template-previews/modern-agent/desktop.jpg" },
     features: ["Personal hero & bio", "About / your story", "Recent sales showcase", "Testimonials", "Contact & lead form", "Mobile responsive"],
     upgrades: ["Blog / market updates", "Neighborhood guides", "CRM connection", "Custom copywriting"],
@@ -49,7 +50,7 @@ export const templates: WebsiteTemplate[] = [
     pages: 6,
     timeline: "7–10 day build available",
     featured: true,
-    liveUrl: "/template-previews/signature-estate/index.html",
+    liveUrl: "/template-previews/signature-estate/",
     preview: { desktop: "/template-previews/signature-estate/desktop.jpg" },
     features: ["Editorial homepage", "Luxury listing showcase", "Neighborhood section", "Agent story", "Lead capture", "Mobile responsive"],
     upgrades: ["IDX / MLS integration", "Custom listing pages", "Video hero", "CRM automation"],
@@ -66,7 +67,7 @@ export const templates: WebsiteTemplate[] = [
     pages: 7,
     timeline: "10–14 day build available",
     featured: true,
-    liveUrl: "/template-previews/brokerage-command/index.html",
+    liveUrl: "/template-previews/brokerage-command/",
     preview: { desktop: "/template-previews/brokerage-command/desktop.jpg" },
     features: ["Brokerage homepage", "Agent roster", "Listings section", "Recruiting page", "Lead routing", "Mobile responsive"],
     upgrades: ["IDX / MLS integration", "Agent profile pages", "Office location pages", "CRM routing"],
@@ -83,7 +84,7 @@ export const templates: WebsiteTemplate[] = [
     pages: 6,
     timeline: "7–10 day build available",
     featured: true,
-    liveUrl: "/template-previews/coastal-luxe/index.html",
+    liveUrl: "/template-previews/coastal-luxe/",
     preview: { desktop: "/template-previews/coastal-luxe/desktop.jpg" },
     features: ["Coastal homepage", "Home search", "Lifestyle section", "Team bio", "Lead form", "Mobile responsive"],
     upgrades: ["IDX / MLS integration", "Neighborhood guides", "Video tours", "CRM connection"],
@@ -100,7 +101,7 @@ export const templates: WebsiteTemplate[] = [
     pages: 6,
     timeline: "10–14 day build available",
     featured: true,
-    liveUrl: "/template-previews/urban-loft/index.html",
+    liveUrl: "/template-previews/urban-loft/",
     preview: { desktop: "/template-previews/urban-loft/desktop.jpg" },
     features: ["Residences homepage", "Availability list", "Amenities section", "About / story", "Inquiry form", "Mobile responsive"],
     upgrades: ["Floor-plan pages", "Availability sync", "3D / video tours", "CRM connection"],
@@ -118,7 +119,7 @@ export const templates: WebsiteTemplate[] = [
     pages: 6,
     timeline: "14-day build available",
     featured: true,
-    liveUrl: "/template-previews/mortgage-broker/index.html",
+    liveUrl: "/template-previews/mortgage-broker/",
     preview: { desktop: "/template-previews/mortgage-broker/desktop.jpg" },
     features: ["Lender homepage", "Loan programs", "Payment calculator", "Reviews", "Application form", "GoHighLevel-ready"],
     upgrades: ["Full GHL build-out", "MLS connection (+$500)", "Automated follow-up", "Rate feed"],
@@ -150,7 +151,7 @@ export const templates: WebsiteTemplate[] = [
     pages: 6,
     timeline: "14-day build available",
     featured: true,
-    liveUrl: `/template-previews/${slug}/index.html`,
+    liveUrl: `/template-previews/${slug}/`,
     preview: {},
     features: ["Lender homepage", "Loan programs", "Working payment calculator", "Reviews", "Application form", "GoHighLevel-ready"],
     upgrades: ["Full GHL build-out", "MLS connection (+$500)", "Automated follow-up", "Custom copywriting"],
@@ -167,7 +168,7 @@ export const templates: WebsiteTemplate[] = [
     pages: 5,
     timeline: "5–7 day build available",
     featured: true,
-    liveUrl: "/template-previews/single-property/index.html",
+    liveUrl: "/template-previews/single-property/",
     preview: { desktop: "/template-previews/single-property/desktop.jpg" },
     features: ["Property hero", "Photo gallery", "Features & details", "Neighborhood", "Inquiry form", "Mobile responsive"],
     upgrades: ["3D / video tour", "Floor plans", "Schedule a showing", "Custom domain"],
@@ -185,7 +186,7 @@ export const templates: WebsiteTemplate[] = [
     pages: 7,
     timeline: "10–14 day build available",
     featured: true,
-    liveUrl: "/template-previews/rental-management/index.html",
+    liveUrl: "/template-previews/rental-management/",
     preview: { desktop: "/template-previews/rental-management/desktop.jpg" },
     features: ["Management homepage", "Featured rentals", "Owner services", "Tenant services", "Application form", "Mobile responsive"],
     upgrades: ["Rental sync / listings feed", "Tenant portal", "Online payments", "CRM connection"],
@@ -203,7 +204,7 @@ export const templates: WebsiteTemplate[] = [
     pages: 1,
     timeline: "2–3 day build available",
     featured: true,
-    liveUrl: "/template-previews/single-property/index.html",
+    liveUrl: "/template-previews/single-property/",
     preview: { desktop: "/template-previews/single-property/desktop.jpg" },
     features: ["Cinematic property hero", "Photo gallery", "Key details & features", "Neighborhood blurb", "Lead capture / inquiry", "Mobile responsive"],
     upgrades: ["Video / drone flythrough", "Floor plans", "Schedule a showing", "IDX listing sync"],

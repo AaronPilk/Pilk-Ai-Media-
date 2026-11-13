@@ -1,5 +1,13 @@
+import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+
+export const metadata: Metadata = {
+  title: "Page not found · Pilk.ai",
+  description: "This page doesn't exist. Head back to the Pilk.ai home page, browse services or start a project.",
+  robots: { index: false, follow: true },
+  alternates: { canonical: null },
+};
 
 export default function NotFound() {
   return (
@@ -16,8 +24,8 @@ export default function NotFound() {
           <Button href="/" variant="primary" withArrow>
             Back home
           </Button>
-          <Button href="/templates" variant="ghost">
-            Browse templates
+          <Button href="/services/" variant="ghost">
+            Browse services
           </Button>
         </div>
       </Container>

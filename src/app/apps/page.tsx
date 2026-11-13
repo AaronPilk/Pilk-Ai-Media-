@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { appBuilding, apps } from "@/content/apps";
-import { buildMetadata } from "@/lib/metadata";
+import { buildMetadata, breadcrumbNode, pageGraph, serviceNode } from "@/lib/metadata";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { RelatedServices } from "@/components/services/RelatedServices";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { SectionLabel } from "@/components/ui/SectionLabel";
@@ -8,9 +10,10 @@ import { Reveal } from "@/components/ui/Reveal";
 import { AppShowcase } from "@/components/apps/AppShowcase";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Custom App Building",
+  title: "Custom App Development: iOS, Android & AI",
   description:
-    "Custom software development — mobile apps for iOS & Android, internal tools, AI-powered products, dashboards, and automations. Designed and built end to end, starting at $15,000.",
+    "Custom mobile apps for iOS and Android, internal tools, AI products and automations, designed and built end to end by Pilk.ai. Projects start at $15,000.",
+  image: "/brand/brand-app.jpg",
   path: "/apps",
 });
 
@@ -19,6 +22,17 @@ export default function AppsPage() {
 
   return (
     <>
+      <JsonLd
+        data={pageGraph(
+          serviceNode({
+            href: "/apps/",
+            name: "Custom App Building",
+            serviceType: "Custom software and mobile app development",
+            description: sub,
+          }),
+          breadcrumbNode([{ name: "Custom App Building", path: "/apps/" }])
+        )}
+      />
       <header
         className="relative z-10 overflow-hidden pb-8 pt-[clamp(7rem,18vh,12rem)]"
         style={{
@@ -126,6 +140,7 @@ export default function AppsPage() {
           </div>
         </Container>
       </section>
+      <RelatedServices slugs={["ai-consulting", "ai-automation-chatbots", "websites"]} />
     </>
   );
 }

@@ -1,18 +1,24 @@
 import type { Metadata } from "next";
-import { buildMetadata } from "@/lib/metadata";
+import { buildMetadata, breadcrumbNode, pageGraph } from "@/lib/metadata";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { PageIntro } from "@/components/layout/PageIntro";
 import { TemplateCatalog } from "@/components/sections/TemplateCatalog";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Website Templates",
+  title: "Real Estate & Mortgage Website Templates",
   description:
-    "Browse premium website templates for real-estate agents, brokerages, mortgage, title, and local business — or commission something completely custom.",
+    "Browse website templates for real estate agents, brokerages, lenders and property managers. Every design is a real, clickable site you can make your own.",
   path: "/templates",
 });
 
 export default function TemplatesPage() {
   return (
     <>
+      <JsonLd
+        data={pageGraph(
+          breadcrumbNode([{ name: "Templates", path: "/templates/" }])
+        )}
+      />
       <PageIntro
         eyebrow="Templates"
         title="Start with a design. Make it yours."

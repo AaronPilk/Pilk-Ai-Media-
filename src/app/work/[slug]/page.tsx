@@ -2,10 +2,23 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { projects, getProject } from "@/content/projects";
-import { buildMetadata } from "@/lib/metadata";
+import { buildMetadata, breadcrumbNode, pageGraph } from "@/lib/metadata";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { FauxBrowser } from "@/components/templates/FauxBrowser";
+
+// Turns the short category labels used on cards into readable page titles.
+const CATEGORY_TITLE: Record<string, string> = {
+  Title: "Title Company Website",
+  "Title — JV": "Title Company Website",
+  "Real Estate Agent": "Real Estate Agent Website",
+  "Loan Processing": "Loan Processing Website",
+  "Events & Entertainment": "Events Brand & Website",
+  "Art / Brand": "Brand & Drop Experience",
+  "App / Product": "App & Product Build",
+  "AI CRM": "AI CRM Platform",
+};
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -20,9 +33,10 @@ export async function generateMetadata({
   const project = getProject(slug);
   if (!project) return buildMetadata({ title: "Work", path: `/work/${slug}` });
   return buildMetadata({
-    title: project.name,
-    description: project.summary,
+    title: `${project.name}: ${CATEGORY_TITLE[project.category] ?? project.category}`,
+    description: `${project.summary} Designed and built by Pilk.ai.`,
     path: `/work/${slug}`,
+    image: project.cover,
   });
 }
 
@@ -37,6 +51,14 @@ export default async function ProjectPage({
 
   return (
     <>
+      <JsonLd
+        data={pageGraph(
+          breadcrumbNode([
+            { name: "Work", path: "/work/" },
+            { name: project.name, path: `/work/${slug}/` },
+          ])
+        )}
+      />
       <header className="relative z-10 pt-[clamp(7rem,18vh,12rem)]">
         <Container>
           <Link href="/work" className="text-sm text-muted hover:text-ink">
@@ -58,7 +80,12 @@ export default async function ProjectPage({
       <section className="section relative z-10 pt-12">
         <Container>
           <div className="aspect-[16/9]">
-            <FauxBrowser accent={project.accent} url={`${project.slug}.pilk.ai`} image={project.cover} />
+            <FauxBrowser
+              accent={project.accent}
+              url={`${project.slug}.pilk.ai`}
+              image={project.cover}
+              alt={`${project.name}: ${project.category} by Pilk.ai`}
+            />
           </div>
 
           {project.services && (

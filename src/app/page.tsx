@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+import { buildMetadata } from "@/lib/metadata";
 import { Hero } from "@/components/sections/Hero";
 import { PositioningAssembler } from "@/components/sections/PositioningAssembler";
 import { BuiltSiteShowcase } from "@/components/sections/BuiltSiteShowcase";
@@ -8,6 +10,8 @@ import { ProcessTimeline } from "@/components/sections/ProcessTimeline";
 import { Pricing } from "@/components/sections/Pricing";
 import { FAQ } from "@/components/sections/FAQ";
 import { FinalCTA } from "@/components/sections/FinalCTA";
+
+export const metadata: Metadata = buildMetadata({ path: "/" });
 
 export default function HomePage() {
   return (

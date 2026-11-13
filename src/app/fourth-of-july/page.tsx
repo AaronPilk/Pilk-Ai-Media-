@@ -15,6 +15,7 @@ export const metadata: Metadata = buildMetadata({
   description:
     "Independence Day Sale: custom real estate & mortgage websites for $499. Add a GoHighLevel CRM build-out for $250 and optional ManyChat Instagram automations. Don't miss out.",
   path: "/fourth-of-july",
+  noindex: true,
 });
 
 const saleTemplates = templates.filter((t) => t.slug !== "custom-site");

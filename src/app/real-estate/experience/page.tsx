@@ -6,10 +6,11 @@ import { Container } from "@/components/ui/Container";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Interactive Listing Experiences — Custom Build Demos",
+  title: "Interactive Listing Experience Demo",
   description:
     "Two scroll-driven, cinematic real-estate experiences built by Pilk.ai. Fly a drone through the property as listing, agent, and firm details reveal.",
   path: "/real-estate/experience",
+  noindex: true,
 });
 
 export default function ExperienceChooserPage() {

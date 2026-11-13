@@ -1,22 +1,25 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { projects } from "@/content/projects";
-import { buildMetadata } from "@/lib/metadata";
+import { buildMetadata, breadcrumbNode, pageGraph } from "@/lib/metadata";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { RelatedServices } from "@/components/services/RelatedServices";
 import { PageIntro } from "@/components/layout/PageIntro";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { FauxBrowser } from "@/components/templates/FauxBrowser";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Work",
+  title: "Our Work: Websites, Apps & AI Builds",
   description:
-    "Real client builds, apps, and products designed and developed by Pilk.ai Media — websites, mobile apps, AI platforms, and brands.",
+    "Real client builds, apps and products designed and developed by Pilk.ai: websites, mobile apps, AI platforms and brands.",
   path: "/work",
 });
 
 export default function WorkPage() {
   return (
     <>
+      <JsonLd data={pageGraph(breadcrumbNode([{ name: "Work", path: "/work/" }]))} />
       <PageIntro
         eyebrow="Work"
         title="Designs built to be remembered."
@@ -49,6 +52,10 @@ export default function WorkPage() {
           </div>
         </Container>
       </section>
+      <RelatedServices
+        heading="What we can build for you"
+        slugs={["websites", "custom-apps", "ai-automation-chatbots", "lead-funnels"]}
+      />
     </>
   );
 }

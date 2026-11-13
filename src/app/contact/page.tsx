@@ -1,21 +1,23 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { site } from "@/content/site";
-import { buildMetadata } from "@/lib/metadata";
+import { buildMetadata, breadcrumbNode, pageGraph } from "@/lib/metadata";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { Container } from "@/components/ui/Container";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { ProjectBriefWizard } from "@/components/contact/ProjectBriefWizard";
 
 export const metadata: Metadata = buildMetadata({
-  title: "Start a Project",
+  absoluteTitle: "Contact Pilk.ai: Start a Project",
   description:
-    "Build your website brief in a few minutes — business, goals, starting design, colors, inspiration, and budget. Start with a template or commission something fully custom.",
+    "Tell Pilk.ai about your project in a few minutes: business, goals, design, colors and budget. Or call (704) 877-3511 or email Aaron@pilk.ai.",
   path: "/contact",
 });
 
 export default function ContactPage() {
   return (
     <section className="relative z-10 pb-24 pt-[clamp(7rem,18vh,12rem)]">
+      <JsonLd data={pageGraph(breadcrumbNode([{ name: "Start a Project", path: "/contact/" }]))} />
       <Container className="grid gap-16 lg:grid-cols-[0.85fr_1.15fr]">
         <div className="lg:sticky lg:top-28 lg:self-start">
           <SectionLabel>Start a project</SectionLabel>

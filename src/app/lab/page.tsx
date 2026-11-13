@@ -9,6 +9,7 @@ export const metadata: Metadata = buildMetadata({
   title: "Lab",
   description: "An experimental interactive corner of Pilk.ai Media.",
   path: "/lab",
+  noindex: true,
 });
 
 export default function LabPage() {
