@@ -1,4 +1,5 @@
 import { site } from "@/content/site";
+import { SMS_CONSENT_TAG, SMS_CONSENT_TEXT } from "@/lib/sms-consent";
 import type { LegalDocument } from "./types";
 
 // Written to match docs/legal/data-flow-20261113.md. If a form, provider,
@@ -92,6 +93,7 @@ export const privacyPolicy: LegalDocument = {
                 ],
               },
             },
+            "**Text message consent.** The forms with a phone field (the project brief, the contact form, the quick inquiry and the template order) also have an optional box, unticked by default, to agree to text messages. You can send any form without ticking it. {{s:messages}} explains what we record when you tick it.",
             "**Please don't send us sensitive information** such as Social Security numbers, bank or card numbers, loan application details, health information or passwords through our forms or uploads. We don't ask for it and don't need it. If a project needs that kind of data, we'll agree in writing how it will be handled first.",
           ],
         },
@@ -121,7 +123,7 @@ export const privacyPolicy: LegalDocument = {
           title: "Payment information",
           blocks: [
             "Payments on pilk.ai are processed by Stripe. You enter card details on Stripe's checkout page; they never pass through or get stored on our systems. Stripe tells us the payment status, the amount, your email and what you ordered, and gives us reference IDs for your Stripe customer record and saved payment method.",
-            "When you buy a mortgage website, Stripe saves your card so the monthly hosting plan can be charged as our [Terms of Service](/terms/) describe. Stripe handles payment information under its own privacy policy at [stripe.com/privacy](https://stripe.com/privacy).",
+            "When you buy a mortgage website, Stripe saves your card so the monthly hosting plan can be charged as our [Terms of Service](/terms/) describe. Before you pay, you tick a box agreeing to that plan. We record the agreement (that you ticked it, when, and which version of the wording you saw) on your order at Stripe and in our order notification email. Stripe handles payment information under its own privacy policy at [stripe.com/privacy](https://stripe.com/privacy).",
           ],
         },
       ],
@@ -168,7 +170,7 @@ export const privacyPolicy: LegalDocument = {
               [
                 "Transactional email",
                 "Resend",
-                "The contents of your form and any files you upload, sent to our inbox; the confirmation email we send you; order notices",
+                "The contents of your form and any files you upload, sent to our inbox, including any text-message consent record; the confirmation email we send you; order notices and the order confirmation we send you",
               ],
               [
                 "Business email",
@@ -178,7 +180,7 @@ export const privacyPolicy: LegalDocument = {
               [
                 "CRM",
                 "GoHighLevel (LeadConnector)",
-                "Your name, email, phone, company, how you reached us and which project or template you chose; after an order, what you bought and the amount",
+                "Your name, email, phone, company, how you reached us and which project or template you chose; after an order, what you bought and the amount; if you agree to texts, the " + SMS_CONSENT_TAG + " tag and a note recording that consent ({{s:messages}})",
               ],
               [
                 "Payments",
@@ -266,17 +268,20 @@ export const privacyPolicy: LegalDocument = {
         {
           title: "Text messages",
           blocks: [
-            "We text you only if you gave us your mobile number and agreed to be contacted by text, for example by choosing text as your preferred contact method or by checking a box that says we may text you.",
+            "We text you only if you gave us your mobile number and agreed to texts.",
             {
               list: [
-                "**What we send:** messages about your inquiry, project, order, appointments and account. Marketing texts only if you separately agreed to receive them.",
+                "**How you agree.** Our forms with a phone field have an optional box, unticked by default, directly under the phone field. It reads: \u201c" + SMS_CONSENT_TEXT + "\u201d Ticking it is how you agree to texts, including marketing texts. You can send the form, and buy from us, without ticking it.",
+                "**If you don't tick the box** but ask us to text you, for example by choosing text as your preferred contact method, we'll text you only about that inquiry, never marketing.",
+                "**What we send:** messages about your inquiry, project, order, appointments and account, and, if you ticked the box, occasional marketing messages about our services. Some may be sent using automated technology.",
+                "**What we record.** When you tick the box, we record that you agreed, the date and time, the page you were on, which version of the wording you saw, the phone number, and your IP address and browser type, so we can show what you agreed to and when. That record goes into the notification email we receive (through Resend) and onto your contact in our CRM, GoHighLevel, as a note, and your contact is tagged " + SMS_CONSENT_TAG + ".",
                 "**Consent is not a condition of purchase.** You can buy from us without agreeing to texts.",
                 "**Message frequency varies.** Message and data rates may apply.",
                 "**Reply STOP** to any text to opt out. We'll send one message confirming you're unsubscribed and no more texts unless you opt back in. **Reply HELP** for help, or contact us at " + mail + " or " + tel + ".",
                 "Carriers are not liable for delayed or undelivered messages.",
               ],
             },
-            "**We do not sell, rent or share mobile phone numbers, text message opt-in data or consent with third parties or affiliates for their marketing or promotional purposes.** The sharing described in {{s:share}} excludes text messaging opt-in data and consent, except that the provider that sends our texts processes them to deliver the messages.",
+            "**We do not sell, rent or share mobile phone numbers, text message opt-in data or consent with third parties or affiliates for their marketing or promotional purposes.** The sharing described in {{s:share}} excludes text messaging opt-in data and consent, except that our own service providers process them for us: the provider that sends our texts, to deliver the messages, and Resend, our email provider and GoHighLevel, which hold our consent records.",
           ],
         },
       ],
@@ -326,6 +331,7 @@ export const privacyPolicy: LegalDocument = {
               ["Client project records, contracts and invoices", "For the relationship and 7 years after it ends, for tax, accounting and legal claims"],
               ["Files and content you send for a project", "While we build, host or maintain the work, then up to 1 year after it ends, unless you ask us to delete them sooner"],
               ["Marketing opt-outs", "As long as needed to keep honoring them"],
+              ["Records of text-message consent", "For as long as we may text you, and 4 years after that, so we can show consent if asked"],
               ["Server and security logs", "As set by Cloudflare's retention practices, usually a short period"],
               ["Payment records held by Stripe", "As Stripe's policies and the law require"],
               ["Browser storage", "As listed in {{s:cookies}}"],
@@ -377,7 +383,7 @@ export const privacyPolicy: LegalDocument = {
           table: {
             head: ["Category (California law)", "What it means here", "Disclosed for a business purpose to"],
             rows: [
-              ["Identifiers", "Name, email, phone, IP address, Stripe customer ID", "Cloudflare, Resend, our email provider, GoHighLevel, Stripe; IP address only to Google Fonts when demo templates load"],
+              ["Identifiers", "Name, email, phone, IP address, Stripe customer ID", "Cloudflare, Resend, our email provider, GoHighLevel, Stripe; IP address to Google Fonts when demo templates load, and to Resend, our email provider and GoHighLevel as part of a text-message consent record"],
               ["Customer records", "Name, phone, business details; card details are held by Stripe, not us", "Same as identifiers"],
               ["Commercial information", "What you ordered, amounts paid, plan status", "Stripe, GoHighLevel, Resend, our email provider"],
               ["Professional information", "Company, job title, industry, NMLS number", "Resend, our email provider; company name to GoHighLevel"],

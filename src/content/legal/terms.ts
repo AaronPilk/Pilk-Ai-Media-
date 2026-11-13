@@ -1,6 +1,6 @@
 import { site } from "@/content/site";
 import { buildTimes, hostingPlan, packages } from "@/content/packages";
-import { CHECKOUT } from "@/lib/checkout-pricing";
+import { CHECKOUT, RENEWAL_CONSENT_TEXT } from "@/lib/checkout-pricing";
 import { formatPrice } from "@/lib/utils";
 import type { LegalDocument } from "./types";
 
@@ -131,14 +131,14 @@ export const termsOfService: LegalDocument = {
           title: "Automatic renewal",
           blocks: [
             "**Monthly plans renew automatically each month until you cancel.** At the start of each billing period we charge the payment method on file, or invoice you if we've agreed to invoice.",
-            `**Mortgage website orders:** the ${mortgageMonthly} a month plan starts automatically when you buy. The first charge is ${CHECKOUT.monthlyTrialDays} days after your build payment, then every month on that date. By completing checkout you authorize us, through Stripe, to charge the card you used for these recurring payments until you cancel.`,
+            `**Mortgage website orders:** the ${mortgageMonthly} a month plan starts automatically when you buy. The first charge is ${CHECKOUT.monthlyTrialDays} days after your build payment, then every month on that date. Before you pay, the checkout page shows what renews, the amount, the date of the first charge and how to cancel, and you tick a box that reads \u201c${RENEWAL_CONSENT_TEXT}\u201d By ticking it and completing checkout you authorize us, through Stripe, to charge the card you used for these recurring payments until you cancel. We email you a copy of these terms after you buy.`,
             "There is no long-term contract unless your SOW says otherwise.",
           ],
         },
         {
           title: "Cancelling",
           blocks: [
-            `You can cancel any monthly plan at any time by emailing ${mail} or calling ${tel}, or through any cancellation option we give you in writing. We'll confirm the cancellation in writing. It takes effect at the end of the billing period you've already paid for; the service continues until then and you won't be charged again. If you cancel before the first monthly charge, you won't be charged for the plan at all.`,
+            `You can cancel any monthly plan at any time by emailing ${mail} or calling ${tel}, or through any cancellation option we give you in writing. The checkout page and the order email include a link that opens a ready-to-send cancellation email. We'll confirm the cancellation in writing. It takes effect at the end of the billing period you've already paid for; the service continues until then and you won't be charged again. If you cancel before the first monthly charge, you won't be charged for the plan at all.`,
             "We don't refund partial months, except where the law requires it.",
             "Cancelling a plan doesn't affect your ownership of your website. {{s:hosting}} explains how to get your files and move your site.",
           ],
@@ -403,8 +403,8 @@ export const termsOfService: LegalDocument = {
         "These terms apply when we text you.",
         {
           list: [
-            "**Program:** Pilk.ai text messages about your inquiry, project, order, appointments and account, and marketing messages only if you separately agreed to receive them.",
-            "**Consent:** we text you only if you gave us your mobile number and agreed to texts. Consent is not a condition of purchase.",
+            "**Program:** text messages from Pilk.ai (Pilk Consulting LLC) about your inquiry, project, order, appointments and account, and occasional marketing messages about our services, some of which may be sent using automated technology.",
+            "**Consent:** we text you only if you gave us your mobile number and agreed to texts. You agree by ticking the optional text-message box under the phone field on one of our forms; it is unticked by default and you can send the form without it. If you don't tick it but ask us to text you, for example by choosing text as your preferred contact method, we text only about that inquiry, never marketing. Consent is not a condition of purchase.",
             "**Frequency and cost:** message frequency varies. Message and data rates may apply.",
             "**Opting out:** reply STOP to cancel. We'll confirm and stop texting unless you opt back in. **Help:** reply HELP, or contact " + mail + " or " + tel + ".",
             "**Carriers** are not liable for delayed or undelivered messages.",
