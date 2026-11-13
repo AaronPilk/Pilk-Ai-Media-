@@ -35,7 +35,7 @@ export const privacyPolicy: LegalDocument = {
         {
           list: [
             "visits to pilk.ai, including the demo template sites under pilk.ai/template-previews/",
-            "forms, orders and payments made through the site",
+            "forms and quote requests sent through the site, and payments for our services",
             "emails, calls and text messages between you and us",
             "information we collect while providing services to clients",
           ],
@@ -44,7 +44,7 @@ export const privacyPolicy: LegalDocument = {
         {
           list: [
             "websites, apps, chatbots, funnels, communities or ad campaigns we build or run for clients. The client's own privacy policy covers its customers and visitors ({{s:clients}})",
-            "Stripe's checkout page, where Stripe collects payment details under its own privacy policy ({{s:collect.4}})",
+            "Stripe's payment pages (for invoices and payment links), where Stripe collects payment details under its own privacy policy ({{s:collect.4}})",
             "other websites we link to ({{s:links}})",
           ],
         },
@@ -64,7 +64,7 @@ export const privacyPolicy: LegalDocument = {
                 rows: [
                   [
                     "Project brief ([/contact/](/contact/))",
-                    "Name, email, phone, company, industry, current website, a description of your business and audience, project details (type, template, goals, pages, integrations), design preferences, links to sites you like, budget range, desired launch, preferred contact method (email, phone or text), notes, and any images or PDFs you upload.",
+                    "Name, email, phone, company, industry, current website, a description of your business and audience, project details (type, template, the pricing card you came from, goals, pages, integrations), design preferences, links to sites you like, budget range, desired launch, preferred contact method (email, phone or text), notes, and any images or PDFs you upload.",
                   ],
                   [
                     "Contact form (real estate and mortgage pages)",
@@ -75,12 +75,8 @@ export const privacyPolicy: LegalDocument = {
                     "Name, email, phone and a message. For a showing request on the demo listing, a preferred date and time.",
                   ],
                   [
-                    "Template order ([/templates/](/templates/), then the order form)",
-                    "Name, email, business name, mobile phone, what your business does, NMLS number (mortgage professionals), service area, a short description, services, job title, the phone and email to show on your site, links to your website or social pages, notes, and your logo, photos and other files.",
-                  ],
-                  [
-                    "Checkout",
-                    "The add-ons and template you chose. Your card, name, email and billing address go into Stripe's checkout page, not ours ({{s:collect.4}}).",
+                    "Template request ([/templates/](/templates/), then the request form)",
+                    "Name, email, business name, mobile phone, what your business does, NMLS number (mortgage professionals), service area, a short description, services, job title, the phone and email to show on your site, links to your website or social pages, notes, and your logo, photos and other files. It asks for a quote; nothing is charged.",
                   ],
                   [
                     "Email, phone and text",
@@ -93,15 +89,15 @@ export const privacyPolicy: LegalDocument = {
                 ],
               },
             },
-            "**Text message consent.** The forms with a phone field (the project brief, the contact form, the quick inquiry and the template order) also have an optional box, unticked by default, to agree to text messages. You can send any form without ticking it. {{s:messages}} explains what we record when you tick it.",
+            "**Text message consent.** The forms with a phone field (the project brief, the contact form, the quick inquiry and the template request) also have an optional box, unticked by default, to agree to text messages. You can send any form without ticking it. {{s:messages}} explains what we record when you tick it.",
             "**Please don't send us sensitive information** such as Social Security numbers, bank or card numbers, loan application details, health information or passwords through our forms or uploads. We don't ask for it and don't need it. If a project needs that kind of data, we'll agree in writing how it will be handled first.",
           ],
         },
         {
           title: "Information collected automatically",
           blocks: [
-            "**Server and security data.** Cloudflare hosts pilk.ai. When you visit, Cloudflare processes your IP address, browser and device type, the pages you request, the referring page, the time of each request and similar technical data so it can deliver pages, keep the site secure and block abuse. Your browser may also report failed page loads to Cloudflare. Our form-handling functions run on Cloudflare too, and when they log an event (a submission or an error), the log can include your name, email and the type of project.",
-            "**Campaign details.** If you arrive through a link with tracking tags, the site reads the UTM tags, ad click IDs (such as gclid or fbclid), the page you landed on and the page that referred you. It keeps them in your browser for the session and sends them with any form you submit. We use them only to see which marketing brought you to us. We don't send them back to Google, Meta or anyone else.",
+            "**Server and security data.** Cloudflare hosts pilk.ai. When you visit, Cloudflare processes your IP address, browser and device type, the pages you request, the referring page, the time of each request and similar technical data so it can deliver pages, keep the site secure and block abuse. Your browser may also report failed page loads to Cloudflare. Our form-handling functions run on Cloudflare too, and when they log an event (a submission or an error), the log can include your name, email and the type of project. To stop repeated or automated submissions, our forms also keep a count of recent submissions against a one-way hash of your IP address in Cloudflare's cache; it expires after about 10 minutes and holds no other information.",
+            "**Campaign details.** If you arrive through a link with tracking tags, the site reads the UTM tags, ad click IDs (such as gclid or fbclid), the page you landed on and the page that referred you. It keeps them in your browser for the session and sends them with any form you submit, and we keep them with your record in our CRM. We use them only to see which marketing brought you to us. We don't send them back to Google, Meta or any other ad platform.",
             "**Analytics.** We use Cloudflare Web Analytics to count visits and measure how fast pages load. It doesn't use cookies or local storage and doesn't fingerprint you. Cloudflare processes the page address, the referring page, your browser and device type, and your IP address, which it uses to work out your country. We see only totals, such as visits per page.",
             "**No advertising tracking.** We don't use advertising pixels, session recording or any other analytics on pilk.ai. {{s:cookies}} lists the small amount of browser storage the site uses.",
           ],
@@ -122,8 +118,8 @@ export const privacyPolicy: LegalDocument = {
         {
           title: "Payment information",
           blocks: [
-            "Payments on pilk.ai are processed by Stripe. You enter card details on Stripe's checkout page; they never pass through or get stored on our systems. Stripe tells us the payment status, the amount, your email and what you ordered, and gives us reference IDs for your Stripe customer record and saved payment method.",
-            "When you buy a mortgage website, Stripe saves your card so the monthly hosting plan can be charged as our [Terms of Service](/terms/) describe. Before you pay, you tick a box agreeing to that plan. We record the agreement (that you ticked it, when, and which version of the wording you saw) on your order at Stripe and in our order notification email. Stripe handles payment information under its own privacy policy at [stripe.com/privacy](https://stripe.com/privacy).",
+            "pilk.ai doesn't take payments; nothing is sold through the site. When you pay an invoice or a payment link from us, Stripe processes the payment. You enter card details on Stripe's own page; they never pass through or get stored on our systems. Stripe tells us the payment status, the amount, your email and what the payment was for, and gives us reference IDs for your Stripe customer record and any saved payment method.",
+            "If you choose automatic payments for a monthly plan, Stripe saves your payment method so the plan can be charged as our [Terms of Service](/terms/) describe. Customers who started a plan through our former online order form agreed to it by ticking a box before paying; we keep that record (that you ticked it, when, and which version of the wording you saw) with the order at Stripe and in our order notification email. Stripe handles payment information under its own privacy policy at [stripe.com/privacy](https://stripe.com/privacy).",
           ],
         },
       ],
@@ -137,7 +133,7 @@ export const privacyPolicy: LegalDocument = {
           list: [
             "answer inquiries and prepare quotes",
             "build, deliver, host and support what you buy, including sending previews and launching your site",
-            "take payments, run monthly plans, and keep accounting and tax records",
+            "send invoices, take payments, run monthly plans, and keep accounting and tax records",
             "send service messages such as confirmations, previews, receipts, billing notices and changes to our terms",
             "keep track of leads and clients in our CRM, including following up on your inquiry",
             "send marketing emails or texts, only as {{s:messages}} allows",
@@ -147,7 +143,7 @@ export const privacyPolicy: LegalDocument = {
             "show finished client work in our portfolio, as our Terms allow",
           ],
         },
-        "**Template orders.** What you send with a template order is used to build your site, to contact you about that order and your site, and to bill you. We don't use it for unrelated marketing unless you separately agree.",
+        "**Template requests.** What you send with a template request is used to prepare your quote, to build your site if you go ahead, to contact you about it and to bill you. We don't use it for unrelated marketing unless you separately agree.",
         "We don't make decisions about you based only on automated processing that have legal or similarly significant effects on you.",
       ],
     },
@@ -170,7 +166,7 @@ export const privacyPolicy: LegalDocument = {
               [
                 "Transactional email",
                 "Resend",
-                "The contents of your form and any files you upload, sent to our inbox, including any text-message consent record; the confirmation email we send you; order notices and the order confirmation we send you",
+                "The contents of your form and any files you upload, sent to our inbox, including any text-message consent record; the confirmation email we send you; payment and plan notices",
               ],
               [
                 "Business email",
@@ -180,12 +176,12 @@ export const privacyPolicy: LegalDocument = {
               [
                 "CRM",
                 "GoHighLevel (LeadConnector)",
-                "Your name, email, phone, company, how you reached us and which project or template you chose; after an order, what you bought and the amount; if you agree to texts, the " + SMS_CONSENT_TAG + " tag and a note recording that consent ({{s:messages}})",
+                "Your name, email, phone, company, website and service area; which form you used, the page you sent it from, campaign tags (UTM source, medium and campaign) and any Google click ID; the template, package or timeline you chose; a sales-pipeline record (opportunity) for your inquiry, with the package's starting price where you chose one; a note with your full form submission (file names only, not the files) and how you agreed to our Terms; after a payment, what you bought and the amount; if you agree to texts, the " + SMS_CONSENT_TAG + " tag, the date and wording version of your consent, and the consent record ({{s:messages}})",
               ],
               [
                 "Payments",
                 "Stripe",
-                "Checkout, saved cards for monthly plans, receipts and fraud screening",
+                "Invoices and payment links, saved payment methods for monthly plans, receipts and fraud screening",
               ],
               [
                 "File and database storage",
@@ -230,7 +226,7 @@ export const privacyPolicy: LegalDocument = {
               ["pilk-intro-seen", "Session storage", "Shows the intro animation only once per visit", "Until you close the tab"],
               ["pilk-attribution", "Session storage", "Holds the campaign details described in {{s:collect.2}}", "Until you close the tab"],
               ["pilk-project-brief-draft", "Local storage", "Saves your project brief as you type so you don't lose it (files are not saved)", "Until you submit the brief or clear it"],
-              ["pilk_intake_v2", "Local storage", "Saves your template order form as you type", "Until you submit, choose \"Start over\" or clear it"],
+              ["pilk_intake_v2", "Local storage", "Saves your template request form as you type", "Until you submit, choose \"Start over\" or clear it"],
               ["__cf_bm, cf_clearance", "Cookies set by Cloudflare", "Strictly necessary security cookies Cloudflare may set to tell people from bots or after a security check", "Usually 30 minutes"],
             ],
           },
@@ -274,7 +270,7 @@ export const privacyPolicy: LegalDocument = {
                 "**How you agree.** Our forms with a phone field have an optional box, unticked by default, directly under the phone field. It reads: \u201c" + SMS_CONSENT_TEXT + "\u201d Ticking it is how you agree to texts, including marketing texts. You can send the form, and buy from us, without ticking it.",
                 "**If you don't tick the box** but ask us to text you, for example by choosing text as your preferred contact method, we'll text you only about that inquiry, never marketing.",
                 "**What we send:** messages about your inquiry, project, order, appointments and account, and, if you ticked the box, occasional marketing messages about our services. Some may be sent using automated technology.",
-                "**What we record.** When you tick the box, we record that you agreed, the date and time, the page you were on, which version of the wording you saw, the phone number, and your IP address and browser type, so we can show what you agreed to and when. That record goes into the notification email we receive (through Resend) and onto your contact in our CRM, GoHighLevel, as a note, and your contact is tagged " + SMS_CONSENT_TAG + ".",
+                "**What we record.** When you tick the box, we record that you agreed, the date and time, the page you were on, which version of the wording you saw, the phone number, and your IP address and browser type, so we can show what you agreed to and when. That record goes into the notification email we receive (through Resend) and onto your contact in our CRM, GoHighLevel, as a note; your contact is tagged " + SMS_CONSENT_TAG + " and the consent date and wording version are saved on it. A later form sent without the box ticked doesn't remove them; to stop texts, reply STOP.",
                 "**Consent is not a condition of purchase.** You can buy from us without agreeing to texts.",
                 "**Message frequency varies.** Message and data rates may apply.",
                 "**Reply STOP** to any text to opt out. We'll send one message confirming you're unsubscribed and no more texts unless you opt back in. **Reply HELP** for help, or contact us at " + mail + " or " + tel + ".",
@@ -383,11 +379,11 @@ export const privacyPolicy: LegalDocument = {
           table: {
             head: ["Category (California law)", "What it means here", "Disclosed for a business purpose to"],
             rows: [
-              ["Identifiers", "Name, email, phone, IP address, Stripe customer ID", "Cloudflare, Resend, our email provider, GoHighLevel, Stripe; IP address to Google Fonts when demo templates load, and to Resend, our email provider and GoHighLevel as part of a text-message consent record"],
+              ["Identifiers", "Name, email, phone, IP address, Google click ID, Stripe customer ID", "Cloudflare, Resend, our email provider, GoHighLevel, Stripe; IP address to Google Fonts when demo templates load, and to Resend, our email provider and GoHighLevel as part of a text-message consent record"],
               ["Customer records", "Name, phone, business details; card details are held by Stripe, not us", "Same as identifiers"],
-              ["Commercial information", "What you ordered, amounts paid, plan status", "Stripe, GoHighLevel, Resend, our email provider"],
-              ["Professional information", "Company, job title, industry, NMLS number", "Resend, our email provider; company name to GoHighLevel"],
-              ["Internet activity", "Pages requested, referring page, campaign tags, browser and device data, visit statistics", "Cloudflare (hosting and web analytics)"],
+              ["Commercial information", "The package or template you asked about and its starting price, what you bought, amounts paid, plan status", "Stripe, GoHighLevel, Resend, our email provider"],
+              ["Professional information", "Company, website, service area, job title, industry, NMLS number", "Resend, our email provider; all of it to GoHighLevel inside the note with your submission"],
+              ["Internet activity", "Pages requested, referring page, campaign tags, browser and device data, visit statistics", "Cloudflare (hosting and web analytics); campaign tags, the landing and form pages and the referring page to Resend, our email provider and GoHighLevel with a form you send"],
               ["Approximate location", "General area inferred from your IP address. We don't collect precise location", "Cloudflare"],
               ["Audio, electronic or visual information", "Photos and other files you upload", "Resend, our email provider"],
             ],

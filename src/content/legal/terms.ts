@@ -1,13 +1,15 @@
 import { site } from "@/content/site";
-import { buildTimes, hostingPlan, packages } from "@/content/packages";
+import { buildTimes, hostingPlan, mortgagePackage, packages } from "@/content/packages";
 import { CHECKOUT, RENEWAL_CONSENT_TEXT } from "@/lib/checkout-pricing";
-import { formatPrice } from "@/lib/utils";
+import { startingAtLower } from "@/lib/pricing";
 import type { LegalDocument } from "./types";
 
 // Every commitment here must match the marketing copy (ownership, timelines,
 // revisions, hosting, no guarantees). docs/legal/data-flow-20261113.md lists
-// the site's promises that these Terms were written against. Prices and build
-// times are read from the same files the pages use, so they can't drift.
+// the site's promises that these Terms were written against. Starting prices
+// and build times are read from the same files the pages use, so they can't
+// drift. Nothing is sold online: work starts after a written proposal or quote
+// and an invoice.
 
 const email = site.contact.email;
 const phone = site.contact.phone;
@@ -17,15 +19,14 @@ const tel = `[${phone}](${site.contact.phoneHref})`;
 const price = (id: (typeof packages)[number]["id"]) => {
   const p = packages.find((x) => x.id === id);
   if (!p) throw new Error(`Unknown package ${id}`);
-  return `$${formatPrice(p.price)}`;
+  return startingAtLower(p.price, p.priceUnit);
 };
 const name = (id: (typeof packages)[number]["id"]) => packages.find((x) => x.id === id)?.name ?? id;
 
-const feePercent = `${Math.round(CHECKOUT.feeRate * 100)}%`;
-const mortgageBuild = `$${formatPrice(CHECKOUT.base)}`;
-const mortgageMonthly = `$${formatPrice(CHECKOUT.monthly)}`;
-const addon = `$${formatPrice(CHECKOUT.addonPrice)}`;
-const hostingMonthly = `${hostingPlan.priceLabel}${hostingPlan.priceSuffix.replace("/", " a ")}`;
+const mortgageFrom = startingAtLower(mortgagePackage.price);
+const hostingFrom = `${startingAtLower(hostingPlan.priceFrom)} a month`;
+// Plans started through the former online order form keep the terms agreed then.
+const legacyMonthly = `$${CHECKOUT.monthly}`;
 
 export const termsOfService: LegalDocument = {
   title: "Terms of Service",
@@ -44,7 +45,7 @@ export const termsOfService: LegalDocument = {
       title: "Who we are and what these Terms cover",
       blocks: [
         "Pilk Consulting LLC is a Florida limited liability company based in St. Petersburg, Florida (\"Pilk.ai\", \"we\", \"us\"). \"You\" means the person using the site or buying from us and, if you act for a business, that business.",
-        "These Terms cover your use of pilk.ai, orders and payments made through the site, and every service we provide, including websites and website templates, custom apps, AI consulting, AI automation, chatbots and voice agents, Meta ads management, social media automation, lead funnels and CRM setup, Skool community growth, and hosting and support.",
+        "These Terms cover your use of pilk.ai, quote requests made through the site, payments for our services, and every service we provide, including websites and website templates, custom apps, AI consulting, AI automation, chatbots and voice agents, Meta ads management, social media automation, lead funnels and CRM setup, Skool community growth, and hosting and support.",
         "Our [Privacy Policy](/privacy/) explains how we handle personal information and is part of these Terms.",
       ],
     },
@@ -52,7 +53,7 @@ export const termsOfService: LegalDocument = {
       id: "acceptance",
       title: "Accepting these Terms and who can use our services",
       blocks: [
-        "You accept these Terms when you use pilk.ai, submit a form, place an order, pay us, sign or approve a proposal, or use our services. If you don't agree, don't use the site or our services.",
+        "You accept these Terms when you use pilk.ai, submit a form, sign or approve a proposal or quote, pay us, or use our services. If you don't agree, don't use the site or our services.",
         "You must be at least 18 and able to enter a binding contract. If you use our services for a business, you confirm that you have authority to bind that business to these Terms.",
         "Our services are sold mainly to businesses. If you buy as an individual for personal, family or household use, any consumer protection rights that the law doesn't allow us to limit still apply to you.",
       ],
@@ -61,9 +62,9 @@ export const termsOfService: LegalDocument = {
       id: "sow",
       title: "Proposals, statements of work and which document controls",
       blocks: [
-        "Before work starts, we agree in writing what we'll build, what it costs and what you need to provide. That can be a proposal, quote, statement of work, invoice or order confirmation (each a \"SOW\"). For template and mortgage website orders placed on pilk.ai, the package description on the site, the order form and the checkout page together are the SOW.",
+        "**We don't sell through the site.** pilk.ai has no online checkout. Every project, including template, mortgage website and single listing page projects, starts with a written proposal or quote. Before work starts, we agree in writing what we'll build, what it costs and what you need to provide. That can be a proposal, quote, statement of work or invoice (each a \"SOW\"). Work starts once you've approved it and paid the invoice or deposit it calls for.",
         "**If a SOW conflicts with these Terms, the SOW controls for that project.** {{s:liability}} and {{s:disputes}} still apply unless the SOW expressly says it replaces them.",
-        "Prices, features and timelines shown on the site are a general guide. Your SOW or checkout page sets what you actually pay and receive.",
+        "Prices shown on the site are starting prices, and the features and timelines shown there are a general guide. A form you send us, including a template request, asks for a quote; it isn't an order and doesn't commit either of us. Your SOW sets what you actually pay and receive.",
       ],
     },
     {
@@ -79,21 +80,15 @@ export const termsOfService: LegalDocument = {
       title: "Quotes, prices, payment and taxes",
       subsections: [
         {
-          title: "Quotes and deposits",
+          title: "Quotes, deposits and invoices",
           blocks: [
-            "A written quote is valid for 30 days unless it says otherwise. Custom projects usually require a deposit, set in the SOW. We schedule and start the work once the deposit has cleared.",
+            "A written quote is valid for 30 days unless it says otherwise. Fixed-price packages, such as template websites, mortgage websites and single listing pages, are usually invoiced in full before work starts. Custom projects usually require a deposit, set in the SOW. We schedule and start the work once the invoice or deposit has been paid and the payment has cleared. Add-ons, such as rush delivery or analytics setup, are quoted with the project.",
           ],
         },
         {
-          title: "Mortgage website checkout",
+          title: "Paying invoices",
           blocks: [
-            `The mortgage website package costs ${mortgageBuild} for the build, plus ${addon} for each add-on you choose, plus a ${feePercent} "fees & processing" charge on the one-time order. The checkout page shows the full amount before you pay, and it is paid in full at checkout. The ${mortgageMonthly} a month hosting and support plan that comes with it is covered in {{s:subscriptions}}.`,
-          ],
-        },
-        {
-          title: "Invoices",
-          blocks: [
-            "Invoices are due on the date shown on the invoice, or within 7 days of the invoice date if none is shown, using the payment methods we accept.",
+            "Invoices are due on the date shown on the invoice, or within 7 days of the invoice date if none is shown, using the payment methods we accept. We may send invoices and payment links through Stripe or another payment processor; you pay on the processor's own page, and your card details never pass through pilk.ai. The invoice shows the full amount before you pay.",
           ],
         },
         {
@@ -112,7 +107,7 @@ export const termsOfService: LegalDocument = {
         {
           title: "Promotions and price changes",
           blocks: [
-            "Promotions and sale prices apply only during the stated period and on the stated terms, and can't be combined unless we say so. We may change the prices on our site at any time. A change doesn't affect an order you've already paid for or a SOW you've already signed. Changes to monthly plans follow {{s:subscriptions}}.",
+            "Promotions and sale prices apply only during the stated period and on the stated terms, and can't be combined unless we say so. We may change the starting prices on our site at any time. A change doesn't affect a quote you've already accepted, an invoice you've already paid or a SOW you've already signed. Changes to monthly plans follow {{s:subscriptions}}.",
           ],
         },
       ],
@@ -124,21 +119,22 @@ export const termsOfService: LegalDocument = {
         {
           title: "Plans",
           blocks: [
-            `Our monthly plans include Hosting & Ongoing Support (${hostingMonthly} per site), the mortgage website hosting and support plan (${mortgageMonthly} a month), and any recurring service listed in a SOW, such as ad management or automation upkeep.`,
+            `Our monthly plans include hosting and support plans for the sites we build (${hostingFrom} per site) and any recurring service listed in a SOW, such as ad management or automation upkeep. Your proposal or SOW sets the plan's price, what it includes and when it starts.`,
           ],
         },
         {
           title: "Automatic renewal",
           blocks: [
-            "**Monthly plans renew automatically each month until you cancel.** At the start of each billing period we charge the payment method on file, or invoice you if we've agreed to invoice.",
-            `**Mortgage website orders:** the ${mortgageMonthly} a month plan starts automatically when you buy. The first charge is ${CHECKOUT.monthlyTrialDays} days after your build payment, then every month on that date. Before you pay, the checkout page shows what renews, the amount, the date of the first charge and how to cancel, and you tick a box that reads \u201c${RENEWAL_CONSENT_TEXT}\u201d By ticking it and completing checkout you authorize us, through Stripe, to charge the card you used for these recurring payments until you cancel. We email you a copy of these terms after you buy.`,
+            "**Monthly plans renew automatically each month until you cancel.** At the start of each billing period we invoice you, or charge the payment method you've authorized for the plan.",
+            "**Before a plan starts,** your proposal or SOW shows what renews, the amount, when the first charge or invoice comes and how to cancel, and you agree to it in writing. If you choose to pay by a saved card or automatic payment, you authorize us, through our payment processor, to charge that payment method for each billing period until you cancel. We'll confirm the plan's terms to you by email when it starts.",
+            `**Plans started through our former online order form** keep the terms agreed at purchase: ${legacyMonthly} a month for hosting, support and edits, first charged ${CHECKOUT.monthlyTrialDays} days after the build payment and then every month on that date, after you ticked a box that read \u201c${RENEWAL_CONSENT_TEXT}\u201d You authorized us, through Stripe, to charge the card you used for those payments until you cancel. Cancelling works as {{s:subscriptions.3}} describes.`,
             "There is no long-term contract unless your SOW says otherwise.",
           ],
         },
         {
           title: "Cancelling",
           blocks: [
-            `You can cancel any monthly plan at any time by emailing ${mail} or calling ${tel}, or through any cancellation option we give you in writing. The checkout page and the order email include a link that opens a ready-to-send cancellation email. We'll confirm the cancellation in writing. It takes effect at the end of the billing period you've already paid for; the service continues until then and you won't be charged again. If you cancel before the first monthly charge, you won't be charged for the plan at all.`,
+            `You can cancel any monthly plan at any time by emailing ${mail} or calling ${tel}, or through any cancellation option we give you in writing. Plan confirmation emails include a link that opens a ready-to-send cancellation email. We'll confirm the cancellation in writing. It takes effect at the end of the billing period you've already paid for; the service continues until then and you won't be charged again. If you cancel before the first monthly charge, you won't be charged for the plan at all.`,
             "We don't refund partial months, except where the law requires it.",
             "Cancelling a plan doesn't affect your ownership of your website. {{s:hosting}} explains how to get your files and move your site.",
           ],
@@ -158,7 +154,7 @@ export const termsOfService: LegalDocument = {
         {
           title: "Failed payments",
           blocks: [
-            "If a monthly payment fails, we'll let you know. If it isn't fixed within 10 days, we may suspend the plan as {{s:payment.4}} and {{s:hosting}} describe.",
+            "If a monthly payment fails, we'll let you know. If it isn't fixed within 10 days, we may suspend the plan as {{s:payment.3}} and {{s:hosting}} describe.",
           ],
         },
       ],
@@ -170,7 +166,7 @@ export const termsOfService: LegalDocument = {
         "Our site doesn't promise refunds, so this section is our complete refund policy. Your SOW can give you more.",
         {
           list: [
-            "**Before work starts.** If you cancel a project in writing before we start work on it, we'll refund what you paid for that project, minus any third-party costs we've already paid for you (such as domains, licenses or software) and minus the fees & processing charge, if one applied. Work starts when we begin the kickoff, design or build, or send you a first preview, whichever comes first.",
+            "**Before work starts.** If you cancel a project in writing before we start work on it, we'll refund what you paid for that project, minus any third-party costs we've already paid for you (such as domains, licenses or software) and any payment processing fees we can't recover. Work starts when we begin the kickoff, design or build, or send you a first preview, whichever comes first.",
             "**Fixed-price builds** (website templates, mortgage websites, single listing pages and other fixed-price packages). Once we've started work, the price is non-refundable, because the work is done up front and your place in our schedule is reserved.",
             "**Custom projects.** Your deposit is non-refundable once work starts; it reserves our time and covers early work. If you cancel a custom project later, you pay for the work done up to the cancellation date (by the milestones in your SOW, or otherwise in proportion to the work completed), and we refund anything you've paid beyond that. We deliver the work you've paid for.",
             "**Monthly plans** are covered in {{s:subscriptions.3}}.",
@@ -187,7 +183,7 @@ export const termsOfService: LegalDocument = {
       title: "Chargebacks",
       blocks: [
         "If you have a problem with a charge, contact us first. Most billing issues can be fixed quickly.",
-        "If you dispute a valid charge for services we delivered or that you agreed to, we may suspend the related services until the dispute is resolved, and we'll give the card issuer the evidence we have, including your order, these Terms and our communications. If the dispute is decided in our favor, you'll repay the reversed amount and any dispute fees we were charged. A chargeback doesn't cancel a monthly plan; to cancel, follow {{s:subscriptions.3}}.",
+        "If you dispute a valid charge for services we delivered or that you agreed to, we may suspend the related services until the dispute is resolved, and we'll give the card issuer the evidence we have, including your proposal or quote, the invoice, these Terms and our communications. If the dispute is decided in our favor, you'll repay the reversed amount and any dispute fees we were charged. A chargeback doesn't cancel a monthly plan; to cancel, follow {{s:subscriptions.3}}.",
       ],
     },
     {
@@ -213,10 +209,10 @@ export const termsOfService: LegalDocument = {
       id: "timelines",
       title: "Timelines and delays",
       blocks: [
-        `**Timelines depend on the package and scope.** The typical timelines on our site are: ${name("listing")} (${price("listing")}): ${buildTimes.listing}. Mortgage website (${mortgageBuild}): ${buildTimes.mortgage}, or ${buildTimes.mortgageRush} with the rush add-on. ${name("template")} (${price("template")}): ${buildTimes.template}; qualified projects on a standard template follow our ${buildTimes.templateStandard} build. ${name("custom")}, ${name("crm")}, apps, AI and marketing work: ${buildTimes.custom}.`,
+        `**Timelines depend on the package and scope.** The typical timelines on our site are: ${name("listing")} (${price("listing")}): ${buildTimes.listing}. Mortgage website (${mortgageFrom}): ${buildTimes.mortgage}, or ${buildTimes.mortgageRush} with the rush add-on. ${name("template")} (${price("template")}): ${buildTimes.template}; qualified projects on a standard template follow our ${buildTimes.templateStandard} build. ${name("custom")}, ${name("crm")}, apps, AI and marketing work: ${buildTimes.custom}.`,
         "**Every timeline starts once we have what we need from you:** your content, account access, approvals and payment. Timelines are good-faith estimates, not guarantees, unless your SOW expressly guarantees a date. The rush add-on is the exception: if we miss a paid rush deadline for reasons within our control, we refund the rush fee.",
         "**If you're late, the date moves.** If content, access or approvals arrive late, the launch date moves by at least the length of the delay, and possibly more to fit our schedule. If a project waits on you for 30 days, we may put it on hold and restart it when we have capacity. If we hear nothing for 60 days after a written reminder, we may close the project; amounts for work already done are not refunded, and restarting may need a new quote.",
-        "**Starter content.** For template orders we may build with temporary text or images where the order form says we will. You are responsible for replacing them before launch.",
+        "**Starter content.** For template projects we may build with temporary text or images where the request form or your SOW says we will. You are responsible for replacing them before launch.",
         "**Licence details.** For mortgage, real estate, title, insurance and other licensed businesses, we'll ask for the licence numbers and disclosures your site needs (such as your NMLS ID) before launch, and we may hold the launch until you provide them.",
       ],
     },
@@ -352,7 +348,7 @@ export const termsOfService: LegalDocument = {
         {
           list: [
             "**Templates aren't exclusive.** Our template designs are Pilk Materials. We build sites for other clients from the same templates and customize each one with that client's brand and content.",
-            "**License scope.** A template order licenses the template, as part of your finished site, for one website for one business (yours) on the domains you use for that business, under {{s:ownership.1}}. Another site needs another order or our written permission.",
+            "**License scope.** A template project licenses the template, as part of your finished site, for one website for one business (yours) on the domains you use for that business, under {{s:ownership.1}}. Another site needs another project or our written permission.",
             "**No resale.** You may not resell, sublicense, redistribute or share a template or its code as a template or theme, or use it to build sites for others.",
             "**Demo content.** Names, photos, reviews, rates and licence numbers in our demos are placeholders. Some demo photos are licensed only for our demos; we'll replace them with your photos or properly licensed images.",
           ],
@@ -417,7 +413,7 @@ export const termsOfService: LegalDocument = {
       id: "site-use",
       title: "Using pilk.ai",
       blocks: [
-        "You may browse pilk.ai, contact us and place orders. You may not:",
+        "You may browse pilk.ai, contact us and ask for quotes. You may not:",
         {
           list: [
             "break the law, submit false information or impersonate anyone",
@@ -429,7 +425,7 @@ export const termsOfService: LegalDocument = {
         },
         "Search engines and other crawlers that follow our robots.txt are welcome to index our public pages.",
         "The site's content, design and demo templates belong to Pilk Consulting LLC or its licensors. Apart from viewing and sharing links, no license is granted. The businesses, properties, people and rates on our demo sites and demo listing pages are fictional and are not offers.",
-        "We try to keep the site accurate, but it may contain errors, and prices and availability can change. Nothing on the site is an offer until we confirm your order. We may change or suspend the site at any time.",
+        "We try to keep the site accurate, but it may contain errors, and starting prices and availability can change. Nothing on the site is an offer to sell. A project is agreed only when we both accept a written proposal or quote. We may change or suspend the site at any time.",
       ],
     },
     {

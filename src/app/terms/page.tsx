@@ -9,7 +9,7 @@ import { termsOfService } from "@/content/legal/terms";
 export const metadata: Metadata = buildMetadata({
   title: "Terms of Service",
   description:
-    "Terms for pilk.ai and Pilk.ai services: orders, payments, monthly plans, refunds, website ownership, AI services and how disputes are resolved.",
+    "Terms for pilk.ai and Pilk.ai services: quotes, invoices, monthly plans, refunds, website ownership, AI services and how disputes are resolved.",
   path: "/terms",
 });
 
