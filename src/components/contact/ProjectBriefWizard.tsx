@@ -24,6 +24,8 @@ import { StyleStep } from "@/components/contact/steps/StyleStep";
 import { InspirationStep } from "@/components/contact/steps/InspirationStep";
 import { ReviewStep } from "@/components/contact/steps/ReviewStep";
 import { ContactSuccess } from "@/components/contact/ContactSuccess";
+import { SMS_CONSENT_VERSION } from "@/lib/sms-consent";
+import { currentPageUrl } from "@/lib/page-url";
 
 const STORAGE_KEY = "pilk-project-brief-draft";
 
@@ -37,7 +39,7 @@ const stepTitles = [
 ];
 
 const fieldsForStep: FieldPath<ProjectBriefInput>[][] = [
-  ["firstName", "lastName", "email", "phone", "company", "industry", "currentWebsite", "businessDescription", "targetAudience"],
+  ["firstName", "lastName", "email", "phone", "smsConsent", "company", "industry", "currentWebsite", "businessDescription", "targetAudience"],
   ["projectType", "primaryGoal", "requiredPages", "integrations", "needsIdx"],
   ["selectedTemplate"],
   ["selectedPalette", "preferredColors", "styleDirection", "styleKeywords", "themePreference"],
@@ -58,7 +60,7 @@ export function ProjectBriefWizard() {
     : "unsure";
 
   const defaultValues: DefaultValues<ProjectBriefInput> = {
-    firstName: "", lastName: "", email: "", phone: "", company: "", industry: "",
+    firstName: "", lastName: "", email: "", phone: "", smsConsent: false, company: "", industry: "",
     currentWebsite: "", businessDescription: "", targetAudience: "",
     projectType: qpType, selectedTemplate: qpTemplate, primaryGoal: "",
     requiredPages: [], integrations: [], needsIdx: false,
@@ -147,7 +149,15 @@ export function ProjectBriefWizard() {
     setServerError("");
     try {
       const body = new FormData();
-      body.set("payload", JSON.stringify(values));
+      body.set(
+        "payload",
+        JSON.stringify({
+          ...values,
+          formType: "project-brief",
+          smsConsentVersion: SMS_CONSENT_VERSION,
+          pageUrl: currentPageUrl(),
+        })
+      );
       files.forEach((file) => body.append("files", file));
 
       const res = await fetch("/api/leads", { method: "POST", body });

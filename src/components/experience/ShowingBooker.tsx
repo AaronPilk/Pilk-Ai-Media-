@@ -2,8 +2,11 @@
 
 import { useState } from "react";
 import { FormLegalNotice } from "@/components/legal/FormLegalNotice";
+import { useUTMParameters } from "@/hooks/useUTMParameters";
+import { SHOWING_TIME_SLOTS as TIME_SLOTS } from "@/lib/quick-lead-schema";
+import { currentPageUrl } from "@/lib/page-url";
 
-const TIME_SLOTS = ["9:00 AM", "11:00 AM", "1:00 PM", "3:00 PM", "5:00 PM"];
+const LISTING = "20 Bayshore Terrace";
 
 const inputCls =
   "mt-2 w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-sm text-white placeholder-white/30 outline-none transition-colors focus:border-accent";
@@ -12,9 +15,11 @@ const labelCls = "text-xs uppercase tracking-[0.15em] text-white/50";
 /**
  * Book-a-private-showing form for the listing experience. Captures name, email,
  * phone, a preferred date (min today) and a single time-slot chip, plus a
- * message, then POSTs a normalized lead to /api/leads and shows a success state.
+ * message, then POSTs it to /api/leads (formType "listing-showing") and shows
+ * a success state.
  */
 export function ShowingBooker({ ctaLabel }: { ctaLabel: string }) {
+  const attribution = useUTMParameters();
   const today = new Date().toISOString().slice(0, 10);
 
   const [name, setName] = useState("");
@@ -23,6 +28,7 @@ export function ShowingBooker({ ctaLabel }: { ctaLabel: string }) {
   const [date, setDate] = useState("");
   const [timeSlot, setTimeSlot] = useState("");
   const [message, setMessage] = useState("");
+  const [honeypot, setHoneypot] = useState("");
 
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState(false);
@@ -38,26 +44,18 @@ export function ShowingBooker({ ctaLabel }: { ctaLabel: string }) {
     }
 
     setSending(true);
-    const [firstName, ...rest] = name.trim().split(" ");
-    const description = (
-      `Private showing request for 20 Bayshore Terrace — preferred ${date} at ${timeSlot}. ` +
-      message.trim()
-    ).slice(0, 1000);
-
     const payload = {
-      firstName,
-      lastName: rest.join(" ") || "—",
+      formType: "listing-showing" as const,
+      name: name.trim(),
       email: email.trim(),
       phone: phone.trim(),
-      // Guaranteed > 10 chars by the fixed prefix above.
-      businessDescription:
-        description.length >= 10 ? description : `${description} Please contact me.`,
-      projectType: "unsure" as const,
-      primaryGoal: "Book a showing",
-      preferredContact: phone.trim() ? ("phone" as const) : ("email" as const),
-      consent: true,
-      landingPage: typeof window !== "undefined" ? window.location.pathname : "",
-      referrer: typeof document !== "undefined" ? document.referrer : "",
+      listing: LISTING,
+      preferredDate: date,
+      timeSlot,
+      message: message.trim(),
+      pageUrl: currentPageUrl(),
+      honeypot,
+      ...attribution,
     };
 
     try {
@@ -85,7 +83,7 @@ export function ShowingBooker({ ctaLabel }: { ctaLabel: string }) {
         <div className="text-3xl">✓</div>
         <h3 className="mt-4 font-display text-xl font-semibold">Your showing request is in.</h3>
         <p className="mx-auto mt-3 max-w-sm text-sm text-white/60">
-          We&apos;ll confirm your private showing of 20 Bayshore Terrace
+          We&apos;ll confirm your private showing of {LISTING}
           {date && timeSlot ? ` for ${date} at ${timeSlot}` : ""} by phone or email shortly.
         </p>
       </div>
@@ -93,7 +91,17 @@ export function ShowingBooker({ ctaLabel }: { ctaLabel: string }) {
   }
 
   return (
-    <form onSubmit={submit} className="rounded-2xl border border-white/10 bg-white/[0.03] p-7 sm:p-8">
+    <form onSubmit={submit} className="relative rounded-2xl border border-white/10 bg-white/[0.03] p-7 sm:p-8">
+      <input
+        type="text"
+        name="honeypot"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        value={honeypot}
+        onChange={(e) => setHoneypot(e.target.value)}
+        style={{ position: "absolute", left: "-9999px", width: 1, height: 1, opacity: 0 }}
+      />
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="sb-name" className={labelCls}>

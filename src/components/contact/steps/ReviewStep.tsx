@@ -36,6 +36,7 @@ export function ReviewStep({ files }: { files: File[] }) {
         <Row label="Name" value={[v.firstName, v.lastName].filter(Boolean).join(" ")} />
         <Row label="Email" value={v.email} />
         <Row label="Phone" value={v.phone || undefined} />
+        <Row label="Text messages" value={v.phone?.trim() ? (v.smsConsent ? "Yes, you agreed to texts" : "No texts") : undefined} />
         <Row label="Company" value={v.company || undefined} />
         <Row label="Project type" value={v.projectType} />
         <Row label="Template" value={v.selectedTemplate || undefined} />

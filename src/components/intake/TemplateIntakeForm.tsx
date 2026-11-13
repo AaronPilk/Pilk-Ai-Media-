@@ -7,9 +7,17 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { ChipSingle, ChipMulti } from "./Chips";
 import { UploadDropzone, type UploadItem } from "./UploadDropzone";
-import { templateIntakeSchema, type TemplateIntakeInput } from "@/lib/template-intake-schema";
+import {
+  INTAKE_CONSENT_LABEL,
+  templateIntakeSchema,
+  type TemplateIntakeInput,
+} from "@/lib/template-intake-schema";
 import { formatPhone } from "@/lib/intake-helpers";
 import { FormLegalNotice } from "@/components/legal/FormLegalNotice";
+import { SmsConsentCheckbox } from "@/components/legal/SmsConsentCheckbox";
+import { SMS_CONSENT_VERSION } from "@/lib/sms-consent";
+import { currentPageUrl } from "@/lib/page-url";
+import { CHECKOUT } from "@/lib/checkout-pricing";
 import { getTemplate } from "@/content/templates";
 import { useUTMParameters } from "@/hooks/useUTMParameters";
 import { trackEvent } from "@/lib/analytics";
@@ -98,6 +106,7 @@ export function TemplateIntakeForm({
       useAccountPhone: true,
       useAccountEmail: true,
       honeypot: "",
+      smsConsent: false,
       consent: undefined as unknown as true,
     },
   });
@@ -155,6 +164,9 @@ export function TemplateIntakeForm({
         templateName,
         links: linkRows.map((r) => r.trim()).filter(Boolean),
         sendPhotosLater: sendLater,
+        smsConsent: Boolean(data.smsConsent && data.phone?.trim()),
+        smsConsentVersion: SMS_CONSENT_VERSION,
+        pageUrl: currentPageUrl(),
         utmSource: attribution.utmSource,
         utmMedium: attribution.utmMedium,
         utmCampaign: attribution.utmCampaign,
@@ -185,6 +197,12 @@ export function TemplateIntakeForm({
   };
 
   const role = watch("doWhat");
+  const phone = watch("phone");
+
+  // The SMS box refers to "the number above"; no number, no consent.
+  useEffect(() => {
+    if (!phone?.trim()) setValue("smsConsent", false);
+  }, [phone, setValue]);
   const isMortgage = role === "mortgage" || role === "both";
   const totalFiles = logoItems.length + mediaItems.length;
   const reviewName = watch("name");
@@ -235,13 +253,16 @@ export function TemplateIntakeForm({
             <Field id="businessName" label="Business name" hint="Your name or team name. Not sure yet? Use your own name." error={errors.businessName?.message}>
               <input id="businessName" className={inputCls} placeholder="Lopez Home Loans" autoCapitalize="words" {...register("businessName")} />
             </Field>
-            <Field id="phone" label="Cell phone" hint="Optional — only so we can text you a quick question.">
+            <Field id="phone" label="Cell phone" hint="Optional. Handy if we have a quick question.">
               <Controller control={control} name="phone" render={({ field }) => (
                 <input id="phone" type="tel" inputMode="tel" autoComplete="tel" className={inputCls} placeholder="(555) 123-4567"
                   value={field.value ?? ""} onChange={(e) => field.onChange(formatPhone(e.target.value))} />
               )} />
             </Field>
-            <p className="text-xs text-muted">Your info is only used to build your site.</p>
+            <Controller control={control} name="smsConsent" render={({ field }) => (
+              <SmsConsentCheckbox id="intake-smsConsent" phone={phone} checked={!!field.value} onChange={field.onChange} />
+            )} />
+            <p className="text-xs text-muted">We use your info to build your site and to contact you about it.</p>
           </>
         )}
 
@@ -386,8 +407,8 @@ export function TemplateIntakeForm({
               <label className="flex min-h-[44px] cursor-pointer items-start gap-3 text-sm text-ink">
                 <input type="checkbox" className="mt-0.5 h-5 w-5" checked={!!field.value} onChange={(e) => field.onChange(e.target.checked)} />
                 <span>
-                  Yes, build my website and text or email me about it.
-                  <span className="mt-1 block text-xs text-muted">We&apos;ll only use your info to build your site and reach you about it. No spam.</span>
+                  {INTAKE_CONSENT_LABEL}.
+                  <span className="mt-1 block text-xs text-muted">We&apos;ll use your info to build your site and to contact you about it. No spam. Texts only if you ticked the text box on step 1.</span>
                 </span>
               </label>
             )} />
@@ -396,7 +417,12 @@ export function TemplateIntakeForm({
             <div className="rounded-sm bg-[color:var(--accent-soft)] p-4 text-sm text-ink">
               <p className="font-medium">What happens next:</p>
               <p className="mt-1">1. We save everything and start on your site.</p>
-              <p>2. You&apos;ll go to a secure checkout to complete your $500 build.</p>
+              <p>
+                2. You&apos;ll go to a secure checkout for your ${CHECKOUT.base} build, plus a{" "}
+                {Math.round(CHECKOUT.feeRate * 100)}% fees &amp; processing charge, then ${CHECKOUT.monthly}/month
+                hosting starting {CHECKOUT.monthlyTrialDays} days after purchase. You&apos;ll see the full total and
+                agree to the monthly plan before you pay.
+              </p>
               <p>3. We&apos;ll email your first preview as soon as it&apos;s ready.</p>
             </div>
             {submitError && <p role="alert" className="text-sm text-accent">{submitError}</p>}

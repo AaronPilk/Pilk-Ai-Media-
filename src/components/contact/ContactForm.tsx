@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { leadSchema, type LeadInput } from "@/lib/forms";
 import { useUTMParameters } from "@/hooks/useUTMParameters";
@@ -11,6 +11,9 @@ import { Button } from "@/components/ui/Button";
 import { ProjectTypeFields } from "@/components/contact/ProjectTypeFields";
 import { ContactSuccess } from "@/components/contact/ContactSuccess";
 import { FormLegalNotice } from "@/components/legal/FormLegalNotice";
+import { SmsConsentCheckbox } from "@/components/legal/SmsConsentCheckbox";
+import { SMS_CONSENT_VERSION } from "@/lib/sms-consent";
+import { currentPageUrl } from "@/lib/page-url";
 
 const inputCls =
   "w-full rounded-sm border border-line bg-surface px-4 py-3 text-sm placeholder:text-muted focus:border-accent";
@@ -40,15 +43,18 @@ export function ContactForm({ realEstate = false }: { realEstate?: boolean }) {
     handleSubmit,
     setValue,
     watch,
+    control,
     formState: { errors, isSubmitting },
   } = useForm<LeadInput>({
     resolver: zodResolver(leadSchema),
     defaultValues: {
+      formType: "contact",
+      smsConsent: false,
       projectType: qpProjectType ?? (realEstate ? "template" : "unsure"),
       selectedTemplate: qpTemplate,
+      currentWebsite: "",
       industry: realEstate ? "Real Estate" : "",
       needsIdx: false,
-      consent: false,
       honeypot: "",
     },
   });
@@ -68,6 +74,12 @@ export function ContactForm({ realEstate = false }: { realEstate?: boolean }) {
   const projectType = watch("projectType");
   const industry = watch("industry");
   const firstName = watch("firstName");
+  const phone = watch("phone");
+
+  // The SMS box refers to "the number above"; no number, no consent.
+  useEffect(() => {
+    if (!phone?.trim()) setValue("smsConsent", false);
+  }, [phone, setValue]);
   const showCurrentSite = hasCurrentSite || projectType === "redesign";
   const showIdx = realEstate || industry === "Real Estate";
 
@@ -83,7 +95,12 @@ export function ContactForm({ realEstate = false }: { realEstate?: boolean }) {
       const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ...data,
+          formType: "contact",
+          smsConsentVersion: SMS_CONSENT_VERSION,
+          pageUrl: currentPageUrl(),
+        }),
       });
       const json = await res.json();
       if (!res.ok || !json.success) {
@@ -134,9 +151,22 @@ export function ContactForm({ realEstate = false }: { realEstate?: boolean }) {
         </div>
         <div>
           <label htmlFor="phone" className="mb-2 block text-sm text-muted">Phone (optional)</label>
-          <input id="phone" type="tel" className={inputCls} {...register("phone")} />
+          <input id="phone" type="tel" autoComplete="tel" className={inputCls} {...register("phone")} />
         </div>
       </div>
+
+      <Controller
+        control={control}
+        name="smsConsent"
+        render={({ field }) => (
+          <SmsConsentCheckbox
+            id="cf-smsConsent"
+            phone={phone}
+            checked={!!field.value}
+            onChange={field.onChange}
+          />
+        )}
+      />
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
@@ -247,11 +277,6 @@ export function ContactForm({ realEstate = false }: { realEstate?: boolean }) {
         />
         {errors.message && <p className="mt-1 text-xs text-accent">{errors.message.message}</p>}
       </div>
-
-      <label className="flex items-start gap-3 text-xs text-muted">
-        <input type="checkbox" {...register("consent")} className="mt-0.5" />
-        I agree to be contacted about my inquiry.
-      </label>
 
       <FormLegalNotice />
 

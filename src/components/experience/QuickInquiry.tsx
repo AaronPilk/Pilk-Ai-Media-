@@ -2,14 +2,18 @@
 
 import { useState } from "react";
 import { FormLegalNotice } from "@/components/legal/FormLegalNotice";
+import { useUTMParameters } from "@/hooks/useUTMParameters";
+import { currentPageUrl } from "@/lib/page-url";
 
 /**
  * Floating "Request info" button + compact quick-inquiry popover for the
- * interactive listing experience. Submits to /api/leads so a real lead is
+ * interactive listing experience. Submits to /api/leads (formType
+ * "listing-inquiry") so a real lead is
  * captured; shows an instant success state. (In a client build this routes to
  * the agent/firm's inbox or CRM.)
  */
 export function QuickInquiry({ source = "Interactive listing experience" }: { source?: string }) {
+  const attribution = useUTMParameters();
   const [open, setOpen] = useState(false);
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState(false);
@@ -19,6 +23,7 @@ export function QuickInquiry({ source = "Interactive listing experience" }: { so
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
+  const [honeypot, setHoneypot] = useState("");
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,21 +33,16 @@ export function QuickInquiry({ source = "Interactive listing experience" }: { so
       return;
     }
     setSending(true);
-    const [firstName, ...rest] = name.trim().split(" ");
     const payload = {
-      firstName,
-      lastName: rest.join(" ") || "—",
+      formType: "listing-inquiry" as const,
+      name: name.trim(),
       email: email.trim(),
       phone: phone.trim(),
-      businessDescription:
-        (message.trim() ? message.trim() + " — " : "") +
-        `Quick inquiry from the ${source}. Please contact me.`,
-      projectType: "unsure" as const,
-      primaryGoal: "Be contacted about this property",
-      preferredContact: phone.trim() ? ("phone" as const) : ("email" as const),
-      consent: true,
-      landingPage: typeof window !== "undefined" ? window.location.pathname : "",
-      referrer: typeof document !== "undefined" ? document.referrer : "",
+      message: message.trim(),
+      source,
+      pageUrl: currentPageUrl(),
+      honeypot,
+      ...attribution,
     };
     try {
       const res = await fetch("/api/leads", {
@@ -89,6 +89,16 @@ export function QuickInquiry({ source = "Interactive listing experience" }: { so
             </div>
           ) : (
             <form onSubmit={submit} className="grid gap-3 px-5 py-5">
+              <input
+                type="text"
+                name="honeypot"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+                style={{ position: "absolute", left: "-9999px", width: 1, height: 1, opacity: 0 }}
+              />
               <p className="text-sm text-white/60">
                 Leave your details and we&apos;ll reach out about this property. This is a demo
                 listing, so your request goes to Pilk.ai.

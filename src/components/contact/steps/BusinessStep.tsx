@@ -1,7 +1,9 @@
 "use client";
 
-import { useFormContext } from "react-hook-form";
+import { useEffect } from "react";
+import { Controller, useFormContext } from "react-hook-form";
 import type { ProjectBriefInput } from "@/lib/project-brief-schema";
+import { SmsConsentCheckbox } from "@/components/legal/SmsConsentCheckbox";
 
 const inputCls =
   "w-full rounded-sm border border-line bg-surface px-4 py-3 text-sm placeholder:text-muted focus:border-accent";
@@ -9,8 +11,17 @@ const inputCls =
 export function BusinessStep() {
   const {
     register,
+    control,
+    watch,
+    setValue,
     formState: { errors },
   } = useFormContext<ProjectBriefInput>();
+  const phone = watch("phone");
+
+  // The SMS box refers to "the number above"; no number, no consent.
+  useEffect(() => {
+    if (!phone?.trim()) setValue("smsConsent", false);
+  }, [phone, setValue]);
 
   return (
     <div className="grid gap-5">
@@ -35,9 +46,22 @@ export function BusinessStep() {
         </div>
         <div>
           <label htmlFor="phone" className="mb-2 block text-sm text-muted">Phone (optional)</label>
-          <input id="phone" type="tel" className={inputCls} {...register("phone")} />
+          <input id="phone" type="tel" autoComplete="tel" className={inputCls} {...register("phone")} />
         </div>
       </div>
+
+      <Controller
+        control={control}
+        name="smsConsent"
+        render={({ field }) => (
+          <SmsConsentCheckbox
+            id="brief-smsConsent"
+            phone={phone}
+            checked={!!field.value}
+            onChange={field.onChange}
+          />
+        )}
+      />
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
