@@ -152,13 +152,13 @@ const entries: Entry[] = [
   },
   {
     path: "/privacy/",
-    sources: ["src/app/privacy/page.tsx"],
+    sources: ["src/app/privacy/page.tsx", "src/content/legal/privacy.ts"],
     priority: 0.2,
     changeFrequency: "yearly",
   },
   {
     path: "/terms/",
-    sources: ["src/app/terms/page.tsx"],
+    sources: ["src/app/terms/page.tsx", "src/content/legal/terms.ts"],
     priority: 0.2,
     changeFrequency: "yearly",
   },

@@ -9,6 +9,7 @@ import { ChipSingle, ChipMulti } from "./Chips";
 import { UploadDropzone, type UploadItem } from "./UploadDropzone";
 import { templateIntakeSchema, type TemplateIntakeInput } from "@/lib/template-intake-schema";
 import { formatPhone } from "@/lib/intake-helpers";
+import { FormLegalNotice } from "@/components/legal/FormLegalNotice";
 import { getTemplate } from "@/content/templates";
 import { useUTMParameters } from "@/hooks/useUTMParameters";
 import { trackEvent } from "@/lib/analytics";
@@ -391,6 +392,7 @@ export function TemplateIntakeForm({
               </label>
             )} />
             {errors.consent && <p className="text-xs text-accent">{errors.consent.message}</p>}
+            <FormLegalNotice />
             <div className="rounded-sm bg-[color:var(--accent-soft)] p-4 text-sm text-ink">
               <p className="font-medium">What happens next:</p>
               <p className="mt-1">1. We save everything and start on your site.</p>

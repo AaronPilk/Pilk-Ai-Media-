@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { FormLegalNotice } from "@/components/legal/FormLegalNotice";
 
 /**
  * Floating "Request info" button + compact quick-inquiry popover for the
@@ -119,6 +120,7 @@ export function QuickInquiry({ source = "Interactive listing experience" }: { so
                 onChange={(e) => setMessage(e.target.value)}
               />
               {error && <p className="text-xs text-accent">{error}</p>}
+              <FormLegalNotice tone="dark" />
               <button
                 type="submit"
                 disabled={sending}

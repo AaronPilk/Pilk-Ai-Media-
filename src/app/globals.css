@@ -707,3 +707,15 @@ html[data-theme="light"] .logo-on-dark {
 .theme-toggle:hover {
   border-color: var(--text);
 }
+
+/* Legal pages: long text needs a calm surface over the WebGL background. */
+.legal-surface {
+  background: var(--bg);
+}
+@supports (background: color-mix(in srgb, red 50%, transparent)) {
+  .legal-surface {
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
+}

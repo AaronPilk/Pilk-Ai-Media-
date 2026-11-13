@@ -6,6 +6,7 @@ import { Check } from "lucide-react";
 import { ADDONS, priceCents, CHECKOUT, type AddonKey } from "@/lib/checkout-pricing";
 import { getTemplate } from "@/content/templates";
 import { Button } from "@/components/ui/Button";
+import { FormLegalNotice } from "@/components/legal/FormLegalNotice";
 
 const money = (cents: number) =>
   `$${(cents / 100).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
@@ -153,6 +154,7 @@ export function CheckoutClient() {
             </Button>
           </div>
           {error ? <p className="mt-3 text-sm text-red-500">{error}</p> : null}
+          <FormLegalNotice variant="pay" className="mt-3 text-center" />
           <p className="mt-3 text-center text-xs text-muted">
             Payments secured by Stripe. Card details never touch our servers.
           </p>

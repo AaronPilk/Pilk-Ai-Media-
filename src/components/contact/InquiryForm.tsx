@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
+import { FormLegalNotice } from "@/components/legal/FormLegalNotice";
 
 const inputCls =
   "w-full rounded-sm border border-line bg-surface px-4 py-3 text-sm placeholder:text-muted focus:border-accent";
@@ -110,6 +111,7 @@ export function InquiryForm({
           {error}
         </p>
       )}
+      <FormLegalNotice />
       <div>
         <Button type="submit" variant="primary" withArrow>
           {sending ? "Sending…" : submitLabel ?? "Submit inquiry"}

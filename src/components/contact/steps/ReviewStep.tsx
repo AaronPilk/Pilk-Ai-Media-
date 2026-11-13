@@ -6,6 +6,7 @@ import {
   budgetOptions,
   timelineOptions,
 } from "@/lib/project-brief-schema";
+import { FormLegalNotice } from "@/components/legal/FormLegalNotice";
 
 const inputCls =
   "w-full rounded-sm border border-line bg-surface px-4 py-3 text-sm focus:border-accent";
@@ -85,6 +86,7 @@ export function ReviewStep({ files }: { files: File[] }) {
         I agree to be contacted about my website project.
       </label>
       {errors.consent && <p className="-mt-4 text-xs text-accent">{errors.consent.message}</p>}
+      <FormLegalNotice className="-mt-4" />
     </div>
   );
 }

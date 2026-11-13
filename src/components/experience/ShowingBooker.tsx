@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { FormLegalNotice } from "@/components/legal/FormLegalNotice";
 
 const TIME_SLOTS = ["9:00 AM", "11:00 AM", "1:00 PM", "3:00 PM", "5:00 PM"];
 
@@ -185,6 +186,8 @@ export function ShowingBooker({ ctaLabel }: { ctaLabel: string }) {
       </div>
 
       {error && <p className="mt-4 text-sm text-accent">{error}</p>}
+
+      <FormLegalNotice tone="dark" className="mt-6" />
 
       <button
         type="submit"

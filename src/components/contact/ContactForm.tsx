@@ -10,6 +10,7 @@ import { trackEvent } from "@/lib/analytics";
 import { Button } from "@/components/ui/Button";
 import { ProjectTypeFields } from "@/components/contact/ProjectTypeFields";
 import { ContactSuccess } from "@/components/contact/ContactSuccess";
+import { FormLegalNotice } from "@/components/legal/FormLegalNotice";
 
 const inputCls =
   "w-full rounded-sm border border-line bg-surface px-4 py-3 text-sm placeholder:text-muted focus:border-accent";
@@ -251,6 +252,8 @@ export function ContactForm({ realEstate = false }: { realEstate?: boolean }) {
         <input type="checkbox" {...register("consent")} className="mt-0.5" />
         I agree to be contacted about my inquiry.
       </label>
+
+      <FormLegalNotice />
 
       {serverError && (
         <p role="alert" className="rounded-sm border border-accent/40 bg-[color:var(--accent-soft)] px-4 py-3 text-sm">
