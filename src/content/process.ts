@@ -51,4 +51,4 @@ export const processTimeline: ProcessStep[] = [
 ];
 
 export const processDisclaimer =
-  "Seven-day delivery applies to qualified standard and template-based projects after required content, access, and approvals are received. Larger custom builds and advanced integrations receive a custom schedule.";
+  "The seven-day build applies to qualified projects on a standard template (Complete Website package) and starts once we have your content, account access and approvals. Other templates take 5–14 days, mortgage websites about 14, and custom builds get a schedule based on scope. Late content or approvals move the launch date.";

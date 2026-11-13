@@ -13,6 +13,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { TemplateCard } from "@/components/templates/TemplateCard";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { LogoMarquee } from "@/components/sections/LogoMarquee";
+import { buildTimes, timelineNote } from "@/content/packages";
 
 export const metadata: Metadata = buildMetadata({
   title: "Mortgage Website Templates — $500",
@@ -78,6 +79,10 @@ export default function MortgagePage() {
               <span className="text-ink font-medium"> $500 flat, plus $100/mo hosting &amp; support.</span>{" "}
               Pick the design you love, tell us about your business, and we build it out as yours —
               ready to plug into GoHighLevel, Google &amp; Meta whenever you add them.
+            </p>
+            <p className="mt-3 max-w-2xl text-sm text-muted">
+              Build time for the $500 mortgage website package: {buildTimes.mortgage}, or{" "}
+              {buildTimes.mortgageRush} with the rush add-on. {timelineNote}
             </p>
             <p className="mt-4 max-w-2xl text-base font-semibold">
               And you own it — outright. This is your website, not a rental you lose the day you

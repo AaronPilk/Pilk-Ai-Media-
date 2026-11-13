@@ -1,9 +1,29 @@
+import { buildTimes, packages, timelineNote } from "@/content/packages";
+import { CHECKOUT } from "@/lib/checkout-pricing";
+import { formatPrice } from "@/lib/utils";
+
 export type FaqItem = { q: string; a: string };
+
+const tier = (id: (typeof packages)[number]["id"]) => {
+  const p = packages.find((x) => x.id === id);
+  if (!p) throw new Error(`Unknown package ${id}`);
+  return `${p.name} ($${formatPrice(p.price)})`;
+};
+
+// Built from packages.ts so the FAQ, the process note and the Terms quote the
+// same timelines for the same packages.
+const timelineAnswer = [
+  `It depends on the package and scope. ${tier("listing")}: ${buildTimes.listing}.`,
+  `Mortgage website ($${formatPrice(CHECKOUT.base)}): ${buildTimes.mortgage}, or ${buildTimes.mortgageRush} with the rush add-on.`,
+  `${tier("template")}: ${buildTimes.template}; qualified projects on a standard template follow our ${buildTimes.templateStandard} build.`,
+  `${packages.find((p) => p.id === "custom")?.name} and ${packages.find((p) => p.id === "crm")?.name}: ${buildTimes.custom}.`,
+  timelineNote,
+].join(" ");
 
 export const faq: FaqItem[] = [
   {
     q: "How long does a website take?",
-    a: "Templates typically launch in 1–3 weeks. Custom websites depend on scope, content, and integrations — we'll give you a clear timeline before we start.",
+    a: timelineAnswer,
   },
   {
     q: "What's included in the starting price?",

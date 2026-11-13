@@ -42,7 +42,7 @@ export const websites: Service = {
     },
     {
       title: "Review and launch",
-      body: "You review it while we test devices, browsers, forms, links and speed. Then it goes live. Qualified template projects follow our seven-day build.",
+      body: "You review it while we test devices, browsers, forms, links and speed. Then it goes live. Qualified projects on a standard template follow our seven-day build.",
     },
   ],
   included: [...everyBuildIncludes],

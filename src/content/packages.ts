@@ -110,6 +110,24 @@ export const optionalUpgrades = [
   "Custom software",
 ];
 
+/**
+ * Typical build times, by package. One source for the FAQ, the process note,
+ * the mortgage page and the Terms, so a timeline can't say one thing on one
+ * page and another elsewhere. Each template also lists its own build time in
+ * src/content/templates.ts, inside the Complete Website range below.
+ */
+export const buildTimes = {
+  listing: "2–3 days",
+  template: "5–14 days, depending on the template",
+  templateStandard: "seven days",
+  mortgage: "about 14 days",
+  mortgageRush: "5 days",
+  custom: "a schedule based on scope, agreed in writing before we start",
+} as const;
+
+export const timelineNote =
+  "Timelines depend on the package and scope. They start once we have your content, account access and approvals, and they move if those arrive late.";
+
 /** Comes with every template build, on top of the template's own features. */
 export const everyBuildIncludes = [
   "Built with your branding, copy & photos",

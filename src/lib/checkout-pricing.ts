@@ -22,7 +22,7 @@ export const ADDONS: {
     key: "rush",
     label: "Rush delivery — done in 5 days",
     blurb:
-      "Jump the line: we build and deliver your site in 5 days instead of the standard 14.",
+      "Jump the line: we build and deliver your mortgage site in 5 days instead of the standard 14, counted from when we have your content and approvals.",
   },
   {
     key: "ghl",

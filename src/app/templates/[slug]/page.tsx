@@ -12,7 +12,7 @@ import {
   templateProjectType,
 } from "@/content/templates";
 import { site } from "@/content/site";
-import { everyBuildIncludes } from "@/content/packages";
+import { everyBuildIncludes, timelineNote } from "@/content/packages";
 import { buildMetadata, breadcrumbNode, pageGraph } from "@/lib/metadata";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { formatPrice } from "@/lib/utils";
@@ -21,6 +21,12 @@ import { Button } from "@/components/ui/Button";
 import { ResponsivePreview } from "@/components/templates/ResponsivePreview";
 import { TemplatePreviewButton } from "@/components/templates/TemplatePreviewButton";
 import { TemplateCard } from "@/components/templates/TemplateCard";
+
+/** "7–10 day build available" -> "7–10 days", for use in a sentence. */
+function buildDays(timeline: string): string {
+  const m = timeline.match(/^([\d–-]+?)[- ]day build/);
+  return m ? `${m[1]} days` : timeline;
+}
 
 export function generateStaticParams() {
   return templates.map((t) => ({ slug: t.slug }));
@@ -148,7 +154,8 @@ export default async function TemplateDetailPage({
           {!isCustom && (
             <p className="mt-4 max-w-xl text-sm text-muted">
               How it works: pick this template, send us your logo, photos, and any copy on the next
-              screen, and we build your site with your content — typically in about a week.
+              screen, and we build your site with your content. Build time for this template:{" "}
+              {buildDays(tpl.timeline)}. {timelineNote}
             </p>
           )}
 

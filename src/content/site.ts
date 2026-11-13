@@ -120,7 +120,7 @@ export const site = {
       { day: "Day 6", title: "Review and quality control", body: "You review the site while we test mobile devices, browsers, forms, links, speed, accessibility, and tracking.", deliverable: "Final approved revision" },
       { day: "Day 7", title: "Launch", body: "The website is connected to the production domain, final analytics are verified, and the new experience goes live.", deliverable: "Live website" },
     ],
-    disclaimer: "Seven-day delivery applies to qualified standard and template-based projects after required content, account access, and approvals are received. Larger custom projects and advanced integrations receive a custom schedule.",
+    disclaimer: "The seven-day build applies to qualified projects on a standard template (Complete Website package) and starts once we have your content, account access and approvals. Other templates take 5–14 days, mortgage websites about 14, and custom builds get a schedule based on scope. Late content or approvals move the launch date.",
   },
 
   finalCta: {
