@@ -3,5 +3,14 @@
 # Demo template sites: fictional businesses with sample reviews and placeholder
 # licence numbers. They stay browsable from the template pages but must never be
 # indexed as if they were real companies on pilk.ai.
+#
+# Each demo file also carries a Google tag (G-XXXXXXXXXX) and a Meta Pixel
+# (000000000000000) so the template is ready for a client's real IDs. On
+# pilk.ai those placeholders would still load gtag.js and fbevents.js, send hits
+# to Google Analytics and Meta and set _ga cookies, with no purpose. The policy
+# below blocks every third-party script, image and connection on these pages and
+# allows only Google Fonts, which the Privacy Policy discloses. The files stay
+# untouched so they can be duplicated for clients.
 /template-previews/*
   X-Robots-Tag: noindex, follow
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; frame-src 'self'; frame-ancestors 'self'; form-action 'self'; base-uri 'self'; object-src 'none'
