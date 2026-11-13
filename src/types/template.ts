@@ -17,9 +17,10 @@ export type WebsiteTemplate = {
   shortDescription: string;
   /** Accent used by the procedural preview + detail page. */
   accent: string;
+  /** The lowest figure this template starts at, in dollars; 0 = quoted per project. */
   price: number;
-  /** Optional override for the displayed price (e.g. "Custom · contact for pricing", "$250 per listing"). */
-  priceLabel?: string;
+  /** Optional unit after the starting figure, e.g. "per listing". */
+  priceUnit?: string;
   pages: number;
   timeline: string;
   featured: boolean;

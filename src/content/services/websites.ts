@@ -47,7 +47,7 @@ export const websites: Service = {
   ],
   included: [...everyBuildIncludes],
   includedHeading: "Every template build includes",
-  pricing: `${packageName("listing")}: ${packagePrice("listing")}. ${packageName("template")}: ${packagePrice("template")}. ${packageName("custom")}: from ${packagePrice("custom")}. ${packageName("crm")}: ${packagePrice("crm")}. Optional hosting and support: ${hostingPrice}. Mortgage websites have their own package.`,
+  pricing: `${packageName("listing")}: ${packagePrice("listing")}. ${packageName("template")}: ${packagePrice("template")}. ${packageName("custom")}: ${packagePrice("custom")}. ${packageName("crm")}: ${packagePrice("crm")}. Optional hosting and support: ${hostingPrice}. Mortgage websites have their own package. Every project gets a written quote before any work or payment.`,
   relatedWork: [
     {
       label: "Stephenie Tocado Real Estate",
@@ -72,7 +72,7 @@ export const websites: Service = {
     {
       label: "Mortgage websites",
       href: "/mortgage/",
-      note: "15 designs for loan officers and brokers, with their own pricing.",
+      note: "15 designs for loan officers and brokers, with their own starting price.",
     },
     {
       label: "The template catalog",

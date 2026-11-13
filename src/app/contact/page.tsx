@@ -26,7 +26,7 @@ export default function ContactPage() {
           </h1>
           <p className="mt-6 max-w-sm text-muted">
             A few quick steps to shape your project. You&apos;ll pick a direction, colors, and
-            references — we&apos;ll turn it into a plan and reach out.
+            references — we&apos;ll turn it into a plan and a written quote, and reach out.
           </p>
 
           <div className="mt-10 flex flex-col gap-3 text-sm">

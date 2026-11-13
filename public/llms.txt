@@ -4,11 +4,13 @@
 
 Contact: Aaron@pilk.ai, (704) 877-3511. Pilk.ai is a service-area business and does not publish a street address.
 
+Pilk.ai does not sell anything online and has no checkout. Every project starts with a conversation and a written quote; work begins once the client approves it and pays the invoice. Prices on the site are starting prices, not fixed prices.
+
 ## Services
 
 - [All services](https://pilk.ai/services/): overview of everything Pilk.ai offers
-- [Websites](https://pilk.ai/services/websites/): template-based and custom websites for service businesses, with published pricing
-- [Custom app building](https://pilk.ai/apps/): mobile apps for iOS and Android, internal tools and AI products; projects start at $15,000
+- [Websites](https://pilk.ai/services/websites/): template-based and custom websites for service businesses, with starting prices (a single listing page starting at $250, a complete website starting at $1,000, a custom website starting at $2,500)
+- [Custom app building](https://pilk.ai/apps/): mobile apps for iOS and Android, internal tools and AI products; projects starting at $15,000
 - [AI consulting](https://pilk.ai/services/ai-consulting/): a review of where AI saves a business time, a written plan, and the build
 - [AI automation and chatbots](https://pilk.ai/services/ai-automation-chatbots/): instant lead replies, website and messaging chatbots, CRM automations
 - [Meta ads](https://pilk.ai/services/meta-ads/): Facebook and Instagram campaign management with tracking and landing pages
@@ -19,16 +21,16 @@ Contact: Aaron@pilk.ai, (704) 877-3511. Pilk.ai is a service-area business and d
 
 ## Websites for real estate and mortgage
 
-- [Mortgage websites](https://pilk.ai/mortgage/): 15 mortgage website designs for loan officers and brokers, $500 build plus $100/month hosting
+- [Mortgage websites](https://pilk.ai/mortgage/): 15 mortgage website designs for loan officers and brokers, starting at $500, with hosting and support plans available
 - [Real estate websites](https://pilk.ai/real-estate/): sites for agents, brokerages and mortgage firms
-- [Website templates](https://pilk.ai/templates/): the full template catalog; each template has its own page
+- [Website templates](https://pilk.ai/templates/): the full template catalog; each template has its own page and a quote request form
 - [Own vs rent](https://pilk.ai/own-vs-rent/): why an owned website beats a rented subscription template
 
 ## Work and process
 
 - [Work](https://pilk.ai/work/): client websites, apps and products designed and built by Pilk.ai
 - [Process](https://pilk.ai/process/): the seven-day build for qualified projects on a standard website template
-- [Start a project](https://pilk.ai/contact/): project brief form
+- [Start a project](https://pilk.ai/contact/): project brief form; the way to get a quote
 
 ## Optional
 

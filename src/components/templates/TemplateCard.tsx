@@ -1,7 +1,6 @@
 import Link from "next/link";
 import type { WebsiteTemplate } from "@/types/template";
-import { templateCategories, templateProjectType } from "@/content/templates";
-import { formatPrice } from "@/lib/utils";
+import { templateCategories, templatePriceLabel, templateProjectType } from "@/content/templates";
 import { TemplateLivePreview } from "@/components/templates/TemplateLivePreview";
 
 function categoryLabel(id: string) {
@@ -40,10 +39,7 @@ export function TemplateCard({ template }: { template: WebsiteTemplate }) {
       <p className="mt-2 text-sm text-muted">{template.shortDescription}</p>
 
       <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-xs text-muted">
-        <span>
-          {template.priceLabel ??
-            (template.price > 0 ? `From $${formatPrice(template.price)}` : "Scope-based")}
-        </span>
+        <span>{templatePriceLabel(template)}</span>
         {template.pages > 0 && <span>{template.pages} pages</span>}
         <span>{template.timeline}</span>
       </div>
@@ -64,7 +60,7 @@ export function TemplateCard({ template }: { template: WebsiteTemplate }) {
           View Template
         </Link>
         <Link href={startHref} className="text-sm text-accent hover:underline">
-          Start With This Design →
+          Request This Design →
         </Link>
       </div>
     </article>

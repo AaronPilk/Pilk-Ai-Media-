@@ -1,20 +1,21 @@
-import { buildTimes, packages, timelineNote } from "@/content/packages";
-import { CHECKOUT } from "@/lib/checkout-pricing";
-import { formatPrice } from "@/lib/utils";
+import { buildTimes, hostingPlan, mortgagePackage, packages, timelineNote } from "@/content/packages";
+import { startingAtLower } from "@/lib/pricing";
 
 export type FaqItem = { q: string; a: string };
 
 const tier = (id: (typeof packages)[number]["id"]) => {
   const p = packages.find((x) => x.id === id);
   if (!p) throw new Error(`Unknown package ${id}`);
-  return `${p.name} ($${formatPrice(p.price)})`;
+  return `${p.name} (${startingAtLower(p.price, p.priceUnit)})`;
 };
+
+const custom = packages.find((p) => p.id === "custom");
 
 // Built from packages.ts so the FAQ, the process note and the Terms quote the
 // same timelines for the same packages.
 const timelineAnswer = [
   `It depends on the package and scope. ${tier("listing")}: ${buildTimes.listing}.`,
-  `Mortgage website ($${formatPrice(CHECKOUT.base)}): ${buildTimes.mortgage}, or ${buildTimes.mortgageRush} with the rush add-on.`,
+  `Mortgage website (${startingAtLower(mortgagePackage.price)}): ${buildTimes.mortgage}, or ${buildTimes.mortgageRush} with the rush add-on.`,
   `${tier("template")}: ${buildTimes.template}; qualified projects on a standard template follow our ${buildTimes.templateStandard} build.`,
   `${packages.find((p) => p.id === "custom")?.name} and ${packages.find((p) => p.id === "crm")?.name}: ${buildTimes.custom}.`,
   timelineNote,
@@ -43,7 +44,7 @@ export const faq: FaqItem[] = [
   },
   {
     q: "Do you provide hosting?",
-    a: "Yes — we can handle hosting, domains, and ongoing maintenance, or hand off to your team. Your call.",
+    a: `Yes. ${hostingPlan.availability}, ${startingAtLower(hostingPlan.priceFrom)} a month, covering hosting, domains and ongoing maintenance. Or we hand the site off to your team. Your call.`,
   },
   {
     q: "Can you connect forms to my CRM?",
@@ -63,7 +64,11 @@ export const faq: FaqItem[] = [
   },
   {
     q: "What does a custom website cost?",
-    a: "Custom builds start at $2,500 and scale with scope. Final pricing depends on pages, content, integrations, functionality, and customization.",
+    a: `Custom websites are priced by scope, ${startingAtLower(custom?.price ?? 0)}. Final pricing depends on pages, content, integrations, functionality, and customization, and you get it in a written quote.`,
+  },
+  {
+    q: "Can I buy a website online?",
+    a: "No. Every project starts with a conversation and a written quote. Once you approve it, we send an invoice, and work starts when it's paid. Nothing is sold or charged through this site.",
   },
   {
     q: "What happens after I submit an inquiry?",

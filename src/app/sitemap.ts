@@ -17,7 +17,7 @@ type Entry = {
   changeFrequency: "weekly" | "monthly" | "yearly";
 };
 
-// Only indexable pages belong here. Utility pages (/checkout, /start/*,
+// Only indexable pages belong here. Utility pages (the /checkout redirect stubs, /start/*,
 // /inquiry, /lab, /fourth-of-july, the listing demo) are noindex and left out.
 const HOME_SOURCES = [
   "src/app/page.tsx",

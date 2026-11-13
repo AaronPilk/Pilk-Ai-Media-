@@ -12,7 +12,7 @@ import { AppShowcase } from "@/components/apps/AppShowcase";
 export const metadata: Metadata = buildMetadata({
   title: "Custom App Development: iOS, Android & AI",
   description:
-    "Custom mobile apps for iOS and Android, internal tools, AI products and automations, designed and built end to end by Pilk.ai. Projects start at $15,000.",
+    "Custom iOS and Android apps, internal tools, AI products and automations, designed and built end to end by Pilk.ai. Projects starting at $15,000.",
   image: "/brand/brand-app.jpg",
   path: "/apps",
 });

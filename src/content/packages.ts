@@ -1,7 +1,12 @@
+import { startingAt } from "../lib/pricing";
+
 export type PackageTier = {
   id: "listing" | "template" | "premium-template" | "custom" | "crm";
   name: string;
+  /** The lowest figure the package starts at, in dollars. Never a flat price. */
   price: number;
+  /** Optional unit after the figure, e.g. "per listing". */
+  priceUnit?: string;
   priceLabel: string;
   summary: string;
   features: string[];
@@ -10,13 +15,21 @@ export type PackageTier = {
   disclaimer?: string;
 };
 
-/** Edit prices/features/CTAs here — no component changes needed. */
+function tier(t: Omit<PackageTier, "priceLabel">): PackageTier {
+  return { ...t, priceLabel: startingAt(t.price, t.priceUnit) };
+}
+
+/**
+ * Edit starting prices/features/CTAs here — no component changes needed.
+ * `package=` in a CTA is read by the /contact/ brief and travels with the lead,
+ * so the CRM knows which card the visitor came from.
+ */
 export const packages: PackageTier[] = [
-  {
+  tier({
     id: "listing",
     name: "Single Listing Page",
     price: 250,
-    priceLabel: "$250 per listing",
+    priceUnit: "per listing",
     summary: "A dedicated page for one listing — a fresh page built for each property as it comes in.",
     features: [
       "One property, one standout page",
@@ -26,13 +39,12 @@ export const packages: PackageTier[] = [
       "Mobile responsive",
       "2–3 day turnaround",
     ],
-    cta: { label: "Add a listing page", href: "/contact?projectType=template&template=listing-page" },
-  },
-  {
+    cta: { label: "Get a quote", href: "/contact/?projectType=template&template=listing-page&package=listing" },
+  }),
+  tier({
     id: "template",
     name: "Complete Website",
     price: 1000,
-    priceLabel: "$1,000",
     summary: "A full website — start from a proven design and make it your own.",
     features: [
       "Start from a proven design",
@@ -42,14 +54,13 @@ export const packages: PackageTier[] = [
       "Mobile responsive",
       "Lead capture form",
     ],
-    cta: { label: "Start with a template", href: "/templates" },
+    cta: { label: "Start with a template", href: "/templates/" },
     mostPopular: true,
-  },
-  {
+  }),
+  tier({
     id: "custom",
     name: "Custom Website",
     price: 2500,
-    priceLabel: "Starting at $2,500",
     summary: "Built from zero around your business and goals.",
     features: [
       "Original creative direction",
@@ -59,13 +70,12 @@ export const packages: PackageTier[] = [
       "Integration planning",
       "Scope-based development",
     ],
-    cta: { label: "Commission custom", href: "/contact?projectType=custom" },
-  },
-  {
+    cta: { label: "Get a quote", href: "/contact/?projectType=custom&package=custom" },
+  }),
+  tier({
     id: "crm",
     name: "Custom Website + Full CRM",
     price: 5000,
-    priceLabel: "$5,000",
     summary: "A custom site plus a complete GoHighLevel CRM built to run your business.",
     features: [
       "Everything in Custom Website",
@@ -77,17 +87,33 @@ export const packages: PackageTier[] = [
       "Reputation / review automation",
       "Setup, wiring & handoff training",
     ],
-    cta: { label: "Build my system", href: "/contact?projectType=custom&package=crm-buildout" },
-  },
+    cta: { label: "Get a quote", href: "/contact/?projectType=custom&package=crm" },
+  }),
 ];
 
-/** Recurring plan — rendered as its own banner under the build tiers. */
+/**
+ * Mortgage websites are their own package (15 designs on /mortgage/). The
+ * figure is the lowest a mortgage website starts at; add-ons are quoted.
+ */
+export const mortgagePackage = {
+  id: "mortgage" as const,
+  name: "Mortgage Website",
+  price: 500,
+};
+
+/**
+ * Recurring plan — rendered as its own banner under the build tiers. Plans
+ * start at the mortgage plan's figure; what a client pays is in their proposal.
+ */
 export const hostingPlan = {
+  id: "hosting" as const,
   name: "Hosting & Ongoing Support",
-  priceLabel: "$199",
-  priceSuffix: "/month",
+  priceFrom: 100,
+  priceLabel: startingAt(100),
+  priceSuffix: "/mo",
+  availability: "Hosting and support plans available",
   summary:
-    "Keep your site fast, secure, and handled. Hosting, monitoring, backups, and ongoing edits + support — month to month, cancel anytime.",
+    "Keep your site fast, secure, and handled. Hosting, monitoring, backups, and ongoing edits + support, set out in your proposal — month to month, cancel anytime.",
   features: [
     "Managed hosting & SSL",
     "Uptime monitoring & backups",
@@ -96,8 +122,22 @@ export const hostingPlan = {
     "Priority support",
     "Monthly — no long-term contract",
   ],
-  cta: { label: "Add hosting & support", href: "/contact?projectType=custom&package=hosting" },
+  cta: { label: "Ask about hosting", href: "/contact/?projectType=unsure&package=hosting" },
 };
+
+/** Package ids the CRM can attach a starting figure to. */
+export type QuotePackageId = PackageTier["id"] | typeof mortgagePackage.id | typeof hostingPlan.id;
+
+/**
+ * The starting figure for a package id, for the CRM's opportunity value.
+ * Undefined when the id is unknown or the package has no starting figure.
+ */
+export function packageStartingPrice(id: string | undefined): number | undefined {
+  if (!id) return undefined;
+  if (id === mortgagePackage.id) return mortgagePackage.price;
+  if (id === hostingPlan.id) return undefined; // monthly, not a project value
+  return packages.find((p) => p.id === id)?.price;
+}
 
 export const optionalUpgrades = [
   "Additional pages",

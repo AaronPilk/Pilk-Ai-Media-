@@ -13,12 +13,15 @@ import { Reveal } from "@/components/ui/Reveal";
 import { TemplateCard } from "@/components/templates/TemplateCard";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { LogoMarquee } from "@/components/sections/LogoMarquee";
-import { buildTimes, timelineNote } from "@/content/packages";
+import { buildTimes, hostingPlan, mortgagePackage, timelineNote } from "@/content/packages";
+import { QUOTE_ONLY_NOTE, startingAt, startingAtLower } from "@/lib/pricing";
+
+const from = startingAt(mortgagePackage.price);
+const fromLower = startingAtLower(mortgagePackage.price);
 
 export const metadata: Metadata = buildMetadata({
-  title: "Mortgage Website Templates — $500",
-  description:
-    "15 fully built mortgage website templates for loan officers and brokers. $500 plus $100/mo hosting, live in about 14 days, and you own the site outright.",
+  title: `Mortgage Website Templates, ${startingAt(mortgagePackage.price)}`,
+  description: `15 fully built mortgage website templates for loan officers and brokers, ${startingAtLower(mortgagePackage.price)}. Quoted in writing, live in about 14 days, and yours outright.`,
   path: "/mortgage",
   image: "/template-previews/_assets/hero-warm-home.jpg",
 });
@@ -76,12 +79,12 @@ export default function MortgagePage() {
             </h1>
             <p className="mt-7 max-w-2xl text-lg text-muted">
               15 fully built mortgage website designs for loan officers, brokers, and brokerages —
-              <span className="text-ink font-medium"> $500 flat, plus $100/mo hosting &amp; support.</span>{" "}
+              <span className="text-ink font-medium"> {fromLower}, with hosting &amp; support plans available.</span>{" "}
               Pick the design you love, tell us about your business, and we build it out as yours —
               ready to plug into GoHighLevel, Google &amp; Meta whenever you add them.
             </p>
             <p className="mt-3 max-w-2xl text-sm text-muted">
-              Build time for the $500 mortgage website package: {buildTimes.mortgage}, or{" "}
+              Build time for the mortgage website package: {buildTimes.mortgage}, or{" "}
               {buildTimes.mortgageRush} with the rush add-on. {timelineNote}
             </p>
             <p className="mt-4 max-w-2xl text-base font-semibold">
@@ -96,7 +99,12 @@ export default function MortgagePage() {
                 Start a project
               </Button>
             </div>
-                <p className="mt-3 text-xs text-muted">Already picked your design? <Link href="/checkout" className="text-accent hover:underline">Go straight to checkout →</Link></p>
+            <p className="mt-3 text-xs text-muted">
+              Already picked your design? Open it below and hit Request this template, or{" "}
+              <Link href="/contact/?projectType=template&package=mortgage" className="text-accent hover:underline">
+                get a quote →
+              </Link>
+            </p>
           </div>
         </Container>
       </header>
@@ -110,7 +118,7 @@ export default function MortgagePage() {
             <div>
               <SectionLabel index="01">The offer</SectionLabel>
               <h2 className="mt-6 max-w-[18ch] text-balance" style={{ fontSize: "var(--text-2xl)" }}>
-                $500. Fully built. Yours.
+                {from}. Fully built. Yours.
               </h2>
               <p className="mt-4 max-w-xl text-muted">
                 Every template is a complete, professional lending website — not a starting point.
@@ -122,8 +130,8 @@ export default function MortgagePage() {
                   <span className="font-semibold">You own your website — full stop.</span> Most
                   &ldquo;mortgage website&rdquo; companies rent you a site, and it disappears the
                   day you stop paying them. Not here. The build is yours, on your domain, under
-                  your name. The $100/mo is hosting, support &amp; edits — not rent — and if you
-                  ever move on, you take the site with you.
+                  your name. The monthly plan is hosting, support &amp; edits — not rent — and if
+                  you ever move on, you take the site with you.
                 </p>
               </div>
               <div className="mt-8 grid gap-x-8 gap-y-3 sm:grid-cols-2">
@@ -137,38 +145,38 @@ export default function MortgagePage() {
             </div>
             <Reveal delay={100}>
               <div className="rounded-3xl border border-accent/50 bg-[color:var(--accent-soft)] p-8">
-                <span className="eyebrow text-accent">Simple pricing</span>
-                <div className="mt-4 flex items-baseline gap-2">
-                  <span className="font-display text-5xl font-semibold">$500</span>
-                  <span className="text-muted">one-time build</span>
-                </div>
-                <div className="mt-2 flex items-baseline gap-2">
-                  <span className="font-display text-2xl font-semibold">+$100</span>
-                  <span className="text-muted">/mo hosting, support &amp; edits</span>
-                </div>
+                <span className="eyebrow text-accent">Pricing</span>
+                <p className="mt-4 font-display text-4xl font-semibold">{from}</p>
+                <p className="mt-1 text-muted">for the website build, quoted in writing</p>
+                <p className="mt-4 text-sm">
+                  <span className="font-medium">{hostingPlan.availability}</span>
+                  <span className="text-muted">: hosting, support &amp; edits each month.</span>
+                </p>
                 <p className="mt-3 text-xs text-muted">
-                  You own the website outright — the $100/mo is hosting &amp; support, not rent.
+                  You own the website outright — the monthly plan is hosting &amp; support, not rent.
                 </p>
                 <div className="mt-6 space-y-4 border-t border-line pt-5 text-sm">
                   <div>
-                    <p className="font-medium">Optional add-ons — $100 each, at checkout</p>
+                    <p className="font-medium">Optional add-ons, quoted with your build</p>
                     <p className="mt-1 text-muted">
                       GoHighLevel connection · Google tag + analytics · Meta Pixel · PostHog · 5-day rush delivery.
                     </p>
                   </div>
                   <div>
-                    <p className="font-medium">Bigger builds — priced separately, ask us</p>
+                    <p className="font-medium">Bigger builds, scoped separately</p>
                     <p className="mt-1 text-muted">
-                      Full GoHighLevel build-out (pipelines + automations) · MLS connection (+$500; needs your MLS API + ~$50/mo).
+                      Full GoHighLevel build-out (pipelines + automations) · MLS connection (needs your MLS
+                      API access, and your MLS charges its own data fee).
                     </p>
                   </div>
-                  <p className="text-xs text-muted">
-                    The $500 + $100/mo covers your website. Everything above is optional and priced on top.
-                  </p>
+                  <p className="text-xs text-muted">{QUOTE_ONLY_NOTE}</p>
                 </div>
-                <div className="mt-7">
+                <div className="mt-7 flex flex-wrap gap-3">
                   <Button href="#designs" variant="primary" withArrow>
                     Pick your design
+                  </Button>
+                  <Button href="/contact/?projectType=template&package=mortgage" variant="ghost">
+                    Get a quote
                   </Button>
                 </div>
               </div>
@@ -187,7 +195,7 @@ export default function MortgagePage() {
           <p className="mt-4 max-w-2xl text-muted">
             Every design is a real, browsable website — click any of them and walk through it like a
             client would. Found the one? Hit{" "}
-            <span className="text-ink">Start With This Design</span> and tell us about your business.
+            <span className="text-ink">Request This Design</span> and tell us about your business.
           </p>
           <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {mortgageTemplates.map((t) => (
@@ -206,12 +214,11 @@ export default function MortgagePage() {
           </h2>
 
           <div className="mt-6 max-w-3xl rounded-xl border border-accent/40 bg-[color:var(--accent-soft)] p-4 text-sm">
-            <span className="font-semibold">To be clear on pricing:</span> the{" "}
-            <span className="font-semibold">$500 builds your website</span> and{" "}
-            <span className="font-semibold">$100/mo</span> covers hosting &amp; support. The CRM
-            build-out and tracking below are{" "}
-            <span className="font-semibold">separate, paid services</span> — added on top, never
-            rolled into the $500.
+            <span className="font-semibold">To be clear on pricing:</span> your website quote{" "}
+            <span className="font-semibold">({fromLower})</span> covers the build, and a monthly plan
+            covers hosting &amp; support. The CRM build-out and tracking below are{" "}
+            <span className="font-semibold">separate, paid services</span> — quoted on top, never
+            rolled into the website build.
           </div>
 
           <div className="mt-12 grid items-center gap-8 lg:grid-cols-2">
@@ -241,7 +248,7 @@ export default function MortgagePage() {
                 ))}
               </ul>
               <p className="mt-6 inline-block rounded-full border border-[color:var(--line-on-light)] px-4 py-1.5 text-xs font-medium">
-                Separate build-out · priced by your operation · not included in the $500
+                Separate build-out · quoted for your operation · not included in the website build
               </p>
             </div>
             <div className="rounded-2xl bg-[#0c0c11] p-4 shadow-2xl ring-1 ring-white/10">
@@ -302,7 +309,7 @@ export default function MortgagePage() {
                 and which ad dollars turn into closings — then retarget the rest.
               </p>
               <p className="mt-6 inline-block rounded-full border border-[color:var(--line-on-light)] px-4 py-1.5 text-xs font-medium">
-                Add-on · $100 at checkout · not included in the $500
+                Add-on · quoted with your build · not included in the website build
               </p>
             </div>
             <div className="rounded-2xl bg-[#0c0c11] p-4 shadow-2xl ring-1 ring-white/10 lg:order-1">

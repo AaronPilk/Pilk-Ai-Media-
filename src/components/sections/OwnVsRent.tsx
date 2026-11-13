@@ -4,7 +4,7 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { hostingPlan, packages } from "@/content/packages";
-import { formatPrice } from "@/lib/utils";
+import { startingAtLower } from "@/lib/pricing";
 
 const A = "/template-previews/_assets";
 
@@ -29,8 +29,8 @@ const PlacesterNote = ({ className = "" }: { className?: string }) => (
   </p>
 );
 
-const templateFrom = `$${formatPrice(packages.find((p) => p.id === "template")?.price ?? 0)}`;
-const customFrom = `$${formatPrice(packages.find((p) => p.id === "custom")?.price ?? 0)}`;
+const templateFrom = startingAtLower(packages.find((p) => p.id === "template")?.price ?? 0);
+const customFrom = startingAtLower(packages.find((p) => p.id === "custom")?.price ?? 0);
 
 // Real-estate-specific face-off rows.
 const faceoff: { label: string; rent: string; own: string }[] = [
@@ -55,7 +55,7 @@ const ownList = [
   "You own the site, the code, and the content outright",
   "Your domain, your hosting, your leads — fully portable",
   "A custom design built around your market and brand",
-  `Pay once to own · optional ${hostingPlan.priceLabel}/mo support, cancel anytime`,
+  `Pay once to own · ${hostingPlan.availability.toLowerCase()}, cancel anytime`,
 ];
 
 function FaceOff() {
@@ -273,7 +273,7 @@ export function OwnVsRent({ variant = "section" }: { variant?: "section" | "page
               {
                 h: "Own it with Pilk.ai",
                 v: "One build",
-                s: `From ${templateFrom} (template) to ${customFrom}+ (custom) — often less than your commission on a single sale.`,
+                s: `Templates ${templateFrom}, custom builds ${customFrom}, quoted in writing — often less than your commission on a single sale.`,
               },
             ].map((c, i) => (
               <Reveal key={c.h} delay={i * 70}>

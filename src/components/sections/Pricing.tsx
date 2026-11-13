@@ -7,6 +7,7 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Button } from "@/components/ui/Button";
 import { trackEvent } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
+import { QUOTE_ONLY_NOTE, startingAt } from "@/lib/pricing";
 
 export function Pricing() {
   return (
@@ -37,7 +38,10 @@ export function Pricing() {
                 )}
               </div>
 
-              <p className="mt-4 font-display text-3xl font-semibold">{pkg.priceLabel}</p>
+              <p className="mt-4 font-display text-2xl font-semibold">
+                {startingAt(pkg.price)}
+                {pkg.priceUnit && <span className="block text-sm font-normal text-muted">{pkg.priceUnit}</span>}
+              </p>
               <p className="mt-2 text-sm text-muted">{pkg.summary}</p>
 
               <ul className="mt-6 flex flex-1 flex-col gap-3 text-sm">
@@ -65,11 +69,11 @@ export function Pricing() {
 
         <div className="mt-6 flex flex-col gap-6 rounded-md border border-line bg-surface p-8 md:flex-row md:items-center md:justify-between">
           <div className="md:max-w-xl">
-            <div className="flex items-baseline gap-2">
+            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
               <h3 className="text-xl font-medium">{hostingPlan.name}</h3>
-              <span className="font-display text-2xl font-semibold">
-                {hostingPlan.priceLabel}
-                <span className="text-base text-muted">{hostingPlan.priceSuffix}</span>
+              <span className="text-sm text-muted">
+                {hostingPlan.availability}, {hostingPlan.priceLabel.toLowerCase()}
+                {hostingPlan.priceSuffix}
               </span>
             </div>
             <p className="mt-3 text-sm text-muted">{hostingPlan.summary}</p>
@@ -103,7 +107,9 @@ export function Pricing() {
           ))}
         </div>
 
-        <p className="mt-6 max-w-xl text-xs text-muted">{site.pricingDisclaimer}</p>
+        <p className="mt-6 max-w-xl text-xs text-muted">
+          {site.pricingDisclaimer} {QUOTE_ONLY_NOTE}
+        </p>
       </Container>
     </section>
   );

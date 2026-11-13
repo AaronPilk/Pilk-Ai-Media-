@@ -4,9 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { templates } from "@/content/templates";
+import { templates, templatePriceLabel } from "@/content/templates";
 import { getHelixTransform } from "@/lib/get-helix-transform";
-import { formatPrice } from "@/lib/utils";
 import { Container } from "@/components/ui/Container";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { FauxBrowser } from "@/components/templates/FauxBrowser";
@@ -105,9 +104,7 @@ export function TemplateHelix() {
           <span className="eyebrow opacity-70">{activeTpl.label}</span>
           <h3 className="mt-2 font-display text-3xl font-semibold">{activeTpl.name}</h3>
           <p className="mt-1 text-sm text-muted">
-            {activeTpl.price > 0
-              ? `Starting at $${formatPrice(activeTpl.price)}`
-              : "Scope-based pricing"}
+            {templatePriceLabel(activeTpl)}
           </p>
         </div>
       </section>
@@ -127,7 +124,7 @@ export function TemplateHelix() {
                 <div className="mt-3 flex items-baseline justify-between">
                   <span className="font-medium">{tpl.name}</span>
                   <span className="text-sm text-muted">
-                    {tpl.price > 0 ? `$${formatPrice(tpl.price)}` : "Custom"}
+                    {templatePriceLabel(tpl)}
                   </span>
                 </div>
               </Link>

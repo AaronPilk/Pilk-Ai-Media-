@@ -1,4 +1,5 @@
 import type { TemplateCategory, WebsiteTemplate } from "@/types/template";
+import { QUOTED_PER_PROJECT, startingAt } from "../lib/pricing";
 
 export const templateCategories: { id: TemplateCategory | "all"; label: string }[] =
   [
@@ -115,14 +116,13 @@ export const templates: WebsiteTemplate[] = [
     shortDescription:
       "A trust-driven teal lending site with loan programs, a working payment calculator, and a clean application path.",
     price: 500,
-    priceLabel: "$500 + $100/mo hosting",
     pages: 6,
     timeline: "14-day build available",
     featured: true,
     liveUrl: "/template-previews/mortgage-broker/",
     preview: { desktop: "/template-previews/mortgage-broker/desktop.jpg" },
     features: ["Lender homepage", "Loan programs", "Payment calculator", "Reviews", "Application form", "GoHighLevel-ready"],
-    upgrades: ["Full GHL build-out", "MLS connection (+$500)", "Automated follow-up", "Rate feed"],
+    upgrades: ["Full GHL build-out", "MLS connection", "Automated follow-up", "Rate feed"],
   },
   ...([
     ["rate-ready", "RateReady", "#2563eb", "Fintech-modern and crisp — electric blue on white, built for speed-to-close messaging."],
@@ -147,14 +147,13 @@ export const templates: WebsiteTemplate[] = [
     accent,
     shortDescription,
     price: 500,
-    priceLabel: "$500 + $100/mo hosting",
     pages: 6,
     timeline: "14-day build available",
     featured: true,
     liveUrl: `/template-previews/${slug}/`,
     preview: {},
     features: ["Lender homepage", "Loan programs", "Working payment calculator", "Reviews", "Application form", "GoHighLevel-ready"],
-    upgrades: ["Full GHL build-out", "MLS connection (+$500)", "Automated follow-up", "Custom copywriting"],
+    upgrades: ["Full GHL build-out", "MLS connection", "Automated follow-up", "Custom copywriting"],
   })),
   {
     slug: "single-property",
@@ -182,7 +181,6 @@ export const templates: WebsiteTemplate[] = [
     shortDescription:
       "A full property-management / rentals build — featured rentals, owner and tenant portals, and application paths. Every property-management site is custom-scoped.",
     price: 0,
-    priceLabel: "Custom · contact for pricing",
     pages: 7,
     timeline: "10–14 day build available",
     featured: true,
@@ -200,7 +198,7 @@ export const templates: WebsiteTemplate[] = [
     shortDescription:
       "A dedicated page for one listing — we build a fresh page for each of your properties as they come in. The affordable, per-listing option for agents.",
     price: 250,
-    priceLabel: "$250 per listing",
+    priceUnit: "per listing",
     pages: 1,
     timeline: "2–3 day build available",
     featured: true,
@@ -227,6 +225,11 @@ export const templates: WebsiteTemplate[] = [
     upgrades: [],
   },
 ];
+
+/** "Starting at $1,000", or "Quoted per project" when there's no starting figure. */
+export function templatePriceLabel(t: Pick<WebsiteTemplate, "price" | "priceUnit">): string {
+  return t.price > 0 ? startingAt(t.price, t.priceUnit) : QUOTED_PER_PROJECT;
+}
 
 export function getTemplate(slug: string): WebsiteTemplate | undefined {
   return templates.find((t) => t.slug === slug);

@@ -9,13 +9,14 @@ import {
   templateCategories,
   getTemplate,
   getRelatedTemplates,
+  templatePriceLabel,
   templateProjectType,
 } from "@/content/templates";
 import { site } from "@/content/site";
-import { everyBuildIncludes, timelineNote } from "@/content/packages";
+import { everyBuildIncludes, hostingPlan, timelineNote } from "@/content/packages";
+import { QUOTE_ONLY_NOTE } from "@/lib/pricing";
 import { buildMetadata, breadcrumbNode, pageGraph } from "@/lib/metadata";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { formatPrice } from "@/lib/utils";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { ResponsivePreview } from "@/components/templates/ResponsivePreview";
@@ -111,9 +112,7 @@ export default async function TemplateDetailPage({
               <p className="mt-4 max-w-xl text-lg text-muted">{tpl.shortDescription}</p>
             </div>
             <div className="text-right">
-              <p className="font-display text-3xl font-semibold">
-                {tpl.price > 0 ? `From $${formatPrice(tpl.price)}` : "Scope-based"}
-              </p>
+              <p className="font-display text-2xl font-semibold sm:text-3xl">{templatePriceLabel(tpl)}</p>
               <p className="text-sm text-muted">{tpl.timeline}</p>
             </div>
           </div>
@@ -135,7 +134,7 @@ export default async function TemplateDetailPage({
               </Button>
             ) : (
               <Button href={`/start/${tpl.slug}`} variant="primary" withArrow>
-                Order this template
+                Request this template
               </Button>
             )}
             <TemplatePreviewButton template={tpl} />
@@ -153,8 +152,9 @@ export default async function TemplateDetailPage({
 
           {!isCustom && (
             <p className="mt-4 max-w-xl text-sm text-muted">
-              How it works: pick this template, send us your logo, photos, and any copy on the next
-              screen, and we build your site with your content. Build time for this template:{" "}
+              How it works: request this template and send us your logo, photos, and any copy on the
+              next screen. We reply with a written quote, and once you approve it and pay the invoice,
+              we build your site with your content. Build time for this template:{" "}
               {buildDays(tpl.timeline)}. {timelineNote}
             </p>
           )}
@@ -205,8 +205,8 @@ export default async function TemplateDetailPage({
                   ))}
                 </ul>
                 <p className="mt-6 text-sm text-muted">
-                  Want it kept fast, secure, and updated after launch? Add{" "}
-                  <span className="text-ink">hosting &amp; support for $199/mo</span>.
+                  Want it kept fast, secure, and updated after launch?{" "}
+                  <span className="text-ink">{hostingPlan.availability}</span>.
                 </p>
               </div>
               <div>
@@ -221,14 +221,16 @@ export default async function TemplateDetailPage({
                 </ul>
                 <div className="mt-6">
                   <Button href={`/start/${tpl.slug}`} variant="primary" withArrow>
-                    Order this template
+                    Request this template
                   </Button>
                 </div>
               </div>
             </div>
           )}
 
-          <p className="mt-12 max-w-xl text-xs text-muted">{site.pricingDisclaimer}</p>
+          <p className="mt-12 max-w-xl text-xs text-muted">
+            {site.pricingDisclaimer} {QUOTE_ONLY_NOTE}
+          </p>
         </Container>
       </section>
 

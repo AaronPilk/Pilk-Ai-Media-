@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { site } from "@/content/site";
 import { faq } from "@/content/faq";
+import { mortgagePackage } from "@/content/packages";
+import { startingAtLower } from "@/lib/pricing";
 import {
   serviceCatalog,
   type Service,
@@ -58,7 +60,7 @@ export function buildMetadata({
   path?: string;
   /** Path under /public or an absolute URL. */
   image?: string;
-  /** Utility pages (checkout, intake forms, expired promos) stay out of search. */
+  /** Utility pages (redirect stubs, request forms, expired promos) stay out of search. */
   noindex?: boolean;
 }): Metadata {
   const fullTitle =
@@ -262,6 +264,8 @@ export function siteFaqNode(): Node {
 }
 
 export function mortgageServiceNode(): Node {
+  // Quote-only: a starting figure as PriceSpecification.minPrice, never a
+  // fixed Offer price, and no checkout URL.
   return {
     "@type": "Service",
     "@id": `${absoluteUrl("/mortgage/")}#service`,
@@ -269,13 +273,15 @@ export function mortgageServiceNode(): Node {
     serviceType: "Website design for mortgage professionals",
     provider: { "@id": ORG_ID },
     url: absoluteUrl("/mortgage/"),
-    description:
-      "15 fully built mortgage website templates for loan officers, brokers, and brokerages. $500 one-time build plus $100/mo hosting and support.",
+    description: `15 fully built mortgage website templates for loan officers, brokers, and brokerages, ${startingAtLower(mortgagePackage.price)}. Every project is quoted in writing; hosting and support plans are available.`,
     offers: {
       "@type": "Offer",
-      price: "500",
-      priceCurrency: "USD",
-      description: "$500 one-time build plus $100/mo hosting and support",
+      priceSpecification: {
+        "@type": "PriceSpecification",
+        minPrice: mortgagePackage.price,
+        priceCurrency: "USD",
+      },
+      description: `Mortgage website build, ${startingAtLower(mortgagePackage.price)}, quoted in writing`,
     },
   };
 }

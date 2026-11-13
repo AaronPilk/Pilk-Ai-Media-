@@ -1,72 +1,22 @@
-// Single source of truth for checkout pricing — imported by the /checkout UI
-// AND recomputed server-side in functions/api/checkout.ts. Never trust the
-// client's amounts; the Function recomputes from the selected add-on keys.
+// pilk.ai no longer sells online: every project is quoted, then invoiced.
+// What is left here is only what functions/api/stripe-webhook.ts needs to keep
+// serving hosting plans that customers started through the former online
+// checkout (their subscription events and order emails), plus the Terms'
+// paragraph that keeps those plans' terms. No page shows these figures, and no
+// new purchase can start: /api/checkout answers 410. Remove it together with
+// the webhook once no such plan is active.
 
 export const CHECKOUT = {
   currency: "usd",
-  base: 500, // one-time website build (USD)
-  addonPrice: 100, // each add-on (USD)
-  feeRate: 0.1, // 10% fees & processing on the whole one-time order
-  monthly: 100, // recurring hosting (USD/mo)
-  monthlyTrialDays: 30, // first monthly charge lands 30 days after the initial payment
+  feeRate: 0.1, // the former checkout's fees & processing line; only quoted in old-order emails
+  monthly: 100, // recurring hosting (USD/mo) for plans started at the former checkout
+  monthlyTrialDays: 30, // first monthly charge landed 30 days after the build payment
 } as const;
 
 /**
- * The required, unticked box at checkout (ROSCA and state auto-renewal laws).
- * The checkout function refuses to start a payment without it, and the
- * version travels to Stripe as Checkout Session metadata. A wording change
- * means a new version key.
+ * The box those customers ticked before paying. The version and wording stay
+ * here, unchanged, so the webhook's order email can quote exactly what was
+ * agreed to.
  */
 export const RENEWAL_CONSENT_VERSION = "renewal-v1-2026-11-13";
 export const RENEWAL_CONSENT_TEXT = `I agree to the $${CHECKOUT.monthly}/month hosting plan starting ${CHECKOUT.monthlyTrialDays} days after purchase, renewing monthly until I cancel.`;
-
-/** The date of the first monthly charge for a purchase made at `from`. */
-export function firstMonthlyChargeDate(from: Date = new Date()): Date {
-  return new Date(from.getTime() + CHECKOUT.monthlyTrialDays * 24 * 60 * 60 * 1000);
-}
-
-export type AddonKey = "rush" | "ghl" | "analytics" | "meta" | "posthog";
-
-export const ADDONS: {
-  key: AddonKey;
-  label: string;
-  blurb: string;
-}[] = [
-  {
-    key: "rush",
-    label: "Rush delivery — done in 5 days",
-    blurb:
-      "Jump the line: we build and deliver your mortgage site in 5 days instead of the standard 14, counted from when we have your content and approvals.",
-  },
-  {
-    key: "ghl",
-    label: "GoHighLevel connection",
-    blurb:
-      "We wire your site's forms straight into your GoHighLevel sub-account so every lead lands in your CRM.",
-  },
-  {
-    key: "analytics",
-    label: "Google Analytics + Google tags",
-    blurb: "GA4 and the Google tag installed and verified for full traffic + conversion tracking.",
-  },
-  {
-    key: "meta",
-    label: "Meta Pixel",
-    blurb: "Meta Pixel installed so your ads can track conversions and retarget visitors.",
-  },
-  {
-    key: "posthog",
-    label: "PostHog analytics",
-    blurb:
-      "Session-level analytics — see exactly what visitors do, where they drop off, and full data reporting.",
-  },
-];
-
-export function priceCents(selected: AddonKey[]) {
-  const count = selected.length;
-  const subtotal = CHECKOUT.base + CHECKOUT.addonPrice * count;
-  const subtotalCents = subtotal * 100;
-  const feeCents = Math.round(subtotalCents * CHECKOUT.feeRate);
-  const totalCents = subtotalCents + feeCents;
-  return { count, subtotal, subtotalCents, feeCents, totalCents };
-}

@@ -1,25 +1,23 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { buildMetadata } from "@/lib/metadata";
-import { Container } from "@/components/ui/Container";
-import { CheckoutClient } from "@/components/checkout/CheckoutClient";
+import { RedirectNotice } from "@/components/layout/RedirectNotice";
 
+// There is no online checkout any more: every project is quoted first. Old
+// links and bookmarks land here and are sent to the project brief.
 export const metadata: Metadata = buildMetadata({
-  title: "Checkout — Mortgage Website",
-  description:
-    "Secure Stripe checkout for your mortgage website: $500 build, 10% fees & processing, optional add-ons. $100/mo hosting starts 30 days later.",
+  title: "Get a quote",
+  description: "Pilk.ai quotes every project in writing. Tell us about your website and we'll send a quote.",
   path: "/checkout",
   noindex: true,
 });
 
 export default function CheckoutPage() {
   return (
-    <section className="section relative z-10 pt-[clamp(7rem,16vh,10rem)]">
-      <Container>
-        <Suspense fallback={null}>
-          <CheckoutClient />
-        </Suspense>
-      </Container>
-    </section>
+    <RedirectNotice eyebrow="Get a quote" heading="We quote every project now.">
+      <p>
+        Nothing is sold through this site. Tell us what you need and we&apos;ll send a written quote.
+        Taking you to the project brief…
+      </p>
+    </RedirectNotice>
   );
 }
