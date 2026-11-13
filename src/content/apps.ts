@@ -66,8 +66,6 @@ export const apps: AppProject[] = [
     summary:
       "A native mobile experience designed, built, and shipped by Pilk.ai — custom interface, smooth interaction, and a polished feel across iOS and Android.",
     features: ["Custom mobile UI", "Smooth, native-feel interaction", "iOS & Android", "Built for the App Store"],
-    cost: "$75,000",
-    costLabel: "App build cost",
     logo: "/apps/watchmen/logo.png",
     video: { src: "/apps/watchmen/demo.mp4", poster: "/apps/watchmen/poster.jpg" },
     shots: [

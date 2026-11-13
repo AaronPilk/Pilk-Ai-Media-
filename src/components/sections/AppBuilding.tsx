@@ -37,7 +37,7 @@ export function AppBuilding() {
             <Reveal delay={360}>
               <p className="mt-10 font-display text-2xl font-semibold">{pricingLabel}</p>
               <p className="mt-1 text-sm text-muted">
-                Live apps on the App Store &amp; Google Play — built by Pilk.ai.
+                Native iOS and Android apps, designed and built by Pilk.ai.
               </p>
               <StoreBadges
                 appStore={hero.stores.appStore}
