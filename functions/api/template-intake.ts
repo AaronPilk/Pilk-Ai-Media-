@@ -1,8 +1,9 @@
 /// <reference types="@cloudflare/workers-types" />
 // Native Cloudflare Pages Function — handles POST /api/template-intake (multipart).
-// A client picks a template, fills the intake form, and uploads assets. We
-// validate, store files in private R2 (backup), and email the studio everything
-// (copy + the files as attachments) so the template can be duplicated.
+// A visitor picks a template and sends a quote request with their details and
+// assets. Nothing is sold or charged. We validate, store files in private R2
+// (backup), email the studio everything (copy + the files as attachments) so a
+// quote can be written, and hand the lead to GoHighLevel after responding.
 import {
   INTAKE_CONSENT_LABEL,
   templateIntakeSchema,
@@ -11,17 +12,39 @@ import {
   INTAKE_MAX_FILE_SIZE,
   INTAKE_MAX_TOTAL_SIZE,
 } from "../../src/lib/template-intake-schema";
-import { addGhlNote, sendToGhl } from "./_ghl";
-import { SMS_CONSENT_TAG, consentEmailHtml, consentNoteText, smsConsentRecord } from "./_consent";
+import { syncLeadToGhl, type GhlEnv } from "./_ghl";
+import {
+  SMS_CONSENT_TAG,
+  composeLeadNote,
+  consentEmailHtml,
+  consentNoteText,
+  smsConsentRecord,
+} from "./_consent";
+import { checkRateLimit, rateLimitedResponse, type RateLimitEnv } from "./_ratelimit";
+import { attributionLines, line, pageUrlOf, pathOf, quoteContext } from "./_lead-context";
 
-type Env = {
+type Env = GhlEnv & RateLimitEnv & {
   PROJECT_UPLOADS?: R2Bucket;
   RESEND_API_KEY?: string;
   LEADS_FROM_EMAIL?: string;
   LEADS_NOTIFICATION_EMAIL?: string;
-  GHL_PIT_TOKEN?: string;
-  GHL_LOCATION_ID?: string;
 };
+
+const FORM_LABEL = "Template request";
+const SOCIAL = /(^|\.)(facebook|instagram|linkedin|tiktok|youtube|twitter|x|threads|pinterest)\.com$/i;
+
+/** The first link that looks like their own website rather than a social profile. */
+function websiteOf(links: string[]): string {
+  for (const raw of links) {
+    try {
+      const u = new URL(/^https?:\/\//i.test(raw) ? raw : `https://${raw}`);
+      if (!SOCIAL.test(u.hostname)) return u.toString().slice(0, 300);
+    } catch {
+      /* not a URL */
+    }
+  }
+  return "";
+}
 
 const ALLOWED = new Set(INTAKE_ALLOWED_UPLOAD_TYPES);
 const UPLOAD_FIELDS = ["logo", "headshot", "hero", "gallery", "brand"];
@@ -79,6 +102,7 @@ const DO_WHAT_LABEL: Record<string, string> = {
 export const onRequestPost = async (context: {
   request: Request;
   env: Env;
+  waitUntil?: (promise: Promise<unknown>) => void;
 }): Promise<Response> => {
   const { request, env } = context;
   try {
@@ -104,6 +128,10 @@ export const onRequestPost = async (context: {
     // learns nothing from a validation error. Nothing is stored or sent.
     const trap = (rawPayload as { honeypot?: unknown } | null)?.honeypot;
     if (typeof trap === "string" && trap.length > 0) return json({ success: true });
+
+    // Shares the per-IP budget with /api/leads; only accepted requests count.
+    const rl = await checkRateLimit(request, "forms", env);
+    if (rl.limited) return rateLimitedResponse(rl);
 
     const parsed = templateIntakeSchema.safeParse(rawPayload);
     if (!parsed.success) {
@@ -142,6 +170,9 @@ export const onRequestPost = async (context: {
       );
     }
 
+    // Accepted: from here the request is emailed and sent on, so it counts.
+    await rl.record();
+
     const submissionId = crypto.randomUUID();
     const receivedAt = new Date().toISOString();
     const sms = smsConsentRecord(request, data, receivedAt);
@@ -171,6 +202,8 @@ export const onRequestPost = async (context: {
     const services = (data.services ?? []).join(", ");
     const links = (data.links ?? []).filter(Boolean).join("\n");
     const displayEmail = data.useAccountEmail === false ? data.displayEmail : data.email;
+    const quote = quoteContext(data.templateSlug);
+    const termsLine = `ticked “${INTAKE_CONSENT_LABEL}” and submitted below “By submitting, you agree to the Terms of Service and acknowledge the Privacy Policy.”`;
 
     // Email the studio with everything + attachments.
     if (env.RESEND_API_KEY && env.LEADS_FROM_EMAIL && env.LEADS_NOTIFICATION_EMAIL) {
@@ -182,8 +215,8 @@ export const onRequestPost = async (context: {
       }).join("");
 
       const internalHtml = `
-        <h2 style="margin:0 0 4px">Template order — ${esc(tplName)}</h2>
-        <p style="margin:0 0 12px;color:#666">Slug: <code>${esc(data.templateSlug)}</code></p>
+        <h2 style="margin:0 0 4px">Template request — ${esc(tplName)}</h2>
+        <p style="margin:0 0 12px;color:#666">Slug: <code>${esc(data.templateSlug)}</code>${quote.monetaryValue ? ` · starting at $${quote.monetaryValue.toLocaleString("en-US")}` : ""} · Quote request: nothing was charged. Send a written quote.</p>
 
         <h3 style="margin:16px 0 4px">Contact</h3>
         ${row("Name", data.name)}
@@ -212,7 +245,7 @@ export const onRequestPost = async (context: {
 
         <h3 style="margin:16px 0 4px">Uploaded files (${prepared.length})</h3>
         ${filesByGroup || "<p style='color:#888'>None uploaded.</p>"}
-        ${consentEmailHtml(sms, `ticked “${INTAKE_CONSENT_LABEL}” and submitted below “By submitting, you agree to the Terms of Service and acknowledge the Privacy Policy.”`)}
+        ${consentEmailHtml(sms, termsLine)}
         <hr style="margin:16px 0;border:none;border-top:1px solid #eee"/>
         <p style="color:#888;font-size:12px">Source: ${esc(data.utmSource) || "direct"} / ${esc(data.utmCampaign) || "—"} · Landing: ${esc(data.landingPage) || "—"} · Received: ${esc(receivedAt)}</p>
       `;
@@ -227,16 +260,16 @@ export const onRequestPost = async (context: {
         });
 
       const clientHtml = `
-        <h2>Thanks, ${esc(data.name)} — we've got your details</h2>
-        <p>You chose the <strong>${esc(tplName)}</strong> design. We received your info${prepared.length ? ` and ${prepared.length} file${prepared.length === 1 ? "" : "s"}` : ""}, and we'll start building your site. Watch your inbox for your first preview.</p>
+        <h2>Thanks, ${esc(data.name)} — we've got your request</h2>
+        <p>You asked about the <strong>${esc(tplName)}</strong> design. We received your info${prepared.length ? ` and ${prepared.length} file${prepared.length === 1 ? "" : "s"}` : ""}. We'll look it over and email you a written quote. Nothing has been charged, and nothing will be until you approve the quote and pay the invoice.</p>
         <p>— Pilk.ai</p>
         <p style="color:#888;font-size:12px">Pilk.ai is a brand of Pilk Consulting LLC.</p>
       `;
 
       try {
-        const r = await send(env.LEADS_NOTIFICATION_EMAIL, `Template order — ${tplName} — ${data.name}`, internalHtml, attachments);
+        const r = await send(env.LEADS_NOTIFICATION_EMAIL, `Template request — ${tplName} — ${data.name}`, internalHtml, attachments);
         if (!r.ok) console.error("[template-intake] resend error", r.status, (await r.text()).slice(0, 400));
-        await send(data.email, `We received your ${tplName} order — Pilk.ai`, clientHtml).catch(() => {});
+        await send(data.email, `We received your ${tplName} request — Pilk.ai`, clientHtml).catch(() => {});
       } catch (e) {
         console.error("[template-intake] send failed", e);
       }
@@ -244,17 +277,65 @@ export const onRequestPost = async (context: {
       console.log("[template-intake]", tplName, data.email, `${prepared.length} files`, `sms:${sms.given ? "yes" : "no"}`);
     }
 
-    // GoHighLevel (best effort — hot lead into the CRM). The consent record
-    // goes on the contact as a note, so it survives tag changes.
-    const contactId = await sendToGhl(env, {
-      name: data.name,
-      companyName: data.businessName,
-      email: data.email,
-      phone: data.phone,
-      source: "pilk.ai template intake",
-      tags: ["pilk-template-intake", data.templateSlug || "", sms.given ? SMS_CONSENT_TAG : ""],
+    // GoHighLevel, after the response (the email above is the authoritative
+    // copy). A template request is a full intake, so its opportunity goes to
+    // Intake Completed, valued at the template's starting figure.
+    const pageUrl = sms.given ? sms.pageUrl : pageUrlOf(data.pageUrl, request.headers.get("referer"));
+    const formLabel = `${FORM_LABEL} (${tplName})`;
+    const ghlWork = syncLeadToGhl(env, {
+      contact: {
+        name: data.name,
+        companyName: data.businessName,
+        email: data.email,
+        phone: data.phone || undefined,
+        source: "pilk.ai template intake",
+      },
+      tags: ["pilk-template-intake", data.templateSlug || "", "pilk-form-template-request", sms.given ? SMS_CONSENT_TAG : ""],
+      fields: {
+        templateChosen: data.templateSlug,
+        serviceArea: data.serviceArea,
+        websiteUrl: websiteOf(data.links ?? []),
+        utmSource: data.utmSource,
+        utmMedium: data.utmMedium,
+        utmCampaign: data.utmCampaign,
+        googleClickId: data.gclid,
+        sourcePath: pathOf(pageUrl) || pathOf(data.landingPage),
+        leadIntent: "template-request",
+        // Only when consent was given now: a later form without it never clears these.
+        ...(sms.given ? { consentDisclosureVersion: sms.version, consentReceivedAt: sms.at } : {}),
+      },
+      opportunity: {
+        name: `${data.name} — ${FORM_LABEL}${quote.suffix}`,
+        stage: "intake-completed",
+        monetaryValue: quote.monetaryValue,
+      },
+      note: composeLeadNote(
+        `pilk.ai lead: ${formLabel}\nReceived: ${receivedAt}`,
+        consentNoteText(sms, formLabel, termsLine),
+        [
+          line("Name", data.name),
+          line("Email", data.email),
+          line("Phone", data.phone),
+          line("Business", data.businessName),
+          line("What they do", doWhat),
+          line("Title", data.title),
+          line("NMLS #", data.nmls),
+          line("Service area", data.serviceArea),
+          line("About", data.about),
+          line("Services", services),
+          line("Display phone", data.displayPhone || data.phone),
+          line("Display email", displayEmail),
+          line("Links", data.links),
+          line("Notes", data.notes),
+          data.sendPhotosLater ? "Photos: will send later" : "",
+          line("Files", prepared.map((f) => `${f.group}: ${f.name} (${Math.round(f.size / 1024)} KB)`)),
+          "",
+          ...attributionLines(data, pageUrl),
+        ]
+      ),
     });
-    if (sms.given) await addGhlNote(env, contactId, consentNoteText(sms, `Template order (${tplName})`));
+    if (context.waitUntil) context.waitUntil(ghlWork);
+    else await ghlWork;
 
     return json({ success: true });
   } catch (err) {

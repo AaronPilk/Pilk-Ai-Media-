@@ -7,6 +7,7 @@ import { SmsConsentCheckbox } from "@/components/legal/SmsConsentCheckbox";
 import { useUTMParameters } from "@/hooks/useUTMParameters";
 import { SMS_CONSENT_VERSION } from "@/lib/sms-consent";
 import { currentPageUrl } from "@/lib/page-url";
+import { readSubmitResult } from "@/lib/form-response";
 
 const inputCls =
   "w-full rounded-sm border border-line bg-surface px-4 py-3 text-sm placeholder:text-muted focus:border-accent";
@@ -66,9 +67,9 @@ export function InquiryForm({
           ...attribution,
         }),
       });
-      const json = await res.json().catch(() => ({ success: res.ok }));
-      if (!res.ok || json.success === false) {
-        setError(json.error ?? "Something went wrong. Please try again.");
+      const result = await readSubmitResult(res, "Something went wrong. Please try again.");
+      if (!result.ok) {
+        setError(result.error);
         setSending(false);
         return;
       }

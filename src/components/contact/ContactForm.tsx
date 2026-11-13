@@ -14,6 +14,7 @@ import { FormLegalNotice } from "@/components/legal/FormLegalNotice";
 import { SmsConsentCheckbox } from "@/components/legal/SmsConsentCheckbox";
 import { SMS_CONSENT_VERSION } from "@/lib/sms-consent";
 import { currentPageUrl } from "@/lib/page-url";
+import { readSubmitResult } from "@/lib/form-response";
 
 const inputCls =
   "w-full rounded-sm border border-line bg-surface px-4 py-3 text-sm placeholder:text-muted focus:border-accent";
@@ -37,6 +38,7 @@ export function ContactForm({ realEstate = false }: { realEstate?: boolean }) {
 
   const qpProjectType = params.get("projectType") as LeadInput["projectType"] | null;
   const qpTemplate = params.get("template") ?? "";
+  const qpPackage = (params.get("package") ?? "").slice(0, 40);
 
   const {
     register,
@@ -52,6 +54,7 @@ export function ContactForm({ realEstate = false }: { realEstate?: boolean }) {
       smsConsent: false,
       projectType: qpProjectType ?? (realEstate ? "template" : "unsure"),
       selectedTemplate: qpTemplate,
+      packageId: qpPackage,
       currentWebsite: "",
       industry: realEstate ? "Real Estate" : "",
       needsIdx: false,
@@ -102,9 +105,9 @@ export function ContactForm({ realEstate = false }: { realEstate?: boolean }) {
           pageUrl: currentPageUrl(),
         }),
       });
-      const json = await res.json();
-      if (!res.ok || !json.success) {
-        setServerError(json.error ?? "Something went wrong. Please try again.");
+      const result = await readSubmitResult(res, "Something went wrong. Please try again.");
+      if (!result.ok) {
+        setServerError(result.error);
         trackEvent("contact_form_error");
         return;
       }

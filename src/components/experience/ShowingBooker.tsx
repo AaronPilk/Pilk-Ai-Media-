@@ -5,6 +5,7 @@ import { FormLegalNotice } from "@/components/legal/FormLegalNotice";
 import { useUTMParameters } from "@/hooks/useUTMParameters";
 import { SHOWING_TIME_SLOTS as TIME_SLOTS } from "@/lib/quick-lead-schema";
 import { currentPageUrl } from "@/lib/page-url";
+import { readSubmitResult } from "@/lib/form-response";
 
 const LISTING = "20 Bayshore Terrace";
 
@@ -64,9 +65,9 @@ export function ShowingBooker({ ctaLabel }: { ctaLabel: string }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      const json = await res.json().catch(() => ({ success: res.ok }));
-      if (!res.ok || json.success === false) {
-        setError(json.error ?? "Something went wrong. Please try again.");
+      const result = await readSubmitResult(res, "Something went wrong. Please try again.");
+      if (!result.ok) {
+        setError(result.error);
         setSending(false);
         return;
       }

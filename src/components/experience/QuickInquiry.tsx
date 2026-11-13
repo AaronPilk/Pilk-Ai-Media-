@@ -4,6 +4,7 @@ import { useState } from "react";
 import { FormLegalNotice } from "@/components/legal/FormLegalNotice";
 import { useUTMParameters } from "@/hooks/useUTMParameters";
 import { currentPageUrl } from "@/lib/page-url";
+import { readSubmitResult } from "@/lib/form-response";
 
 /**
  * Floating "Request info" button + compact quick-inquiry popover for the
@@ -50,9 +51,9 @@ export function QuickInquiry({ source = "Interactive listing experience" }: { so
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      const json = await res.json().catch(() => ({ success: res.ok }));
-      if (!res.ok || json.success === false) {
-        setError(json.error ?? "Something went wrong. Please try again.");
+      const result = await readSubmitResult(res, "Something went wrong. Please try again.");
+      if (!result.ok) {
+        setError(result.error);
         setSending(false);
         return;
       }

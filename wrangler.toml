@@ -5,12 +5,28 @@ compatibility_flags = ["nodejs_compat"]
 # The /functions folder is auto-deployed as edge functions (handles /api/leads).
 pages_build_output_dir = "out"
 
-# Non-secret config for the lead + template-intake email functions.
+# Non-secret config for the lead + template-request functions.
 # (Dashboard vars are ignored when this file exists, so they live here.)
 # The RESEND_API_KEY is a real secret — set it with:
 #   npx wrangler pages secret put RESEND_API_KEY --project-name pilk-ai-media
 [vars]
 LEADS_FROM_EMAIL = "Pilk.ai <orders@pilk.ai>"
 LEADS_NOTIFICATION_EMAIL = "Aaron@pilk.ai"
-# GoHighLevel sub-account (not secret). The PIT token is a secret set via wrangler.
+# GoHighLevel sub-account "Pilk Ai" (not secret). The PIT token is a secret set
+# via wrangler (GHL_PIT_TOKEN). docs/integrations/ghl.md explains each id.
 GHL_LOCATION_ID = "rg3WUxqvDHrkiyBmEiCV"
+# Pipeline "PILK AI" and the stages the forms use. Change these here, no code.
+GHL_PIPELINE_ID = "b5MOhnwFWpcxyE2s9HS6"
+GHL_STAGE_NEW_LEAD = "d59f55de-0454-4a91-97e0-db0d22912c3a"
+GHL_STAGE_INTAKE_COMPLETED = "c6b24259-eb67-4b38-98ec-ff3f288a7e43"
+GHL_STAGE_LOST = "64681146-391c-4e54-8061-61abc7dd1704"
+# Every stage in pipeline order. An opportunity is only ever moved forward
+# along this list (a stage not on it is never moved). In order: New Lead,
+# Intake Completed, Awaiting Payment, Paid — Website, In Build,
+# Delivered / Live, GHL Build-Out (Upsell), Active Client ($100/mo),
+# Lost / No Response.
+GHL_STAGE_ORDER = "d59f55de-0454-4a91-97e0-db0d22912c3a,c6b24259-eb67-4b38-98ec-ff3f288a7e43,f8e5afbf-94f9-476f-b0aa-fc1be8c36b9a,56014ae0-4a44-4790-89f7-b002fd39bcd8,2a58c21b-e142-46b2-86ec-34d0d45f38b3,e57c3bd1-2560-4a05-ae0a-d283f84335b9,49083e8e-7259-4f29-a17f-0163c243c675,1da99b94-9f43-44b6-980e-262671844104,64681146-391c-4e54-8061-61abc7dd1704"
+# Accepted form submissions allowed per IP per window (/api/leads and
+# /api/template-intake share it). Behind the Cloudflare rate-limiting rule.
+FORM_RATE_LIMIT_MAX = "5"
+FORM_RATE_LIMIT_WINDOW_SECONDS = "600"

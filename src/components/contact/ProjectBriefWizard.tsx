@@ -26,6 +26,7 @@ import { ReviewStep } from "@/components/contact/steps/ReviewStep";
 import { ContactSuccess } from "@/components/contact/ContactSuccess";
 import { SMS_CONSENT_VERSION } from "@/lib/sms-consent";
 import { currentPageUrl } from "@/lib/page-url";
+import { readSubmitResult } from "@/lib/form-response";
 
 const STORAGE_KEY = "pilk-project-brief-draft";
 
@@ -53,6 +54,7 @@ export function ProjectBriefWizard() {
   const startedRef = useRef(false);
 
   const qpTemplate = params.get("template") ?? "";
+  const qpPackage = (params.get("package") ?? "").slice(0, 40);
   const qpTypeRaw = params.get("projectType");
   const validTypes = ["template", "premium-template", "custom", "redesign", "unsure"] as const;
   const qpType = (validTypes as readonly string[]).includes(qpTypeRaw ?? "")
@@ -62,7 +64,7 @@ export function ProjectBriefWizard() {
   const defaultValues: DefaultValues<ProjectBriefInput> = {
     firstName: "", lastName: "", email: "", phone: "", smsConsent: false, company: "", industry: "",
     currentWebsite: "", businessDescription: "", targetAudience: "",
-    projectType: qpType, selectedTemplate: qpTemplate, primaryGoal: "",
+    projectType: qpType, selectedTemplate: qpTemplate, packageId: qpPackage, primaryGoal: "",
     requiredPages: [], integrations: [], needsIdx: false,
     selectedPalette: "", preferredColors: [], styleDirection: "", styleKeywords: [],
     inspirationSites: [], budget: "", timeline: "", preferredContact: "email",
@@ -91,6 +93,7 @@ export function ProjectBriefWizard() {
         const draft = JSON.parse(raw) as Partial<ProjectBriefInput>;
         methods.reset({ ...defaultValues, ...draft });
         if (qpTemplate) methods.setValue("selectedTemplate", qpTemplate);
+        if (qpPackage) methods.setValue("packageId", qpPackage);
       }
     } catch {
       /* ignore corrupt draft */
@@ -161,9 +164,9 @@ export function ProjectBriefWizard() {
       files.forEach((file) => body.append("files", file));
 
       const res = await fetch("/api/leads", { method: "POST", body });
-      const json = await res.json();
-      if (!res.ok || !json.success) {
-        setServerError(json.error ?? "Unable to submit your website brief.");
+      const result = await readSubmitResult(res, "Unable to submit your website brief.");
+      if (!result.ok) {
+        setServerError(result.error);
         trackEvent("contact_form_error");
         return;
       }

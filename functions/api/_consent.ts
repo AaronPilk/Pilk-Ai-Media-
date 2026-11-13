@@ -101,8 +101,18 @@ export function consentEmailHtml(sms: SmsConsentRecord, termsLine: string): stri
   `;
 }
 
-/** Plain-text note for the GoHighLevel contact, written only when consent was given. */
-export function consentNoteText(sms: Extract<SmsConsentRecord, { given: true }>, formLabel: string): string {
+/** Plain-text consent record for the GoHighLevel note, whether or not texts were agreed. */
+export function consentNoteText(sms: SmsConsentRecord, formLabel: string, termsLine: string): string {
+  const terms = `Terms & Privacy: ${termsLine}`;
+  if (!sms.given) {
+    return [
+      sms.reason === "no-phone"
+        ? "SMS consent: no (no phone number given)"
+        : "SMS consent: NOT agreed (the optional box was not ticked). Don't text this number unless they ask you to.",
+      `Form: ${formLabel}`,
+      terms,
+    ].join("\n");
+  }
   return [
     "SMS consent: YES (optional box ticked on pilk.ai)",
     `Given: ${sms.at}`,
@@ -113,5 +123,20 @@ export function consentNoteText(sms: Extract<SmsConsentRecord, { given: true }>,
     `Wording shown: "${sms.text}"`,
     `IP address: ${sms.ip || "unknown"}`,
     `Browser: ${sms.userAgent || "unknown"}`,
+    terms,
   ].join("\n");
+}
+
+/**
+ * The GHL note: a heading, the consent record, then the submission. GHL notes
+ * are capped, so when a long brief doesn't fit, the submission is shortened and
+ * the consent record is always kept whole.
+ */
+export function composeLeadNote(heading: string, consent: string, details: string[], limit = 5000): string {
+  const head = `${heading}\n\n${consent}\n\nSubmission\n`;
+  const body = details.filter(Boolean).join("\n");
+  const room = limit - head.length;
+  if (body.length <= room) return head + body;
+  const marker = "\n… (shortened; the full submission is in the lead email)";
+  return head + body.slice(0, Math.max(0, room - marker.length)) + marker;
 }

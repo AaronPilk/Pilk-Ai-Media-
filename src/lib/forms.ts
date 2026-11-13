@@ -25,6 +25,8 @@ export const leadSchema = z.object({
   industry: z.string().trim().max(120).optional().or(z.literal("")),
   projectType: z.enum(["template", "premium-template", "custom", "redesign", "unsure"]),
   selectedTemplate: z.string().trim().max(120).optional().or(z.literal("")),
+  /** The pricing card the visitor came from (`?package=`), e.g. "mortgage". */
+  packageId: z.string().trim().max(40).optional().or(z.literal("")),
   budget: z.string().trim().max(120).optional().or(z.literal("")),
   timeline: z.string().trim().max(120).optional().or(z.literal("")),
   needsIdx: z.boolean().optional(),

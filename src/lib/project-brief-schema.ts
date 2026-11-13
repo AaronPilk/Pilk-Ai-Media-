@@ -52,6 +52,8 @@ export const projectBriefSchema = z.object({
   // Step 2 — project
   projectType: z.enum(["template", "premium-template", "custom", "redesign", "unsure"]),
   selectedTemplate: z.string().trim().max(120).optional().or(z.literal("")),
+  /** The pricing card the visitor came from (`?package=` on /contact/), e.g. "crm". */
+  packageId: z.string().trim().max(40).optional().or(z.literal("")),
   primaryGoal: z.string().trim().max(500).optional().or(z.literal("")),
   requiredPages: z.array(z.string().max(100)).max(30).optional(),
   integrations: z.array(z.string().max(100)).max(30).optional(),

@@ -3,7 +3,8 @@
 // Each form says which one it is with `formType`, and is validated with its own
 // SHARED schema (the component uses the same one), so a short form is never
 // held to the full brief's required fields. Stores uploads in private R2 when
-// bound, escapes email HTML, and records optional SMS consent.
+// bound, escapes email HTML, records optional SMS consent, limits submissions
+// per IP, and hands the lead to GoHighLevel after responding.
 import {
   projectBriefSchema,
   ALLOWED_UPLOAD_TYPES,
@@ -21,10 +22,18 @@ import {
   type ListingInquiryInput,
   type ListingShowingInput,
 } from "../../src/lib/quick-lead-schema";
-import { addGhlNote, sendToGhl } from "./_ghl";
-import { SMS_CONSENT_TAG, consentEmailHtml, consentNoteText, smsConsentRecord } from "./_consent";
+import { syncLeadToGhl, type GhlEnv, type OpportunityStage } from "./_ghl";
+import {
+  SMS_CONSENT_TAG,
+  composeLeadNote,
+  consentEmailHtml,
+  consentNoteText,
+  smsConsentRecord,
+} from "./_consent";
+import { checkRateLimit, rateLimitedResponse, type RateLimitEnv } from "./_ratelimit";
+import { attributionLines, line, pageUrlOf, pathOf, quoteContext, type QuoteContext } from "./_lead-context";
 
-type Env = {
+type Env = GhlEnv & RateLimitEnv & {
   PROJECT_UPLOADS?: R2Bucket;
   SUPABASE_URL?: string;
   SUPABASE_SERVICE_ROLE_KEY?: string;
@@ -32,8 +41,6 @@ type Env = {
   LEADS_FROM_EMAIL?: string;
   LEADS_NOTIFICATION_EMAIL?: string;
   CRM_WEBHOOK_URL?: string;
-  GHL_PIT_TOKEN?: string;
-  GHL_LOCATION_ID?: string;
 };
 
 const ALLOWED = new Set(ALLOWED_UPLOAD_TYPES);
@@ -56,6 +63,33 @@ const FORM_LABEL: Record<FormType, string> = {
   inquiry: "Quick inquiry",
   "listing-inquiry": "Demo listing: Request info",
   "listing-showing": "Demo listing: Book a showing",
+};
+
+// Per-form tag in GoHighLevel (added; existing tags are never removed).
+const FORM_TAG: Record<FormType, string> = {
+  "project-brief": "pilk-form-brief",
+  contact: "pilk-form-contact",
+  inquiry: "pilk-form-inquiry",
+  "listing-inquiry": "pilk-form-listing-inquiry",
+  "listing-showing": "pilk-form-listing-showing",
+};
+
+// Short label for the GHL opportunity name: "<Name> — <label> (<template>)".
+const OPPORTUNITY_LABEL: Record<FormType, string> = {
+  "project-brief": "Project brief",
+  contact: "Contact form",
+  inquiry: "Quick inquiry",
+  "listing-inquiry": "Listing demo inquiry",
+  "listing-showing": "Listing demo showing",
+};
+
+// The brief is a full intake; every other form is a first touch.
+const STAGE: Record<FormType, OpportunityStage> = {
+  "project-brief": "intake-completed",
+  contact: "new-lead",
+  inquiry: "new-lead",
+  "listing-inquiry": "new-lead",
+  "listing-showing": "new-lead",
 };
 
 // How each form asks for agreement to the Terms, for the consent record.
@@ -167,6 +201,12 @@ type Normalized = {
   prospectHtml: string;
   /** brief-shaped row for Supabase and the CRM webhook (their existing format) */
   legacyRow: Record<string, unknown>;
+  /** what was picked and its starting figure, for the CRM */
+  quote: QuoteContext;
+  website: string;
+  timeline: string;
+  /** plain-text "Label: value" lines for the GHL note */
+  noteDetails: string[];
 };
 
 const brandFooter = `<p style="color:#888;font-size:12px">Pilk.ai is a brand of Pilk Consulting LLC.</p>`;
@@ -188,7 +228,8 @@ function normalize(lead: ParsedLead): Normalized {
       const d = lead.data;
       const name = `${d.firstName} ${d.lastName}`.trim();
       // The brief's row keeps exactly the fields it always had.
-      const { formType: _f, smsConsent: _s, smsConsentVersion: _v, pageUrl: _p, ...legacyRow } = d;
+      const { formType: _f, smsConsent: _s, smsConsentVersion: _v, pageUrl: _p, packageId: _k, ...legacyRow } = d;
+      const quote = quoteContext(d.selectedTemplate, d.packageId);
       return {
         firstName: d.firstName, lastName: d.lastName, name, email: d.email, phone: d.phone ?? "",
         company: d.company ?? "",
@@ -197,7 +238,7 @@ function normalize(lead: ParsedLead): Normalized {
         heading: "New website brief",
         detailsHtml: `
           <p>Company: ${esc(d.company) || "—"} · Industry: ${esc(d.industry) || "—"}</p>
-          <p>Project: ${esc(d.projectType)}${d.selectedTemplate ? " (" + esc(d.selectedTemplate) + ")" : ""}</p>
+          <p>Project: ${esc(d.projectType)}${d.selectedTemplate ? " (" + esc(d.selectedTemplate) + ")" : ""}${quote.packageName ? " · From the pricing card: " + esc(quote.packageName) : ""}</p>
           <p>Goal: ${esc(d.primaryGoal) || "—"}</p>
           <p>Pages: ${esc((d.requiredPages ?? []).join(", ")) || "—"}</p>
           <p>Integrations: ${esc((d.integrations ?? []).join(", ")) || "—"}</p>
@@ -213,11 +254,40 @@ function normalize(lead: ParsedLead): Normalized {
           <p>— Pilk.ai</p>
           ${brandFooter}`,
         legacyRow,
+        quote,
+        website: d.currentWebsite ?? "",
+        timeline: d.timeline ?? "",
+        noteDetails: [
+          line("Company", d.company),
+          line("Industry", d.industry),
+          line("Current website", d.currentWebsite),
+          line("Business", d.businessDescription),
+          line("Target audience", d.targetAudience),
+          line("Project type", d.projectType),
+          line("Template", quote.templateSlug && `${quote.templateName} (${quote.templateSlug})`),
+          line("Pricing card", quote.packageName),
+          line("Main goal", d.primaryGoal),
+          line("Pages", d.requiredPages),
+          line("Integrations", d.integrations),
+          d.needsIdx ? "IDX / MLS: needed" : "",
+          line("Palette", d.selectedPalette),
+          line("Colors", d.preferredColors),
+          line("Color notes", d.colorNotes),
+          line("Style", d.styleDirection),
+          line("Style keywords", d.styleKeywords),
+          line("Light / dark", d.themePreference),
+          line("Inspiration", (d.inspirationSites ?? []).map((x) => (x.note ? `${x.url} (${x.note})` : x.url))),
+          line("Budget", d.budget),
+          line("Desired launch", d.timeline),
+          line("Preferred contact", d.preferredContact),
+          line("Notes", d.message),
+        ],
       };
     }
     case "contact": {
       const d = lead.data;
       const name = `${d.firstName} ${d.lastName}`.trim();
+      const quote = quoteContext(d.selectedTemplate, d.packageId);
       return {
         firstName: d.firstName, lastName: d.lastName, name, email: d.email, phone: d.phone ?? "",
         company: d.company ?? "",
@@ -228,6 +298,7 @@ function normalize(lead: ParsedLead): Normalized {
           row("Company / brokerage", d.company),
           row("Industry", d.industry),
           row("Project", d.projectType + (d.selectedTemplate ? ` (${d.selectedTemplate})` : "")),
+          row("From the pricing card", quote.packageName),
           row("Budget", d.budget),
           row("Desired launch", d.timeline),
           row("Preferred contact", d.preferredContact),
@@ -248,6 +319,22 @@ function normalize(lead: ParsedLead): Normalized {
           budget: d.budget ?? "", timeline: d.timeline ?? "", needsIdx: d.needsIdx ?? false,
           preferredContact: d.preferredContact, message: d.message, consent: true, ...attributionOf(d),
         },
+        quote,
+        website: d.currentWebsite ?? "",
+        timeline: d.timeline ?? "",
+        noteDetails: [
+          line("Company / brokerage", d.company),
+          line("Industry", d.industry),
+          line("Project type", d.projectType),
+          line("Template", quote.templateSlug && `${quote.templateName} (${quote.templateSlug})`),
+          line("Pricing card", quote.packageName),
+          line("Budget", d.budget),
+          line("Desired launch", d.timeline),
+          line("Preferred contact", d.preferredContact),
+          line("Current website", d.currentWebsite),
+          d.needsIdx ? "IDX / MLS: needed" : "",
+          line("Project details", d.message),
+        ],
       };
     }
     case "inquiry":
@@ -257,7 +344,7 @@ function normalize(lead: ParsedLead): Normalized {
       const { firstName, lastName } = splitName(d.name);
       const name = d.name.trim();
       const email = d.email ?? "";
-      let heading: string, subject: string, tag: string, details: string, goal: string;
+      let heading: string, subject: string, tag: string, details: string, goal: string, noteDetails: string[];
       let prospectSubject = "We received your inquiry — Pilk.ai";
       let prospectBody = `<p>Hi ${esc(firstName)}, thanks for reaching out. We got your message and we'll be in touch shortly.</p>`;
       if (lead.formType === "inquiry") {
@@ -267,6 +354,7 @@ function normalize(lead: ParsedLead): Normalized {
         tag = "quick-inquiry";
         goal = q.intent || "Be contacted";
         details = [row("Message", q.message), row("About", q.intent)].join("");
+        noteDetails = [line("Message", q.message), line("About", q.intent)];
       } else if (lead.formType === "listing-inquiry") {
         const q = lead.data;
         heading = "New demo listing inquiry (Request info)";
@@ -274,6 +362,7 @@ function normalize(lead: ParsedLead): Normalized {
         tag = "listing-demo-inquiry";
         goal = "Be contacted about the demo listing";
         details = [row("Listing experience", q.source), row("Message", q.message)].join("");
+        noteDetails = [line("Listing experience", q.source), line("Message", q.message)];
         prospectSubject = "We received your request — Pilk.ai";
         prospectBody = `<p>Hi ${esc(firstName)}, we got your request. The listing you were viewing is a demo built by Pilk.ai, so your request came to us, and we'll be in touch shortly.</p>`;
       } else {
@@ -287,6 +376,11 @@ function normalize(lead: ParsedLead): Normalized {
           row("Preferred date and time", `${q.preferredDate} at ${q.timeSlot}`),
           row("Message", q.message),
         ].join("");
+        noteDetails = [
+          line("Listing", q.listing),
+          line("Preferred date and time", `${q.preferredDate} at ${q.timeSlot}`),
+          line("Message", q.message),
+        ];
         prospectSubject = "We received your showing request — Pilk.ai";
         prospectBody = `<p>Hi ${esc(firstName)}, we got your showing request for ${esc(q.preferredDate)} at ${esc(q.timeSlot)}. The listing is a demo built by Pilk.ai, so your request came to us, and we'll be in touch shortly.</p>`;
       }
@@ -304,6 +398,10 @@ function normalize(lead: ParsedLead): Normalized {
           projectType: "unsure", selectedTemplate: "", primaryGoal: goal,
           preferredContact: d.phone ? "phone" : "email", message, consent: true, ...attributionOf(d),
         },
+        quote: quoteContext(),
+        website: "",
+        timeline: "",
+        noteDetails,
       };
     }
   }
@@ -312,6 +410,7 @@ function normalize(lead: ParsedLead): Normalized {
 export const onRequestPost = async (context: {
   request: Request;
   env: Env;
+  waitUntil?: (promise: Promise<unknown>) => void;
 }): Promise<Response> => {
   const { request, env } = context;
   try {
@@ -352,6 +451,11 @@ export const onRequestPost = async (context: {
     // learns nothing from a validation error. Nothing is stored or sent.
     const trap = (rawPayload as { honeypot?: unknown } | null)?.honeypot;
     if (typeof trap === "string" && trap.length > 0) return json({ success: true });
+
+    // About 5 accepted submissions per IP per 10 minutes, shared with the
+    // template request. Only accepted ones count (recorded below).
+    const rl = await checkRateLimit(request, "forms", env);
+    if (rl.limited) return rateLimitedResponse(rl);
 
     const parsed = parseLead(rawPayload);
     if (!parsed.ok) {
@@ -401,6 +505,9 @@ export const onRequestPost = async (context: {
         400
       );
     }
+
+    // Accepted: from here the lead is emailed and sent on, so it counts.
+    await rl.record();
 
     if (files.length > 0) {
       const submissionId = crypto.randomUUID();
@@ -495,18 +602,55 @@ export const onRequestPost = async (context: {
       await Promise.allSettled(tasks);
     }
 
-    // GoHighLevel (best effort — form leads flow into the CRM). The consent
-    // record goes on the contact as a note, so it survives tag changes.
-    const contactId = await sendToGhl(env, {
-      firstName: n.firstName,
-      lastName: n.lastName || undefined,
-      email: n.email || undefined,
-      phone: n.phone || undefined,
-      companyName: n.company || undefined,
-      source: "pilk.ai website",
-      tags: [...n.tags, sms.given ? SMS_CONSENT_TAG : ""],
+    // GoHighLevel, after the response (the email above is the authoritative
+    // copy). Contact, tags, custom fields, an opportunity in the PILK AI
+    // pipeline and a note with the submission and the consent record.
+    const d = lead.data;
+    const pageUrl = sms.given ? sms.pageUrl : pageUrlOf(d.pageUrl, request.headers.get("referer"));
+    const ghlWork = syncLeadToGhl(env, {
+      contact: {
+        firstName: n.firstName,
+        lastName: n.lastName || undefined,
+        email: n.email || undefined,
+        phone: n.phone || undefined,
+        companyName: n.company || undefined,
+        source: "pilk.ai website",
+      },
+      tags: [...n.tags, FORM_TAG[formType], sms.given ? SMS_CONSENT_TAG : ""],
+      fields: {
+        websiteUrl: n.website,
+        templateChosen: n.quote.templateSlug,
+        timeline: n.timeline,
+        utmSource: d.utmSource,
+        utmMedium: d.utmMedium,
+        utmCampaign: d.utmCampaign,
+        googleClickId: d.gclid,
+        sourcePath: pathOf(pageUrl) || pathOf(d.landingPage),
+        leadIntent: formType,
+        // Only when consent was given now: a later form without it never clears these.
+        ...(sms.given ? { consentDisclosureVersion: sms.version, consentReceivedAt: sms.at } : {}),
+      },
+      opportunity: {
+        name: `${n.name || n.email || n.phone} — ${OPPORTUNITY_LABEL[formType]}${n.quote.suffix}`,
+        stage: STAGE[formType],
+        monetaryValue: n.quote.monetaryValue,
+      },
+      note: composeLeadNote(
+        `pilk.ai lead: ${FORM_LABEL[formType]}\nReceived: ${receivedAt}`,
+        consentNoteText(sms, FORM_LABEL[formType], TERMS_LINE[formType]),
+        [
+          line("Name", n.name),
+          line("Email", n.email),
+          line("Phone", n.phone),
+          ...n.noteDetails,
+          line("Files", uploadedFiles.map((f) => `${f.name} (${Math.round(f.size / 1024)} KB)`)),
+          "",
+          ...attributionLines(d, pageUrl),
+        ]
+      ),
     });
-    if (sms.given) await addGhlNote(env, contactId, consentNoteText(sms, FORM_LABEL[formType]));
+    if (context.waitUntil) context.waitUntil(ghlWork);
+    else await ghlWork;
 
     // CRM webhook (no file binaries; keys only)
     if (env.CRM_WEBHOOK_URL) {
