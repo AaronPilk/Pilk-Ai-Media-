@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/Button";
 
 export const metadata: Metadata = buildMetadata({
   title: "Lab",
-  description: "An experimental interactive corner of Pilk.ai Media.",
+  description: "An experimental interactive corner of Pilk.ai: drag components into a browser and watch a website organize itself.",
   path: "/lab",
   noindex: true,
 });

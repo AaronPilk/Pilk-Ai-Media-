@@ -2,13 +2,13 @@
  * Central brand + copy config. Edit here — never hardcode brand/copy in components.
  */
 export const site = {
-  name: "Pilk.ai Media",
+  name: "Pilk.ai",
   shortName: "Pilk.ai",
   domain: "pilk.ai",
   url: "https://pilk.ai",
   tagline: "Websites people remember.",
   description:
-    "Pilk.ai Media is an independent design and development studio building high-conversion websites with cinematic design, custom interaction, and the infrastructure to turn attention into business.",
+    "Pilk.ai is a St. Petersburg, Florida studio that builds websites and custom apps and sets up AI automation, ads and lead funnels that turn attention into business.",
   location: "St. Petersburg · Tampa Bay · Remote",
 
   // Search-facing copy. The on-page hero keeps the brand line above.
@@ -31,6 +31,9 @@ export const site = {
   entity: {
     name: "Pilk.ai",
     legalName: "Pilk Consulting LLC",
+    // The site used the name "Pilk.ai Media" until Nov 2026. It stays in the
+    // JSON-LD only, so search engines connect old mentions to this entity.
+    // Visible copy uses "Pilk.ai"; the legal line is brandLine below.
     alternateName: "Pilk.ai Media",
     founder: "Aaron Pilkington",
     locality: "St. Petersburg",
@@ -128,6 +131,7 @@ export const site = {
   footer: {
     blurb: "Premium web design and development. Start with a template or commission something completely custom.",
     legalName: "Pilk Consulting LLC",
+    brandLine: "Pilk.ai is a brand of Pilk Consulting LLC.",
   },
 
   pricingDisclaimer:

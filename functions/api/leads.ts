@@ -226,14 +226,15 @@ export const onRequestPost = async (context: {
       const prospectHtml = `
         <h2>Thanks for your website brief</h2>
         <p>Hi ${esc(lead.firstName)}, we received your project details and we'll be in touch shortly.</p>
-        <p>— Pilk.ai Media</p>
+        <p>— Pilk.ai</p>
+        <p style="color:#888;font-size:12px">Pilk.ai is a brand of Pilk Consulting LLC.</p>
       `;
 
       const tasks: Promise<unknown>[] = [];
       if (env.LEADS_NOTIFICATION_EMAIL) {
         tasks.push(send(env.LEADS_NOTIFICATION_EMAIL, `New website brief — ${name}`, internalHtml, emailAttachments));
       }
-      tasks.push(send(lead.email, "We received your website brief — Pilk.ai Media", prospectHtml));
+      tasks.push(send(lead.email, "We received your website brief — Pilk.ai", prospectHtml));
       await Promise.allSettled(tasks);
     }
 

@@ -1,6 +1,6 @@
-# Pilk.ai Media — Immersive Web Design Website
+# Pilk.ai — website
 
-A production-foundation, App-Router Next.js site that doubles as Pilk.ai Media's portfolio piece: cinematic WebGL hero, a scroll-driven 3D template helix, a filterable template catalog, a real-estate campaign page, and a fully validated lead system. Palette: white / dark purple / black.
+The pilk.ai website. Pilk.ai is a brand of Pilk Consulting LLC (St. Petersburg, Florida). It is an App Router Next.js site that doubles as Pilk.ai's portfolio piece: cinematic WebGL hero, a scroll-driven 3D template helix, a filterable template catalog, a real-estate campaign page, and a fully validated lead system. Palette: white / dark purple / black.
 
 ## Quick start
 
@@ -33,8 +33,9 @@ npm start             # serve the production build
 | FAQ | `src/content/faq.ts` |
 | Feature flags (Lab, sound, iframes) | `src/lib/features.ts` |
 | Integrations / env | `.env.example` → `.env.local` |
+| Privacy Policy and Terms | `src/content/legal/privacy.ts`, `src/content/legal/terms.ts`, written against `docs/legal/data-flow-20261113.md`; change all three together |
 
-**Contact details in `site.ts` are placeholders** (`hello@pilk.ai`, etc.) — replace before launch.
+Brand rule: visible copy says **Pilk.ai**; the legal entity is **Pilk Consulting LLC** ("Pilk.ai is a brand of Pilk Consulting LLC"). The old name "Pilk.ai Media" survives only as `alternateName` in the JSON-LD (`site.entity.alternateName`).
 
 ## Template & project previews
 

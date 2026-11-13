@@ -220,13 +220,14 @@ export const onRequestPost = async (context: {
       const clientHtml = `
         <h2>Thanks, ${esc(data.name)} — we've got your details</h2>
         <p>You chose the <strong>${esc(tplName)}</strong> design. We received your info${prepared.length ? ` and ${prepared.length} file${prepared.length === 1 ? "" : "s"}` : ""}, and we'll start building your site. Watch your inbox for your first preview.</p>
-        <p>— Pilk.ai Media</p>
+        <p>— Pilk.ai</p>
+        <p style="color:#888;font-size:12px">Pilk.ai is a brand of Pilk Consulting LLC.</p>
       `;
 
       try {
         const r = await send(env.LEADS_NOTIFICATION_EMAIL, `Template order — ${tplName} — ${data.name}`, internalHtml, attachments);
         if (!r.ok) console.error("[template-intake] resend error", r.status, (await r.text()).slice(0, 400));
-        await send(data.email, `We received your ${tplName} order — Pilk.ai Media`, clientHtml).catch(() => {});
+        await send(data.email, `We received your ${tplName} order — Pilk.ai`, clientHtml).catch(() => {});
       } catch (e) {
         console.error("[template-intake] send failed", e);
       }

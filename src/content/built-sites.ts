@@ -1,7 +1,7 @@
 import type { BuiltSite } from "@/types/built-site";
 
 /**
- * Pilk.ai Media's real website builds, shown in the Website Showcase.
+ * Pilk.ai's real website builds, shown in the Website Showcase.
  *
  * AARON:
  * - Labels are set to "Client Build" for real businesses — change any that are

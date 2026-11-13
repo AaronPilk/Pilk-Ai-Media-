@@ -92,15 +92,18 @@ export function Footer() {
       </Container>
 
       <Container className="flex flex-col items-start justify-between gap-3 border-t border-line py-6 text-xs text-muted md:flex-row md:items-center">
-        <span>
-          © {year} {site.footer.legalName}. All rights reserved.
-        </span>
+        <div className="flex flex-col gap-1">
+          <span>
+            © {year} {site.footer.legalName}. All rights reserved.
+          </span>
+          <span>{site.footer.brandLine}</span>
+        </div>
         <div className="flex gap-5">
-          <Link href="/privacy" className="hover:text-ink">
-            Privacy
+          <Link href="/privacy/" className="hover:text-ink">
+            Privacy Policy
           </Link>
-          <Link href="/terms" className="hover:text-ink">
-            Terms
+          <Link href="/terms/" className="hover:text-ink">
+            Terms of Service
           </Link>
         </div>
       </Container>

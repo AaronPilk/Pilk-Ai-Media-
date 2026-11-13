@@ -10,7 +10,7 @@ pages_build_output_dir = "out"
 # The RESEND_API_KEY is a real secret — set it with:
 #   npx wrangler pages secret put RESEND_API_KEY --project-name pilk-ai-media
 [vars]
-LEADS_FROM_EMAIL = "Pilk.ai Media <orders@pilk.ai>"
+LEADS_FROM_EMAIL = "Pilk.ai <orders@pilk.ai>"
 LEADS_NOTIFICATION_EMAIL = "Aaron@pilk.ai"
 # GoHighLevel sub-account (not secret). The PIT token is a secret set via wrangler.
 GHL_LOCATION_ID = "rg3WUxqvDHrkiyBmEiCV"

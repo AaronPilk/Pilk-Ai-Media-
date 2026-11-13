@@ -1,6 +1,6 @@
 # Pilk.ai
 
-> Pilk.ai is an AI consulting and app-building business based in St. Petersburg, Florida, serving businesses in St. Petersburg and the Tampa Bay area. It builds websites and custom apps, sets up AI automation and chatbots, and runs Meta ads, social media automation, lead funnels and Skool community growth. Pilk.ai is operated by Pilk Consulting LLC, a Florida limited liability company run by its founder, Aaron Pilkington. The site also uses the name "Pilk.ai Media".
+> Pilk.ai is an AI consulting and app-building business based in St. Petersburg, Florida, serving businesses in St. Petersburg and the Tampa Bay area. It builds websites and custom apps, sets up AI automation and chatbots, and runs Meta ads, social media automation, lead funnels and Skool community growth. Pilk.ai is a brand of Pilk Consulting LLC, a Florida limited liability company run by its founder, Aaron Pilkington.
 
 Contact: Aaron@pilk.ai, (704) 877-3511. Pilk.ai is a service-area business and does not publish a street address.
 
@@ -27,7 +27,7 @@ Contact: Aaron@pilk.ai, (704) 877-3511. Pilk.ai is a service-area business and d
 ## Work and process
 
 - [Work](https://pilk.ai/work/): client websites, apps and products designed and built by Pilk.ai
-- [Process](https://pilk.ai/process/): the seven-day build for qualified website projects
+- [Process](https://pilk.ai/process/): the seven-day build for qualified projects on a standard website template
 - [Start a project](https://pilk.ai/contact/): project brief form
 
 ## Optional
