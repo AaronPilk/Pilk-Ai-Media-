@@ -56,3 +56,6 @@ public/experience/mansion-v4/proxy.mp4
 
 # scratch (Cowork)
 _to_delete/
+
+# wrangler local state (pages dev / deploy)
+/.wrangler/

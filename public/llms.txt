@@ -1,0 +1,39 @@
+# Pilk.ai
+
+> Pilk.ai is an AI consulting and app-building business based in St. Petersburg, Florida, serving businesses in St. Petersburg and the Tampa Bay area. It builds websites and custom apps, sets up AI automation and chatbots, and runs Meta ads, social media automation, lead funnels and Skool community growth. Pilk.ai is operated by Pilk Consulting LLC, a Florida limited liability company run by its founder, Aaron Pilkington. The site also uses the name "Pilk.ai Media".
+
+Contact: Aaron@pilk.ai, (704) 877-3511. Pilk.ai is a service-area business and does not publish a street address.
+
+## Services
+
+- [All services](https://pilk.ai/services/): overview of everything Pilk.ai offers
+- [Websites](https://pilk.ai/services/websites/): template-based and custom websites for service businesses, with published pricing
+- [Custom app building](https://pilk.ai/apps/): mobile apps for iOS and Android, internal tools and AI products; projects start at $15,000
+- [AI consulting](https://pilk.ai/services/ai-consulting/): a review of where AI saves a business time, a written plan, and the build
+- [AI automation and chatbots](https://pilk.ai/services/ai-automation-chatbots/): instant lead replies, website and messaging chatbots, CRM automations
+- [Meta ads](https://pilk.ai/services/meta-ads/): Facebook and Instagram campaign management with tracking and landing pages
+- [Social media automation](https://pilk.ai/services/social-media-automation/): scheduled posting, comment and DM automations, lead capture
+- [Lead funnels](https://pilk.ai/services/lead-funnels/): landing pages, forms, booking calendars and automated follow-up, usually in GoHighLevel
+- [Skool community growth](https://pilk.ai/services/skool-community-growth/): setup, launch and member growth for Skool communities
+- [St. Petersburg and Tampa Bay](https://pilk.ai/st-petersburg-tampa-bay/): what Pilk.ai does for local businesses
+
+## Websites for real estate and mortgage
+
+- [Mortgage websites](https://pilk.ai/mortgage/): 15 mortgage website designs for loan officers and brokers, $500 build plus $100/month hosting
+- [Real estate websites](https://pilk.ai/real-estate/): sites for agents, brokerages and mortgage firms
+- [Website templates](https://pilk.ai/templates/): the full template catalog; each template has its own page
+- [Own vs rent](https://pilk.ai/own-vs-rent/): why an owned website beats a rented subscription template
+
+## Work and process
+
+- [Work](https://pilk.ai/work/): client websites, apps and products designed and built by Pilk.ai
+- [Process](https://pilk.ai/process/): the seven-day build for qualified website projects
+- [Start a project](https://pilk.ai/contact/): project brief form
+
+## Optional
+
+- [Privacy policy](https://pilk.ai/privacy/)
+- [Terms of service](https://pilk.ai/terms/)
+- [Sitemap](https://pilk.ai/sitemap.xml)
+
+Pages under /template-previews/ are demo websites for fictional businesses. Their names, reviews, rates and licence numbers are sample content, not real companies.
