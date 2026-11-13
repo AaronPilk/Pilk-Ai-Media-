@@ -48,6 +48,12 @@ export default async function ExperienceVariantPage({
       {/* Always-available quick inquiry */}
       <QuickInquiry source={`${cfg.label} listing experience`} />
 
+      {/* The property, agent, figures and reviews are invented for the demo.
+          Say so on screen the whole time, not just in a footnote. */}
+      <p className="fixed bottom-5 left-5 z-40 max-w-[45vw] rounded-full bg-black/70 px-3.5 py-2 text-[11px] font-medium leading-tight text-white/85 ring-1 ring-white/15 backdrop-blur print:hidden">
+        Demo listing · fictional property, agent and reviews
+      </p>
+
       <section className="section relative z-10 bg-[#0b0b0e]">
         <Container className="text-center">
           <SectionLabel>A Pilk.ai custom build</SectionLabel>

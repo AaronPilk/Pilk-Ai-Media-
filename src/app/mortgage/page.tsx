@@ -251,6 +251,9 @@ export default function MortgagePage() {
                 <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
                 <span className="ml-2 text-[11px] text-white/40">PILK AI · pipeline</span>
               </div>
+              <p className="mt-3 rounded bg-white/[0.06] px-2.5 py-1.5 text-[11px] font-medium text-white/80">
+                Example pipeline: sample names and numbers, not client data
+              </p>
               <div className="mt-3 grid grid-cols-4 gap-2">
                 {[
                   { s: "New Lead", n: "4", c: ["Maria L.", "Devon R."] },
@@ -309,6 +312,9 @@ export default function MortgagePage() {
                 <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
                 <span className="ml-2 text-[11px] text-white/40">your-site · analytics</span>
               </div>
+              <p className="mt-3 rounded bg-white/[0.06] px-2.5 py-1.5 text-[11px] font-medium text-white/80">
+                Example dashboard: illustrative numbers, not client results
+              </p>
               <div className="mt-3 grid grid-cols-3 gap-2">
                 {[
                   { k: "Visitors", v: "2,481" },

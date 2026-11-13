@@ -332,6 +332,9 @@ export function ExperienceSite({ config }: { config: ExperienceConfig }) {
                   </div>
                 ))}
               </div>
+              <p className="mt-3 text-xs text-white/45">
+                Sample figures for a fictional agent on this demo site.
+              </p>
               <div className="mt-7 border-t border-white/10 pt-5">
                 <div className="font-display text-lg font-semibold">{s.agentName}</div>
                 <div className="mt-1 text-sm text-white/55">{s.agentTitle}</div>
@@ -396,6 +399,9 @@ export function ExperienceSite({ config }: { config: ExperienceConfig }) {
           <h2 className="mt-6 max-w-[18ch] text-balance" style={{ fontSize: "var(--text-2xl)" }}>
             The standard our clients return for.
           </h2>
+          <p className="mt-4 text-sm text-white/50">
+            Sample reviews written for this demo listing. They are not real client reviews.
+          </p>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {testimonials.map((t, i) => (
               <Reveal key={t.name} delay={i * 80}>

@@ -6,7 +6,7 @@ import { OwnVsRent } from "@/components/sections/OwnVsRent";
 export const metadata: Metadata = buildMetadata({
   absoluteTitle: "Own Your Website: Pilk.ai vs Placester",
   description:
-    "Placester rents you a shared template for $59 to $599 a month, forever. Pilk.ai builds a custom real estate website you own outright. See the comparison.",
+    "Placester charges $59 to $599 a month for a template site you rent. Pilk.ai builds a custom real estate website you own outright. See the comparison.",
   path: "/own-vs-rent",
 });
 

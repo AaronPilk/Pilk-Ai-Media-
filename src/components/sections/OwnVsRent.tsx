@@ -3,6 +3,8 @@ import { Container } from "@/components/ui/Container";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
+import { hostingPlan, packages } from "@/content/packages";
+import { formatPrice } from "@/lib/utils";
 
 const A = "/template-previews/_assets";
 
@@ -12,6 +14,24 @@ const A = "/template-previews/_assets";
  * block on /real-estate; variant="page" is the full standalone /own-vs-rent.
  */
 
+// Placester's own month-to-month list prices, read from placester.com/pricing:
+// Agent Essential $59, Agent Plus $79, Agent Premier $129, Team $199, Broker
+// Standard $399, Broker Plus $599; annual billing is cheaper and Enterprise is
+// quoted. Re-check the page and move this date whenever the figures are touched.
+const PLACESTER_CHECKED = "November 13, 2026";
+
+const PlacesterNote = ({ className = "" }: { className?: string }) => (
+  <p className={`max-w-3xl text-xs text-muted ${className}`}>
+    Placester figures are the month-to-month prices on its published plans (Agent Essential $59 to
+    Broker Plus $599 a month; annual billing costs less and Enterprise is quoted) at
+    placester.com/pricing, checked {PLACESTER_CHECKED}. Prices may change. Shown for honest
+    comparison; not affiliated with or endorsed by Placester.
+  </p>
+);
+
+const templateFrom = `$${formatPrice(packages.find((p) => p.id === "template")?.price ?? 0)}`;
+const customFrom = `$${formatPrice(packages.find((p) => p.id === "custom")?.price ?? 0)}`;
+
 // Real-estate-specific face-off rows.
 const faceoff: { label: string; rent: string; own: string }[] = [
   { label: "Your listings & galleries", rent: "Live on their platform", own: "On your domain, forever" },
@@ -20,7 +40,7 @@ const faceoff: { label: string; rent: string; own: string }[] = [
   { label: "Local SEO (neighborhood pages)", rent: "Equity built on rented land", own: "Ranking equity on a domain you own" },
   { label: "Your agent brand", rent: "A template other agents also use", own: "A one-of-one custom design" },
   { label: "Who builds & maintains it", rent: "You do (DIY editor)", own: "We do — done for you" },
-  { label: "Monthly cost", rent: "$59–$599 / mo — forever", own: "One-time build · support optional" },
+  { label: "Monthly cost", rent: "$59–$599 / mo, for as long as you subscribe", own: "One-time build · support optional" },
   { label: "If you stop paying", rent: "It all goes dark", own: "Nothing changes — it's yours" },
 ];
 
@@ -28,14 +48,14 @@ const rentList = [
   "You rent it — the site lives on their servers",
   "Stop paying and your site, listings, and leads vanish",
   "The same template thousands of other agents use",
-  "$59–$599/month, every month you're in business",
+  "$59–$599 a month, every month you stay subscribed",
 ];
 
 const ownList = [
   "You own the site, the code, and the content outright",
   "Your domain, your hosting, your leads — fully portable",
   "A custom design built around your market and brand",
-  "Pay once to own · optional $199/mo support, cancel anytime",
+  `Pay once to own · optional ${hostingPlan.priceLabel}/mo support, cancel anytime`,
 ];
 
 function FaceOff() {
@@ -84,8 +104,8 @@ export function OwnVsRent({ variant = "section" }: { variant?: "section" | "page
           </h2>
           <p className="mt-4 max-w-2xl text-muted">
             Platforms like Placester rent you a template site — with your listings, leads, and local
-            SEO living on their servers — for $59–$599/month, forever. We build you a custom site you
-            own outright.
+            SEO living on their servers — for $59–$599 a month for as long as you subscribe. We build
+            you a custom site you own outright.
           </p>
           <div className="mt-10 grid gap-5 md:grid-cols-2">
             <div className="rounded-2xl border border-line bg-surface p-7">
@@ -119,6 +139,7 @@ export function OwnVsRent({ variant = "section" }: { variant?: "section" | "page
               </ul>
             </div>
           </div>
+          <PlacesterNote className="mt-6" />
           <div className="mt-10 flex flex-wrap gap-4">
             <Button href="/own-vs-rent" variant="primary" withArrow>
               See the full comparison
@@ -192,11 +213,7 @@ export function OwnVsRent({ variant = "section" }: { variant?: "section" | "page
           <div className="mt-10">
             <FaceOff />
           </div>
-          <p className="mt-4 max-w-3xl text-xs text-muted">
-            Placester details reflect their publicly published plans (placester.com/pricing) as of
-            June 2026 and may change. Shown for honest comparison — not affiliated with or endorsed by
-            Placester.
-          </p>
+          <PlacesterNote className="mt-4" />
         </Container>
       </section>
 
@@ -256,7 +273,7 @@ export function OwnVsRent({ variant = "section" }: { variant?: "section" | "page
               {
                 h: "Own it with Pilk.ai",
                 v: "One build",
-                s: "From $750 (template) to $2,500+ (custom) — often less than your commission on a single sale.",
+                s: `From ${templateFrom} (template) to ${customFrom}+ (custom) — often less than your commission on a single sale.`,
               },
             ].map((c, i) => (
               <Reveal key={c.h} delay={i * 70}>

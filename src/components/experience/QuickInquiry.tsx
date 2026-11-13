@@ -90,7 +90,8 @@ export function QuickInquiry({ source = "Interactive listing experience" }: { so
           ) : (
             <form onSubmit={submit} className="grid gap-3 px-5 py-5">
               <p className="text-sm text-white/60">
-                Leave your details and we&apos;ll reach out about this property.
+                Leave your details and we&apos;ll reach out about this property. This is a demo
+                listing, so your request goes to Pilk.ai.
               </p>
               <input
                 className="w-full rounded-lg border border-white/15 bg-white/5 px-3 py-2.5 text-sm placeholder:text-white/40 focus:border-accent focus:outline-none"

@@ -187,7 +187,10 @@ export function ShowingBooker({ ctaLabel }: { ctaLabel: string }) {
 
       {error && <p className="mt-4 text-sm text-accent">{error}</p>}
 
-      <FormLegalNotice tone="dark" className="mt-6" />
+      <p className="mt-6 text-xs text-white/55">
+        This is a demo listing. Showing requests from this form go to Pilk.ai.
+      </p>
+      <FormLegalNotice tone="dark" className="mt-2" />
 
       <button
         type="submit"

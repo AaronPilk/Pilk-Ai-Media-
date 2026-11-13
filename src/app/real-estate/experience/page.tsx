@@ -8,7 +8,7 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 export const metadata: Metadata = buildMetadata({
   title: "Interactive Listing Experience Demo",
   description:
-    "Two scroll-driven, cinematic real-estate experiences built by Pilk.ai. Fly a drone through the property as listing, agent, and firm details reveal.",
+    "A scroll-driven, cinematic real estate listing site built by Pilk.ai. Fly a drone through the property as listing, agent and firm details reveal.",
   path: "/real-estate/experience",
   noindex: true,
 });
@@ -23,9 +23,9 @@ export default function ExperienceChooserPage() {
             Scroll, and you fly through the property.
           </h1>
           <p className="mt-8 max-w-2xl text-lg text-muted">
-            Two examples of fully custom, scroll-driven listing sites — each built from a single
-            continuous drone shot, with property, agent, and firm details revealing as you go. Open
-            each and feel the difference.
+            An example of a fully custom, scroll-driven listing site, built from a single continuous
+            drone shot, with property, agent and firm details revealing as you go. The property,
+            agent and reviews are fictional.
           </p>
         </Container>
       </header>
@@ -58,7 +58,7 @@ export default function ExperienceChooserPage() {
             ))}
           </div>
           <p className="mt-8 max-w-2xl text-sm text-muted">
-            Best experienced on desktop — scroll slowly to fly the drone. On phones, each plays as a
+            Best experienced on desktop — scroll slowly to fly the drone. On phones, it plays as a
             cinematic video behind the same story.
           </p>
         </Container>
