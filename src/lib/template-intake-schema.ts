@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { smsConsentShape } from "./sms-consent";
 
 /**
  * Shared template-intake schema — used by the on-site wizard AND the Cloudflare
@@ -6,6 +7,9 @@ import { z } from "zod";
  * fields (name, email, businessName, consent); everything else optional with
  * server-side "we'll write it / clean placeholder" fallbacks.
  */
+
+/** The required box on the order form. Texting has its own optional box. */
+export const INTAKE_CONSENT_LABEL = "Yes, build my website and contact me about it";
 
 const optStr = (max: number) => z.string().trim().max(max).optional().or(z.literal(""));
 
@@ -22,6 +26,9 @@ export const templateIntakeSchema = z.object({
   consent: z.literal(true, {
     errorMap: () => ({ message: "Just tick the box so we can get started." }),
   }),
+
+  // optional, separate from the box above: agreement to text messages
+  ...smsConsentShape,
 
   // which template they chose
   templateSlug: optStr(120),

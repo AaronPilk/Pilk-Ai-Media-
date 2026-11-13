@@ -4,13 +4,15 @@
 // validate, store files in private R2 (backup), and email the studio everything
 // (copy + the files as attachments) so the template can be duplicated.
 import {
+  INTAKE_CONSENT_LABEL,
   templateIntakeSchema,
   INTAKE_ALLOWED_UPLOAD_TYPES,
   INTAKE_MAX_FILES,
   INTAKE_MAX_FILE_SIZE,
   INTAKE_MAX_TOTAL_SIZE,
 } from "../../src/lib/template-intake-schema";
-import { sendToGhl } from "./_ghl";
+import { addGhlNote, sendToGhl } from "./_ghl";
+import { SMS_CONSENT_TAG, consentEmailHtml, consentNoteText, smsConsentRecord } from "./_consent";
 
 type Env = {
   PROJECT_UPLOADS?: R2Bucket;
@@ -98,6 +100,11 @@ export const onRequestPost = async (context: {
       return json({ success: false, error: "Invalid form details." }, 400);
     }
 
+    // Spam trap first: a filled hidden field gets a quiet success, so a bot
+    // learns nothing from a validation error. Nothing is stored or sent.
+    const trap = (rawPayload as { honeypot?: unknown } | null)?.honeypot;
+    if (typeof trap === "string" && trap.length > 0) return json({ success: true });
+
     const parsed = templateIntakeSchema.safeParse(rawPayload);
     if (!parsed.success) {
       return json(
@@ -106,7 +113,6 @@ export const onRequestPost = async (context: {
       );
     }
     const data = parsed.data;
-    if (data.honeypot) return json({ success: true }); // spam trap
 
     // Collect labeled files
     const collected: Array<{ group: string; file: File }> = [];
@@ -137,6 +143,8 @@ export const onRequestPost = async (context: {
     }
 
     const submissionId = crypto.randomUUID();
+    const receivedAt = new Date().toISOString();
+    const sms = smsConsentRecord(request, data, receivedAt);
 
     const prepared: Array<{ group: string; name: string; type: string; size: number; base64: string; key?: string }> = [];
     for (const { group, file } of collected) {
@@ -204,8 +212,9 @@ export const onRequestPost = async (context: {
 
         <h3 style="margin:16px 0 4px">Uploaded files (${prepared.length})</h3>
         ${filesByGroup || "<p style='color:#888'>None uploaded.</p>"}
+        ${consentEmailHtml(sms, `ticked “${INTAKE_CONSENT_LABEL}” and submitted below “By submitting, you agree to the Terms of Service and acknowledge the Privacy Policy.”`)}
         <hr style="margin:16px 0;border:none;border-top:1px solid #eee"/>
-        <p style="color:#888;font-size:12px">Source: ${esc(data.utmSource) || "direct"} / ${esc(data.utmCampaign) || "—"} · Landing: ${esc(data.landingPage) || "—"}</p>
+        <p style="color:#888;font-size:12px">Source: ${esc(data.utmSource) || "direct"} / ${esc(data.utmCampaign) || "—"} · Landing: ${esc(data.landingPage) || "—"} · Received: ${esc(receivedAt)}</p>
       `;
 
       const attachments = prepared.map((f) => ({ filename: f.name, content: f.base64 }));
@@ -232,18 +241,20 @@ export const onRequestPost = async (context: {
         console.error("[template-intake] send failed", e);
       }
     } else {
-      console.log("[template-intake]", tplName, data.email, `${prepared.length} files`);
+      console.log("[template-intake]", tplName, data.email, `${prepared.length} files`, `sms:${sms.given ? "yes" : "no"}`);
     }
 
-    // GoHighLevel (best effort — hot lead into the CRM)
-    await sendToGhl(env, {
+    // GoHighLevel (best effort — hot lead into the CRM). The consent record
+    // goes on the contact as a note, so it survives tag changes.
+    const contactId = await sendToGhl(env, {
       name: data.name,
       companyName: data.businessName,
       email: data.email,
       phone: data.phone,
       source: "pilk.ai template intake",
-      tags: ["pilk-template-intake", data.templateSlug || ""],
+      tags: ["pilk-template-intake", data.templateSlug || "", sms.given ? SMS_CONSENT_TAG : ""],
     });
+    if (sms.given) await addGhlNote(env, contactId, consentNoteText(sms, `Template order (${tplName})`));
 
     return json({ success: true });
   } catch (err) {

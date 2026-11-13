@@ -1,6 +1,12 @@
 import { z } from "zod";
+import { smsConsentShape } from "./sms-consent";
 
+/**
+ * The contact form on /real-estate/ and /mortgage/. Shared by the component
+ * and functions/api/leads.ts (formType "contact").
+ */
 export const leadSchema = z.object({
+  formType: z.literal("contact"),
   firstName: z.string().trim().min(1, "Required").max(80),
   lastName: z.string().trim().min(1, "Required").max(80),
   email: z.string().trim().email("Enter a valid email").max(200),
@@ -12,7 +18,10 @@ export const leadSchema = z.object({
     .transform((v) => (v ? (/^https?:\/\//i.test(v) ? v : `https://${v.replace(/^\/+/, "")}`) : ""))
     .refine((v) => v === "" || /^https?:\/\/([a-z0-9-]+\.)+[a-z]{2,}(\/[^\s]*)?$/i.test(v), {
       message: "Enter a website like example.com",
-    }),
+    })
+    // The input only renders after "I have a current website" is ticked, so
+    // the value is often absent. Absent means none, not an error.
+    .default(""),
   industry: z.string().trim().max(120).optional().or(z.literal("")),
   projectType: z.enum(["template", "premium-template", "custom", "redesign", "unsure"]),
   selectedTemplate: z.string().trim().max(120).optional().or(z.literal("")),
@@ -21,7 +30,10 @@ export const leadSchema = z.object({
   needsIdx: z.boolean().optional(),
   message: z.string().trim().min(10, "Tell us a little more").max(5000),
   preferredContact: z.enum(["email", "phone", "text"]).optional(),
+  // Older builds had an optional "I agree to be contacted" box. Accepted and
+  // ignored; agreement to the Terms is the notice above the submit button.
   consent: z.boolean().optional(),
+  ...smsConsentShape,
 
   // Attribution (hidden)
   utmSource: z.string().max(300).optional().or(z.literal("")),

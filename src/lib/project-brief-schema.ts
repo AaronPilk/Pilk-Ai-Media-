@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { smsConsentShape } from "./sms-consent";
 
 /**
  * Shared website-brief schema. Imported by the wizard (frontend) AND the
@@ -32,6 +33,9 @@ const inspirationSiteSchema = z.object({
 export type InspirationSite = z.infer<typeof inspirationSiteSchema>;
 
 export const projectBriefSchema = z.object({
+  // Requests without a formType are briefs, so older builds keep working.
+  formType: z.literal("project-brief").optional(),
+
   // Step 1 — business
   firstName: z.string().trim().min(1, "Required").max(80),
   lastName: z.string().trim().min(1, "Required").max(80),
@@ -39,7 +43,9 @@ export const projectBriefSchema = z.object({
   phone: z.string().trim().max(40).optional().or(z.literal("")),
   company: z.string().trim().max(160).optional().or(z.literal("")),
   industry: z.string().trim().max(120).optional().or(z.literal("")),
-  currentWebsite: websiteField,
+  // Optional in practice since launch (it may be empty); now it may also be
+  // missing, so a payload that leaves it out isn't rejected for that alone.
+  currentWebsite: websiteField.default(""),
   businessDescription: z.string().trim().min(10, "Tell us a little more").max(2000),
   targetAudience: z.string().trim().max(1000).optional().or(z.literal("")),
 
@@ -57,7 +63,12 @@ export const projectBriefSchema = z.object({
   colorNotes: z.string().trim().max(400).optional().or(z.literal("")),
   styleDirection: z.string().max(120).optional().or(z.literal("")),
   styleKeywords: z.array(z.string().max(80)).max(12).optional(),
-  themePreference: z.enum(["light", "dark", "mixed", "unsure"]).optional(),
+  // An unselected radio group reports null. Without this, a visitor who
+  // skipped the (optional) question could not leave step 4, with no error shown.
+  themePreference: z.preprocess(
+    (v) => (v === null || v === "" ? undefined : v),
+    z.enum(["light", "dark", "mixed", "unsure"]).optional()
+  ),
 
   // Step 5 — inspiration
   inspirationSites: z.array(inspirationSiteSchema).max(5).optional(),
@@ -70,6 +81,7 @@ export const projectBriefSchema = z.object({
   consent: z.boolean().refine((v) => v === true, {
     message: "Please agree to be contacted.",
   }),
+  ...smsConsentShape,
 
   // Attribution
   utmSource: z.string().max(300).optional().or(z.literal("")),
