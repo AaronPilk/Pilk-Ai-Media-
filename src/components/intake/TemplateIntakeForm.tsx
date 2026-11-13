@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { ChipSingle, ChipMulti } from "./Chips";
 import { UploadDropzone, type UploadItem } from "./UploadDropzone";
@@ -17,8 +16,8 @@ import { FormLegalNotice } from "@/components/legal/FormLegalNotice";
 import { SmsConsentCheckbox } from "@/components/legal/SmsConsentCheckbox";
 import { SMS_CONSENT_VERSION } from "@/lib/sms-consent";
 import { currentPageUrl } from "@/lib/page-url";
-import { CHECKOUT } from "@/lib/checkout-pricing";
-import { getTemplate } from "@/content/templates";
+import { readSubmitResult } from "@/lib/form-response";
+import { getTemplate, templatePriceLabel } from "@/content/templates";
 import { useUTMParameters } from "@/hooks/useUTMParameters";
 import { trackEvent } from "@/lib/analytics";
 
@@ -75,9 +74,10 @@ export function TemplateIntakeForm({
   templateSlug: string;
   templateName: string;
 }) {
-  const router = useRouter();
   const attribution = useUTMParameters();
-  const category = getTemplate(templateSlug)?.category;
+  const template = getTemplate(templateSlug);
+  const category = template?.category;
+  const priceLabel = template ? templatePriceLabel(template) : "";
   const roleFromTemplate: TemplateIntakeInput["doWhat"] =
     category === "mortgage" ? "mortgage" : category && category !== "custom" ? "realestate" : undefined;
 
@@ -89,6 +89,7 @@ export function TemplateIntakeForm({
   const [showContact, setShowContact] = useState(false);
   const [linkRows, setLinkRows] = useState<string[]>([""]);
   const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string>();
   const [resumed, setResumed] = useState(false);
 
@@ -170,8 +171,12 @@ export function TemplateIntakeForm({
         utmSource: attribution.utmSource,
         utmMedium: attribution.utmMedium,
         utmCampaign: attribution.utmCampaign,
+        utmContent: attribution.utmContent,
+        utmTerm: attribution.utmTerm,
         landingPage: attribution.landingPage,
         referrer: attribution.referrer,
+        gclid: attribution.gclid,
+        fbclid: attribution.fbclid,
       };
       const fd = new FormData();
       fd.append("payload", JSON.stringify(payload));
@@ -179,13 +184,13 @@ export function TemplateIntakeForm({
       mediaItems.forEach((i) => fd.append("gallery", i.file, i.file.name));
 
       const res = await fetch("/api/template-intake", { method: "POST", body: fd });
-      const json = await res.json();
-      if (!res.ok || !json.success) {
-        throw new Error(json.error || "Something went wrong.");
-      }
+      const result = await readSubmitResult(res, "Something went wrong.");
+      if (!result.ok) throw new Error(result.error);
       trackEvent("template_intake_submitted", { template: templateSlug });
       try { localStorage.removeItem(STORAGE_KEY); } catch { /* ignore */ }
-      router.push(`/checkout?template=${encodeURIComponent(templateSlug)}`);
+      setSubmitting(false);
+      setSubmitted(true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (e: unknown) {
       trackEvent("template_intake_error", { template: templateSlug });
       setSubmitError(
@@ -209,6 +214,29 @@ export function TemplateIntakeForm({
   const reviewEmail = watch("email");
   const reviewBiz = watch("businessName");
   const photoCount = useMemo(() => logoItems.length + mediaItems.length, [logoItems, mediaItems]);
+
+  if (submitted) {
+    return (
+      <div className="mx-auto max-w-lg py-6" role="status">
+        <p className="eyebrow text-accent">Request received</p>
+        <h1 className="mt-3 text-xl font-semibold text-ink">Thanks, {reviewName?.split(" ")[0] || "there"}. We&apos;ve got it.</h1>
+        <p className="mt-3 text-sm text-muted">
+          Your request for the <span className="text-ink">{templateName}</span> template is with us
+          {photoCount > 0 ? `, along with your ${photoCount} file${photoCount === 1 ? "" : "s"}` : ""}. We&apos;ll
+          look everything over and email you a written quote. Nothing has been charged, and nothing will be
+          until you approve the quote and pay the invoice.
+        </p>
+        <div className="mt-6 flex flex-wrap gap-3">
+          <Button href={`/templates/${templateSlug}`} variant="primary" withArrow>
+            Back to {templateName}
+          </Button>
+          <Button href="/templates" variant="ghost">
+            Browse more templates
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="mx-auto flex min-h-[70vh] max-w-lg flex-col">
@@ -241,8 +269,8 @@ export function TemplateIntakeForm({
         {step === 1 && (
           <>
             <header>
-              <h1 className="text-xl font-semibold text-ink">Let&apos;s build your site.</h1>
-              <p className="mt-1 text-sm text-muted">Three quick things to get started. Most people finish in about 2 minutes.</p>
+              <h1 className="text-xl font-semibold text-ink">Request the {templateName} template.</h1>
+              <p className="mt-1 text-sm text-muted">Three quick things so we can quote your site. Most people finish in about 2 minutes.</p>
             </header>
             <Field id="name" label="Your name" hint="First and last is perfect." error={errors.name?.message}>
               <input id="name" className={inputCls} placeholder="Maria Lopez" autoComplete="name" autoCapitalize="words" {...register("name")} />
@@ -262,7 +290,7 @@ export function TemplateIntakeForm({
             <Controller control={control} name="smsConsent" render={({ field }) => (
               <SmsConsentCheckbox id="intake-smsConsent" phone={phone} checked={!!field.value} onChange={field.onChange} />
             )} />
-            <p className="text-xs text-muted">We use your info to build your site and to contact you about it.</p>
+            <p className="text-xs text-muted">We use your info to quote and build your site and to contact you about it.</p>
           </>
         )}
 
@@ -408,7 +436,7 @@ export function TemplateIntakeForm({
                 <input type="checkbox" className="mt-0.5 h-5 w-5" checked={!!field.value} onChange={(e) => field.onChange(e.target.checked)} />
                 <span>
                   {INTAKE_CONSENT_LABEL}.
-                  <span className="mt-1 block text-xs text-muted">We&apos;ll use your info to build your site and to contact you about it. No spam. Texts only if you ticked the text box on step 1.</span>
+                  <span className="mt-1 block text-xs text-muted">We&apos;ll use your info to quote and build your site and to contact you about it. No spam. Texts only if you ticked the text box on step 1.</span>
                 </span>
               </label>
             )} />
@@ -416,14 +444,12 @@ export function TemplateIntakeForm({
             <FormLegalNotice />
             <div className="rounded-sm bg-[color:var(--accent-soft)] p-4 text-sm text-ink">
               <p className="font-medium">What happens next:</p>
-              <p className="mt-1">1. We save everything and start on your site.</p>
+              <p className="mt-1">1. We look over your details and the template you picked.</p>
               <p>
-                2. You&apos;ll go to a secure checkout for your ${CHECKOUT.base} build, plus a{" "}
-                {Math.round(CHECKOUT.feeRate * 100)}% fees &amp; processing charge, then ${CHECKOUT.monthly}/month
-                hosting starting {CHECKOUT.monthlyTrialDays} days after purchase. You&apos;ll see the full total and
-                agree to the monthly plan before you pay.
+                2. We email you a written quote{priceLabel ? ` (this template is ${priceLabel.toLowerCase()})` : ""}.
+                Nothing is charged on this site.
               </p>
-              <p>3. We&apos;ll email your first preview as soon as it&apos;s ready.</p>
+              <p>3. Approve the quote and pay the invoice, and we start building. Your first preview comes by email.</p>
             </div>
             {submitError && <p role="alert" className="text-sm text-accent">{submitError}</p>}
           </>
@@ -438,7 +464,7 @@ export function TemplateIntakeForm({
             <Button variant="primary" onClick={goNext} withArrow>Continue</Button>
           ) : (
             <Button type="submit" variant="primary" withArrow>
-              {submitting ? "Saving your info…" : "Save & continue to payment"}
+              {submitting ? "Sending your request…" : "Send my request"}
             </Button>
           )}
         </div>
@@ -449,16 +475,15 @@ export function TemplateIntakeForm({
           <button type="button" onClick={goNext} className="block w-full text-center text-sm text-accent">Skip photos for now</button>
         )}
         {step === 1 && (
-          <p className="text-center text-xs text-muted">You won&apos;t be charged yet — payment is the last step.</p>
+          <p className="text-center text-xs text-muted">No payment here. You get a written quote first.</p>
         )}
         <p className="text-center text-xs text-muted">Your answers save as you go.</p>
       </div>
 
       {submitting && (
         <div className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-2 bg-white/95 px-6 text-center">
-          <p className="text-lg font-medium text-ink">✓ Saved! Your info is with our build team.</p>
-          <p className="text-sm text-muted">Your website spot is reserved — even if you close this page.</p>
-          <p className="text-sm text-muted">Taking you to secure checkout…</p>
+          <p className="text-lg font-medium text-ink">Sending your request…</p>
+          <p className="text-sm text-muted">Hang tight while your details and files upload.</p>
         </div>
       )}
     </form>

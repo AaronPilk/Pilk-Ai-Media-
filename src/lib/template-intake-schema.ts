@@ -2,14 +2,15 @@ import { z } from "zod";
 import { smsConsentShape } from "./sms-consent";
 
 /**
- * Shared template-intake schema — used by the on-site wizard AND the Cloudflare
- * function (functions/api/template-intake.ts). Dead-simple: only 4 required
- * fields (name, email, businessName, consent); everything else optional with
- * server-side "we'll write it / clean placeholder" fallbacks.
+ * Shared template-request schema — used by the on-site wizard AND the Cloudflare
+ * function (functions/api/template-intake.ts). It is a quote request, not an
+ * order: nothing is charged. Dead-simple: only 4 required fields (name, email,
+ * businessName, consent); everything else optional with server-side "we'll
+ * write it / clean placeholder" fallbacks.
  */
 
-/** The required box on the order form. Texting has its own optional box. */
-export const INTAKE_CONSENT_LABEL = "Yes, build my website and contact me about it";
+/** The required box on the request form. Texting has its own optional box. */
+export const INTAKE_CONSENT_LABEL = "Yes, send me a quote for this website and contact me about it";
 
 const optStr = (max: number) => z.string().trim().max(max).optional().or(z.literal(""));
 
@@ -24,7 +25,7 @@ export const templateIntakeSchema = z.object({
     .max(200),
   businessName: z.string().trim().min(1, "What's your business called?").max(160),
   consent: z.literal(true, {
-    errorMap: () => ({ message: "Just tick the box so we can get started." }),
+    errorMap: () => ({ message: "Just tick the box so we can send your quote." }),
   }),
 
   // optional, separate from the box above: agreement to text messages
@@ -58,8 +59,12 @@ export const templateIntakeSchema = z.object({
   utmSource: optStr(300),
   utmMedium: optStr(300),
   utmCampaign: optStr(300),
+  utmContent: optStr(300),
+  utmTerm: optStr(300),
   landingPage: optStr(1000),
   referrer: optStr(1000),
+  gclid: optStr(500),
+  fbclid: optStr(500),
 
   // spam trap
   honeypot: z.string().max(0).optional().or(z.literal("")),

@@ -7,7 +7,7 @@ import { buildMetadata } from "@/lib/metadata";
 import { Container } from "@/components/ui/Container";
 import { TemplateIntakeForm } from "@/components/intake/TemplateIntakeForm";
 
-// Intake only applies to real, duplicable templates (not the fully-custom build).
+// The request form only applies to real, duplicable templates (not the fully-custom build).
 const intakeTemplates = templates.filter((t) => t.slug !== "custom-site");
 
 export function generateStaticParams() {
@@ -22,10 +22,10 @@ export async function generateMetadata({
   const { slug } = await params;
   const tpl = getTemplate(slug);
   return buildMetadata({
-    title: tpl ? `Order the ${tpl.name} template` : "Order a template",
+    title: tpl ? `Request the ${tpl.name} template` : "Request a template",
     description: tpl
-      ? `Send us your content and assets and we'll build your ${tpl.name} site.`
-      : "Order a Pilk.ai template.",
+      ? `Send us your details and assets for the ${tpl.name} template and we'll reply with a written quote.`
+      : "Request a quote for a Pilk.ai template.",
     path: `/start/${slug}`,
     noindex: true,
   });
