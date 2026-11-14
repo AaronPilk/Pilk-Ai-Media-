@@ -46,6 +46,8 @@ export const site = {
   // Real third-party profiles only. Instagram, LinkedIn and X are left out
   // until real URLs exist; a dead "#" link is worse than no link.
   profiles: [
+    // Google Business Profile, verified 2026-11-14 (service-area listing).
+    { label: "Google", href: "https://www.google.com/maps?cid=11078135761059698056" },
     { label: "Clutch", href: "https://clutch.co/profile/pilkai" },
     { label: "Crunchbase", href: "https://www.crunchbase.com/organization/pilk-ai" },
     { label: "Sortlist", href: "https://www.sortlist.com/agency/pilk-ai" },
@@ -56,7 +58,7 @@ export const site = {
   ],
 
   // Which of the profiles above the footer links to.
-  footerProfiles: ["Clutch", "Crunchbase", "Dribbble", "Medium"],
+  footerProfiles: ["Google", "Clutch", "Crunchbase", "Dribbble", "Medium"],
 
   nav: [
     { label: "Mortgage", href: "/mortgage" },
