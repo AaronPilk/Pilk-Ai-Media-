@@ -44,11 +44,11 @@ export const local = {
     },
     {
       q: "What kinds of businesses do you work with?",
-      a: "Service businesses of most kinds. Much of our website work so far has been for real estate, mortgage and title companies, and we've built apps for consumer brands, including a membership app for a Tampa Bay car wash.",
+      a: "Service businesses of most kinds. Much of our website work so far has been for real estate, title and [mortgage companies](/mortgage/), and we've built apps for consumer brands, including a membership app for a Tampa Bay car wash.",
     },
     {
       q: "Can you help a local business get started with AI?",
-      a: "Yes. AI consulting starts with a look at how your business runs today and ends with a short plan, and we can build what's in it: chatbots, automated follow-up, or a custom tool.",
+      a: "Yes. [AI consulting](/services/ai-consulting/) starts with a look at how your business runs today and ends with a short plan, and we can build what's in it: chatbots, automated follow-up, or a custom tool.",
     },
     {
       q: "How do I get started?",

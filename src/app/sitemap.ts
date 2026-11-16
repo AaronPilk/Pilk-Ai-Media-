@@ -136,6 +136,15 @@ const entries: Entry[] = [
     changeFrequency: "monthly" as const,
   })),
   {
+    path: "/is-a-web-design-agency-worth-it/",
+    sources: [
+      "src/app/is-a-web-design-agency-worth-it/page.tsx",
+      "src/content/guides/web-design-agency-worth-it.ts",
+    ],
+    priority: 0.7,
+    changeFrequency: "monthly",
+  },
+  {
     path: "/process/",
     sources: [
       "src/app/process/page.tsx",

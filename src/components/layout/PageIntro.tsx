@@ -1,5 +1,6 @@
 import { Container } from "@/components/ui/Container";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { InlineText } from "@/components/ui/InlineText";
 
 export function PageIntro({
   eyebrow,
@@ -30,7 +31,11 @@ export function PageIntro({
         <h1 className="mt-6 max-w-[18ch] text-balance" style={{ fontSize: "var(--text-2xl)" }}>
           {title}
         </h1>
-        {sub && <p className="mt-6 max-w-xl text-lg text-muted">{sub}</p>}
+        {sub && (
+          <p className="mt-6 max-w-xl text-lg text-muted">
+            <InlineText text={sub} />
+          </p>
+        )}
       </Container>
     </header>
   );
