@@ -24,7 +24,7 @@ export default function ProcessPage() {
       <PageIntro
         eyebrow="Process"
         title="Seven days from idea to launch."
-        sub="For qualified projects on a standard template, we move fast: direction, design, build, review, and launch in one focused sprint."
+        sub="For qualified projects on one of our [standard website templates](/templates/), we move fast: direction, design, build, review, and launch in one focused sprint."
       />
       <ProcessTimeline standalone />
       <RelatedServices slugs={["websites", "lead-funnels", "custom-apps"]} />

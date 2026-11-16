@@ -88,7 +88,7 @@ export const aiConsulting: Service = {
     },
     {
       q: "Do you only work with businesses in St. Petersburg?",
-      a: "We're based in St. Petersburg and work with businesses across Tampa Bay. Consulting calls and most builds can also happen remotely.",
+      a: "We're based in St. Petersburg and work with [businesses across Tampa Bay](/st-petersburg-tampa-bay/). Consulting calls and most builds can also happen remotely.",
     },
   ],
   related: ["ai-automation-chatbots", "custom-apps", "lead-funnels"],

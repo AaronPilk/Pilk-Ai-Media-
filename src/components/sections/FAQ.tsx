@@ -5,6 +5,7 @@ import { Plus, Minus } from "lucide-react";
 import { faq } from "@/content/faq";
 import { Container } from "@/components/ui/Container";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { InlineText } from "@/components/ui/InlineText";
 
 export function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
@@ -36,7 +37,9 @@ export function FAQ() {
                   style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
                 >
                   <div className="overflow-hidden">
-                    <p className="pb-6 text-sm text-muted">{item.a}</p>
+                    <p className="pb-6 text-sm text-muted">
+                      <InlineText text={item.a} />
+                    </p>
                   </div>
                 </div>
               </div>

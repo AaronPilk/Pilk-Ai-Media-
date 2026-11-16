@@ -102,6 +102,10 @@ export const websites: Service = {
       a: "Every build includes basic on-page SEO setup. Where you rank depends on your market, your competition and your content over time, so nobody can honestly promise a position.",
     },
     {
+      q: "Is hiring a web design agency worth it?",
+      a: "For most service businesses that depend on calls, bookings or form fills, yes. If you're just starting out or only need a simple page, building it yourself on a website builder can be the better call. Here's [our honest take on whether a web design agency is worth it](/is-a-web-design-agency-worth-it/), including when you shouldn't hire one.",
+    },
+    {
       q: "Can you connect the forms to my CRM?",
       a: "Yes. We can route leads into most CRMs and trigger automated follow-up, depending on the platform and its integrations.",
     },

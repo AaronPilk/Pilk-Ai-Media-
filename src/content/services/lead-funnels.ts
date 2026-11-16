@@ -23,7 +23,7 @@ export const leadFunnels: Service = {
     "Businesses sending ad or social traffic to a general homepage",
     "Teams paying for GoHighLevel or another CRM that was never fully set up",
     "Real estate agents and lenders who need follow-up that runs every day",
-    "Coaches, consultants and communities that sell through calls or applications",
+    "Coaches, consultants and [online communities](/services/skool-community-growth/) that sell through calls or applications",
   ],
   steps: [
     {
@@ -72,7 +72,7 @@ export const leadFunnels: Service = {
     },
     {
       q: "What's the difference between a website and a funnel?",
-      a: "A website explains your whole business. A funnel is one focused path for one offer. Many businesses use both, with ads and social posts pointing at the funnel.",
+      a: "A website explains your whole business. A funnel is one focused path for one offer. Many businesses use both, with ads and [social posts](/services/social-media-automation/) pointing at the funnel.",
     },
     {
       q: "How quickly does follow-up go out?",

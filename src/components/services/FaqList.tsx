@@ -1,5 +1,6 @@
 import { Container } from "@/components/ui/Container";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { InlineText } from "@/components/ui/InlineText";
 
 /**
  * Questions and answers rendered open, not in an accordion: every answer is
@@ -28,7 +29,9 @@ export function FaqList({
           {items.map((item) => (
             <div key={item.q} className="border-b border-line py-6">
               <dt className="text-lg font-medium">{item.q}</dt>
-              <dd className="mt-2 text-sm text-muted">{item.a}</dd>
+              <dd className="mt-2 text-sm text-muted">
+                <InlineText text={item.a} />
+              </dd>
             </div>
           ))}
         </dl>

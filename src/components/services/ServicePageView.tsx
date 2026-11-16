@@ -8,6 +8,7 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Button } from "@/components/ui/Button";
 import { FaqList } from "@/components/services/FaqList";
 import { RelatedServices } from "@/components/services/RelatedServices";
+import { InlineText } from "@/components/ui/InlineText";
 
 /** Layout shared by every /services/<slug>/ page. Content lives in src/content/services. */
 export function ServicePageView({ service }: { service: Service }) {
@@ -38,7 +39,9 @@ export function ServicePageView({ service }: { service: Service }) {
             <SectionLabel index="01">What it is</SectionLabel>
             <div className="mt-6 flex max-w-2xl flex-col gap-5 text-lg text-muted">
               {service.whatItIs.map((p) => (
-                <p key={p.slice(0, 40)}>{p}</p>
+                <p key={p.slice(0, 40)}>
+                  <InlineText text={p} />
+                </p>
               ))}
             </div>
           </div>
@@ -55,7 +58,9 @@ export function ServicePageView({ service }: { service: Service }) {
                     className="mt-0.5 flex-none text-accent"
                     aria-hidden
                   />
-                  <span>{w}</span>
+                  <span>
+                    <InlineText text={w} />
+                  </span>
                 </li>
               ))}
             </ul>
@@ -79,7 +84,9 @@ export function ServicePageView({ service }: { service: Service }) {
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <h3 className="mt-3 text-lg font-medium">{step.title}</h3>
-                <p className="mt-2 text-sm text-muted">{step.body}</p>
+                <p className="mt-2 text-sm text-muted">
+                  <InlineText text={step.body} />
+                </p>
               </li>
             ))}
           </ol>

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { packages, hostingPlan, optionalUpgrades } from "@/content/packages";
 import { site } from "@/content/site";
 import { Container } from "@/components/ui/Container";
@@ -109,6 +110,16 @@ export function Pricing() {
 
         <p className="mt-6 max-w-xl text-xs text-muted">
           {site.pricingDisclaimer} {QUOTE_ONLY_NOTE}
+        </p>
+        <p className="mt-4 max-w-xl text-sm text-muted">
+          Not sure you need to hire anyone? Read{" "}
+          <Link
+            href="/is-a-web-design-agency-worth-it/"
+            className="text-accent underline underline-offset-2 hover:opacity-80"
+          >
+            whether a web design agency is worth it
+          </Link>
+          , including when building it yourself makes more sense.
         </p>
       </Container>
     </section>

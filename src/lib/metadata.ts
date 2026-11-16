@@ -3,6 +3,7 @@ import { site } from "@/content/site";
 import { faq } from "@/content/faq";
 import { mortgagePackage } from "@/content/packages";
 import { startingAtLower } from "@/lib/pricing";
+import { stripInline } from "@/lib/inline";
 import {
   serviceCatalog,
   type Service,
@@ -51,6 +52,7 @@ export function buildMetadata({
   path = "/",
   image,
   noindex = false,
+  article,
 }: {
   /** Page title; the brand suffix is added. */
   title?: string;
@@ -62,6 +64,8 @@ export function buildMetadata({
   image?: string;
   /** Utility pages (redirect stubs, request forms, expired promos) stay out of search. */
   noindex?: boolean;
+  /** Dated, authored pages share as og:type "article". ISO dates. */
+  article?: { published: string; modified: string; author: string };
 }): Metadata {
   const fullTitle =
     absoluteTitle ?? (title ? `${title}${TITLE_SUFFIX}` : site.seo.homeTitle);
@@ -88,8 +92,15 @@ export function buildMetadata({
       url,
       siteName: site.entity.name,
       locale: "en_US",
-      type: "website",
       images: [ogImage],
+      ...(article
+        ? {
+            type: "article" as const,
+            publishedTime: article.published,
+            modifiedTime: article.modified,
+            authors: [article.author],
+          }
+        : { type: "website" as const }),
     },
     twitter: {
       card: "summary_large_image",
@@ -218,8 +229,8 @@ export function faqNode(items: { q: string; a: string }[]): Node {
     "@type": "FAQPage",
     mainEntity: items.map((item) => ({
       "@type": "Question",
-      name: item.q,
-      acceptedAnswer: { "@type": "Answer", text: item.a },
+      name: stripInline(item.q),
+      acceptedAnswer: { "@type": "Answer", text: stripInline(item.a) },
     })),
   };
 }
@@ -250,6 +261,45 @@ export function itemListNode(cards: ServiceCard[]): Node {
       name: card.name,
       url: absoluteUrl(card.href),
     })),
+  };
+}
+
+/**
+ * An authored, dated page. The author is the founder node from the site graph,
+ * so the byline and the entity data cannot disagree.
+ */
+export function articleNode({
+  path,
+  headline,
+  description,
+  published,
+  modified,
+}: {
+  path: string;
+  headline: string;
+  description: string;
+  published: string;
+  modified: string;
+}): Node {
+  const url = absoluteUrl(path);
+  return {
+    "@type": "BlogPosting",
+    "@id": `${url}#article`,
+    headline,
+    description,
+    url,
+    mainEntityOfPage: url,
+    datePublished: published,
+    dateModified: modified,
+    inLanguage: "en-US",
+    image: `${base}${DEFAULT_OG.url}`,
+    author: {
+      "@type": "Person",
+      "@id": FOUNDER_ID,
+      name: site.entity.founder,
+    },
+    publisher: { "@id": ORG_ID },
+    isPartOf: { "@id": WEBSITE_ID },
   };
 }
 
