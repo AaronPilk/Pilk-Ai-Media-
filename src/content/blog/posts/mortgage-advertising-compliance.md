@@ -32,9 +32,9 @@ Because rates change daily, most brokers avoid static rates on websites and use 
 
 ## What are trigger terms?
 
-Certain details in an ad "trigger" extra disclosures. Under Regulation Z, these include the amount or percentage of a down payment, the number of payments or repayment period, the amount of any payment, and the amount of any finance charge. If you use one, you must also disclose the down payment, the terms of repayment and the APR.
+Certain details in an ad "trigger" extra disclosures. Regulation Z lists four: the amount or percentage of a down payment, the number of payments or repayment period, the amount of any payment, and the amount of any finance charge. The official commentary limits the down payment trigger to credit sale transactions, so for most loan ads the practical triggers are the repayment period, payment amounts and finance charges. If you use one, you must also disclose the down payment, the terms of repayment and the APR.
 
-So "Just 3% down!" or "Payments from $1,500 a month!" requires more information nearby. General phrases like "low down payment options" usually do not trigger disclosures. Our guide to [trigger terms in mortgage advertising](/blog/trigger-terms-mortgage-advertising/) goes through examples.
+So "30-year mortgage" or "Payments from $1,500 a month!" requires more information nearby, and ads for loans secured by a home have extra rules on how payments are shown. General phrases like "low down payment options" usually do not trigger disclosures. Our guide to [trigger terms in mortgage advertising](/blog/trigger-terms-mortgage-advertising/) goes through examples.
 
 ## What does the MAP rule prohibit?
 
