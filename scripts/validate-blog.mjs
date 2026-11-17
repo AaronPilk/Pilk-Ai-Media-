@@ -243,11 +243,13 @@ for (const f of files) {
   if (faqAt === -1) err("no '## Frequently asked questions' section");
   const main = faqAt === -1 ? body : body.slice(0, faqAt);
   const faq = faqAt === -1 ? "" : body.slice(faqAt);
-  const h2 = (main.match(/^## /gm) || []).length;
+  // Code samples may contain Markdown that is not part of the page structure.
+  const noCode = (md) => md.replace(/```[\s\S]*?```/g, "");
+  const h2 = (noCode(main).match(/^## /gm) || []).length;
   if (h2 < 3) err(`only ${h2} question sections (need 3+)`);
   const faqCount = (faq.match(/^### /gm) || []).length;
   if (faqCount < 3) err(`only ${faqCount} FAQs (need 3+)`);
-  if (/^# /m.test(body))
+  if (/^# /m.test(noCode(body)))
     err("body must not contain an H1; the title is the H1");
 
   const total = words(plain(body));
