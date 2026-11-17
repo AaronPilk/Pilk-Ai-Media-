@@ -19,6 +19,8 @@ import { QUOTE_ONLY_NOTE, startingAt, startingAtLower } from "@/lib/pricing";
 const from = startingAt(mortgagePackage.price);
 const fromLower = startingAtLower(mortgagePackage.price);
 
+import { RelatedPosts } from "@/components/blog/RelatedPosts";
+
 export const metadata: Metadata = buildMetadata({
   title: `Mortgage Website Templates, ${startingAt(mortgagePackage.price)}`,
   description: `15 fully built mortgage website templates for loan officers and brokers, ${startingAtLower(mortgagePackage.price)}. Quoted in writing, live in about 14 days, and yours outright.`,
@@ -365,6 +367,8 @@ export default function MortgagePage() {
           </p>
         </Container>
       </section>
+      <RelatedPosts categories={["mortgage"]} heading="Mortgage website and marketing questions" />
+
       <RelatedServices
         heading="Beyond the website"
         slugs={["lead-funnels", "meta-ads", "ai-automation-chatbots", "social-media-automation"]}

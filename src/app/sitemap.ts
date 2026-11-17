@@ -5,6 +5,7 @@ import { servicePages, serviceSourceFiles } from "@/content/services";
 import { local } from "@/content/local";
 import { absoluteUrl } from "@/lib/metadata";
 import { lastModified } from "@/lib/lastmod";
+import { getAllPosts } from "@/lib/blog";
 
 export const dynamic = "force-static";
 
@@ -145,6 +146,13 @@ const entries: Entry[] = [
     changeFrequency: "monthly",
   },
   {
+    path: "/blog/",
+    // The hub changes whenever a post goes live, so it is dated by the newest post.
+    sources: ["src/app/blog/page.tsx", "src/content/blog/categories.ts"],
+    priority: 0.7,
+    changeFrequency: "weekly",
+  },
+  {
     path: "/process/",
     sources: [
       "src/app/process/page.tsx",
@@ -173,11 +181,29 @@ const entries: Entry[] = [
   },
 ];
 
+/** A post committed ahead of its date is dated by its publish day, not the commit. */
+function laterOf(a: Date, iso: string): Date {
+  const d = new Date(`${iso}T12:00:00Z`);
+  return d > a ? d : a;
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  return entries.map((e) => ({
-    url: absoluteUrl(e.path),
-    lastModified: lastModified(e.sources),
-    changeFrequency: e.changeFrequency,
-    priority: e.priority,
+  const posts = getAllPosts();
+  const newestPost = posts[0]?.published;
+  const pages = entries.map((e) => {
+    const base = lastModified(e.sources);
+    return {
+      url: absoluteUrl(e.path),
+      lastModified: e.path === "/blog/" && newestPost ? laterOf(base, newestPost) : base,
+      changeFrequency: e.changeFrequency,
+      priority: e.priority,
+    };
+  });
+  const postEntries = posts.map((p) => ({
+    url: absoluteUrl(p.path),
+    lastModified: laterOf(lastModified([p.sourcePath]), p.updated),
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
   }));
+  return [...pages, ...postEntries];
 }
