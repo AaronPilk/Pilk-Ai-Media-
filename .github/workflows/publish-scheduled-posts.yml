@@ -1,0 +1,63 @@
+name: Publish scheduled blog posts
+
+# Posts are date-gated at build time, so a post dated today only appears after
+# a rebuild. Cloudflare Pages rebuilds on every push to main, and has no
+# scheduler of its own, so this pushes an empty commit on days that have posts.
+on:
+  schedule:
+    # 05:20 UTC is just after midnight in New York (01:20 during daylight time).
+    - cron: "20 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-scheduled-posts
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Find posts dated today in New York
+        id: due
+        run: |
+          today=$(TZ=America/New_York date +%F)
+          slugs=$(grep -l "^published: ${today}$" src/content/blog/posts/*.md 2>/dev/null \
+            | xargs -r -n1 basename | sed 's/\.md$//' | tr '\n' ' ')
+          echo "today=${today}" >> "$GITHUB_OUTPUT"
+          echo "slugs=${slugs}" >> "$GITHUB_OUTPUT"
+          echo "Posts dated ${today}: ${slugs:-none}"
+
+      - name: Trigger a rebuild
+        if: steps.due.outputs.slugs != ''
+        run: |
+          git config user.name "pilk-ai-publisher"
+          git config user.email "aaron@pilk.ai"
+          git commit --allow-empty -m "Publish blog posts dated ${{ steps.due.outputs.today }}"
+          git push origin HEAD:main
+
+      - name: Wait for the posts to go live
+        if: steps.due.outputs.slugs != ''
+        run: |
+          for slug in ${{ steps.due.outputs.slugs }}; do
+            url="https://pilk.ai/blog/${slug}/"
+            for i in $(seq 1 40); do
+              code=$(curl -s -o /dev/null -w '%{http_code}' "$url")
+              [ "$code" = "200" ] && echo "live: $url" && break
+              sleep 30
+            done
+            [ "$code" = "200" ] || { echo "::error::$url never went live"; exit 1; }
+          done
+
+      - name: Tell IndexNow engines
+        if: steps.due.outputs.slugs != ''
+        run: |
+          args="--url https://pilk.ai/blog/"
+          for slug in ${{ steps.due.outputs.slugs }}; do args="$args --url https://pilk.ai/blog/${slug}/"; done
+          node scripts/indexnow-submit.mjs $args

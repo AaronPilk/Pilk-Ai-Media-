@@ -31,7 +31,7 @@ Mortgage advertising is regulated, and your website counts as advertising. The d
 - **NMLS IDs** for the company and the loan officers, typically in the footer of every page, with a link to [NMLS Consumer Access](https://www.nmlsconsumeraccess.org/) so borrowers can verify you.
 - **State licence numbers** where your state requires them.
 - **Equal housing language and logo.**
-- **Careful rate and payment wording.** Under the federal Truth in Lending rules, mentioning certain terms like a payment amount or down payment in an ad can require additional disclosures. We explain these in [trigger terms in mortgage advertising](/blog/trigger-terms-mortgage-advertising/).
+- **Careful rate and payment wording.** Under the federal Truth in Lending rules, mentioning certain terms, such as a payment amount or a repayment period like "30-year", in an ad can require additional disclosures. We explain these in [trigger terms in mortgage advertising](/blog/trigger-terms-mortgage-advertising/).
 - **No promises you cannot keep**, like "guaranteed approval" or "lowest rates."
 
 Our guide to [mortgage advertising compliance](/blog/mortgage-advertising-compliance/) goes deeper. On the sites we build, licence numbers live in one settings file so they appear consistently on every page and update everywhere at once.
