@@ -1,7 +1,12 @@
 import fs from "node:fs";
 import path from "node:path";
 import { Marked } from "marked";
-import { buildTimes, hostingPlan, mortgagePackage, packages } from "@/content/packages";
+import {
+  buildTimes,
+  hostingPlan,
+  mortgagePackage,
+  packages,
+} from "@/content/packages";
 import { appBuilding } from "@/content/apps";
 import { blogCategories, type BlogCategoryId } from "@/content/blog/categories";
 import { money } from "@/lib/pricing";
@@ -56,15 +61,23 @@ export function todayInNewYork(now = new Date()): string {
 /** BLOG_PREVIEW=1 builds every post regardless of date, for local review only. */
 const PREVIEW = process.env.BLOG_PREVIEW === "1";
 
-function parseFrontmatter(raw: string, file: string): { meta: Frontmatter; body: string } {
+function parseFrontmatter(
+  raw: string,
+  file: string
+): { meta: Frontmatter; body: string } {
   const match = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
   if (!match) throw new Error(`blog: ${file} has no frontmatter block`);
   const meta: Frontmatter = {};
   for (const line of match[1].split("\n")) {
     if (!line.trim()) continue;
     const i = line.indexOf(":");
-    if (i < 1) throw new Error(`blog: ${file} has a bad frontmatter line: ${line}`);
-    meta[line.slice(0, i).trim()] = line.slice(i + 1).trim();
+    if (i < 1)
+      throw new Error(`blog: ${file} has a bad frontmatter line: ${line}`);
+    // Values run to the end of the line; wrapping quotes are optional.
+    meta[line.slice(0, i).trim()] = line
+      .slice(i + 1)
+      .trim()
+      .replace(/^"(.*)"$/, "$1");
   }
   return { meta, body: match[2] };
 }
@@ -97,7 +110,8 @@ const TOKENS: Record<string, string> = (() => {
 export function fillTokens(text: string, file: string): string {
   return text.replace(/\{\{([a-zA-Z]+:[a-zA-Z]+)\}\}/g, (_, key: string) => {
     const value = TOKENS[key];
-    if (value === undefined) throw new Error(`blog: ${file} uses unknown token {{${key}}}`);
+    if (value === undefined)
+      throw new Error(`blog: ${file} uses unknown token {{${key}}}`);
     return value;
   });
 }
@@ -129,8 +143,10 @@ export function markdownToText(md: string): string {
  * until that post's date. Typos are caught by the validator, not here.
  */
 function gateBlogLinks(md: string, live: Set<string>): string {
-  return md.replace(/\[([^\]]+)\]\(\/blog\/([a-z0-9-]+)\/?\)/g, (all, label: string, slug: string) =>
-    live.has(slug) ? `[${label}](/blog/${slug}/)` : label
+  return md.replace(
+    /\[([^\]]+)\]\(\/blog\/([a-z0-9-]+)\/?\)/g,
+    (all, label: string, slug: string) =>
+      live.has(slug) ? `[${label}](/blog/${slug}/)` : label
   );
 }
 
@@ -154,9 +170,14 @@ function makeRenderer(toc: { id: string; text: string }[]) {
       },
       table(token) {
         // Wide tables scroll inside their own box on phones.
-        const head = token.header.map((c) => `<th>${this.parser.parseInline(c.tokens)}</th>`).join("");
+        const head = token.header
+          .map((c) => `<th>${this.parser.parseInline(c.tokens)}</th>`)
+          .join("");
         const rows = token.rows
-          .map((r) => `<tr>${r.map((c) => `<td>${this.parser.parseInline(c.tokens)}</td>`).join("")}</tr>`)
+          .map(
+            (r) =>
+              `<tr>${r.map((c) => `<td>${this.parser.parseInline(c.tokens)}</td>`).join("")}</tr>`
+          )
           .join("");
         return `<div class="blog-table"><table><thead><tr>${head}</tr></thead><tbody>${rows}</tbody></table></div>\n`;
       },
@@ -168,7 +189,10 @@ function makeRenderer(toc: { id: string; text: string }[]) {
 function splitFaq(body: string): { main: string; faqBlock: string } {
   const i = body.indexOf(FAQ_HEADING);
   if (i === -1) return { main: body, faqBlock: "" };
-  return { main: body.slice(0, i), faqBlock: body.slice(i + FAQ_HEADING.length) };
+  return {
+    main: body.slice(0, i),
+    faqBlock: body.slice(i + FAQ_HEADING.length),
+  };
 }
 
 function parseFaqs(block: string, render: (md: string) => string): BlogFaq[] {
@@ -209,7 +233,9 @@ export function getAllPosts(): BlogPost[] {
   if (cache) return cache;
   const today = todayInNewYork();
   const raws = readRaw();
-  const live = new Set(raws.filter((r) => isLive(r.meta, today)).map((r) => r.slug));
+  const live = new Set(
+    raws.filter((r) => isLive(r.meta, today)).map((r) => r.slug)
+  );
 
   const posts = raws
     .filter((r) => live.has(r.slug))
@@ -247,7 +273,13 @@ export function getAllPosts(): BlogPost[] {
         sourcePath: rel,
       };
     })
-    .sort((a, b) => (a.published === b.published ? a.title.localeCompare(b.title) : a.published < b.published ? 1 : -1));
+    .sort((a, b) =>
+      a.published === b.published
+        ? a.title.localeCompare(b.title)
+        : a.published < b.published
+          ? 1
+          : -1
+    );
 
   cache = posts;
   return posts;
@@ -257,7 +289,10 @@ export function getPost(slug: string): BlogPost | undefined {
   return getAllPosts().find((p) => p.slug === slug);
 }
 
-export function postsInCategory(ids: BlogCategoryId[], limit?: number): BlogPost[] {
+export function postsInCategory(
+  ids: BlogCategoryId[],
+  limit?: number
+): BlogPost[] {
   const list = getAllPosts().filter((p) => ids.includes(p.category));
   return limit ? list.slice(0, limit) : list;
 }
