@@ -16,6 +16,7 @@ import { Container } from "@/components/ui/Container";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Button } from "@/components/ui/Button";
 import { FaqList } from "@/components/services/FaqList";
+import { RelatedPosts } from "@/components/blog/RelatedPosts";
 
 export const metadata: Metadata = buildMetadata({
   title: local.title,
@@ -164,6 +165,8 @@ export default function LocalPage() {
       </section>
 
       <FaqList items={local.faqs} index="05" />
+
+      <RelatedPosts categories={["local"]} heading="Getting found in Tampa Bay" />
 
       <section className="section relative z-10 text-center">
         <Container>

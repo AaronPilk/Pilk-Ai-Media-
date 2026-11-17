@@ -16,6 +16,8 @@ import { Process } from "@/components/sections/Process";
 import { FAQ } from "@/components/sections/FAQ";
 import { ContactForm } from "@/components/contact/ContactForm";
 
+import { RelatedPosts } from "@/components/blog/RelatedPosts";
+
 export const metadata: Metadata = buildMetadata({
   title: "Real Estate & Mortgage Website Design",
   description:
@@ -189,6 +191,8 @@ export default function RealEstatePage() {
           </div>
         </Container>
       </section>
+      <RelatedPosts categories={["real-estate"]} heading="Real estate website questions" />
+
       <RelatedServices
         heading="Beyond the website"
         slugs={["lead-funnels", "meta-ads", "ai-automation-chatbots", "social-media-automation"]}

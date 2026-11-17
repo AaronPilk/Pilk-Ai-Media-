@@ -9,6 +9,8 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Reveal } from "@/components/ui/Reveal";
 import { AppShowcase } from "@/components/apps/AppShowcase";
 
+import { RelatedPosts } from "@/components/blog/RelatedPosts";
+
 export const metadata: Metadata = buildMetadata({
   title: "Custom App Development: iOS, Android & AI",
   description:
@@ -140,6 +142,8 @@ export default function AppsPage() {
           </div>
         </Container>
       </section>
+      <RelatedPosts categories={["apps"]} heading="App building questions" />
+
       <RelatedServices slugs={["ai-consulting", "ai-automation-chatbots", "websites"]} />
     </>
   );

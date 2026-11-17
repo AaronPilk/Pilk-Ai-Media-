@@ -67,6 +67,7 @@ export const site = {
     { label: "Process", href: "/process" },
     { label: "Apps", href: "/apps" },
     { label: "Work", href: "/work" },
+    { label: "Blog", href: "/blog/" },
   ],
 
   cta: {

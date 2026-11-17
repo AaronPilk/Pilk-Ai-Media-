@@ -9,6 +9,19 @@ import { Button } from "@/components/ui/Button";
 import { FaqList } from "@/components/services/FaqList";
 import { RelatedServices } from "@/components/services/RelatedServices";
 import { InlineText } from "@/components/ui/InlineText";
+import { RelatedPosts } from "@/components/blog/RelatedPosts";
+import type { BlogCategoryId } from "@/content/blog/categories";
+
+/** Which blog topics support each service page. */
+const SERVICE_POSTS: Record<string, BlogCategoryId[]> = {
+  websites: ["websites", "search", "title"],
+  "ai-consulting": ["ai"],
+  "ai-automation-chatbots": ["automation"],
+  "meta-ads": ["meta-ads"],
+  "social-media-automation": ["social"],
+  "lead-funnels": ["crm"],
+  "skool-community-growth": ["skool"],
+};
 
 /** Layout shared by every /services/<slug>/ page. Content lives in src/content/services. */
 export function ServicePageView({ service }: { service: Service }) {
@@ -150,6 +163,8 @@ export function ServicePageView({ service }: { service: Service }) {
       )}
 
       <FaqList items={service.faqs} />
+
+      {SERVICE_POSTS[service.slug] ? <RelatedPosts categories={SERVICE_POSTS[service.slug]} /> : null}
 
       <RelatedServices
         slugs={service.related}

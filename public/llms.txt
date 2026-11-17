@@ -30,6 +30,7 @@ Pilk.ai does not sell anything online and has no checkout. Every project starts 
 
 - [Work](https://pilk.ai/work/): client websites, apps and products designed and built by Pilk.ai
 - [Process](https://pilk.ai/process/): the seven-day build for qualified projects on a standard website template
+- [Blog](https://pilk.ai/blog/): answer-first articles by Aaron Pilkington on website costs, real estate, mortgage and title company websites, AI for small businesses, automation, GoHighLevel, Meta ads, Skool, apps and getting found in search. New articles go live weekly; feed at https://pilk.ai/blog/feed.xml
 - [Is a web design agency worth it?](https://pilk.ai/is-a-web-design-agency-worth-it/): honest answers to the common objections to hiring a web designer or agency, including when to build it yourself instead
 - [Start a project](https://pilk.ai/contact/): project brief form; the way to get a quote
 
