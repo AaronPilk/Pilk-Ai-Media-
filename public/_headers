@@ -2,7 +2,10 @@
 
 # Demo template sites: fictional businesses with sample reviews and placeholder
 # licence numbers. They stay browsable from the template pages but must never be
-# indexed as if they were real companies on pilk.ai.
+# indexed as if they were real companies on pilk.ai. Each file's own robots tag
+# says the same (noindex, follow), so Google never gets two answers. That tag
+# sits in the PILK-SEO block with a canonical and og:url pointing at pilk.ai;
+# a copy made for a client needs that whole block replaced, robots included.
 #
 # Each demo file also carries a Google tag (G-XXXXXXXXXX) and a Meta Pixel
 # (000000000000000) so the template is ready for a client's real IDs. On
